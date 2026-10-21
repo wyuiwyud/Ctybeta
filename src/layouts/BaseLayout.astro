@@ -1,0 +1,97 @@
+---
+// src/layouts/BaseLayout.astro
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "ADOLSOFT // Creative Technology & Digital Experiences",
+  description = "Astro portfolio inspired by alche.studio with Dark Immersive aesthetic, Three.js, GSAP, and Lenis smooth scrolling."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="vi" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Google Fonts: Geometric Sans (Geist & Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-black text-white antialiased selection:bg-accent selection:text-black min-h-screen flex flex-col">
+    <!-- Navbar Component -->
+    <Navbar />
+
+    <!-- Slot nội dung trang -->
+    <main class="flex-1 w-full">
+      <slot />
+    </main>
+
+    <!-- Script Tích hợp Lenis Smooth Scroll & GSAP ScrollTrigger Synchronization -->
+    <script>
+      import Lenis from 'lenis';
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      // Đăng ký plugin ScrollTrigger với GSAP
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Khởi tạo Lenis với easing gia tốc nhẹ và thời gian cuộn mượt
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.8,
+      });
+
+      // Gắn đối tượng lenis vào window để có thể gọi từ bất kỳ đâu
+      (window as unknown as { lenis: Lenis }).lenis = lenis;
+
+      // Đồng bộ Lenis Scroll với GSAP ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+
+      // Sử dụng GSAP Ticker để điều khiển frame rate chuẩn của Lenis
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      // Tắt lagSmoothing để không bị giật lag khi chuyển đổi tab
+      gsap.ticker.lagSmoothing(0);
+
+      // Hỗ trợ cuộn mượt khi click vào các liên kết anchor nội bộ (#about, #services, v.v.)
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+          const href = anchor.getAttribute('href');
+          if (href && href !== '#') {
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
+              e.preventDefault();
+              lenis.scrollTo(targetElement as HTMLElement, {
+                offset: 0,
+                duration: 1.4,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

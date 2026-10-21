@@ -1,0 +1,104 @@
+---
+// src/components/Navbar.astro
+// Minimalist, fixed navbar with hide-on-scroll-down and show-on-scroll-up behavior
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-out py-5 px-6 md:px-12 border-b border-transparent bg-transparent"
+>
+  <div class="mx-auto flex max-w-7xl items-center justify-between">
+    <!-- Logo (Bên trái) -->
+    <a
+      href="#"
+      class="group flex items-center gap-2.5 font-sans text-sm font-bold tracking-wider uppercase text-white transition-opacity hover:opacity-90"
+    >
+      <span class="inline-block h-2 w-2 rounded-full bg-accent shadow-[0_0_10px_#d7ff00] transition-transform duration-300 group-hover:scale-150"></span>
+      <span class="tracking-widest">ADOLSOFT</span>
+      <span class="text-xs font-normal text-neutral-500">/ STUDIO</span>
+    </a>
+
+    <!-- Menu (Bên phải) -->
+    <nav class="flex items-center gap-6 md:gap-10">
+      <ul class="flex items-center gap-6 md:gap-8 text-xs font-medium uppercase tracking-widest text-neutral-300">
+        <li>
+          <a
+            href="#hero"
+            class="nav-link transition-colors duration-200 hover:text-accent"
+          >
+            Index
+          </a>
+        </li>
+        <li>
+          <a
+            href="#about"
+            class="nav-link transition-colors duration-200 hover:text-accent"
+          >
+            About
+          </a>
+        </li>
+        <li>
+          <a
+            href="#services"
+            class="nav-link transition-colors duration-200 hover:text-accent"
+          >
+            Services
+          </a>
+        </li>
+        <li>
+          <a
+            href="#footer"
+            class="nav-link transition-colors duration-200 hover:text-accent"
+          >
+            Contact
+          </a>
+        </li>
+      </ul>
+
+      <!-- CTA Button -->
+      <a
+        href="#footer"
+        class="hidden sm:inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent transition-all duration-300 hover:bg-accent hover:text-black hover:shadow-[0_0_20px_rgba(215,255,0,0.4)]"
+      >
+        <span>Get in touch</span>
+        <span class="text-xs">↗</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Hide navbar on scroll down, show on scroll up
+  const navbar = document.getElementById('navbar');
+  let lastScrollY = window.scrollY;
+  const scrollThreshold = 60;
+
+  function handleScroll() {
+    if (!navbar) return;
+    const currentScrollY = window.scrollY;
+
+    // Apply backdrop blur & border once scrolled past top
+    if (currentScrollY > 20) {
+      navbar.classList.add('bg-black/80', 'backdrop-blur-md', 'border-dark-border/80', 'py-4');
+      navbar.classList.remove('bg-transparent', 'border-transparent', 'py-5');
+    } else {
+      navbar.classList.remove('bg-black/80', 'backdrop-blur-md', 'border-dark-border/80', 'py-4');
+      navbar.classList.add('bg-transparent', 'border-transparent', 'py-5');
+    }
+
+    // Scroll down to hide, scroll up to show
+    if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+      // Scrolling down
+      navbar.classList.add('-translate-y-full');
+      navbar.classList.remove('translate-y-0');
+    } else {
+      // Scrolling up or at top
+      navbar.classList.remove('-translate-y-full');
+      navbar.classList.add('translate-y-0');
+    }
+
+    lastScrollY = Math.max(0, currentScrollY);
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+</script>

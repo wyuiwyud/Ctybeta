@@ -1,0 +1,123 @@
+---
+// Interactive Three.js background canvas inspired by alche.studio
+---
+
+<div id="three-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
+  <canvas id="three-canvas" class="w-full h-full block"></canvas>
+</div>
+
+<script>
+  import * as THREE from 'three';
+
+  const container = document.getElementById('three-container');
+  const canvas = document.getElementById('three-canvas') as HTMLCanvasElement | null;
+
+  if (container && canvas) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 24;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Particle constellation
+    const particleCount = 450;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+
+    const limeColor = new THREE.Color('#d7ff00');
+    const whiteColor = new THREE.Color('#ffffff');
+    const darkColor = new THREE.Color('#333333');
+
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 60;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
+
+      // Color distribution: mostly subtle white/dark with electric lime highlights
+      const rand = Math.random();
+      const chosenColor = rand > 0.85 ? limeColor : rand > 0.4 ? darkColor : whiteColor;
+      colors[i * 3] = chosenColor.r;
+      colors[i * 3 + 1] = chosenColor.g;
+      colors[i * 3 + 2] = chosenColor.b;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.22,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8,
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    // Subtle geometric floating wireframe mesh (Icosahedron)
+    const meshGeometry = new THREE.IcosahedronGeometry(7.5, 2);
+    const meshMaterial = new THREE.MeshBasicMaterial({
+      color: 0xd7ff00,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.12,
+    });
+    const floatingMesh = new THREE.Mesh(meshGeometry, meshMaterial);
+    floatingMesh.position.set(10, -2, -5);
+    scene.add(floatingMesh);
+
+    // Mouse tracking for parallax
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX - window.innerWidth / 2) * 0.0012;
+      mouseY = (e.clientY - window.innerHeight / 2) * 0.0012;
+    });
+
+    // Resize handling
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener('resize', onResize);
+
+    // Render loop
+    const startTime = performance.now();
+    const animate = () => {
+      requestAnimationFrame(animate);
+      const elapsedTime = (performance.now() - startTime) * 0.001;
+
+      // Parallax easing
+      targetX += (mouseX - targetX) * 0.05;
+      targetY += (mouseY - targetY) * 0.05;
+
+      particles.rotation.y = elapsedTime * 0.03 + targetX * 1.5;
+      particles.rotation.x = targetY * 1.5;
+
+      floatingMesh.rotation.x = elapsedTime * 0.08;
+      floatingMesh.rotation.y = elapsedTime * 0.1;
+      floatingMesh.position.y = -2 + Math.sin(elapsedTime * 0.8) * 0.5;
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+  }
+</script>
