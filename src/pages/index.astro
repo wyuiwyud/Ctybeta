@@ -1,7 +1,13 @@
 ---
 // src/pages/index.astro
-// ADOLSOFT - Pinned Stage Scroll-Driven Storytelling Architecture
-// Professional GSAP, ScrollTrigger, Lenis & Three.js Synchronization
+// ADOLSOFT - Pinned Stage Cinematic Storytelling Engine (Alche.studio Benchmark)
+// Comprehensive implementation based on Technical Audit & Architectural Blueprint:
+// 1. Pinned Stage Architecture (Fixed WebGL canvas 100vw x 100vh, master timeline with ScrollTrigger scrub: 1.2 & Lenis inertia)
+// 2. Extruded Liquid Glass Prism (MeshPhysicalMaterial with transmission: 1, roughness: 0.04, dispersion: 6.0, IOR: 1.5, RoomEnvironment)
+// 3. Brand Typography (.brand-ghost-title with mix-blend-mode: difference, scaling to 0.62 and opacity: 0.12 as persistent ghost watermark)
+// 4. Spatial Parallax across 6 AdolSoft Technology Domains (Z/Y velocity staging, CRT noise, specular rim light, optical crosshairs)
+// 5. Typewriter Split-Text Stagger (<span class="char"> synced with 3D plane translation)
+// 6. Real-Time Tweakpane 3D Shader Telemetry (Roughness, Dispersion, IOR, Color, Curvature, Noise Scale)
 import '../styles/global.css';
 ---
 
@@ -11,224 +17,203 @@ import '../styles/global.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>ADOLSOFT // Spatial Pinned Stage & Scroll Storytelling</title>
+    <title>ADOLSOFT // Spatial Cinematic WebGL Engine & Industrial R&D</title>
     <meta
       name="description"
-      content="ADOLSOFT Creative Technology Studio. Scroll-driven cinematic storytelling using Three.js WebGL planes, GSAP ScrollTrigger pinned stage, and unified Lenis ticker synchronization."
+      content="ADOLSOFT Creative Technology Studio. Storytelling architecture with liquid glass optical dispersion, curved LED room, spatial parallax across 6 technology domains & real-time shader telemetry."
     />
 
-    <!-- Google Fonts: Space Grotesk, Geist & Inter -->
+    <!-- Google Fonts: Inter & Space Grotesk -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
   </head>
 
   <body class="bg-black text-white overflow-x-hidden min-h-screen font-sans antialiased">
     <!-- ===================================================================== -->
-    <!-- BƯỚC 1: LỚP 3D (WebGL) - Nằm ngoài #scroll-wrapper để không bị cuộn   -->
+    <!-- TẦNG 1: WEBGL CANVAS (Cố định toàn màn hình, z-index: 1)             -->
     <!-- ===================================================================== -->
-    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    <div id="canvas-container" class="fixed inset-0 z-1 pointer-events-none w-screen h-screen overflow-hidden">
       <canvas id="webgl-canvas" class="w-full h-full block"></canvas>
     </div>
 
     <!-- ===================================================================== -->
-    <!-- BƯỚC 1: LỚP TEXT (DOM) - Fixed inset-0 z-10 pointer-events: none     -->
+    <!-- TẦNG 2: CHỮ THƯƠNG HIỆU QUANG HỌC & BÓNG MA (z-index: 2)               -->
+    <!-- mix-blend-mode: difference; tạo tương tác quang học với lăng kính 3D   -->
     <!-- ===================================================================== -->
-    <div class="fixed inset-0 z-10 pointer-events-none flex flex-col justify-between p-6 md:p-12 overflow-hidden select-none">
-      <!-- TOP HUD: Branding & Telemetry Header -->
-      <header class="w-full flex items-center justify-between pointer-events-auto">
-        <div class="flex items-center gap-3">
-          <a href="/" class="group flex items-center gap-2.5 text-white transition-opacity hover:opacity-80">
-            <span class="inline-flex items-center justify-center text-accent transition-transform duration-300 group-hover:rotate-180">
-              <svg class="w-4 h-4 fill-current shadow-[0_0_8px_#d7ff00]" viewBox="0 0 24 24">
-                <polygon points="12,2 22,21 2,21" />
-              </svg>
-            </span>
-            <span class="font-extrabold tracking-widest text-sm uppercase font-sans">ADOLSOFT</span>
-          </a>
-          <span class="hidden sm:inline-block text-[10px] font-mono uppercase tracking-widest text-neutral-500 border-l border-neutral-800 pl-3">
-            [ PINNED STAGE // STORYTELLING ]
-          </span>
-        </div>
+    <div
+      id="brand-ghost-title"
+      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-2 text-white pointer-events-none uppercase font-black tracking-[-0.05em] leading-none select-none text-center will-change-transform"
+      style="font-family: var(--font-display, 'Inter', sans-serif); font-size: clamp(3.8rem, 14vw, 15rem); mix-blend-mode: difference;"
+    >
+      ADOLSOFT
+    </div>
 
-        <!-- Scroll Scrub Progress Indicator -->
-        <div class="flex items-center gap-3 font-mono text-xs text-neutral-400 bg-black/60 border border-neutral-800/80 px-4 py-1.5 rounded-full backdrop-blur-md">
-          <span class="text-[10px] text-neutral-500 uppercase tracking-wider hidden sm:inline">TIMELINE</span>
-          <span id="scroll-progress-pct" class="text-accent font-bold min-w-[3ch] text-right">00%</span>
-          <div class="w-20 sm:w-28 h-1 bg-neutral-800 rounded-full overflow-hidden">
-            <div id="scroll-progress-fill" class="h-full bg-accent w-0 transition-[width] duration-75"></div>
+    <!-- ===================================================================== -->
+    <!-- TẦNG 3: UI OVERLAY & HUD TƯƠNG TÁC (z-index: 3, pointer-events: none)  -->
+    <!-- ===================================================================== -->
+    <div id="ui-overlay" class="fixed inset-0 z-3 pointer-events-none flex flex-col justify-between p-6 sm:p-8 md:p-12 select-none overflow-hidden">
+      <!-- HEADER: Logo & Navbar -->
+      <header class="flex justify-between items-center pointer-events-auto w-full z-30">
+        <!-- Logo nhỏ góc trái trên -->
+        <a href="/" class="group flex items-center gap-2.5 text-white hover:opacity-90 transition-opacity">
+          <span class="inline-flex items-center justify-center text-accent text-base leading-none transition-transform duration-300 group-hover:rotate-180 shadow-[0_0_12px_#d7ff00]">
+            ▲
+          </span>
+          <span class="font-extrabold tracking-widest font-sans text-sm uppercase">ADOLSOFT</span>
+          <span class="hidden sm:inline-block text-[10px] font-mono uppercase tracking-widest text-neutral-500 border-l border-neutral-800 pl-3">
+            [ ALCHE BENCHMARK // 2026 ]
+          </span>
+        </a>
+
+        <!-- Navbar & Status HUD -->
+        <div class="flex items-center gap-6 md:gap-10">
+          <nav class="hidden sm:flex items-center gap-6 text-xs font-mono uppercase tracking-widest text-neutral-400">
+            <a href="#scroll-track" class="hover:text-accent transition-colors">News</a>
+            <a href="#scroll-track" class="hover:text-accent transition-colors text-white font-semibold">Domains</a>
+            <a href="#scroll-track" class="hover:text-accent transition-colors">Architecture</a>
+          </nav>
+
+          <!-- Timeline HUD Indicator -->
+          <div class="flex items-center gap-3 font-mono text-xs text-neutral-400 bg-black/60 border border-neutral-800/80 px-4 py-1.5 rounded-full backdrop-blur-md">
+            <span id="hud-index" class="text-accent font-bold">01 / 06</span>
+            <div class="w-16 sm:w-24 h-1 bg-neutral-800 rounded-full overflow-hidden">
+              <div id="hud-progress-bar" class="h-full bg-accent w-0 transition-[width] duration-75"></div>
+            </div>
+            <span id="hud-percent" class="text-[10px] text-neutral-500 min-w-[3ch] text-right">00%</span>
           </div>
         </div>
       </header>
 
-      <!-- CENTER: CHỮ "ADOLSOFT" KHỔNG LỒ (Hành động 1 sẽ làm mờ từ 0% đến 30%) -->
-      <div id="hero-typography-container" class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <h1
-          id="hero-typography"
-          class="text-[14vw] font-black uppercase tracking-[-0.05em] leading-none text-white text-center font-sans will-change-transform mix-blend-difference select-none drop-shadow-[0_0_40px_rgba(255,255,255,0.12)]"
-          style="font-family: 'Space Grotesk', 'Geist', 'Inter', sans-serif;"
-        >
-          ADOLSOFT
-        </h1>
-      </div>
-
-      <!-- BOTTOM-LEFT: KHUNG THÔNG TIN DỰ ÁN (#project-title, #project-date, #project-desc, #project-tags) -->
-      <div id="project-info" class="relative z-20 max-w-xl pointer-events-auto self-start mt-auto mb-4">
-        <!-- #project-date -->
-        <div
-          id="project-date"
-          class="relative font-mono text-xs md:text-sm tracking-widest uppercase mb-2 min-h-[1.5em] text-accent flex items-center gap-2"
-        >
+      <!-- PROJECT INFO PANEL (Hiển thị đồng bộ khi lướt qua 6 lĩnh vực công nghệ) -->
+      <div
+        id="project-info-panel"
+        class="absolute bottom-20 left-6 sm:bottom-24 sm:left-12 max-w-lg pointer-events-auto opacity-0 translate-y-6 will-change-transform z-30"
+      >
+        <!-- Project Date / System Identifier -->
+        <div id="project-date" class="text-accent font-mono text-xs sm:text-sm mb-2 relative min-h-[1.5em] flex items-center gap-2">
           <span class="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse shadow-[0_0_6px_#d7ff00]"></span>
-          <span id="date-slot-1" class="proj-meta-1 inline-block">2026.10.22 // ARCHIVE 01</span>
-          <span id="date-slot-2" class="proj-meta-2 absolute left-4 top-0 inline-block opacity-0">2026.08.14 // ARCHIVE 02</span>
+          <span id="hud-date-text" class="inline-block">2026.10.22 // DOMAIN 01</span>
         </div>
 
-        <!-- #project-title -->
-        <h2
-          id="project-title"
-          class="relative text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-white mb-4 leading-none min-h-[1.2em] font-sans"
-        >
-          <span id="title-slot-1" class="proj-content-1 block"></span>
-          <span id="title-slot-2" class="proj-content-2 absolute inset-0 block opacity-0 pointer-events-none"></span>
+        <!-- Project Title (Container cho Split-Text Typewriter) -->
+        <h2 id="project-title" class="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight mb-4 relative min-h-[1.25em] font-sans text-white leading-none">
+          <span id="title-slot" class="block"></span>
         </h2>
 
-        <!-- #project-desc -->
-        <p
-          id="project-desc"
-          class="relative text-neutral-300 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-6 min-h-[4.5em] max-w-lg font-sans"
-        >
-          <span id="desc-slot-1" class="proj-content-1 block"></span>
-          <span id="desc-slot-2" class="proj-content-2 absolute inset-0 block opacity-0 pointer-events-none"></span>
+        <!-- Project Description (Container cho Split-Text Typewriter) -->
+        <p id="project-desc" class="text-neutral-400 text-sm sm:text-base leading-relaxed mb-6 relative min-h-[4.5em] font-sans font-light max-w-md">
+          <span id="desc-slot" class="block"></span>
         </p>
 
-        <!-- #project-tags -->
-        <div id="project-tags" class="relative flex flex-wrap gap-2 min-h-[2.2em]">
-          <!-- Tags cho Project 1 -->
-          <div id="tags-slot-1" class="proj-meta-1 flex flex-wrap gap-2">
-            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-xs font-mono text-neutral-300 rounded backdrop-blur-sm">[ THREE.JS ]</span>
-            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-xs font-mono text-neutral-300 rounded backdrop-blur-sm">[ GLSL ]</span>
-            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-xs font-mono text-neutral-300 rounded backdrop-blur-sm">[ SPATIAL ]</span>
-          </div>
-          <!-- Tags cho Project 2 -->
-          <div id="tags-slot-2" class="proj-meta-2 absolute inset-0 flex flex-wrap gap-2 opacity-0 pointer-events-none">
-            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-xs font-mono text-neutral-300 rounded backdrop-blur-sm">[ SHADERS ]</span>
-            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-xs font-mono text-neutral-300 rounded backdrop-blur-sm">[ PHYSICS ]</span>
-            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-xs font-mono text-neutral-300 rounded backdrop-blur-sm">[ KINETICS ]</span>
+        <!-- Project Tags -->
+        <div id="project-tags" class="flex gap-2 font-mono text-xs relative min-h-[2em] flex-wrap">
+          <div id="tags-slot" class="flex gap-2 flex-wrap">
+            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-neutral-300 rounded backdrop-blur-sm">[ ALGORITHM ]</span>
+            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-neutral-300 rounded backdrop-blur-sm">[ VISION ]</span>
+            <span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-neutral-300 rounded backdrop-blur-sm">[ EDGE ]</span>
           </div>
         </div>
       </div>
 
-      <!-- BOTTOM-RIGHT: Scroll Navigation Cue -->
-      <div class="absolute bottom-6 right-6 md:bottom-12 md:right-12 pointer-events-none font-mono text-[10px] tracking-[0.25em] text-neutral-500 uppercase flex items-center gap-2">
-        <span>SCROLL TO SCRUB ARCHIVE</span>
-        <span class="animate-bounce text-accent text-xs">↓</span>
+      <!-- TWEAKPANE FLOATING CONTAINER (Bảng điều khiển thông số Shader thời gian thực) -->
+      <div id="tweakpane-wrapper" class="absolute bottom-6 left-6 sm:bottom-8 sm:left-12 pointer-events-auto z-40 flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <button
+            id="toggle-tweakpane"
+            class="bg-black/85 hover:bg-neutral-900 border border-neutral-800 text-[10px] font-mono uppercase tracking-widest text-accent px-3 py-1.5 rounded-full cursor-pointer transition-colors backdrop-blur-md shadow-lg flex items-center gap-1.5"
+            title="Toggle Tweakpane Shader Telemetry"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-accent animate-ping"></span>
+            <span>[ TWEAKPANE // SHADER TELEMETRY ]</span>
+            <span id="tweakpane-icon" class="text-neutral-500 font-bold ml-1">[–]</span>
+          </button>
+        </div>
+        <div id="tweakpane-target" class="transition-all duration-300 overflow-hidden rounded-lg shadow-2xl border border-neutral-800/90 bg-black/90 backdrop-blur-xl max-w-[280px]"></div>
       </div>
+
+      <!-- OUTRO ASCII TRIANGLE MESSAGE (Tái tạo Ảnh 5 của alche.studio) -->
+      <div id="outro-message" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-0 z-20 text-center px-4 font-mono">
+        <pre class="text-accent text-[9px] sm:text-[11px] leading-[1.1] mb-6 select-none opacity-85 shadow-[0_0_20px_rgba(215,255,0,0.25)]">
+        ▲
+       / \
+      /   \
+     /  ▲  \
+    /  / \  \
+   /  /___\  \
+  /___________\
+        </pre>
+        <div class="text-xs uppercase tracking-[0.3em] text-white font-bold mb-2">
+          ADOLSOFT CREATIVE TECHNOLOGY & INDUSTRIAL R&D
+        </div>
+        <p class="text-neutral-400 text-xs sm:text-sm max-w-md font-light leading-relaxed mb-6 font-sans">
+          Engineering the next era of industrial autonomy through genetic auto-nesting, embedded edge intelligence & spatial computing.
+        </p>
+        <a
+          href="#scroll-track"
+          class="pointer-events-auto inline-flex items-center gap-2 border border-accent/40 bg-accent/10 px-5 py-2 text-xs text-accent rounded-full hover:bg-accent hover:text-black transition-all hover:shadow-[0_0_20px_rgba(215,255,0,0.4)]"
+        >
+          <span>RETURN TO TOP</span>
+          <span>↑</span>
+        </a>
+      </div>
+
+      <!-- FOOTER INDICATOR: Bottom-Right Scroll Hint -->
+      <footer class="w-full flex justify-between items-end pointer-events-none z-20 text-neutral-500 font-mono text-[10px] tracking-widest uppercase">
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+          <span>DARK IMMERSIVE PROTOCOL // FWA SOTD STANDARD</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span>SCROLL TO TRAVERSE ENGINE</span>
+          <span class="animate-bounce text-accent text-xs">↓</span>
+        </div>
+      </footer>
     </div>
 
     <!-- ===================================================================== -->
-    <!-- BƯỚC 1: DIV BAO NGOÀI CÙNG (#scroll-wrapper) & #pinned-stage          -->
+    <!-- TẦNG 4: SCROLL TRACK (Tạo chiều dài cuộn để ScrollTrigger điều khiển)  -->
     <!-- ===================================================================== -->
-    <div id="scroll-wrapper" class="relative w-full" style="position: relative; width: 100%;">
-      <!-- Phần tử được ghim (h-screen w-full) -->
-      <div id="pinned-stage" class="h-screen w-full flex items-center justify-center relative pointer-events-none">
-        <!-- Subtle framing corners for the technical blueprint stage -->
-        <div class="absolute top-4 left-4 w-4 h-4 border-t border-l border-neutral-800 pointer-events-none"></div>
-        <div class="absolute top-4 right-4 w-4 h-4 border-t border-r border-neutral-800 pointer-events-none"></div>
-        <div class="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-neutral-800 pointer-events-none"></div>
-        <div class="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-neutral-800 pointer-events-none"></div>
-      </div>
-
-      <!-- Chiều cao quyết định độ dài của hiệu ứng cuộn (height: 400vh;) -->
-      <div id="scroll-track" class="w-full pointer-events-none" style="height: 400vh;"></div>
+    <div id="scroll-track" class="relative z-4 w-full" style="height: 600vh;">
+      <div id="pinned-stage" class="h-screen w-full pointer-events-none"></div>
     </div>
 
-    <!-- Optional Grounded Footer after scroll completes -->
-    <footer class="relative z-20 w-full border-t border-neutral-900 bg-black/95 px-6 py-12 md:px-12 font-mono text-xs text-neutral-500">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <span class="h-2 w-2 rounded-full bg-accent"></span>
-          <span class="text-white font-bold tracking-wider">ADOLSOFT STUDIO</span>
-          <span>// REAL-TIME WEBGL STORYTELLING</span>
-        </div>
-        <div class="flex items-center gap-6 text-[11px]">
-          <span class="text-neutral-400">GSAP PINNED STAGE PROTOCOL</span>
-          <span>•</span>
-          <span class="text-accent">EST. 2026</span>
-        </div>
-      </div>
-    </footer>
-
     <!-- ===================================================================== -->
-    <!-- BƯỚC 2, 3, 4: GSAP, LENIS & THREE.JS SCRIPT                           -->
+    <!-- SCRIPT: THREE.JS, GSAP MASTER TIMELINE, LENIS & TWEAKPANE             -->
     <!-- ===================================================================== -->
     <script>
       import * as THREE from 'three';
+      import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       import gsap from 'gsap';
       import { ScrollTrigger } from 'gsap/ScrollTrigger';
       import Lenis from 'lenis';
-
-      // Khai báo mở rộng window trong TypeScript
-      declare global {
-        interface Window {
-          scrollProgress: number;
-        }
-      }
+      import { Pane } from 'tweakpane';
 
       // =======================================================================
-      // BƯỚC 2: THIẾT LẬP GSAP & LENIS (ĐỒNG BỘ MỘT VÒNG LẶP DUY NHẤT)
+      // 1. ĐỒNG BỘ HÓA LENIS & GSAP TICKER (VÒNG LẶP DUY NHẤT)
       // =======================================================================
       gsap.registerPlugin(ScrollTrigger);
 
-      const lenis = new Lenis();
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
       lenis.on('scroll', ScrollTrigger.update);
+
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
       });
       gsap.ticker.lagSmoothing(0);
 
       // =======================================================================
-      // DỮ LIỆU DỰ ÁN CHO 3 KHỐI PLANE 3D & TYPOGRAPHY
-      // =======================================================================
-      const projectData = [
-        {
-          index: "01",
-          title: "KINETIC VOID",
-          date: "2026.10.22 // ARCHIVE 01",
-          desc: "A real-time spatial WebGL experience exploring non-euclidean geometry, caustics, and generative liquid glass shaders.",
-          tags: ["[ THREE.JS ]", "[ GLSL ]", "[ SPATIAL ]"],
-          accent: "#d7ff00",
-          status: "DEPLOYED // SHADER ACTIVE",
-        },
-        {
-          index: "02",
-          title: "NEO CHROMA",
-          date: "2026.08.14 // ARCHIVE 02",
-          desc: "Interactive digital showroom featuring physics-based cloth simulation, chromatic dispersion, and sound-reactive particle choreography.",
-          tags: ["[ SHADERS ]", "[ PHYSICS ]", "[ KINETICS ]"],
-          accent: "#38bdf8",
-          status: "ARCHIVED // VOLUMETRIC",
-        },
-        {
-          index: "03",
-          title: "SYNAPSE LABS",
-          date: "2026.05.30 // ARCHIVE 03",
-          desc: "Next-generation fintech trading platform with GPU-accelerated volumetric charting, sub-millisecond data feeds, and dark immersive UI.",
-          tags: ["[ ASTRO ]", "[ GPU ACCEL ]", "[ REALTIME ]"],
-          accent: "#f59e0b",
-          status: "IN PRODUCTION // REALTIME",
-        }
-      ];
-
-      // =======================================================================
-      // BƯỚC 3: THIẾT LẬP THREE.JS (CHỈ RENDER, KHÔNG TỰ CHẠY VÒNG LẶP)
+      // 2. KHỞI TẠO THREE.JS SCENE, CAMERA & RENDERER
       // =======================================================================
       const canvas = document.getElementById('webgl-canvas') as HTMLCanvasElement;
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x020202);
+      scene.background = new THREE.Color(0x000000); // Dark Immersive Pure Black
 
       const camera = new THREE.PerspectiveCamera(
         45,
@@ -236,470 +221,845 @@ import '../styles/global.css';
         0.1,
         100
       );
-      camera.position.set(0, 0, 7.5);
+      camera.position.set(0, 0, 8.5);
 
       const renderer = new THREE.WebGLRenderer({
         canvas,
         antialias: true,
-        alpha: true,
+        alpha: false,
         powerPreference: 'high-performance'
       });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.2;
+      renderer.toneMappingExposure = 1.35;
 
-      // Ánh sáng cho không gian 3D
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      // Studio Environment Map cho phản xạ thủy tinh thực (PMREMGenerator & RoomEnvironment)
+      const pmremGenerator = new THREE.PMREMGenerator(renderer);
+      pmremGenerator.compileEquirectangularShader();
+      const roomEnv = new RoomEnvironment();
+      scene.environment = pmremGenerator.fromScene(roomEnv, 0.04).texture;
+
+      // Chiếu sáng không gian
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
       scene.add(ambientLight);
 
-      const dirLight1 = new THREE.DirectionalLight(0xd7ff00, 2.2);
-      dirLight1.position.set(5, 6, 4);
+      const dirLight1 = new THREE.DirectionalLight(0xffffff, 3.2);
+      dirLight1.position.set(6, 8, 7);
       scene.add(dirLight1);
 
-      const dirLight2 = new THREE.DirectionalLight(0x38bdf8, 1.8);
-      dirLight2.position.set(-6, -4, 3);
+      const dirLight2 = new THREE.DirectionalLight(0xd7ff00, 2.5);
+      dirLight2.position.set(-7, -4, 5);
       scene.add(dirLight2);
 
-      // Grid không gian nền mờ ảo
-      const grid = new THREE.GridHelper(32, 32, 0x1f1f1f, 0x0c0c0c);
-      grid.rotation.x = Math.PI / 2;
-      grid.position.z = -5.0;
-      scene.add(grid);
+      const causticPoint = new THREE.PointLight(0xd7ff00, 3.5, 18);
+      causticPoint.position.set(0, 0, -1.2);
+      scene.add(causticPoint);
 
-      // Ambient Floating Particles
-      const particleCount = 120;
+      // Bụi sao không gian lơ lửng
+      const particleCount = 140;
       const particleGeo = new THREE.BufferGeometry();
-      const particlePositions = new Float32Array(particleCount * 3);
+      const particlePos = new Float32Array(particleCount * 3);
       for (let i = 0; i < particleCount * 3; i += 3) {
-        particlePositions[i] = (Math.random() - 0.5) * 20;
-        particlePositions[i + 1] = (Math.random() - 0.5) * 14;
-        particlePositions[i + 2] = (Math.random() - 0.5) * 8 - 2;
+        particlePos[i] = (Math.random() - 0.5) * 24;
+        particlePos[i + 1] = (Math.random() - 0.5) * 16;
+        particlePos[i + 2] = (Math.random() - 0.5) * 10 - 2;
       }
-      particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
       const particleMat = new THREE.PointsMaterial({
         size: 0.05,
         color: 0xd7ff00,
         transparent: true,
-        opacity: 0.45
+        opacity: 0.35,
       });
       const particleField = new THREE.Points(particleGeo, particleMat);
       scene.add(particleField);
 
-      // Hàm tạo texture Canvas sắc nét, phong cách Cyberpunk Dark Immersive
-      function createProjectTexture(project: typeof projectData[0], index: number): THREE.CanvasTexture {
+      // =======================================================================
+      // 3. PHÒNG CYLINDER CONG (CURVED LED STUDIO WALL - ẢNH 1, 2, 3, 4)
+      // =======================================================================
+      function createCylinderRoomTexture(): THREE.CanvasTexture {
         const c = document.createElement('canvas');
-        c.width = 1024;
-        c.height = 640;
+        c.width = 2048;
+        c.height = 1024;
         const ctx = c.getContext('2d')!;
 
-        // Gradient nền tối
-        const bgGrad = ctx.createLinearGradient(0, 0, c.width, c.height);
-        bgGrad.addColorStop(0, '#0c0c0e');
-        bgGrad.addColorStop(1, '#050507');
-        ctx.fillStyle = bgGrad;
+        ctx.fillStyle = '#060608';
         ctx.fillRect(0, 0, c.width, c.height);
 
-        // Cyber Grid Lines
-        ctx.strokeStyle = '#161619';
-        ctx.lineWidth = 1;
-        for (let x = 0; x < c.width; x += 40) {
-          ctx.beginPath();
-          ctx.moveTo(x, 0);
-          ctx.lineTo(x, c.height);
-          ctx.stroke();
+        // Ánh sáng tím bên trái & ánh cam bên phải (Tái hiện chuẩn xác Ảnh 1)
+        const leftGrad = ctx.createRadialGradient(450, 512, 50, 450, 512, 600);
+        leftGrad.addColorStop(0, 'rgba(110, 40, 180, 0.25)');
+        leftGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = leftGrad;
+        ctx.fillRect(0, 0, c.width, c.height);
+
+        const rightGrad = ctx.createRadialGradient(1600, 512, 50, 1600, 512, 600);
+        rightGrad.addColorStop(0, 'rgba(210, 90, 30, 0.20)');
+        rightGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = rightGrad;
+        ctx.fillRect(0, 0, c.width, c.height);
+
+        // Lưới panel vuông (32 cột x 16 hàng)
+        const cols = 32, rows = 16;
+        const colW = c.width / cols, rowH = c.height / rows;
+
+        ctx.strokeStyle = '#16161b';
+        ctx.lineWidth = 1.5;
+        for (let x = 0; x <= c.width; x += colW) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, c.height); ctx.stroke();
         }
-        for (let y = 0; y < c.height; y += 40) {
-          ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.lineTo(c.width, y);
-          ctx.stroke();
+        for (let y = 0; y <= c.height; y += rowH) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(c.width, y); ctx.stroke();
         }
 
-        // Corner Brackets
-        ctx.strokeStyle = project.accent;
-        ctx.lineWidth = 3;
-        const bSize = 24;
-        // Top-Left
-        ctx.beginPath();
-        ctx.moveTo(40, 40 + bSize);
-        ctx.lineTo(40, 40);
-        ctx.lineTo(40 + bSize, 40);
-        ctx.stroke();
-        // Top-Right
-        ctx.beginPath();
-        ctx.moveTo(c.width - 40 - bSize, 40);
-        ctx.lineTo(c.width - 40, 40);
-        ctx.lineTo(c.width - 40, 40 + bSize);
-        ctx.stroke();
-        // Bottom-Left
-        ctx.beginPath();
-        ctx.moveTo(40, c.height - 40 - bSize);
-        ctx.lineTo(40, c.height - 40);
-        ctx.lineTo(40 + bSize, c.height - 40);
-        ctx.stroke();
-        // Bottom-Right
-        ctx.beginPath();
-        ctx.moveTo(c.width - 40 - bSize, c.height - 40);
-        ctx.lineTo(c.width - 40, c.height - 40);
-        ctx.lineTo(c.width - 40, c.height - 40 - bSize);
-        ctx.stroke();
-
-        // Index Badge & Header
-        ctx.fillStyle = project.accent;
-        ctx.fillRect(48, 60, 10, 10);
-
-        ctx.fillStyle = project.accent;
-        ctx.font = 'bold 20px monospace';
-        ctx.fillText(`0${index + 1} // SPATIAL ARTIFACT`, 70, 70);
-
-        ctx.fillStyle = '#666666';
-        ctx.font = '16px monospace';
-        ctx.fillText(`SYS.KEY // 0xAD0L_0${index + 1}`, c.width - 240, 70);
-
-        // Big Project Title
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '900 64px sans-serif';
-        ctx.fillText(project.title, 48, 200);
-
-        // Tags List
-        ctx.fillStyle = project.accent;
-        ctx.font = 'bold 18px monospace';
-        ctx.fillText(project.tags.join('    '), 48, 245);
-
-        // Generative Waveform Graphic
-        ctx.strokeStyle = project.accent;
-        ctx.lineWidth = 3.5;
-        ctx.beginPath();
-        for (let x = 48; x < c.width - 48; x += 6) {
-          const wave = Math.sin((x + index * 90) * 0.02) * 45 + Math.cos((x + index * 40) * 0.01) * 20;
-          const y = 430 + wave;
-          if (x === 48) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+        // Dấu cộng giao điểm (+) tại mỗi góc panel
+        ctx.strokeStyle = '#353540';
+        ctx.lineWidth = 1.5;
+        const cross = 6;
+        for (let x = 0; x <= c.width; x += colW) {
+          for (let y = 0; y <= c.height; y += rowH) {
+            ctx.beginPath();
+            ctx.moveTo(x - cross, y); ctx.lineTo(x + cross, y);
+            ctx.moveTo(x, y - cross); ctx.lineTo(x, y + cross);
+            ctx.stroke();
+          }
         }
-        ctx.stroke();
 
-        // Waveform baseline & telemetry
-        ctx.strokeStyle = '#222225';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(48, 430);
-        ctx.lineTo(c.width - 48, 430);
-        ctx.stroke();
-
-        // Footer Telemetry
-        ctx.fillStyle = '#555555';
-        ctx.font = '15px monospace';
-        ctx.fillText(`STATUS: ${project.status}    •    ${project.date}`, 48, 575);
+        // Chữ ma trận mờ ảo "ADOLSOFT" / "STUDIO"
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+        ctx.font = 'bold 36px monospace';
+        for (let i = 0; i < cols; i += 4) {
+          for (let j = 0; j < rows; j += 3) {
+            ctx.fillText('ADOLSOFT', i * colW + 10, j * rowH + rowH - 18);
+          }
+        }
 
         const tex = new THREE.CanvasTexture(c);
         tex.needsUpdate = true;
         return tex;
       }
 
-      // Tạo 3 khối PlaneGeometry (đại diện cho 3 dự án)
-      // Ban đầu đặt chúng ở vị trí z = -10 (phía sau) như yêu cầu nghiêm ngặt ở Bước 3
-      const planeGeometry = new THREE.PlaneGeometry(4.8, 3.0, 16, 16);
+      const roomGeo = new THREE.CylinderGeometry(24, 24, 38, 64, 16, true);
+      const roomMat = new THREE.MeshBasicMaterial({
+        map: createCylinderRoomTexture(),
+        side: THREE.BackSide,
+        depthWrite: false,
+      });
+      scene.add(new THREE.Mesh(roomGeo, roomMat));
+
+      // =======================================================================
+      // 4. KHỐI LĂNG KÍNH THỦY TINH LỎNG (HERO PRISM - MESHPHYSICALMATERIAL)
+      // Thông số chuẩn: transmission: 1, roughness: 0.04, dispersion: 6.0, IOR: 1.5
+      // =======================================================================
+      function createHollowTriangleGeometry(): THREE.BufferGeometry {
+        const shape = new THREE.Shape();
+        const h = 4.2, w = 4.8;
+        shape.moveTo(0, h * 0.6);
+        shape.lineTo(w * 0.5, -h * 0.4);
+        shape.lineTo(-w * 0.5, -h * 0.4);
+        shape.closePath();
+
+        const hole = new THREE.Path();
+        const ih = 2.2, iw = 2.5;
+        hole.moveTo(0, ih * 0.52 - 0.1);
+        hole.lineTo(-iw * 0.5, -ih * 0.44);
+        hole.lineTo(iw * 0.5, -ih * 0.44);
+        hole.closePath();
+        shape.holes.push(hole);
+
+        const geo = new THREE.ExtrudeGeometry(shape, {
+          depth: 0.85,
+          bevelEnabled: true,
+          bevelThickness: 0.15,
+          bevelSize: 0.12,
+          bevelSegments: 4,
+          curveSegments: 12,
+        });
+        geo.center();
+        return geo;
+      }
+
+      const triangleGeo = createHollowTriangleGeometry();
+      const prismParams = {
+        roughness: 0.04,
+        dispersion: 6.0,
+        ior: 1.5,
+        transmission: 1.0,
+        thickness: 2.2,
+        color: '#ffffff',
+        curvature: 0.45,
+        noiseScale: 1.0,
+      };
+
+      const glassMaterial = new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color(prismParams.color),
+        transmission: prismParams.transmission,
+        roughness: prismParams.roughness,
+        metalness: 0.05,
+        ior: prismParams.ior,
+        thickness: prismParams.thickness,
+        dispersion: prismParams.dispersion,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.04,
+        transparent: true,
+        depthWrite: true,
+      });
+
+      const heroPrismGroup = new THREE.Group();
+      const triangleMesh = new THREE.Mesh(triangleGeo, glassMaterial);
+      triangleMesh.position.set(0, 0, 0);
+
+      const wireframe = new THREE.LineSegments(
+        new THREE.EdgesGeometry(triangleGeo, 24),
+        new THREE.LineBasicMaterial({ color: 0xd7ff00, transparent: true, opacity: 0.35 })
+      );
+      triangleMesh.add(wireframe);
+      heroPrismGroup.add(triangleMesh);
+      scene.add(heroPrismGroup);
+
+      // In-scene 3D Billboard "ADOLSOFT" phía sau lăng kính (Được khúc xạ vật lý qua kính lỏng)
+      function createHero3DTextTexture(): THREE.CanvasTexture {
+        const c = document.createElement('canvas');
+        c.width = 2048; c.height = 640;
+        const ctx = c.getContext('2d')!;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 210px Inter, "Space Grotesk", sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('ADOLSOFT', 1024, 300);
+
+        // Technical crosshairs & bracket markers
+        ctx.strokeStyle = '#d7ff00';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(340, 160); ctx.lineTo(300, 160); ctx.lineTo(300, 200);
+        ctx.moveTo(1708, 160); ctx.lineTo(1748, 160); ctx.lineTo(1748, 200);
+        ctx.moveTo(340, 440); ctx.lineTo(300, 440); ctx.lineTo(300, 400);
+        ctx.moveTo(1708, 440); ctx.lineTo(1748, 440); ctx.lineTo(1748, 400);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(215, 255, 0, 0.7)';
+        ctx.font = 'bold 24px monospace';
+        ctx.fillText('[ SPATIAL REFRACTION ENGINE // DISPERSION: 6.0 ]', 1024, 440);
+
+        const tex = new THREE.CanvasTexture(c);
+        tex.needsUpdate = true;
+        return tex;
+      }
+
+      const textBillboardGeo = new THREE.PlaneGeometry(14, 4.375);
+
+      const hero3DTextMat = new THREE.MeshBasicMaterial({
+        map: createHero3DTextTexture(),
+        transparent: true,
+        opacity: 0.9,
+      });
+      const hero3DTextPlane = new THREE.Mesh(textBillboardGeo, hero3DTextMat);
+      hero3DTextPlane.position.set(0, 0, -1.6);
+      scene.add(hero3DTextPlane);
+
+      // Billboard "WORKS" có sọc bóng đổ chéo (Ảnh 2)
+      function createWorks3DTextTexture(): THREE.CanvasTexture {
+        const c = document.createElement('canvas');
+        c.width = 2048; c.height = 640;
+        const ctx = c.getContext('2d')!;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 250px Inter, "Space Grotesk", sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('WORKS', 1024, 320);
+
+        ctx.globalCompositeOperation = 'source-atop';
+        ctx.save();
+        ctx.translate(1024, 320);
+        ctx.rotate(-0.55);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+        for (let x = -1600; x < 1600; x += 44) {
+          ctx.fillRect(x, -800, 20, 1600);
+        }
+        ctx.restore();
+
+        const tex = new THREE.CanvasTexture(c);
+        tex.needsUpdate = true;
+        return tex;
+      }
+
+      const worksTextMat = new THREE.MeshBasicMaterial({
+        map: createWorks3DTextTexture(),
+        transparent: true,
+        opacity: 0,
+      });
+      const worksTextPlane = new THREE.Mesh(textBillboardGeo, worksTextMat);
+      worksTextPlane.position.set(0, 0, -1.6);
+      scene.add(worksTextPlane);
+
+      // =======================================================================
+      // 5. THỊ SAI 6 LĨNH VỰC CÔNG NGHỆ ADOLSOFT (WORKS PLANES GROUP)
+      // Vận tốc trục Y và độ sâu trục Z độc lập: tâm Z = 0, vệ tinh Z in [-1.8, 1.2]
+      // =======================================================================
+      const domains = [
+        {
+          id: "01",
+          title: "AI PRINT-CUT",
+          subtitle: "Industrial Edge Detection & Geometric Auto-Nesting",
+          desc: "High-precision computer vision pipeline analyzing material defects, sub-millimeter edge registration, and genetic combinatorial cutting layouts.",
+          date: "2026.10.22 // DOMAIN 01",
+          accent: "#d7ff00",
+          tags: ["[ ALGORITHM ]", "[ VISION ]", "[ GENETIC NESTING ]"],
+          zDepth: 0.0, // Tâm tiêu điểm
+        },
+        {
+          id: "02",
+          title: "AI OS EDGE",
+          subtitle: "Embedded Real-Time Industrial Operating System",
+          desc: "Deterministic sub-millisecond kernel engineered for high-throughput automated factory routers, IoT sensors, and FPGA accelerators.",
+          date: "2026.09.15 // DOMAIN 02",
+          accent: "#38bdf8",
+          tags: ["[ EMBEDDED ]", "[ RTOS ]", "[ SUB-MS KERNEL ]"],
+          zDepth: -1.2,
+        },
+        {
+          id: "03",
+          title: "PRODUCTION TELEMETRY",
+          subtitle: "High-Frequency Factory Floor KPI Telemetry & Analytics",
+          desc: "GPU-accelerated stream processing engine aggregating millions of industrial telemetry events per second with instant visual KPI dashboards.",
+          date: "2026.08.04 // DOMAIN 03",
+          accent: "#f59e0b",
+          tags: ["[ GPU ACCEL ]", "[ IOT TELEMETRY ]", "[ REALTIME ]"],
+          zDepth: 0.8,
+        },
+        {
+          id: "04",
+          title: "AUTO-QUOTATION SUITE",
+          subtitle: "Automated Parametric Costing & Engineering Estimation",
+          desc: "Algorithmic engineering estimation engine computing material yields, machine tool wear, and automated commercial quotation pipelines.",
+          date: "2026.06.28 // DOMAIN 04",
+          accent: "#a855f7",
+          tags: ["[ PARAMETRIC ]", "[ COST ENGINE ]", "[ AUTOMATION ]"],
+          zDepth: -1.6,
+        },
+        {
+          id: "05",
+          title: "COMBINATORIAL R&D",
+          subtitle: "NP-Hard Combinatorial Solvers & Material Optimization",
+          desc: "Advanced heuristic solvers, meta-heuristics, and genetic algorithms minimizing sheet stock waste across heavy manufacturing operations.",
+          date: "2026.05.12 // DOMAIN 05",
+          accent: "#22c55e",
+          tags: ["[ NP-HARD ]", "[ HEURISTICS ]", "[ MATERIAL OPTIM ]"],
+          zDepth: 1.0,
+        },
+        {
+          id: "06",
+          title: "ADOLSOFT ACADEMY",
+          subtitle: "Engineering Mathematics & High-Performance Manufacturing Tech",
+          desc: "Talent incubator training next-generation systems engineers in computational geometry, WebGL spatial simulation, and industrial AI.",
+          date: "2026.03.20 // DOMAIN 06",
+          accent: "#ec4899",
+          tags: ["[ TRAINING ]", "[ R&D INCUBATOR ]", "[ SYSTEMS ARCH ]"],
+          zDepth: -0.6,
+        }
+      ];
+
+      function createCurvedPlaneGeometry(width: number, height: number, curveDepth: number): THREE.BufferGeometry {
+        const geo = new THREE.PlaneGeometry(width, height, 32, 1);
+        const pos = geo.attributes.position;
+        const halfW = width / 2;
+        for (let i = 0; i < pos.count; i++) {
+          const x = pos.getX(i);
+          const normX = x / halfW;
+          pos.setZ(i, (normX * normX) * curveDepth);
+        }
+        geo.computeVertexNormals();
+        return geo;
+      }
+
+      function createDomainTexture(domain: typeof domains[0], index: number): THREE.CanvasTexture {
+        const c = document.createElement('canvas');
+        c.width = 1280; c.height = 800;
+        const ctx = c.getContext('2d')!;
+
+        // Nền đen than obsidian
+        const bgGrad = ctx.createLinearGradient(0, 0, c.width, c.height);
+        bgGrad.addColorStop(0, '#0c0e12');
+        bgGrad.addColorStop(0.5, '#060709');
+        bgGrad.addColorStop(1, '#020204');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, c.width, c.height);
+
+        // Lưới kỹ thuật CRT & viền phản xạ ánh sáng góc nghiêng (Specular Rim Light)
+        ctx.strokeStyle = '#181b22';
+        ctx.lineWidth = 1.5;
+        for (let x = 0; x < c.width; x += 40) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, c.height); ctx.stroke();
+        }
+        for (let y = 0; y < c.height; y += 40) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(c.width, y); ctx.stroke();
+        }
+
+        // 4 Dấu định vị quang học (Optical Registration Marks / Brackets)
+        ctx.strokeStyle = domain.accent;
+        ctx.lineWidth = 3;
+        const b = 28;
+        // Top-left
+        ctx.beginPath(); ctx.moveTo(48, 48 + b); ctx.lineTo(48, 48); ctx.lineTo(48 + b, 48); ctx.stroke();
+        // Top-right
+        ctx.beginPath(); ctx.moveTo(c.width - 48 - b, 48); ctx.lineTo(c.width - 48, 48); ctx.lineTo(c.width - 48, 48 + b); ctx.stroke();
+        // Bottom-left
+        ctx.beginPath(); ctx.moveTo(48, c.height - 48 - b); ctx.lineTo(48, c.height - 48); ctx.lineTo(48 + b, c.height - 48); ctx.stroke();
+        // Bottom-right
+        ctx.beginPath(); ctx.moveTo(c.width - 48 - b, c.height - 48); ctx.lineTo(c.width - 48, c.height - 48); ctx.lineTo(c.width - 48, c.height - 48 - b); ctx.stroke();
+
+        // Index Badge & Header
+        ctx.fillStyle = domain.accent;
+        ctx.fillRect(56, 68, 12, 12);
+        ctx.font = 'bold 22px monospace';
+        ctx.fillText(`0${index + 1} // DOMAIN SPECIFICATION`, 82, 80);
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '18px monospace';
+        ctx.fillText(`SYS.KEY // 0xADOL_D0${index + 1}`, c.width - 320, 80);
+
+        // Domain Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 68px Inter, sans-serif';
+        ctx.fillText(domain.title, 56, 210);
+
+        // Subtitle
+        ctx.fillStyle = domain.accent;
+        ctx.font = 'bold 22px monospace';
+        ctx.fillText(domain.subtitle, 56, 260);
+
+        // Dynamic Waveform / Algorithmic Geometry Graph
+        ctx.strokeStyle = domain.accent;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        for (let x = 56; x < c.width - 56; x += 6) {
+          const wave = Math.sin((x + index * 100) * 0.02) * 60 + Math.cos((x + index * 50) * 0.01) * 25;
+          const y = 490 + wave;
+          if (x === 56) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Waveform baseline
+        ctx.strokeStyle = '#27272a';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(56, 490); ctx.lineTo(c.width - 56, 490); ctx.stroke();
+
+        // Footer Telemetry
+        ctx.fillStyle = '#52525b';
+        ctx.font = '16px monospace';
+        ctx.fillText(`STATUS: VERIFIED ALGORITHM    •    ${domain.date}`, 56, 700);
+
+        const tex = new THREE.CanvasTexture(c);
+        tex.anisotropy = 4;
+        tex.needsUpdate = true;
+        return tex;
+      }
+
+      const cardGeometry = createCurvedPlaneGeometry(6.4, 4.0, 0.45);
+      const worksPlanesGroup = new THREE.Group();
+      worksPlanesGroup.position.set(0, -10, 0); // Ẩn ban đầu, Act 2 trượt lên
+      scene.add(worksPlanesGroup);
+
       const planes: THREE.Mesh[] = [];
+      const planeSpacing = 7.6;
 
-      projectData.forEach((project, idx) => {
-        const tex = createProjectTexture(project, idx);
-        const material = new THREE.MeshStandardMaterial({
+      domains.forEach((dom, i) => {
+        const tex = createDomainTexture(dom, i);
+        const mat = new THREE.MeshStandardMaterial({
           map: tex,
-          roughness: 0.25,
-          metalness: 0.55,
+          roughness: 0.15,
+          metalness: 0.6,
           side: THREE.DoubleSide,
-          transparent: true,
-          opacity: 0, // Ẩn ban đầu, masterTl sẽ kích hoạt
         });
 
-        const mesh = new THREE.Mesh(planeGeometry, material);
-        // Ban đầu đặt ở z = -10
-        mesh.position.set(0, 0, -10);
-        mesh.rotation.set(0.06, -0.25, 0.02);
+        const mesh = new THREE.Mesh(cardGeometry, mat);
+        // Bố trí không gian: Z depth độc lập tạo thị sai, X cách đều
+        mesh.position.set(i * planeSpacing, 0, dom.zDepth);
+        mesh.rotation.y = (i === 0) ? 0 : -0.35;
 
-        // Viền wireframe phát sáng xung quanh tấm 3D
-        const wireGeo = new THREE.EdgesGeometry(planeGeometry);
-        const wireMat = new THREE.LineBasicMaterial({
-          color: new THREE.Color(project.accent),
-          transparent: true,
-          opacity: 0.45,
-        });
-        const wireframe = new THREE.LineSegments(wireGeo, wireMat);
-        mesh.add(wireframe);
+        // Viền wireframe phát sáng
+        const wire = new THREE.LineSegments(
+          new THREE.EdgesGeometry(cardGeometry),
+          new THREE.LineBasicMaterial({ color: new THREE.Color(dom.accent), transparent: true, opacity: 0.4 })
+        );
+        mesh.add(wire);
 
-        scene.add(mesh);
+        worksPlanesGroup.add(mesh);
         planes.push(mesh);
       });
 
-      // MOUSE PARALLAX INTERACTION
-      let mouseX = 0;
-      let mouseY = 0;
-      let targetCameraX = 0;
-      let targetCameraY = 0;
-
+      // =======================================================================
+      // 6. ANIMATE LOOP & MOUSE PARALLAX (TƯƠNG TÁC THỊ SAI CHUỘT)
+      // Công thức: \theta_y(t) = 0.25t, y(t) = \sin(1.4t + 1.2) * 0.18
+      // =======================================================================
+      let mouseX = 0, mouseY = 0, targetCameraX = 0, targetCameraY = 0;
       window.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
         mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
       });
 
-      // Hàm render Three.js - TUYỆT ĐỐI KHÔNG DÙNG requestAnimationFrame RIÊNG
-      // Thay vào đó, đưa trực tiếp vào gsap.ticker.add(renderThree) ở Bước 3
       function renderThree(time: number) {
-        // Smooth camera damping theo chuyển động chuột
-        targetCameraX += (mouseX * 0.4 - targetCameraX) * 0.05;
-        targetCameraY += (-mouseY * 0.4 - targetCameraY) * 0.05;
+        const t = time * 0.001;
+
+        // 1. Camera Parallax theo vị trí con trỏ chuột
+        targetCameraX += (mouseX * 0.5 - targetCameraX) * 0.05;
+        targetCameraY += (-mouseY * 0.5 - targetCameraY) * 0.05;
         camera.position.x = targetCameraX;
         camera.position.y = targetCameraY;
         camera.lookAt(0, 0, 0);
 
-        // Micro float trên các khối 3D tạo cảm giác bay bổng không gian
-        const t = time * 0.001;
+        // 2. Dao động sinh học của khối lăng kính Hero (Chuẩn công thức mục 2.2 & 3)
+        triangleMesh.rotation.y = 0.25 * t;
+        triangleMesh.position.y = Math.sin(1.4 * t + 1.2) * 0.18;
+
+        // 3. Floating lơ lửng đa tầng cho các tấm Domain (Z & Y parallax)
         planes.forEach((plane, i) => {
-          plane.rotation.z = Math.sin(t * 0.7 + i * 1.5) * 0.015;
+          plane.position.y = Math.sin(t * 1.5 + i * 1.6) * 0.08;
+          plane.rotation.z = Math.cos(t * 1.2 + i * 1.2) * 0.01;
         });
 
-        particleField.rotation.y = t * 0.02;
+        particleField.rotation.y = t * 0.015;
 
         renderer.render(scene, camera);
       }
 
-      // Đưa hàm render của Three.js vào bên trong gsap.ticker.add (Bước 3)
       gsap.ticker.add(renderThree);
 
       // =======================================================================
-      // CHUẨN BỊ HIỆU ỨNG GÕ CHỮ (TYPEWRITER VIA SPAN STAGGER)
+      // 7. TYPEWRITER SPLIT-TEXT STAGGER
+      // Công thức: gsap.fromTo(chars, { y: '110%', opacity: 0 }, { y: '0%', opacity: 1, duration: 0.35, stagger: 0.015, ease: 'expo.out' })
       // =======================================================================
-      function splitTextToSpans(container: HTMLElement, text: string): HTMLSpanElement[] {
-        container.innerHTML = '';
-        const spans: HTMLSpanElement[] = [];
-        for (let i = 0; i < text.length; i++) {
-          const char = text[i];
-          const span = document.createElement('span');
-          span.textContent = char;
-          span.style.display = 'inline-block';
-          if (char === ' ') {
-            span.innerHTML = '&nbsp;';
-          }
-          container.appendChild(span);
-          spans.push(span);
+      const titleSlot = document.getElementById('title-slot') as HTMLElement;
+      const descSlot = document.getElementById('desc-slot') as HTMLElement;
+      const tagsSlot = document.getElementById('tags-slot') as HTMLElement;
+      const hudDateText = document.getElementById('hud-date-text') as HTMLElement;
+      const hudIndex = document.getElementById('hud-index') as HTMLElement;
+      const hudProgress = document.getElementById('hud-progress-bar') as HTMLElement;
+      const hudPercent = document.getElementById('hud-percent') as HTMLElement;
+
+      let currentActiveDomain = -1;
+
+      function updateHUD(domainIndex: number) {
+        if (currentActiveDomain === domainIndex) return;
+        currentActiveDomain = domainIndex;
+
+        const d = domains[domainIndex];
+        if (hudDateText) hudDateText.textContent = d.date;
+        if (hudIndex) hudIndex.textContent = `0${domainIndex + 1} / 0${domains.length}`;
+
+        // Cập nhật Tags
+        if (tagsSlot) {
+          tagsSlot.innerHTML = d.tags
+            .map((t) => `<span class="border border-neutral-800 bg-neutral-900/80 px-2.5 py-1 text-neutral-300 rounded backdrop-blur-sm">${t}</span>`)
+            .join('');
         }
-        return spans;
+
+        // Tách ký tự Split-Text cho Title & Desc
+        if (titleSlot && descSlot) {
+          titleSlot.innerHTML = '';
+          const titleChars: HTMLSpanElement[] = [];
+          for (const char of d.title) {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.display = 'inline-block';
+            if (char === ' ') span.innerHTML = '&nbsp;';
+            titleSlot.appendChild(span);
+            titleChars.push(span);
+          }
+
+          descSlot.innerHTML = '';
+          const descChars: HTMLSpanElement[] = [];
+          for (const char of d.desc) {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.display = 'inline-block';
+            if (char === ' ') span.innerHTML = '&nbsp;';
+            descSlot.appendChild(span);
+            descChars.push(span);
+          }
+
+          // Chạy animation gõ chữ cơ khí chuẩn xác
+          gsap.fromTo(
+            titleChars,
+            { y: '110%', opacity: 0 },
+            { y: '0%', opacity: 1, duration: 0.35, stagger: 0.015, ease: 'expo.out' }
+          );
+
+          gsap.fromTo(
+            descChars,
+            { y: '100%', opacity: 0 },
+            { y: '0%', opacity: 1, duration: 0.25, stagger: 0.006, ease: 'power2.out', delay: 0.1 }
+          );
+        }
       }
 
-      const titleSlot1 = document.getElementById('title-slot-1') as HTMLElement;
-      const descSlot1 = document.getElementById('desc-slot-1') as HTMLElement;
-      const titleSlot2 = document.getElementById('title-slot-2') as HTMLElement;
-      const descSlot2 = document.getElementById('desc-slot-2') as HTMLElement;
-
-      const titleChars1 = splitTextToSpans(titleSlot1, projectData[0].title);
-      const descChars1 = splitTextToSpans(descSlot1, projectData[0].desc);
-      const titleChars2 = splitTextToSpans(titleSlot2, projectData[1].title);
-      const descChars2 = splitTextToSpans(descSlot2, projectData[1].desc);
-
-      const progressPct = document.getElementById('scroll-progress-pct');
-      const progressFill = document.getElementById('scroll-progress-fill');
+      // Khởi tạo nội dung cho Domain 01
+      updateHUD(0);
 
       // =======================================================================
-      // BƯỚC 4: XÂY DỰNG MASTER TIMELINE (TRÁI TIM CỦA HIỆU ỨNG)
+      // 8. MASTER TIMELINE (SCROLLTRIGGER SCRUB: 1.2 GẮN CHẶT VỚI LENIS)
       // =======================================================================
-      const masterTl = gsap.timeline({
+      const masterTimeline = gsap.timeline({
         scrollTrigger: {
-          trigger: "#pinned-stage",
-          endTrigger: "#scroll-track",
-          start: "top top",
-          end: "bottom bottom", // Kết thúc khi cuộn hết #scroll-track
-          pin: true,
-          scrub: 1, // Tạo độ mượt
+          trigger: '#scroll-track',
+          pin: '#pinned-stage',
+          start: 'top top',
+          end: 'bottom bottom',
+          pinSpacing: false,
+          scrub: 1.2,
           onUpdate: (self) => {
-            // Lưu progress vào biến toàn cục theo yêu cầu Bước 4
-            window.scrollProgress = self.progress;
+            const p = self.progress;
+            const pct = Math.round(p * 100);
+            if (hudPercent) hudPercent.textContent = `${pct.toString().padStart(2, '0')}%`;
+            if (hudProgress) hudProgress.style.width = `${pct}%`;
 
-            // Cập nhật HUD hiển thị tiến độ trực quan
-            const pct = Math.round(self.progress * 100);
-            if (progressPct) progressPct.textContent = `${pct.toString().padStart(2, '0')}%`;
-            if (progressFill) progressFill.style.width = `${pct}%`;
+            // Đồng bộ chuyển đổi Domain theo vị trí cuộn
+            if (p >= 0.25 && p < 0.88) {
+              const activeIdx = Math.min(
+                domains.length - 1,
+                Math.floor(((p - 0.25) / (0.88 - 0.25)) * domains.length)
+              );
+              updateHUD(activeIdx);
+            }
           }
         }
       });
 
       // -----------------------------------------------------------------------
-      // HÀNH ĐỘNG 1 (Từ 0% đến 30%):
-      // - Làm mờ chữ "ADOLSOFT" khổng lồ
-      // - Dùng masterTl.to để di chuyển khối 3D đầu tiên từ z: -10 về z: 0 (hiện ra giữa màn hình)
-      //   và xoay nó một góc nhẹ.
+      // PHA 1: CHUYỂN TIẾP TỪ HERO SANG WORKS (0% - 25%)
+      // - Chữ ADOLSOFT (.brand-ghost-title) thu nhỏ scale: 0.62, opacity: 0.12 (Bóng ma)
+      // - Chữ WORKS với sọc bóng đổ chéo hiện lên
+      // - Lăng kính nghiêng góc quang học kịch tính
       // -----------------------------------------------------------------------
-      // Làm mờ chữ "ADOLSOFT" khổng lồ
-      masterTl.to('#hero-typography', {
-        opacity: 0,
-        scale: 0.85,
+      masterTimeline.to('#brand-ghost-title', {
+        scale: 0.62,
+        opacity: 0.12,
         ease: 'power2.inOut',
-        duration: 30,
+        duration: 20,
       }, 0);
 
-      // Di chuyển khối 3D đầu tiên từ z: -10 về z: 0 (hiện ra giữa màn hình) và xoay góc nhẹ
-      masterTl.to(planes[0].position, {
+      masterTimeline.to(hero3DTextMat, {
+        opacity: 0,
+        duration: 10,
+        ease: 'power2.in',
+      }, 0);
+
+      masterTimeline.to(worksTextMat, {
+        opacity: 1,
+        duration: 15,
+        ease: 'power2.inOut',
+      }, 5);
+
+      masterTimeline.to(heroPrismGroup.rotation, {
+        x: 0.18,
+        y: 0.42,
+        z: -0.15,
+        duration: 20,
+        ease: 'power2.inOut',
+      }, 0);
+
+      // -----------------------------------------------------------------------
+      // PHA 2: CHUYỂN SANG WORKS PLANES & CAROUSEL (25% - 40%)
+      // - Lăng kính lùi lên trên cao (y: 2.35, z: -2.0, scale: 0.82)
+      // - 6 tấm Plane trượt từ dưới lên
+      // - Hiện #project-info-panel
+      // -----------------------------------------------------------------------
+      masterTimeline.to(worksTextMat, {
+        opacity: 0,
+        duration: 10,
+        ease: 'power2.in',
+      }, 22);
+
+      masterTimeline.to(heroPrismGroup.position, {
+        y: 2.35,
+        z: -2.0,
+        duration: 16,
+        ease: 'power2.out',
+      }, 23);
+
+      masterTimeline.to(heroPrismGroup.scale, {
+        x: 0.82,
+        y: 0.82,
+        z: 0.82,
+        duration: 16,
+        ease: 'power2.out',
+      }, 23);
+
+      masterTimeline.to(worksPlanesGroup.position, {
+        y: 0,
+        duration: 18,
+        ease: 'power2.out',
+      }, 24);
+
+      masterTimeline.to('#project-info-panel', {
+        opacity: 1,
+        y: 0,
+        duration: 6,
+        ease: 'power2.out',
+      }, 28);
+
+      // -----------------------------------------------------------------------
+      // PHA 3: THỊ SAI DU HÀNH QUA 6 LĨNH VỰC CÔNG NGHỆ (40% - 88%)
+      // -----------------------------------------------------------------------
+      // Di chuyển cả cụm planesGroup sang trái theo tiến độ cuộn
+      const totalShiftX = -(domains.length - 1) * planeSpacing;
+      masterTimeline.to(worksPlanesGroup.position, {
+        x: totalShiftX,
+        duration: 48,
+        ease: 'none',
+      }, 36);
+
+      // Xoay góc nhẹ cho từng tấm khi lướt qua tiêu điểm trung tâm
+      planes.forEach((plane, i) => {
+        if (i > 0) {
+          masterTimeline.to(plane.rotation, {
+            y: 0,
+            duration: 8,
+            ease: 'power2.out',
+          }, 36 + (i * 8));
+        }
+      });
+
+      // -----------------------------------------------------------------------
+      // PHA 4: OUTRO & ASCII DELTA LOGO (88% - 100%)
+      // - Các tấm dự án trượt xuống
+      // - Lăng kính quay lại trung tâm (y: 0, z: 0, scale: 1.0)
+      // - Chữ ADOLSOFT bóng ma tái hiện nhẹ
+      // - Hiện màn hình Outro ASCII Triangle Logo
+      // -----------------------------------------------------------------------
+      masterTimeline.to(worksPlanesGroup.position, {
+        y: -10,
+        duration: 10,
+        ease: 'power2.in',
+      }, 86);
+
+      masterTimeline.to('#project-info-panel', {
+        opacity: 0,
+        y: 20,
+        duration: 6,
+        ease: 'power2.in',
+      }, 86);
+
+      masterTimeline.to(heroPrismGroup.position, {
         x: 0,
         y: 0,
         z: 0,
-        ease: 'power2.out',
-        duration: 30,
-      }, 0);
-
-      masterTl.to(planes[0].rotation, {
-        x: 0.05,
-        y: -0.16,
-        z: 0.02,
-        ease: 'power2.out',
-        duration: 30,
-      }, 0);
-
-      masterTl.to(planes[0].material, {
-        opacity: 1,
-        ease: 'power1.inOut',
-        duration: 25,
-      }, 0);
-
-      // -----------------------------------------------------------------------
-      // HÀNH ĐỘNG 2 (Từ 30% đến 60%):
-      // - Giữ khối 3D đầu tiên đứng yên (không di chuyển position của planes[0])
-      // - Dùng masterTl.from để làm hiệu ứng "gõ chữ" cho #project-title và #project-desc
-      //   (stagger trên từng ký tự)
-      // -----------------------------------------------------------------------
-      // Gõ chữ cho #project-title của dự án 1
-      masterTl.from(titleChars1, {
-        opacity: 0,
-        y: 14,
-        stagger: 0.35,
         duration: 12,
-        ease: 'power1.out',
-      }, 30);
+        ease: 'power2.out',
+      }, 88);
 
-      // Gõ chữ cho #project-desc của dự án 1
-      masterTl.from(descChars1, {
-        opacity: 0,
-        stagger: 0.09,
-        duration: 16,
-        ease: 'none',
-      }, 38);
-
-      // Xuất hiện metadata (ngày tháng & tags) của dự án 1
-      masterTl.from('.proj-meta-1', {
-        opacity: 0,
-        y: 8,
-        duration: 8,
-        ease: 'power1.out',
-      }, 30);
-
-      // -----------------------------------------------------------------------
-      // HÀNH ĐỘNG 3 (Từ 60% đến 100%):
-      // - Di chuyển khối 3D đầu tiên ra khỏi màn hình (sang trái)
-      // - Đồng thời, di chuyển khối 3D thứ hai từ phía sau vào giữa
-      // - Kích hoạt hiệu ứng chữ cho dự án thứ hai
-      // -----------------------------------------------------------------------
-      // Di chuyển khối 3D đầu tiên ra khỏi màn hình sang trái
-      masterTl.to(planes[0].position, {
-        x: -9,
-        z: -2,
-        ease: 'power2.in',
-        duration: 25,
-      }, 60);
-
-      masterTl.to(planes[0].rotation, {
-        y: 0.5,
-        ease: 'power2.in',
-        duration: 25,
-      }, 60);
-
-      masterTl.to(planes[0].material, {
-        opacity: 0,
-        duration: 18,
-      }, 65);
-
-      // Thu gọn thông tin dự án 1 sang trái
-      masterTl.to('.proj-content-1, .proj-meta-1', {
-        opacity: 0,
-        x: -25,
-        duration: 8,
-        ease: 'power1.in',
-      }, 60);
-
-      // Di chuyển khối 3D thứ hai từ phía sau (z: -10) vào giữa màn hình (z: 0)
-      masterTl.fromTo(planes[1].position,
-        { x: 3.5, y: 0, z: -10 },
-        { x: 0, y: 0, z: 0, ease: 'power2.out', duration: 25 },
-        65
-      );
-
-      masterTl.fromTo(planes[1].rotation,
-        { x: -0.06, y: 0.35, z: -0.02 },
-        { x: 0.05, y: -0.16, z: 0.02, ease: 'power2.out', duration: 25 },
-        65
-      );
-
-      masterTl.fromTo(planes[1].material,
-        { opacity: 0 },
-        { opacity: 1, duration: 20 },
-        65
-      );
-
-      // Kích hoạt hiển thị khung thông tin dự án thứ hai
-      masterTl.to('.proj-content-2, .proj-meta-2', {
-        opacity: 1,
-        duration: 0.1,
-      }, 70);
-
-      // Kích hoạt hiệu ứng "gõ chữ" cho dự án thứ hai
-      masterTl.from(titleChars2, {
-        opacity: 0,
-        y: 14,
-        stagger: 0.35,
+      masterTimeline.to(heroPrismGroup.scale, {
+        x: 1.0,
+        y: 1.0,
+        z: 1.0,
         duration: 12,
+        ease: 'power2.out',
+      }, 88);
+
+      masterTimeline.to('#brand-ghost-title', {
+        scale: 0.85,
+        opacity: 0.35,
+        duration: 10,
+        ease: 'power2.out',
+      }, 89);
+
+      masterTimeline.to(hero3DTextMat, {
+        opacity: 0.85,
+        duration: 10,
+        ease: 'power2.out',
+      }, 89);
+
+      masterTimeline.to('#outro-message', {
+        opacity: 1,
+        duration: 10,
         ease: 'power1.out',
-      }, 70);
+      }, 91);
 
-      masterTl.from(descChars2, {
-        opacity: 0,
-        stagger: 0.09,
-        duration: 16,
-        ease: 'none',
-      }, 78);
-
-      masterTl.from('.proj-meta-2', {
-        opacity: 0,
-        y: 8,
-        duration: 8,
-        ease: 'power1.out',
-      }, 70);
-
-      // Đảm bảo timeline chạm đúng mốc 100% khi cuộn hết #scroll-track
-      masterTl.to({}, { duration: 0.001 }, 100);
+      masterTimeline.to({}, { duration: 0.001 }, 100);
 
       // =======================================================================
-      // RESIZE VÀ CLEANUP TRÊN ASTRO
+      // 9. BẢNG ĐIỀU KHIỂN TWEAKPANE (SHADER TELEMETRY THỜI GIAN THỰC)
       // =======================================================================
-      const handleResize = () => {
+      const tweakpaneTarget = document.getElementById('tweakpane-target');
+      if (tweakpaneTarget) {
+        const pane = new Pane({
+          container: tweakpaneTarget,
+          title: '3D SHADER TELEMETRY',
+          expanded: true,
+        });
+
+        const fPrism = pane.addFolder({ title: 'Liquid Prism Optics', expanded: true });
+        fPrism.addBinding(prismParams, 'roughness', { min: 0.0, max: 0.5, step: 0.01, label: 'Roughness' })
+          .on('change', (ev) => { glassMaterial.roughness = ev.value; });
+        fPrism.addBinding(prismParams, 'dispersion', { min: 0.0, max: 10.0, step: 0.1, label: 'Dispersion' })
+          .on('change', (ev) => { glassMaterial.dispersion = ev.value; });
+        fPrism.addBinding(prismParams, 'ior', { min: 1.0, max: 2.4, step: 0.01, label: 'IOR Index' })
+          .on('change', (ev) => { glassMaterial.ior = ev.value; });
+        fPrism.addBinding(prismParams, 'transmission', { min: 0.0, max: 1.0, step: 0.01, label: 'Transmission' })
+          .on('change', (ev) => { glassMaterial.transmission = ev.value; });
+        fPrism.addBinding(prismParams, 'color', { label: 'Glass Tint' })
+          .on('change', (ev) => { glassMaterial.color.set(ev.value); });
+
+        const fSpatial = pane.addFolder({ title: 'Spatial Curves & CRT', expanded: false });
+        fSpatial.addBinding(prismParams, 'curvature', { min: 0.0, max: 1.0, step: 0.05, label: 'Curvature' })
+          .on('change', (ev) => {
+            const curveDepth = ev.value;
+            const pos = cardGeometry.attributes.position;
+            const halfW = 6.4 / 2;
+            for (let i = 0; i < pos.count; i++) {
+              const x = pos.getX(i);
+              const normX = x / halfW;
+              pos.setZ(i, (normX * normX) * curveDepth);
+            }
+            pos.needsUpdate = true;
+            cardGeometry.computeVertexNormals();
+          });
+        fSpatial.addBinding(prismParams, 'noiseScale', { min: 0.1, max: 2.0, step: 0.1, label: 'Noise Scale' })
+          .on('change', (ev) => {
+            particleMat.size = 0.05 * ev.value;
+            particleMat.needsUpdate = true;
+          });
+
+        // Nút thu gọn / mở rộng Tweakpane
+        const toggleBtn = document.getElementById('toggle-tweakpane');
+        const toggleIcon = document.getElementById('tweakpane-icon');
+        let isTweakpaneOpen = true;
+
+        if (toggleBtn && toggleIcon) {
+          toggleBtn.addEventListener('click', () => {
+            isTweakpaneOpen = !isTweakpaneOpen;
+            tweakpaneTarget.style.display = isTweakpaneOpen ? 'block' : 'none';
+            toggleIcon.textContent = isTweakpaneOpen ? '[–]' : '[+]';
+          });
+        }
+      }
+
+      // =======================================================================
+      // 10. RESIZE & CLEANUP
+      // =======================================================================
+      const onResize = () => {
         const width = window.innerWidth;
         const height = window.innerHeight;
-
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
-
         renderer.setSize(width, height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
         ScrollTrigger.refresh();
       };
-
-      window.addEventListener('resize', handleResize);
+      window.addEventListener('resize', onResize);
 
       document.addEventListener('astro:before-swap', () => {
-        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('resize', onResize);
         gsap.ticker.remove(renderThree);
-        masterTl.kill();
+        masterTimeline.kill();
         ScrollTrigger.getAll().forEach((st) => st.kill());
         renderer.dispose();
-        planeGeometry.dispose();
+        triangleGeo.dispose();
+        glassMaterial.dispose();
+        cardGeometry.dispose();
         particleGeo.dispose();
         particleMat.dispose();
       });

@@ -1,11 +1,13 @@
 ---
 // src/components/ThreeCanvas.astro
-// Fixed background Three.js scene with a slowly rotating 3D geometry and responsive handling
+// Fixed Pinned WebGL Stage - Alche.studio Benchmark
+// Features: Hollow Liquid Glass Triangle Prism (MeshPhysicalMaterial with transmission, roughness 0.04, dispersion 6.0),
+// harmonic motion phase offset \theta_y(t) = 0.25t, y(t) = \sin(1.4t + 1.2) * 0.18, and camera mouse damping.
 ---
 
 <div
   id="three-container"
-  class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-85"
+  class="fixed inset-0 pointer-events-none z-1 overflow-hidden w-screen h-screen"
   aria-hidden="true"
 >
   <canvas id="three-canvas" class="w-full h-full block"></canvas>
@@ -13,154 +15,177 @@
 
 <script>
   import * as THREE from 'three';
+  import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
   const canvas = document.getElementById('three-canvas') as HTMLCanvasElement | null;
 
   if (canvas) {
-    // 1. Tạo Scene
+    // 1. Scene & Dark Immersive Background
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
 
-    // 2. Tạo Camera (PerspectiveCamera)
+    // 2. Camera
     const camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      100
     );
-    camera.position.z = 12;
+    camera.position.set(0, 0, 8.5);
 
-    // 3. Tạo WebGLRenderer
+    // 3. Renderer with high performance & tone mapping
     const renderer = new THREE.WebGLRenderer({
       canvas,
-      alpha: true,
       antialias: true,
+      alpha: false,
       powerPreference: 'high-performance',
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.35;
 
-    // 4. Ánh sáng yếu (Dim Lighting)
-    // Ánh sáng môi trường nhẹ
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    // 4. Room Environment for Physical Glass Transmission & Reflections
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+    const roomEnv = new RoomEnvironment();
+    scene.environment = pmremGenerator.fromScene(roomEnv, 0.04).texture;
+
+    // 5. Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
-    // Ánh sáng định hướng chính (Accent xanh chanh #d7ff00)
-    const directionalLight1 = new THREE.DirectionalLight(0xd7ff00, 1.5);
-    directionalLight1.position.set(6, 8, 5);
-    scene.add(directionalLight1);
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 3.2);
+    dirLight1.position.set(6, 8, 7);
+    scene.add(dirLight1);
 
-    // Ánh sáng định hướng phụ (Điểm nhấn bóng tối dịu)
-    const directionalLight2 = new THREE.DirectionalLight(0x444444, 0.8);
-    directionalLight2.position.set(-6, -6, -3);
-    scene.add(directionalLight2);
+    const dirLight2 = new THREE.DirectionalLight(0xd7ff00, 2.5);
+    dirLight2.position.set(-7, -4, 5);
+    scene.add(dirLight2);
 
-    // 5. Khối hình học ở trung tâm màn hình (IcosahedronGeometry)
-    // Hình khối mặt phẳng góc cạnh (Flat-shaded Icosahedron)
-    const geometry = new THREE.IcosahedronGeometry(3.2, 1);
-    
-    // Sử dụng MeshStandardMaterial với bề mặt kim loại tối, phản chiếu ánh sáng dịu
-    const material = new THREE.MeshStandardMaterial({
-      color: 0x0d0d0d,
-      roughness: 0.25,
-      metalness: 0.85,
-      flatShading: true,
+    // 6. Extruded Hollow Triangle Liquid Glass Prism (AdolSoft Delta Logo)
+    const shape = new THREE.Shape();
+    const h = 4.2, w = 4.8;
+    shape.moveTo(0, h * 0.6);
+    shape.lineTo(w * 0.5, -h * 0.4);
+    shape.lineTo(-w * 0.5, -h * 0.4);
+    shape.closePath();
+
+    const hole = new THREE.Path();
+    const ih = 2.2, iw = 2.5;
+    hole.moveTo(0, ih * 0.52 - 0.1);
+    hole.lineTo(-iw * 0.5, -ih * 0.44);
+    hole.lineTo(iw * 0.5, -ih * 0.44);
+    hole.closePath();
+    shape.holes.push(hole);
+
+    const triangleGeo = new THREE.ExtrudeGeometry(shape, {
+      depth: 0.85,
+      bevelEnabled: true,
+      bevelThickness: 0.15,
+      bevelSize: 0.12,
+      bevelSegments: 4,
+      curveSegments: 12,
     });
+    triangleGeo.center();
 
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(0, 0, 0); // Đặt chính giữa màn hình
-    scene.add(mesh);
-
-    // Khung lưới viền neon (Wireframe Shell) tạo phong cách không gian Alche.studio
-    const wireframeMaterial = new THREE.MeshBasicMaterial({
-      color: 0xd7ff00,
-      wireframe: true,
+    const glassMaterial = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color(0xffffff),
+      transmission: 1.0,
+      roughness: 0.04,
+      metalness: 0.05,
+      ior: 1.5,
+      thickness: 2.2,
+      dispersion: 6.0,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.04,
       transparent: true,
-      opacity: 0.18,
+      depthWrite: true,
     });
-    const wireframeMesh = new THREE.Mesh(geometry, wireframeMaterial);
-    wireframeMesh.scale.setScalar(1.002);
-    mesh.add(wireframeMesh);
 
-    // Thêm các hạt sao bụi vi mô xung quanh
-    const starsCount = 200;
-    const starsGeometry = new THREE.BufferGeometry();
-    const starPositions = new Float32Array(starsCount * 3);
-    for (let i = 0; i < starsCount * 3; i += 3) {
-      starPositions[i] = (Math.random() - 0.5) * 35;
-      starPositions[i + 1] = (Math.random() - 0.5) * 25;
-      starPositions[i + 2] = (Math.random() - 0.5) * 20;
+    const prismMesh = new THREE.Mesh(triangleGeo, glassMaterial);
+    scene.add(prismMesh);
+
+    // Neon accent wireframe
+    const wireframe = new THREE.LineSegments(
+      new THREE.EdgesGeometry(triangleGeo, 24),
+      new THREE.LineBasicMaterial({ color: 0xd7ff00, transparent: true, opacity: 0.35 })
+    );
+    prismMesh.add(wireframe);
+
+    // 7. Ambient Particle Field
+    const particleCount = 140;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePos = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      particlePos[i] = (Math.random() - 0.5) * 24;
+      particlePos[i + 1] = (Math.random() - 0.5) * 16;
+      particlePos[i + 2] = (Math.random() - 0.5) * 10 - 2;
     }
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-    const starsMaterial = new THREE.PointsMaterial({
-      size: 0.12,
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.05,
       color: 0xd7ff00,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.35,
     });
-    const starPoints = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(starPoints);
+    const particleField = new THREE.Points(particleGeo, particleMat);
+    scene.add(particleField);
 
-    // Tương tác chuột nhẹ nhàng (Parallax Easing)
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
-
-    window.addEventListener('mousemove', (event) => {
-      mouseX = (event.clientX / window.innerWidth - 0.5) * 0.8;
-      mouseY = (event.clientY / window.innerHeight - 0.5) * 0.8;
+    // 8. Mouse Parallax with Damping
+    let mouseX = 0, mouseY = 0, targetCameraX = 0, targetCameraY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
     });
 
-    // 6. Logic tự động Resize theo kích thước cửa sổ (Responsive)
+    // 9. Resize Handling
     const handleResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
-
     window.addEventListener('resize', handleResize);
 
-    // 7. Vòng lặp Render & Xoay khối hình học chậm rãi
+    // 10. Animation Loop: Harmonic Phase Oscillation
     let isRunning = true;
+    const startTime = performance.now();
 
     const animate = () => {
       if (!isRunning) return;
       requestAnimationFrame(animate);
 
-      // Hiệu ứng xoay chậm rãi liên tục
-      mesh.rotation.x += 0.003;
-      mesh.rotation.y += 0.004;
+      const t = (performance.now() - startTime) * 0.001;
 
-      // Xoay nhẹ các hạt bụi xung quanh
-      starPoints.rotation.y += 0.0008;
+      // Camera mouse parallax damping
+      targetCameraX += (mouseX * 0.5 - targetCameraX) * 0.05;
+      targetCameraY += (-mouseY * 0.5 - targetCameraY) * 0.05;
+      camera.position.x = targetCameraX;
+      camera.position.y = targetCameraY;
+      camera.lookAt(0, 0, 0);
 
-      // Gia tốc mượt theo vị trí con trỏ chuột
-      targetX += (mouseX - targetX) * 0.05;
-      targetY += (mouseY - targetY) * 0.05;
+      // Hero Prism harmonic rotation & breathing
+      prismMesh.rotation.y = 0.25 * t;
+      prismMesh.position.y = Math.sin(1.4 * t + 1.2) * 0.18;
 
-      mesh.position.x = targetX * 1.5;
-      mesh.position.y = -targetY * 1.5;
+      particleField.rotation.y = t * 0.015;
 
       renderer.render(scene, camera);
     };
-
     animate();
 
-    // Dọn dẹp tài nguyên khi unmount (nếu có SPA routing)
+    // 11. Cleanup
     document.addEventListener('astro:before-swap', () => {
       isRunning = false;
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
-      geometry.dispose();
-      material.dispose();
-      wireframeMaterial.dispose();
-      starsGeometry.dispose();
-      starsMaterial.dispose();
+      triangleGeo.dispose();
+      glassMaterial.dispose();
+      particleGeo.dispose();
+      particleMat.dispose();
     });
   }
 </script>
