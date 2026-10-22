@@ -12,7 +12,7 @@
   --color-dark-surface: #121212;
   --color-dark-border: #1f1f1f;
   --color-dark-muted: #808080;
-  --font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Space Grotesk', 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 @layer base {

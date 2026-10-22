@@ -1,27 +1,35 @@
 ---
-// Interactive Three.js background canvas inspired by alche.studio
+// src/components/ThreeCanvas.astro
+// Fixed background Three.js scene with a slowly rotating 3D geometry and responsive handling
 ---
 
-<div id="three-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
+<div
+  id="three-container"
+  class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-85"
+  aria-hidden="true"
+>
   <canvas id="three-canvas" class="w-full h-full block"></canvas>
 </div>
 
 <script>
   import * as THREE from 'three';
 
-  const container = document.getElementById('three-container');
   const canvas = document.getElementById('three-canvas') as HTMLCanvasElement | null;
 
-  if (container && canvas) {
+  if (canvas) {
+    // 1. Tạo Scene
     const scene = new THREE.Scene();
+
+    // 2. Tạo Camera (PerspectiveCamera)
     const camera = new THREE.PerspectiveCamera(
-      60,
+      45,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
-    camera.position.z = 24;
+    camera.position.z = 12;
 
+    // 3. Tạo WebGLRenderer
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
@@ -31,93 +39,128 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Particle constellation
-    const particleCount = 450;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
+    // 4. Ánh sáng yếu (Dim Lighting)
+    // Ánh sáng môi trường nhẹ
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
 
-    const limeColor = new THREE.Color('#d7ff00');
-    const whiteColor = new THREE.Color('#ffffff');
-    const darkColor = new THREE.Color('#333333');
+    // Ánh sáng định hướng chính (Accent xanh chanh #d7ff00)
+    const directionalLight1 = new THREE.DirectionalLight(0xd7ff00, 1.5);
+    directionalLight1.position.set(6, 8, 5);
+    scene.add(directionalLight1);
 
-    for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 60;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
+    // Ánh sáng định hướng phụ (Điểm nhấn bóng tối dịu)
+    const directionalLight2 = new THREE.DirectionalLight(0x444444, 0.8);
+    directionalLight2.position.set(-6, -6, -3);
+    scene.add(directionalLight2);
 
-      // Color distribution: mostly subtle white/dark with electric lime highlights
-      const rand = Math.random();
-      const chosenColor = rand > 0.85 ? limeColor : rand > 0.4 ? darkColor : whiteColor;
-      colors[i * 3] = chosenColor.r;
-      colors[i * 3 + 1] = chosenColor.g;
-      colors[i * 3 + 2] = chosenColor.b;
-    }
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const material = new THREE.PointsMaterial({
-      size: 0.22,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.8,
+    // 5. Khối hình học ở trung tâm màn hình (IcosahedronGeometry)
+    // Hình khối mặt phẳng góc cạnh (Flat-shaded Icosahedron)
+    const geometry = new THREE.IcosahedronGeometry(3.2, 1);
+    
+    // Sử dụng MeshStandardMaterial với bề mặt kim loại tối, phản chiếu ánh sáng dịu
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x0d0d0d,
+      roughness: 0.25,
+      metalness: 0.85,
+      flatShading: true,
     });
 
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(0, 0, 0); // Đặt chính giữa màn hình
+    scene.add(mesh);
 
-    // Subtle geometric floating wireframe mesh (Icosahedron)
-    const meshGeometry = new THREE.IcosahedronGeometry(7.5, 2);
-    const meshMaterial = new THREE.MeshBasicMaterial({
+    // Khung lưới viền neon (Wireframe Shell) tạo phong cách không gian Alche.studio
+    const wireframeMaterial = new THREE.MeshBasicMaterial({
       color: 0xd7ff00,
       wireframe: true,
       transparent: true,
-      opacity: 0.12,
+      opacity: 0.18,
     });
-    const floatingMesh = new THREE.Mesh(meshGeometry, meshMaterial);
-    floatingMesh.position.set(10, -2, -5);
-    scene.add(floatingMesh);
+    const wireframeMesh = new THREE.Mesh(geometry, wireframeMaterial);
+    wireframeMesh.scale.setScalar(1.002);
+    mesh.add(wireframeMesh);
 
-    // Mouse tracking for parallax
+    // Thêm các hạt sao bụi vi mô xung quanh
+    const starsCount = 200;
+    const starsGeometry = new THREE.BufferGeometry();
+    const starPositions = new Float32Array(starsCount * 3);
+    for (let i = 0; i < starsCount * 3; i += 3) {
+      starPositions[i] = (Math.random() - 0.5) * 35;
+      starPositions[i + 1] = (Math.random() - 0.5) * 25;
+      starPositions[i + 2] = (Math.random() - 0.5) * 20;
+    }
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    const starsMaterial = new THREE.PointsMaterial({
+      size: 0.12,
+      color: 0xd7ff00,
+      transparent: true,
+      opacity: 0.4,
+    });
+    const starPoints = new THREE.Points(starsGeometry, starsMaterial);
+    scene.add(starPoints);
+
+    // Tương tác chuột nhẹ nhàng (Parallax Easing)
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
 
-    window.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX - window.innerWidth / 2) * 0.0012;
-      mouseY = (e.clientY - window.innerHeight / 2) * 0.0012;
+    window.addEventListener('mousemove', (event) => {
+      mouseX = (event.clientX / window.innerWidth - 0.5) * 0.8;
+      mouseY = (event.clientY / window.innerHeight - 0.5) * 0.8;
     });
 
-    // Resize handling
-    const onResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+    // 6. Logic tự động Resize theo kích thước cửa sổ (Responsive)
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
-    window.addEventListener('resize', onResize);
 
-    // Render loop
-    const startTime = performance.now();
+    window.addEventListener('resize', handleResize);
+
+    // 7. Vòng lặp Render & Xoay khối hình học chậm rãi
+    let isRunning = true;
+
     const animate = () => {
+      if (!isRunning) return;
       requestAnimationFrame(animate);
-      const elapsedTime = (performance.now() - startTime) * 0.001;
 
-      // Parallax easing
+      // Hiệu ứng xoay chậm rãi liên tục
+      mesh.rotation.x += 0.003;
+      mesh.rotation.y += 0.004;
+
+      // Xoay nhẹ các hạt bụi xung quanh
+      starPoints.rotation.y += 0.0008;
+
+      // Gia tốc mượt theo vị trí con trỏ chuột
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;
 
-      particles.rotation.y = elapsedTime * 0.03 + targetX * 1.5;
-      particles.rotation.x = targetY * 1.5;
-
-      floatingMesh.rotation.x = elapsedTime * 0.08;
-      floatingMesh.rotation.y = elapsedTime * 0.1;
-      floatingMesh.position.y = -2 + Math.sin(elapsedTime * 0.8) * 0.5;
+      mesh.position.x = targetX * 1.5;
+      mesh.position.y = -targetY * 1.5;
 
       renderer.render(scene, camera);
     };
 
     animate();
+
+    // Dọn dẹp tài nguyên khi unmount (nếu có SPA routing)
+    document.addEventListener('astro:before-swap', () => {
+      isRunning = false;
+      window.removeEventListener('resize', handleResize);
+      renderer.dispose();
+      geometry.dispose();
+      material.dispose();
+      wireframeMaterial.dispose();
+      starsGeometry.dispose();
+      starsMaterial.dispose();
+    });
   }
 </script>
