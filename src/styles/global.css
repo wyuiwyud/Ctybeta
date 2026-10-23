@@ -67,3 +67,451 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* ========================================================================= */
+/* ALCHE STUDIO × JUNNI CINEMATIC MICRO-INTERACTIONS & COMPONENTS            */
+/* ========================================================================= */
+
+/* 1. SlotButton (Hover text slide-up effect) */
+.SlotButton__button {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.SlotButton__button:hover .SlotButton__text_wrapper {
+  transform: translateY(-100%);
+}
+.SlotButton__button:hover .SlotButton__text_hover {
+  opacity: 1;
+}
+.SlotButton__button:hover .SlotButton__text {
+  opacity: 0;
+}
+.SlotButton__text_wrapper {
+  position: relative;
+  display: block;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.SlotButton__text {
+  display: block;
+  color: inherit;
+  transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.SlotButton__text_hover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: block;
+  color: #d7ff00;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 2. SoundToggle & Audio Bars */
+.SoundToggle__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  width: 36px;
+  height: 36px;
+  transition: all 0.3s ease;
+}
+.SoundToggle__button:hover {
+  border-color: #d7ff00;
+  box-shadow: 0 0 12px rgba(215, 255, 0, 0.25);
+}
+.SoundToggle__sound_bars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 14px;
+}
+.SoundToggle__bar {
+  width: 2px;
+  height: 4px;
+  background-color: #888888;
+  border-radius: 1px;
+  transition: background-color 0.3s ease, height 0.2s ease;
+}
+.SoundToggle__button[data-muted="false"] .SoundToggle__bar {
+  background-color: #d7ff00;
+  animation: soundBarPulse 1s ease-in-out infinite alternate;
+}
+.SoundToggle__button[data-muted="false"] .SoundToggle__bar:nth-child(1) {
+  animation-delay: 0s;
+  height: 8px;
+}
+.SoundToggle__button[data-muted="false"] .SoundToggle__bar:nth-child(2) {
+  animation-delay: 0.25s;
+  height: 14px;
+}
+.SoundToggle__button[data-muted="false"] .SoundToggle__bar:nth-child(3) {
+  animation-delay: 0.5s;
+  height: 6px;
+}
+@keyframes soundBarPulse {
+  0% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1.0); }
+  100% { transform: scaleY(0.4); }
+}
+
+/* 3. Vertical Explore Hint */
+.KV__scrollText {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.2em;
+  font-family: monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #808080;
+  transition: color 0.3s ease;
+}
+.KV__scrollText:hover {
+  color: #d7ff00;
+}
+
+/* 4. TopScrollIndicator (Right Side Section Track) */
+.TopScrollIndicator__top_scroll_indicator {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 35;
+  pointer-events: auto;
+  user-select: none;
+}
+@media (max-width: 768px) {
+  .TopScrollIndicator__top_scroll_indicator {
+    display: none;
+  }
+}
+.TopScrollIndicator__section_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.TopScrollIndicator__section_item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+.TopScrollIndicator__section_item.active {
+  opacity: 1;
+}
+.TopScrollIndicator__section_main {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.TopScrollIndicator__section_label {
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+.TopScrollIndicator__section_item.active .TopScrollIndicator__section_label {
+  color: #d7ff00;
+  font-weight: bold;
+}
+.TopScrollIndicator__section_line {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.TopScrollIndicator__section_bar {
+  width: 16px;
+  height: 1px;
+  background-color: #444;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.TopScrollIndicator__section_item.active .TopScrollIndicator__section_bar {
+  width: 28px;
+  background-color: #d7ff00;
+}
+.TopScrollIndicator__subsection_list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-right: 2px;
+}
+.TopScrollIndicator__subsection_line {
+  width: 6px;
+  height: 1px;
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+.TopScrollIndicator__subsection_item.active .TopScrollIndicator__subsection_line {
+  width: 12px;
+  background-color: #d7ff00;
+}
+
+/* 5. SoundIntro Modal */
+.SoundIntro__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  padding: 1.5rem;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.SoundIntro__overlay[data-state="hidden"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.SoundIntro__panel {
+  max-width: 440px;
+  width: 100%;
+  background: rgba(12, 12, 14, 0.95);
+  border: 1px solid rgba(215, 255, 0, 0.3);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(215, 255, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.SoundIntro__rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d7ff00, transparent);
+}
+.SoundIntro__label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #d7ff00;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.SoundIntro__marker {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #d7ff00;
+  box-shadow: 0 0 8px #d7ff00;
+}
+.SoundIntro__text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #cccccc;
+  margin-bottom: 1.5rem;
+}
+.SoundIntro__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+@media (min-width: 480px) {
+  .SoundIntro__actions {
+    flex-direction: row;
+  }
+}
+.SoundIntro__accept {
+  flex: 1;
+  background: #d7ff00;
+  color: #000;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+.SoundIntro__accept:hover {
+  background: #fff;
+  box-shadow: 0 0 16px rgba(215, 255, 0, 0.5);
+}
+.SoundIntro__decline {
+  flex: 1;
+  background: transparent;
+  color: #888;
+  border: 1px solid #333;
+  font-family: monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+.SoundIntro__decline:hover {
+  color: #fff;
+  border-color: #666;
+}
+
+/* 6. Text Highlight Markers (Alche Mission/Vision) */
+.MissionVision__marker {
+  position: relative;
+  display: inline;
+}
+.MissionVision__marker::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.1em;
+  width: 100%;
+  height: 0.25em;
+  background-color: rgba(215, 255, 0, 0.35);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.MissionVision__marker.highlight::after {
+  transform: scaleX(1);
+}
+
+/* 7. Stellla Optical Target Frame */
+.Stellla__cross {
+  position: absolute;
+  inset: -12px;
+  pointer-events: none;
+}
+.Stellla__cross_item {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+}
+.Stellla__cross_item:nth-child(1) {
+  top: 0; left: 0;
+  border-top: 2px solid #d7ff00;
+  border-left: 2px solid #d7ff00;
+}
+.Stellla__cross_item:nth-child(2) {
+  top: 0; right: 0;
+  border-top: 2px solid #d7ff00;
+  border-right: 2px solid #d7ff00;
+}
+.Stellla__cross_item:nth-child(3) {
+  bottom: 0; left: 0;
+  border-bottom: 2px solid #d7ff00;
+  border-left: 2px solid #d7ff00;
+}
+.Stellla__cross_item:nth-child(4) {
+  bottom: 0; right: 0;
+  border-bottom: 2px solid #d7ff00;
+  border-right: 2px solid #d7ff00;
+}
+
+/* ========================================================================= */
+/* 8. OPTICAL VIGNETTE & CRT GRAIN OVERLAYS                                  */
+/* ========================================================================= */
+.stage-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(4, 4, 7, 0.92) 100%);
+  pointer-events: none;
+}
+
+.stage-crt-grain {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%),
+              linear-gradient(90deg, rgba(200, 255, 0, 0.015), rgba(0, 240, 255, 0.012), rgba(255, 0, 100, 0.012));
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+/* ========================================================================= */
+/* 9. CAD ARCHITECTURAL PRELOADER (Matches ảnh_8.jpg)                       */
+/* ========================================================================= */
+#cad-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: #040407;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.85s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.85s ease;
+}
+
+#cad-preloader.loaded {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cad-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ========================================================================= */
+/* 10. SPATIAL GLASSMORPHIC MODAL DRAWERS (ROI & Nesting Lab, Blueprint)    */
+/* ========================================================================= */
+.spatial-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  background: rgba(4, 4, 7, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+}
+
+.spatial-drawer.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.spatial-drawer-panel {
+  width: 100%;
+  max-width: 920px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: rgba(12, 16, 24, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 30px rgba(200, 255, 0, 0.08);
+  transform: scale(0.96) translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spatial-drawer.open .spatial-drawer-panel {
+  transform: scale(1) translateY(0);
+}

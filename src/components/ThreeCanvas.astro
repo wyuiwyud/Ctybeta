@@ -1,191 +1,1212 @@
 ---
 // src/components/ThreeCanvas.astro
-// Fixed Pinned WebGL Stage - Alche.studio Benchmark
-// Features: Hollow Liquid Glass Triangle Prism (MeshPhysicalMaterial with transmission, roughness 0.04, dispersion 6.0),
-// harmonic motion phase offset \theta_y(t) = 0.25t, y(t) = \sin(1.4t + 1.2) * 0.18, and camera mouse damping.
+// Core 3D Spatial Storytelling Engine (Alche Studio & Junni Benchmark)
+// Fixes:
+// 1. "A" Monolith Prism with notched feet, triangular aperture, frost normal map, and in-scene refracted ADOLSOFT text.
+// 2. Vault cylinder with flipped horizontal coordinate (fixes TFOSLODA mirror bug), fine grid, and morphing HERO -> WORKS shader.
+// 3. UI Collision Fix: Bottom-left reserved exclusively for Tweakpane; Bottom-right reserved for active domain HUD & news stream.
+// 4. 6 Curved domain cards with cylindrical vertex shader curve, edge chromatic aberration, rainbow rim, and floor reflections.
+// 5. Interactive Raycaster, pointer parallax, and top-right Quaternion Gizmo 2D canvas synchronization.
 ---
+<!-- LAYER 1: FIXED WEBGL STORYTELLING STAGE -->
+<div id="webgl-stage-wrapper" class="fixed inset-0 w-screen h-screen z-[1] overflow-hidden pointer-events-auto">
+  <canvas id="alche-webgl-canvas" class="w-full h-full block"></canvas>
+  <!-- Deep Optical Vignette Overlay (Matches ảnh_3.jpg & ảnh_7.jpg) -->
+  <div class="stage-vignette pointer-events-none"></div>
+  <!-- Subtle CRT Scanline & Film Grain Overlay -->
+  <div class="stage-crt-grain pointer-events-none"></div>
+</div>
 
+<!-- LAYER 2: OPTICAL DIFFERENCE BLEND WATERMARK (Scales down into Ghost Layer on scroll) -->
 <div
-  id="three-container"
-  class="fixed inset-0 pointer-events-none z-1 overflow-hidden w-screen h-screen"
-  aria-hidden="true"
+  id="optical-ghost-layer"
+  class="fixed inset-0 z-[2] flex flex-col items-center justify-center pointer-events-none select-none opacity-0 transition-opacity duration-700"
 >
-  <canvas id="three-canvas" class="w-full h-full block"></canvas>
+  <h1
+    id="ghost-brand-word"
+    class="font-['Syne'] font-extrabold text-white tracking-[-0.03em] leading-none text-center"
+    style="font-size: clamp(3.6rem, 12.5vw, 13.5rem); mix-blend-mode: difference;"
+  >
+    ADOLSOFT
+  </h1>
+  <p
+    id="ghost-brand-sub"
+    class="mt-4 font-mono text-[10px] md:text-[11px] tracking-[0.32em] text-white/60 uppercase"
+    style="mix-blend-mode: difference;"
+  >
+    [ LIQUID PRISM REFRACTION ENGINE // ZERO WASTE AI ]
+  </p>
+</div>
+
+<!-- LAYER 3: NON-COLLIDING FOREGROUND HUD -->
+<!-- Bottom-Left Exclusive Zone: Tweakpane Shader Telemetry (Matches ảnh_7.jpg) -->
+<div
+  id="tweakpane-Anchor"
+  class="fixed bottom-6 left-6 z-[110] pointer-events-auto w-[275px]"
+>
+  <div class="flex items-center justify-between px-3 py-1.5 mb-1 rounded bg-black/75 border border-white/15 backdrop-blur-md font-mono text-[10px] tracking-[0.14em]">
+    <span class="flex items-center gap-2 text-[#c8ff00]">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#c8ff00]"></span>
+      MainLogo Material
+    </span>
+    <button id="toggle-tweakpane-btn" type="button" class="text-white/60 hover:text-white px-1 cursor-pointer">
+      [–]
+    </button>
+  </div>
+  <div id="tweakpane-mount" class="transition-all duration-300 origin-bottom-left"></div>
+</div>
+
+<!-- Bottom-Right Exclusive Zone: Active Domain Split-Text Typewriter & News HUD (Zero collision with Tweakpane!) -->
+<div
+  id="domain-hud-panel"
+  class="fixed bottom-6 right-6 md:right-10 z-[110] pointer-events-none flex flex-col items-end text-right max-w-md"
+>
+  <!-- Hero Phase News Stream (Matches bottom-right of ảnh_7.jpg) -->
+  <div id="hero-news-stream" class="pointer-events-auto flex flex-col items-end gap-2.5 bg-black/50 border border-white/10 backdrop-blur-md p-4 rounded-lg transition-all duration-500">
+    <div class="font-mono text-[10px] tracking-[0.22em] text-[#c8ff00] uppercase border-b border-white/15 pb-1 w-full text-left flex justify-between">
+      <span>TELEMETRY // NEWS</span>
+      <span class="text-white/40">LIVE</span>
+    </div>
+    <button type="button" data-open-drawer="roi-lab" class="text-left group w-full cursor-pointer">
+      <span class="font-mono text-[9.5px] text-white/45 block">2026.10 // PRODUCTION RELEASE</span>
+      <span class="text-xs text-white/85 group-hover:text-[#c8ff00] transition-colors block">
+        AI Print-Cut đạt tốc độ Nesting 14.2s — Tiết kiệm 12.5% Decal ↗
+      </span>
+    </button>
+    <button type="button" data-open-drawer="founder-architect" class="text-left group w-full cursor-pointer">
+      <span class="font-mono text-[9.5px] text-white/45 block">2026.08 // NATIONAL RECOGNITION</span>
+      <span class="text-xs text-white/85 group-hover:text-[#c8ff00] transition-colors block">
+        Founder Lê Trường Duy — Top 250 AI Young Guru Toàn Quốc ↗
+      </span>
+    </button>
+  </div>
+
+  <!-- Works Phase Split-Text Stagger HUD (Appears when scrolling into 3D Cards) -->
+  <div
+    id="active-work-hud"
+    class="pointer-events-auto opacity-0 translate-y-4 transition-all duration-500 bg-black/70 border border-white/15 backdrop-blur-xl p-5 rounded-xl shadow-2xl w-full sm:w-[390px] text-left mt-2 hidden"
+  >
+    <div class="flex items-center justify-between font-mono text-[10px] tracking-[0.18em] text-[#c8ff00] mb-1.5">
+      <span id="hud-work-code">● 01 // DOMAIN SPECIFICATION</span>
+      <span id="hud-work-metric" class="px-2 py-0.5 rounded bg-[#1a8c4a]/25 border border-[#1a8c4a] text-[#6ee7b7]">
+        94.8% YIELD
+      </span>
+    </div>
+
+    <h2
+      id="hud-work-title"
+      class="font-['Syne'] font-extrabold text-2xl md:text-3xl text-white tracking-tight leading-tight overflow-hidden"
+    >
+      AI PRINT-CUT
+    </h2>
+
+    <p
+      id="hud-work-desc"
+      class="mt-2 font-mono text-[11px] leading-relaxed text-white/70 min-h-[36px]"
+    >
+      Industrial Edge Detection & Genetic Auto-Nesting Engine
+    </p>
+
+    <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+      <button
+        type="button"
+        id="hud-inspect-btn"
+        class="px-3.5 py-1.5 rounded-full bg-[#1a8c4a] hover:bg-[#4caf50] text-white font-mono text-[10px] font-bold tracking-[0.12em] uppercase transition-all cursor-pointer"
+      >
+        Inspect Blueprint ↗
+      </button>
+      <div class="flex items-center gap-1.5">
+        <button
+          type="button"
+          id="hud-prev-btn"
+          class="w-7 h-7 rounded-full border border-white/20 hover:border-[#c8ff00] text-white text-xs flex items-center justify-center transition-colors cursor-pointer"
+          title="Previous Domain"
+        >
+          ←
+        </button>
+        <button
+          type="button"
+          id="hud-next-btn"
+          class="w-7 h-7 rounded-full border border-white/20 hover:border-[#c8ff00] text-white text-xs flex items-center justify-center transition-colors cursor-pointer"
+          title="Next Domain"
+        >
+          →
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
   import * as THREE from 'three';
   import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import Lenis from 'lenis';
+  import { Pane } from 'tweakpane';
 
-  const canvas = document.getElementById('three-canvas') as HTMLCanvasElement | null;
+  gsap.registerPlugin(ScrollTrigger);
 
+  // ============================================================================
+  // 1. ADOLSOFT 6 CORE TECHNOLOGY DOMAINS DATA (VERIFIED BENCHMARKS)
+  // ============================================================================
+  export interface DomainItem {
+    id: string;
+    index: string;
+    title: string;
+    subtitle: string;
+    category: string;
+    metric: string;
+    accent: string;
+    secondary: string;
+    summary: string;
+    specs: string[];
+    roiImpact: string;
+  }
+
+  const ADOLSOFT_DOMAINS: DomainItem[] = [
+    {
+      id: 'ai-print-cut',
+      index: '01',
+      title: 'AI PRINT-CUT',
+      subtitle: 'Computer Vision Contour & Genetic Auto-Nesting',
+      category: 'INDUSTRIAL AUTOMATION CORE',
+      metric: '15s vs 45m | -12.5% WASTE',
+      accent: '#c8ff00',
+      secondary: '#1a8c4a',
+      summary:
+        'Phần mềm Desktop tự động nhận diện biên dạng tem nhãn (Auto-Contour), bù tràn lề (Auto-Bleed), gắn điểm định vị quang học và xếp khít bằng Giải thuật Di truyền chạy 100% Offline.',
+      specs: [
+        'Tốc độ xử lý tiền kỳ: Rút ngắn từ 45 phút xuống 14.2 giây/bình trang',
+        'Độ phủ vật liệu trung bình: 94.8% (Tiết kiệm 10–15% Decal/Bạt/PP)',
+        'Xuất trực tiếp PDF/DXF/PLT cho máy Mimaki, Graphtec, Roland, máy Trung Quốc'
+      ],
+      roiImpact: 'Thu hồi 100% vốn bản quyền Gói Standard (6–8 triệu/năm) chỉ sau 1.5 tháng.'
+    },
+    {
+      id: 'ai-os-edge',
+      index: '02',
+      title: 'AI OS EDGE',
+      subtitle: 'Zero-Cloud Factory Operating System & IoT Kernel',
+      category: 'EDGE COMPUTING ARCHITECTURE',
+      metric: '100% OFFLINE | <2ms LATENCY',
+      accent: '#00f0ff',
+      secondary: '#3b82f6',
+      summary:
+        'Hệ điều hành AI cục bộ triển khai trực tiếp tại xưởng sản xuất, điều phối hàng đợi máy in/máy cắt bế qua giao thức công nghiệp không cần kết nối Internet.',
+      specs: [
+        'Bảo mật tuyệt đối mẫu thiết kế độc quyền của khách hàng B2B',
+        'Đồng bộ trạng thái đầu cắt & áp lực dao bế theo thời gian thực',
+        'Lộ trình thương mại hóa bản Prototype: Q3/2027'
+      ],
+      roiImpact: 'Giảm 85% thời gian chết (Downtime) khi chuyển đổi lệnh in liên hoàn.'
+    },
+    {
+      id: 'production-telemetry',
+      index: '03',
+      title: 'TELEMETRY ENGINE',
+      subtitle: 'Real-Time Material Yield & Machine OEE Analytics',
+      category: 'PREDICTIVE MANUFACTURING DATA',
+      metric: '99.4% ACCURACY | LIVE OEE',
+      accent: '#10b981',
+      secondary: '#059669',
+      summary:
+        'Hệ thống đo lường và dự báo hao hụt vật tư theo từng ca máy, tự động phát hiện sai lệch mắt thần quang học và cảnh báo bảo trì lưỡi dao cắt.',
+      specs: [
+        'Báo cáo trực quan diện tích mét vuông Decal tiết kiệm theo tuần/tháng',
+        'Giám sát hiệu suất thiết bị tổng thể (OEE) đa dây chuyền',
+        'Cảnh báo sớm lệch trục cắt trước khi hỏng hàng loạt'
+      ],
+      roiImpact: 'Loại bỏ 98% phế phẩm do lỗi cắt lệch đường viền bế.'
+    },
+    {
+      id: 'auto-quotation',
+      index: '04',
+      title: 'AUTO-QUOTATION',
+      subtitle: 'Instant Nesting-Based ERP & Costing Engine',
+      category: 'SME WORKFLOW AUTOMATION',
+      metric: '3s QUOTE | ZERO MARGIN ERROR',
+      accent: '#f59e0b',
+      secondary: '#d97706',
+      summary:
+        'Công cụ báo giá tự động cho xưởng in dựa trên diện tích xếp khuôn thực tế và tổng chiều dài đường đi dao cắt (Cut-Path Length) thay vì ước lượng cảm tính.',
+      specs: [
+        'Tính chính xác chi phí mực in, mét vuông vật tư và thời gian chạy máy',
+        'Khởi tạo phiếu lệnh sản xuất kèm mã QR tra cứu tiến độ đơn hàng',
+        'Tích hợp xuất báo giá nhanh qua Zalo/PDF cho đội ngũ Sales B2B'
+      ],
+      roiImpact: 'Tăng 3.2 lần tốc độ phản hồi báo giá khách hàng sỉ.'
+    },
+    {
+      id: 'combinatorial-rd',
+      index: '05',
+      title: 'COMBINATORIAL R&D',
+      subtitle: '2D/3D Irregular Bin-Packing on Multi-Core GPU',
+      category: 'ALGORITHMIC RESEARCH LAB',
+      metric: 'NFP + GENETIC | GPU CUDA',
+      accent: '#a855f7',
+      secondary: '#7c3aed',
+      summary:
+        'Nghiên cứu chuyên sâu giải thuật No-Fit Polygon (NFP) kết hợp tiến hóa quần thể trên đa luồng CPU/GPU, hợp tác học thuật quốc tế và định hướng Thạc sĩ AI tại Úc.',
+      specs: [
+        'Xử lý đa giác lõm phức tạp có lỗ rỗng với bước xoay vi phân 0.5 độ',
+        'Tối ưu hóa đồng thời bài toán cắt 2D Decal, gỗ CNC và kim loại tấm',
+        'Nền tảng nghiên cứu cốt lõi của Founder Lê Trường Duy'
+      ],
+      roiImpact: 'Vượt hiệu suất sắp xếp thủ công của kỹ thuật viên lành nghề từ 12–18%.'
+    },
+    {
+      id: 'adolsoft-academy',
+      index: '06',
+      title: 'ADOLSOFT ACADEMY',
+      subtitle: 'Applied Industrial AI Training & Digital Transformation',
+      category: 'KNOWLEDGE ECOSYSTEM & SOP',
+      metric: '15,000+ WORKSHOPS TARGET',
+      accent: '#ec4899',
+      secondary: '#db2777',
+      summary:
+        'Chương trình đào tạo chuyển đổi số thực chiến cho các xưởng in ấn quảng cáo Việt Nam và huấn luyện đội ngũ kỹ sư ứng dụng AI trẻ theo chuẩn SOP.',
+      specs: [
+        'Chuyển giao quy trình chuẩn hóa file tiền kỳ chỉ trong 15 phút cài đặt',
+        'Mentorship 1-1 trực tiếp cùng Founder & Ban cố vấn kỹ thuật máy in',
+        'Cơ chế chia sẻ doanh thu và cổ phần ưu đãi ESOP cho thành viên cốt lõi'
+      ],
+      roiImpact: 'Chuẩn hóa tay nghề nhân sự mới tại xưởng in chỉ sau 1 buổi hướng dẫn.'
+    }
+  ];
+
+  (window as any).ADOLSOFT_DOMAINS = ADOLSOFT_DOMAINS;
+
+  // ============================================================================
+  // 2. PROCEDURAL TEXTURES: FROST NORMAL MAP, VAULT TUNNEL & CURVED CARDS
+  // ============================================================================
+  function createFrostNormalTexture(scale = 9.0): THREE.CanvasTexture {
+    const size = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d')!;
+    const imgData = ctx.createImageData(size, size);
+    const data = imgData.data;
+
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const nx = (x / size) * scale;
+        const ny = (y / size) * scale;
+        const n1 = Math.sin(nx * 2.4 + Math.cos(ny * 2.1)) * 0.5;
+        const n2 = Math.cos(nx * 5.7 - Math.sin(ny * 6.3)) * 0.25;
+        const n3 = Math.sin((nx + ny) * 12.0) * 0.125;
+        const grain = (Math.random() - 0.5) * 0.08;
+        const val = Math.floor(((n1 + n2 + n3 + grain) * 0.5 + 0.5) * 255);
+
+        const idx = (y * size + x) * 4;
+        data[idx] = val;
+        data[idx + 1] = Math.max(0, 255 - Math.floor(val * 0.35));
+        data[idx + 2] = 255;
+        data[idx + 3] = 255;
+      }
+    }
+    ctx.putImageData(imgData, 0, 0);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(2, 2);
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  function createVaultWallTexture(mode: 'HERO' | 'WORKS'): THREE.CanvasTexture {
+    const canvas = document.createElement('canvas');
+    canvas.width = 2048;
+    canvas.height = 1024;
+    const ctx = canvas.getContext('2d')!;
+
+    ctx.fillStyle = '#050509';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const grad1 = ctx.createRadialGradient(700, 420, 40, 700, 420, 520);
+    grad1.addColorStop(0, mode === 'HERO' ? 'rgba(65, 50, 145, 0.24)' : 'rgba(26, 140, 74, 0.18)');
+    grad1.addColorStop(1, 'rgba(5, 5, 9, 0)');
+    ctx.fillStyle = grad1;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const grad2 = ctx.createRadialGradient(1350, 580, 40, 1350, 580, 480);
+    grad2.addColorStop(0, mode === 'HERO' ? 'rgba(165, 85, 45, 0.16)' : 'rgba(200, 255, 0, 0.10)');
+    grad2.addColorStop(1, 'rgba(5, 5, 9, 0)');
+    ctx.fillStyle = grad2;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const cols = 32;
+    const rows = 16;
+    const cellW = canvas.width / cols;
+    const cellH = canvas.height / rows;
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.055)';
+    ctx.lineWidth = 1;
+
+    for (let i = 0; i <= cols; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * cellW, 0);
+      ctx.lineTo(i * cellW, canvas.height);
+      ctx.stroke();
+    }
+    for (let j = 0; j <= rows; j++) {
+      ctx.beginPath();
+      ctx.moveTo(0, j * cellH);
+      ctx.lineTo(canvas.width, j * cellH);
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
+    for (let i = 0; i <= cols; i += 2) {
+      for (let j = 0; j <= rows; j += 2) {
+        const cx = i * cellW;
+        const cy = j * cellH;
+        ctx.beginPath();
+        ctx.moveTo(cx - 4, cy);
+        ctx.lineTo(cx + 4, cy);
+        ctx.moveTo(cx, cy - 4);
+        ctx.lineTo(cx, cy + 4);
+        ctx.stroke();
+      }
+    }
+
+    // Đảo ngược trục X (scale -1, 1) để chữ không bị lật ngược trên Three.BackSide
+    ctx.save();
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+
+    if (mode === 'HERO') {
+      ctx.font = '800 105px "Syne", sans-serif';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
+      ctx.textAlign = 'center';
+      for (let row = 1; row < rows; row += 3) {
+        for (let col = 2; col < cols; col += 8) {
+          ctx.fillText('ADOLSOFT', col * cellW, row * cellH + 34);
+        }
+      }
+    } else {
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate(-0.14);
+      ctx.font = '800 310px "Syne", sans-serif';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.11)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('WORKS', 0, 0);
+
+      ctx.strokeStyle = 'rgba(200, 255, 0, 0.14)';
+      ctx.lineWidth = 2;
+      ctx.strokeText('DOMAINS', 0, 230);
+    }
+
+    ctx.restore();
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  function createBackplaneWordTexture(): THREE.CanvasTexture {
+    const canvas = document.createElement('canvas');
+    canvas.width = 2048;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d')!;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = '800 250px "Syne", sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.letterSpacing = '12px';
+    ctx.fillText('ADOLSOFT', canvas.width / 2, canvas.height / 2);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  function createCurvedCardTexture(domain: DomainItem, idx: number): THREE.CanvasTexture {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1280;
+    canvas.height = 820;
+    const ctx = canvas.getContext('2d')!;
+
+    const bgGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    bgGrad.addColorStop(0, '#090d14');
+    bgGrad.addColorStop(0.5, '#0d1520');
+    bgGrad.addColorStop(1, '#06080c');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const aura = ctx.createRadialGradient(880, 380, 30, 880, 380, 480);
+    aura.addColorStop(0, domain.accent + '44');
+    aura.addColorStop(0.55, domain.secondary + '22');
+    aura.addColorStop(1, 'transparent');
+    ctx.fillStyle = aura;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < canvas.width; x += 40) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+    for (let y = 0; y < canvas.height; y += 40) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width, y);
+      ctx.stroke();
+    }
+
+    ctx.save();
+    if (idx === 0) {
+      const shapes = [
+        { x: 740, y: 180, w: 150, h: 95, r: 18 },
+        { x: 915, y: 175, w: 120, h: 120, r: 60 },
+        { x: 1055, y: 185, w: 145, h: 90, r: 14 },
+        { x: 735, y: 300, w: 165, h: 130, r: 22 },
+        { x: 920, y: 315, w: 135, h: 115, r: 16 },
+        { x: 1075, y: 300, w: 125, h: 130, r: 24 },
+        { x: 745, y: 455, w: 210, h: 105, r: 20 },
+        { x: 975, y: 455, w: 220, h: 105, r: 50 }
+      ];
+      shapes.forEach((s, i) => {
+        ctx.fillStyle = i % 2 === 0 ? 'rgba(200, 255, 0, 0.16)' : 'rgba(26, 140, 74, 0.26)';
+        ctx.strokeStyle = i % 2 === 0 ? '#c8ff00' : '#4caf50';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.roundRect(s.x, s.y, s.w, s.h, s.r);
+        ctx.fill();
+        ctx.stroke();
+      });
+    } else if (idx === 1) {
+      const nodes = [
+        [780, 240], [980, 200], [1140, 280],
+        [840, 390], [1040, 370], [920, 520], [1130, 500]
+      ];
+      ctx.strokeStyle = '#00f0ff88';
+      ctx.lineWidth = 2;
+      nodes.forEach(([x1, y1], i) => {
+        nodes.slice(i + 1).forEach(([x2, y2]) => {
+          if (Math.hypot(x2 - x1, y2 - y1) < 260) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          }
+        });
+      });
+      nodes.forEach(([x, y], i) => {
+        ctx.fillStyle = i === 3 ? '#c8ff00' : '#00f0ff';
+        ctx.beginPath();
+        ctx.arc(x, y, 12, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    } else {
+      ctx.strokeStyle = domain.accent;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      for (let x = 680; x <= 1200; x += 8) {
+        const y = 370 + Math.sin((x - 680) * 0.025 + idx) * 95 * Math.cos((x - 680) * 0.008);
+        if (x === 680) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(950, 370, 160, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.strokeStyle = domain.accent;
+    ctx.lineWidth = 3;
+    const m = 38;
+    const len = 28;
+    ctx.beginPath(); ctx.moveTo(m, m + len); ctx.lineTo(m, m); ctx.lineTo(m + len, m); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(canvas.width - m - len, m); ctx.lineTo(canvas.width - m, m); ctx.lineTo(canvas.width - m, m + len); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(m, canvas.height - m - len); ctx.lineTo(m, canvas.height - m); ctx.lineTo(m + len, canvas.height - m); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(canvas.width - m - len, canvas.height - m); ctx.lineTo(canvas.width - m, canvas.height - m); ctx.lineTo(canvas.width - m, canvas.height - m - len); ctx.stroke();
+
+    ctx.font = '600 20px "JetBrains Mono", monospace';
+    ctx.fillStyle = domain.accent;
+    ctx.fillText(`■ ${domain.index} // ${domain.category}`, 76, 98);
+
+    ctx.font = '800 86px "Syne", sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(domain.title, 76, 235);
+
+    ctx.font = '500 26px "Inter", sans-serif';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.78)';
+    ctx.fillText(domain.subtitle, 76, 290);
+
+    ctx.fillStyle = 'rgba(26, 140, 74, 0.28)';
+    ctx.strokeStyle = domain.accent;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(76, 645, 470, 64, 32);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.font = '700 22px "JetBrains Mono", monospace';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(`⚡ ${domain.metric}`, 108, 685);
+
+    ctx.font = '500 18px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillText(`CLICK PANEL TO INSPECT ARCHITECTURE ↗`, 720, 685);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.anisotropy = 4;
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  (window as any).renderDomainBlueprintToCanvas = (domainIndex: number, targetCanvas: HTMLCanvasElement) => {
+    const domain = ADOLSOFT_DOMAINS[domainIndex] || ADOLSOFT_DOMAINS[0];
+    const sourceTex = createCurvedCardTexture(domain, domainIndex);
+    const ctx = targetCanvas.getContext('2d');
+    if (ctx && sourceTex.image) {
+      ctx.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
+      ctx.drawImage(sourceTex.image, 0, 0, targetCanvas.width, targetCanvas.height);
+    }
+  };
+
+  // ============================================================================
+  // 3. INITIALIZE THREE.JS SCENE & COMPONENTS
+  // ============================================================================
+  const canvas = document.getElementById('alche-webgl-canvas') as HTMLCanvasElement;
   if (canvas) {
-    // 1. Scene & Dark Immersive Background
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
-
-    // 2. Camera
-    const camera = new THREE.PerspectiveCamera(
-      45,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      100
-    );
-    camera.position.set(0, 0, 8.5);
-
-    // 3. Renderer with high performance & tone mapping
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
-      alpha: false,
-      powerPreference: 'high-performance',
+      powerPreference: 'high-performance'
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = 1.25;
 
-    // 4. Room Environment for Physical Glass Transmission & Reflections
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('#040407');
+
+    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 120);
+    camera.position.set(0, 0, 9.2);
+
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    pmremGenerator.compileEquirectangularShader();
     const roomEnv = new RoomEnvironment();
-    scene.environment = pmremGenerator.fromScene(roomEnv, 0.04).texture;
+    const envMap = pmremGenerator.fromScene(roomEnv, 0.04).texture;
+    scene.environment = envMap;
 
-    // 5. Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 3.2);
-    dirLight1.position.set(6, 8, 7);
-    scene.add(dirLight1);
+    const warmLight = new THREE.PointLight(0xff7b39, 18, 25);
+    warmLight.position.set(-3.5, 2.2, -1.5);
+    scene.add(warmLight);
 
-    const dirLight2 = new THREE.DirectionalLight(0xd7ff00, 2.5);
-    dirLight2.position.set(-7, -4, 5);
-    scene.add(dirLight2);
+    const violetLight = new THREE.PointLight(0x7c4dff, 20, 25);
+    violetLight.position.set(3.2, -2.4, -1.2);
+    scene.add(violetLight);
 
-    // 6. Extruded Hollow Triangle Liquid Glass Prism (AdolSoft Delta Logo)
-    const shape = new THREE.Shape();
-    const h = 4.2, w = 4.8;
-    shape.moveTo(0, h * 0.6);
-    shape.lineTo(w * 0.5, -h * 0.4);
-    shape.lineTo(-w * 0.5, -h * 0.4);
-    shape.closePath();
+    const cyanRimLight = new THREE.DirectionalLight(0x00f0ff, 2.8);
+    cyanRimLight.position.set(0, 5, 4);
+    scene.add(cyanRimLight);
 
-    const hole = new THREE.Path();
-    const ih = 2.2, iw = 2.5;
-    hole.moveTo(0, ih * 0.52 - 0.1);
-    hole.lineTo(-iw * 0.5, -ih * 0.44);
-    hole.lineTo(iw * 0.5, -ih * 0.44);
-    hole.closePath();
-    shape.holes.push(hole);
+    // --------------------------------------------------------------------------
+    // A. CYLINDRICAL VAULT TUNNEL
+    // --------------------------------------------------------------------------
+    const vaultHeroTex = createVaultWallTexture('HERO');
+    const vaultWorksTex = createVaultWallTexture('WORKS');
 
-    const triangleGeo = new THREE.ExtrudeGeometry(shape, {
-      depth: 0.85,
+    const vaultMat = new THREE.ShaderMaterial({
+      side: THREE.BackSide,
+      depthWrite: false,
+      uniforms: {
+        uTexHero: { value: vaultHeroTex },
+        uTexWorks: { value: vaultWorksTex },
+        uMorph: { value: 0.0 },
+        uTime: { value: 0.0 }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D uTexHero;
+        uniform sampler2D uTexWorks;
+        uniform float uMorph;
+        uniform float uTime;
+        varying vec2 vUv;
+
+        void main() {
+          vec2 uvHero = vec2(vUv.x + uTime * 0.004, vUv.y);
+          vec2 uvWorks = vec2(vUv.x - uTime * 0.006, vUv.y);
+          vec4 colHero = texture2D(uTexHero, uvHero);
+          vec4 colWorks = texture2D(uTexWorks, uvWorks);
+          vec4 finalCol = mix(colHero, colWorks, smoothstep(0.0, 1.0, uMorph));
+          gl_FragColor = finalCol;
+        }
+      `
+    });
+
+    const vaultGeo = new THREE.CylinderGeometry(16, 16, 26, 64, 1, true);
+    const vaultMesh = new THREE.Mesh(vaultGeo, vaultMat);
+    scene.add(vaultMesh);
+
+    // --------------------------------------------------------------------------
+    // B. 3D REFRACTED "ADOLSOFT" BACKPLANE (Z = -2.1 behind Prism)
+    // --------------------------------------------------------------------------
+    const backplaneWordTex = createBackplaneWordTexture();
+    const backplaneWordMat = new THREE.MeshBasicMaterial({
+      map: backplaneWordTex,
+      transparent: true,
+      opacity: 0.96
+    });
+    const backplaneWordMesh = new THREE.Mesh(new THREE.PlaneGeometry(11.2, 2.8), backplaneWordMat);
+    backplaneWordMesh.position.set(0, 0.05, -2.1);
+    scene.add(backplaneWordMesh);
+
+    // --------------------------------------------------------------------------
+    // C. LIQUID GLASS "A" MONOLITH PRISM
+    // --------------------------------------------------------------------------
+    const prismGroup = new THREE.Group();
+    scene.add(prismGroup);
+
+    const aShape = new THREE.Shape();
+    aShape.moveTo(0, 2.35);
+    aShape.lineTo(2.15, -1.85);
+    aShape.lineTo(1.35, -1.95);
+    aShape.lineTo(1.12, -1.55);
+    aShape.lineTo(-1.12, -1.55);
+    aShape.lineTo(-1.35, -1.95);
+    aShape.lineTo(-2.15, -1.85);
+    aShape.closePath();
+
+    const holePath = new THREE.Path();
+    holePath.moveTo(0, 0.62);
+    holePath.lineTo(-0.78, -0.92);
+    holePath.lineTo(0.78, -0.92);
+    holePath.closePath();
+    aShape.holes.push(holePath);
+
+    const extrudeSettings: THREE.ExtrudeGeometryOptions = {
+      depth: 0.72,
       bevelEnabled: true,
-      bevelThickness: 0.15,
-      bevelSize: 0.12,
-      bevelSegments: 4,
-      curveSegments: 12,
-    });
-    triangleGeo.center();
+      bevelSegments: 6,
+      steps: 1,
+      bevelSize: 0.14,
+      bevelThickness: 0.16
+    };
 
-    const glassMaterial = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color(0xffffff),
+    const prismGeo = new THREE.ExtrudeGeometry(aShape, extrudeSettings);
+    prismGeo.center();
+
+    const frostNormalMap = createFrostNormalTexture(9.0);
+
+    const prismMaterial = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color('#ffffff'),
       transmission: 1.0,
-      roughness: 0.04,
-      metalness: 0.05,
-      ior: 1.5,
-      thickness: 2.2,
+      opacity: 1.0,
+      metalness: 0.02,
+      roughness: 0.10,
+      ior: 1.52,
+      thickness: 2.6,
       dispersion: 6.0,
+      envMapIntensity: 2.1,
+      normalMap: frostNormalMap,
+      normalScale: new THREE.Vector2(0.28, 0.28),
       clearcoat: 1.0,
-      clearcoatRoughness: 0.04,
-      transparent: true,
-      depthWrite: true,
+      clearcoatRoughness: 0.06,
+      attenuationColor: new THREE.Color('#e2dcff'),
+      attenuationDistance: 3.5
     });
 
-    const prismMesh = new THREE.Mesh(triangleGeo, glassMaterial);
-    scene.add(prismMesh);
+    const prismMesh = new THREE.Mesh(prismGeo, prismMaterial);
+    prismGroup.add(prismMesh);
 
-    // Neon accent wireframe
-    const wireframe = new THREE.LineSegments(
-      new THREE.EdgesGeometry(triangleGeo, 24),
-      new THREE.LineBasicMaterial({ color: 0xd7ff00, transparent: true, opacity: 0.35 })
-    );
-    prismMesh.add(wireframe);
+    // --------------------------------------------------------------------------
+    // D. 6 CURVED SPATIAL DOMAIN CARDS
+    // --------------------------------------------------------------------------
+    const cardsGroup = new THREE.Group();
+    cardsGroup.position.set(0, -12, 1.8);
+    scene.add(cardsGroup);
 
-    // 7. Ambient Particle Field
-    const particleCount = 140;
-    const particleGeo = new THREE.BufferGeometry();
-    const particlePos = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      particlePos[i] = (Math.random() - 0.5) * 24;
-      particlePos[i + 1] = (Math.random() - 0.5) * 16;
-      particlePos[i + 2] = (Math.random() - 0.5) * 10 - 2;
+    const cardMeshes: THREE.Mesh[] = [];
+    const cardMaterials: THREE.ShaderMaterial[] = [];
+    const cardRadius = 6.2;
+
+    const cardVertexShader = `
+      uniform float uCurvature;
+      uniform float uBendVelocity;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+
+      void main() {
+        vUv = uv;
+        vec3 pos = position;
+        pos.z -= pow(pos.x * 0.45, 2.0) * uCurvature;
+        pos.y += sin(pos.x * 1.4) * uBendVelocity * 0.08;
+        vNormal = normalize(normalMatrix * normal);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+      }
+    `;
+
+    const cardFragmentShader = `
+      uniform sampler2D uTexture;
+      uniform float uAberration;
+      uniform float uOpacity;
+      uniform float uHover;
+      uniform float uTime;
+      varying vec2 vUv;
+
+      void main() {
+        vec2 center = vUv - 0.5;
+        float dist = length(center);
+
+        float edgeMask = smoothstep(0.28, 0.52, dist);
+        vec2 shift = center * edgeMask * (0.018 * uAberration + uHover * 0.012);
+
+        float r = texture2D(uTexture, vUv + shift).r;
+        float g = texture2D(uTexture, vUv).g;
+        float b = texture2D(uTexture, vUv - shift).b;
+        vec3 color = vec3(r, g, b);
+
+        float borderRim = smoothstep(0.47, 0.5, max(abs(center.x), abs(center.y)));
+        vec3 rainbowRim = 0.5 + 0.5 * cos(uTime * 1.5 + vUv.xyx * 6.0 + vec3(0.0, 2.0, 4.0));
+        color += borderRim * rainbowRim * 0.48;
+
+        float scan = sin(vUv.y * 240.0 + uTime * 3.0) * 0.018;
+        color += scan;
+
+        gl_FragColor = vec4(color, uOpacity);
+      }
+    `;
+
+    ADOLSOFT_DOMAINS.forEach((domain, idx) => {
+      const tex = createCurvedCardTexture(domain, idx);
+      const mat = new THREE.ShaderMaterial({
+        transparent: true,
+        side: THREE.DoubleSide,
+        uniforms: {
+          uTexture: { value: tex },
+          uCurvature: { value: 0.42 },
+          uBendVelocity: { value: 0.0 },
+          uAberration: { value: 1.15 },
+          uOpacity: { value: 0.98 },
+          uHover: { value: 0.0 },
+          uTime: { value: 0.0 }
+        },
+        vertexShader: cardVertexShader,
+        fragmentShader: cardFragmentShader
+      });
+
+      const geo = new THREE.PlaneGeometry(4.3, 2.75, 48, 32);
+      const mesh = new THREE.Mesh(geo, mat);
+
+      const angle = (idx / ADOLSOFT_DOMAINS.length) * Math.PI * 2;
+      mesh.position.set(Math.sin(angle) * cardRadius, 0, Math.cos(angle) * cardRadius - cardRadius + 1.2);
+      mesh.rotation.y = angle;
+      mesh.userData = { domainIndex: idx, baseAngle: angle };
+
+      const reflectMat = new THREE.MeshBasicMaterial({
+        map: tex,
+        transparent: true,
+        opacity: 0.14,
+        side: THREE.DoubleSide
+      });
+      const reflectMesh = new THREE.Mesh(new THREE.PlaneGeometry(4.1, 1.2), reflectMat);
+      reflectMesh.position.set(0, -2.15, 0);
+      reflectMesh.scale.y = -1;
+      mesh.add(reflectMesh);
+
+      cardsGroup.add(mesh);
+      cardMeshes.push(mesh);
+      cardMaterials.push(mat);
+    });
+
+    // ============================================================================
+    // 4. TWEAKPANE SHADER TELEMETRY
+    // ============================================================================
+    const shaderParams = {
+      roughness: 0.10,
+      noiseScale: 9.0,
+      dispersion: 6.0,
+      ior: 1.52,
+      curvature: 0.42,
+      tint: '#ffffff'
+    };
+
+    const paneMount = document.getElementById('tweakpane-mount');
+    if (paneMount) {
+      const pane = new Pane({ container: paneMount });
+      pane.addBinding(shaderParams, 'roughness', { min: 0.0, max: 0.45, step: 0.01, label: 'roughness' }).on('change', (ev) => {
+        prismMaterial.roughness = ev.value;
+      });
+      pane.addBinding(shaderParams, 'noiseScale', { min: 0.0, max: 18.0, step: 0.5, label: 'noiseScale' }).on('change', (ev) => {
+        const s = ev.value / 30.0;
+        prismMaterial.normalScale.set(s, s);
+      });
+      pane.addBinding(shaderParams, 'dispersion', { min: 0.0, max: 12.0, step: 0.5, label: 'dispersion' }).on('change', (ev) => {
+        prismMaterial.dispersion = ev.value;
+      });
+      pane.addBinding(shaderParams, 'ior', { min: 1.1, max: 2.2, step: 0.02, label: 'iorIndex' }).on('change', (ev) => {
+        prismMaterial.ior = ev.value;
+      });
+      pane.addBinding(shaderParams, 'curvature', { min: 0.0, max: 0.9, step: 0.02, label: 'cardCurve' }).on('change', (ev) => {
+        cardMaterials.forEach((m) => (m.uniforms.uCurvature.value = ev.value));
+      });
+      pane.addBinding(shaderParams, 'tint', { label: 'glassTint' }).on('change', (ev) => {
+        prismMaterial.color.set(ev.value);
+      });
     }
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
-    const particleMat = new THREE.PointsMaterial({
-      size: 0.05,
-      color: 0xd7ff00,
-      transparent: true,
-      opacity: 0.35,
-    });
-    const particleField = new THREE.Points(particleGeo, particleMat);
-    scene.add(particleField);
 
-    // 8. Mouse Parallax with Damping
-    let mouseX = 0, mouseY = 0, targetCameraX = 0, targetCameraY = 0;
-    window.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    const togglePaneBtn = document.getElementById('toggle-tweakpane-btn');
+    let paneCollapsed = false;
+    togglePaneBtn?.addEventListener('click', () => {
+      paneCollapsed = !paneCollapsed;
+      if (paneMount) {
+        paneMount.style.display = paneCollapsed ? 'none' : 'block';
+      }
+      if (togglePaneBtn) {
+        togglePaneBtn.textContent = paneCollapsed ? '[+]' : '[–]';
+      }
     });
 
-    // 9. Resize Handling
-    const handleResize = () => {
+    // ============================================================================
+    // 5. SPLIT-TEXT CHARACTER STAGGER TYPEWRITER
+    // ============================================================================
+    let currentDomainIndex = 0;
+    const hudWorkCode = document.getElementById('hud-work-code');
+    const hudWorkMetric = document.getElementById('hud-work-metric');
+    const hudWorkTitle = document.getElementById('hud-work-title');
+    const hudWorkDesc = document.getElementById('hud-work-desc');
+    const navDomainCounter = document.getElementById('nav-domain-counter');
+
+    function animateSplitText(element: HTMLElement | null, text: string, staggerSec = 0.018) {
+      if (!element) return;
+      element.innerHTML = text
+        .split('')
+        .map((ch) => `<span class="inline-block char-unit">${ch === ' ' ? '&nbsp;' : ch}</span>`)
+        .join('');
+      const chars = element.querySelectorAll('.char-unit');
+      gsap.fromTo(
+        chars,
+        { yPercent: 115, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: 0.38, stagger: staggerSec, ease: 'power3.out', overwrite: true }
+      );
+    }
+
+    function updateActiveDomainHUD(newIndex: number) {
+      const normalized = ((newIndex % ADOLSOFT_DOMAINS.length) + ADOLSOFT_DOMAINS.length) % ADOLSOFT_DOMAINS.length;
+      if (normalized === currentDomainIndex && hudWorkTitle?.dataset.initialized === 'true') return;
+      currentDomainIndex = normalized;
+      if (hudWorkTitle) hudWorkTitle.dataset.initialized = 'true';
+
+      const d = ADOLSOFT_DOMAINS[currentDomainIndex];
+      if (hudWorkCode) hudWorkCode.textContent = `● ${d.index} // ${d.category}`;
+      if (hudWorkMetric) hudWorkMetric.textContent = d.metric;
+      if (navDomainCounter) navDomainCounter.textContent = `${d.index} / 06`;
+
+      animateSplitText(hudWorkTitle, d.title, 0.022);
+      animateSplitText(hudWorkDesc, d.subtitle, 0.008);
+    }
+
+    // ============================================================================
+    // 6. MASTER LENIS + GSAP SCROLLTRIGGER TIMELINE
+    // ============================================================================
+    const lenis = new Lenis({
+      lerp: 0.065,
+      smoothWheel: true
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    const scrollState = {
+      progress: 0,
+      carouselAngle: 0,
+      targetCarouselAngle: 0,
+      scrollVelocity: 0
+    };
+
+    lenis.on('scroll', (e: { velocity?: number }) => {
+      scrollState.scrollVelocity = THREE.MathUtils.clamp(e.velocity || 0, -25, 25);
+    });
+
+    const ghostLayer = document.getElementById('optical-ghost-layer');
+    const ghostWord = document.getElementById('ghost-brand-word');
+    const heroNewsStream = document.getElementById('hero-news-stream');
+    const activeWorkHud = document.getElementById('active-work-hud');
+    const navScrollBar = document.getElementById('nav-scroll-bar');
+    const navScrollPct = document.getElementById('nav-scroll-pct');
+
+    ScrollTrigger.create({
+      trigger: '#scroll-story-track',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1.2,
+      onUpdate: (self) => {
+        const p = self.progress;
+        scrollState.progress = p;
+
+        if (navScrollBar) navScrollBar.style.width = `${Math.round(p * 100)}%`;
+        if (navScrollPct) navScrollPct.textContent = `${String(Math.round(p * 100)).padStart(2, '0')}%`;
+
+        // PHASE 1 (0.0 -> 0.22): HERO PRISM -> "WORKS" VAULT TRANSITION
+        const morphWorks = THREE.MathUtils.smoothstep(p, 0.08, 0.24);
+        vaultMat.uniforms.uMorph.value = morphWorks;
+
+        backplaneWordMat.opacity = THREE.MathUtils.clamp(1.0 - p * 4.2, 0.0, 0.96);
+        const wordScale = THREE.MathUtils.lerp(1.0, 0.65, Math.min(1, p * 3.5));
+        backplaneWordMesh.scale.set(wordScale, wordScale, 1);
+
+        if (ghostLayer && ghostWord) {
+          const ghostOpacity = p < 0.05 ? 0 : p < 0.25 ? THREE.MathUtils.lerp(0.0, 0.14, (p - 0.05) / 0.2) : 0.09;
+          ghostLayer.style.opacity = String(ghostOpacity);
+          const gScale = THREE.MathUtils.lerp(1.0, 0.68, Math.min(1, p * 2.2));
+          ghostWord.style.transform = `scale(${gScale})`;
+        }
+
+        prismGroup.position.z = THREE.MathUtils.lerp(0.0, -1.65, Math.min(1, p * 3.0));
+        prismGroup.position.y = THREE.MathUtils.lerp(0.0, 0.22, Math.min(1, p * 3.0));
+        const prismScale = THREE.MathUtils.lerp(1.0, 0.78, Math.min(1, p * 3.0));
+        prismGroup.scale.setScalar(prismScale);
+
+        // PHASE 2 (0.20 -> 0.95): 6 CURVED DOMAIN CARDS ORBIT
+        if (p < 0.18) {
+          cardsGroup.position.y = THREE.MathUtils.lerp(-11.0, 0.0, p / 0.18);
+          if (heroNewsStream) heroNewsStream.classList.remove('hidden');
+          if (activeWorkHud) {
+            activeWorkHud.classList.add('hidden');
+            activeWorkHud.style.opacity = '0';
+          }
+          if (navDomainCounter) navDomainCounter.textContent = '00 / 06';
+        } else {
+          cardsGroup.position.y = 0.0;
+          if (heroNewsStream) heroNewsStream.classList.add('hidden');
+          if (activeWorkHud) {
+            activeWorkHud.classList.remove('hidden');
+            activeWorkHud.style.opacity = '1';
+          }
+
+          const worksProgress = THREE.MathUtils.clamp((p - 0.18) / 0.76, 0, 1);
+          scrollState.targetCarouselAngle = -worksProgress * Math.PI * 2 * ((ADOLSOFT_DOMAINS.length - 1) / ADOLSOFT_DOMAINS.length);
+
+          const activeIdx = Math.round(worksProgress * (ADOLSOFT_DOMAINS.length - 1));
+          updateActiveDomainHUD(activeIdx);
+        }
+      }
+    });
+
+    document.getElementById('hud-prev-btn')?.addEventListener('click', () => {
+      const nextIdx = Math.max(0, currentDomainIndex - 1);
+      const targetP = 0.18 + (nextIdx / (ADOLSOFT_DOMAINS.length - 1)) * 0.76;
+      lenis.scrollTo(targetP * (document.body.scrollHeight - window.innerHeight));
+    });
+
+    document.getElementById('hud-next-btn')?.addEventListener('click', () => {
+      const nextIdx = Math.min(ADOLSOFT_DOMAINS.length - 1, currentDomainIndex + 1);
+      const targetP = 0.18 + (nextIdx / (ADOLSOFT_DOMAINS.length - 1)) * 0.76;
+      lenis.scrollTo(targetP * (document.body.scrollHeight - window.innerHeight));
+    });
+
+    document.querySelectorAll('[data-scroll-to]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const ratio = parseFloat((btn as HTMLElement).dataset.scrollTo || '0');
+        lenis.scrollTo(ratio * (document.body.scrollHeight - window.innerHeight));
+      });
+    });
+
+    document.getElementById('hud-inspect-btn')?.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('open-domain-modal', { detail: { index: currentDomainIndex } }));
+    });
+
+    // ============================================================================
+    // 7. POINTER PARALLAX, RAYCASTER & QUATERNION 3D GIZMO SYNC
+    // ============================================================================
+    const pointer = new THREE.Vector2(0, 0);
+    const targetCameraOffset = new THREE.Vector2(0, 0);
+    const raycaster = new THREE.Raycaster();
+    let hoveredCard: THREE.Mesh | null = null;
+    let rotationImpulse = 0;
+
+    window.addEventListener('pointermove', (e) => {
+      pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      targetCameraOffset.x = pointer.x * 0.55;
+      targetCameraOffset.y = pointer.y * 0.35;
+    });
+
+    canvas.addEventListener('click', () => {
+      if (hoveredCard && scrollState.progress >= 0.16) {
+        const idx = hoveredCard.userData.domainIndex;
+        window.dispatchEvent(new CustomEvent('open-domain-modal', { detail: { index: idx } }));
+      }
+    });
+
+    const quatCanvas = document.getElementById('quaternion-canvas') as HTMLCanvasElement | null;
+    const quatReadout = document.getElementById('quat-readout');
+    const quatCtx = quatCanvas?.getContext('2d');
+
+    function renderQuaternionGizmo(q: THREE.Quaternion) {
+      if (quatReadout) {
+        quatReadout.textContent = `${q.x.toFixed(2)} | ${q.y.toFixed(2)} | ${q.z.toFixed(2)} | ${q.w.toFixed(2)}`;
+      }
+      if (!quatCtx || !quatCanvas) return;
+      const w = quatCanvas.width;
+      const h = quatCanvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const r = 28;
+
+      quatCtx.clearRect(0, 0, w, h);
+
+      quatCtx.strokeStyle = 'rgba(255,255,255,0.2)';
+      quatCtx.lineWidth = 1;
+      quatCtx.beginPath();
+      quatCtx.arc(cx, cy, r, 0, Math.PI * 2);
+      quatCtx.stroke();
+
+      const axes = [
+        { dir: new THREE.Vector3(1, 0, 0), color: '#ff4d4d' },
+        { dir: new THREE.Vector3(0, 1, 0), color: '#c8ff00' },
+        { dir: new THREE.Vector3(0, 0, 1), color: '#00f0ff' }
+      ];
+
+      axes.forEach((axis) => {
+        const v = axis.dir.clone().applyQuaternion(q);
+        const ex = cx + v.x * r;
+        const ey = cy - v.y * r;
+
+        quatCtx.strokeStyle = axis.color;
+        quatCtx.lineWidth = 1.8;
+        quatCtx.beginPath();
+        quatCtx.moveTo(cx, cy);
+        quatCtx.lineTo(ex, ey);
+        quatCtx.stroke();
+
+        quatCtx.fillStyle = axis.color;
+        quatCtx.beginPath();
+        quatCtx.arc(ex, ey, 3.2, 0, Math.PI * 2);
+        quatCtx.fill();
+      });
+    }
+
+    document.getElementById('reset-quaternion-btn')?.addEventListener('click', () => {
+      rotationImpulse = 0.25;
+      gsap.to(prismMesh.rotation, { x: 0, y: 0, z: 0, duration: 0.9, ease: 'expo.out' });
+    });
+
+    quatCanvas?.addEventListener('click', () => {
+      rotationImpulse += 0.18;
+    });
+
+    // ============================================================================
+    // 8. REAL-TIME RENDER LOOP
+    // ============================================================================
+    let isRunning = true;
+    const startTime = performance.now();
+
+    function animate() {
+      if (!isRunning) return;
+      requestAnimationFrame(animate);
+      const elapsed = (performance.now() - startTime) * 0.001;
+
+      // 1. Camera Parallax
+      camera.position.x += (targetCameraOffset.x - camera.position.x) * 0.05;
+      camera.position.y += (targetCameraOffset.y - camera.position.y) * 0.05;
+      camera.lookAt(0, 0, 0);
+
+      // 2. Liquid Glass "A" Monolith Harmonic Rotation
+      rotationImpulse *= 0.94;
+      prismMesh.rotation.y = Math.sin(elapsed * 0.38) * 0.28 + pointer.x * 0.22 + rotationImpulse;
+      prismMesh.rotation.x = Math.cos(elapsed * 0.52 + 1.1) * 0.12 - pointer.y * 0.16;
+      prismMesh.position.y = Math.sin(elapsed * 1.35 + 0.8) * 0.14;
+
+      renderQuaternionGizmo(prismMesh.quaternion);
+
+      // 3. Carousel angle interpolation & Z/Y Parallax
+      scrollState.carouselAngle += (scrollState.targetCarouselAngle - scrollState.carouselAngle) * 0.085;
+      scrollState.scrollVelocity *= 0.9;
+
+      vaultMat.uniforms.uTime.value = elapsed;
+
+      cardMeshes.forEach((mesh, idx) => {
+        const totalAngle = mesh.userData.baseAngle + scrollState.carouselAngle;
+        mesh.position.x = Math.sin(totalAngle) * cardRadius;
+        mesh.position.z = Math.cos(totalAngle) * cardRadius - cardRadius + 1.1;
+        mesh.rotation.y = totalAngle;
+
+        const focusFactor = Math.cos(totalAngle);
+        mesh.position.y = Math.sin(elapsed * 1.4 + idx * 1.3) * (focusFactor > 0.7 ? 0.06 : 0.18);
+
+        const mat = cardMaterials[idx];
+        mat.uniforms.uTime.value = elapsed;
+        mat.uniforms.uBendVelocity.value = scrollState.scrollVelocity * 0.12;
+        mat.uniforms.uOpacity.value = THREE.MathUtils.smoothstep(focusFactor, -0.4, 0.35);
+      });
+
+      // 4. Raycasting
+      if (scrollState.progress >= 0.16) {
+        raycaster.setFromCamera(pointer, camera);
+        const intersects = raycaster.intersectObjects(cardMeshes, false);
+        if (intersects.length > 0) {
+          hoveredCard = intersects[0].object as THREE.Mesh;
+          canvas.style.cursor = 'pointer';
+        } else {
+          hoveredCard = null;
+          canvas.style.cursor = 'default';
+        }
+      } else {
+        hoveredCard = null;
+        canvas.style.cursor = 'default';
+      }
+
+      cardMeshes.forEach((mesh, idx) => {
+        const isHovered = hoveredCard === mesh ? 1.0 : 0.0;
+        cardMaterials[idx].uniforms.uHover.value += (isHovered - cardMaterials[idx].uniforms.uHover.value) * 0.12;
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    const onResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      ScrollTrigger.refresh();
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', onResize);
 
-    // 10. Animation Loop: Harmonic Phase Oscillation
-    let isRunning = true;
-    const startTime = performance.now();
-
-    const animate = () => {
-      if (!isRunning) return;
-      requestAnimationFrame(animate);
-
-      const t = (performance.now() - startTime) * 0.001;
-
-      // Camera mouse parallax damping
-      targetCameraX += (mouseX * 0.5 - targetCameraX) * 0.05;
-      targetCameraY += (-mouseY * 0.5 - targetCameraY) * 0.05;
-      camera.position.x = targetCameraX;
-      camera.position.y = targetCameraY;
-      camera.lookAt(0, 0, 0);
-
-      // Hero Prism harmonic rotation & breathing
-      prismMesh.rotation.y = 0.25 * t;
-      prismMesh.position.y = Math.sin(1.4 * t + 1.2) * 0.18;
-
-      particleField.rotation.y = t * 0.015;
-
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    // 11. Cleanup
     document.addEventListener('astro:before-swap', () => {
       isRunning = false;
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', onResize);
       renderer.dispose();
-      triangleGeo.dispose();
-      glassMaterial.dispose();
-      particleGeo.dispose();
-      particleMat.dispose();
+      prismGeo.dispose();
+      prismMaterial.dispose();
+      vaultGeo.dispose();
+      vaultMat.dispose();
+      cardMaterials.forEach((m) => m.dispose());
+      cardMeshes.forEach((mesh) => mesh.geometry.dispose());
+      ScrollTrigger.getAll().forEach((st) => st.kill());
     });
   }
 </script>
