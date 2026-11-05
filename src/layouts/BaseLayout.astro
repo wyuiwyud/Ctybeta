@@ -23,6 +23,59 @@ const {
     <meta name="theme-color" content="#040407" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <script is:inline>
+      window.addEventListener('error', function (e) {
+        try {
+          fetch('/api/debug', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: 'error',
+              message: e.message,
+              filename: e.filename,
+              lineno: e.lineno,
+              colno: e.colno,
+              stack: e.error ? e.error.stack : null
+            })
+          }).catch(function () {});
+        } catch (_) {}
+      });
+      window.addEventListener('unhandledrejection', function (e) {
+        try {
+          fetch('/api/debug', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: 'unhandledrejection',
+              reason: String(e.reason),
+              stack: e.reason && e.reason.stack ? e.reason.stack : null
+            })
+          }).catch(function () {});
+        } catch (_) {}
+      });
+
+      try {
+        var testCanvas = document.createElement('canvas');
+        var glTests = {
+          webgl2_default: !!testCanvas.getContext('webgl2'),
+          webgl2_highperf: !!testCanvas.getContext('webgl2', { powerPreference: 'high-performance' }),
+          webgl_default: !!testCanvas.getContext('webgl'),
+          experimental_webgl: !!testCanvas.getContext('experimental-webgl')
+        };
+        fetch('/api/debug', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'webgl_capabilities', glTests: glTests })
+        }).catch(function () {});
+      } catch (err) {
+        fetch('/api/debug', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'webgl_capabilities_error', error: String(err) })
+        }).catch(function () {});
+      }
+    </script>
+
     <!-- Google Fonts: Syne (Display), Inter (UI), JetBrains Mono (Telemetry) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,6 +109,16 @@ const {
     </script>
   </head>
   <body class="bg-[#040407] text-[#f4f4f6] antialiased selection:bg-[#c8ff00] selection:text-black overflow-x-hidden">
+    <!-- Optical Liquid Refraction SVG Filter Definition -->
+    <svg class="hidden" aria-hidden="true">
+      <defs>
+        <filter id="liquid-refraction-filter" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.015 0.015" numOctaves="2" result="noise" seed="4" />
+          <feGaussianBlur in="noise" stdDeviation="2.5" result="smoothedNoise" />
+          <feDisplacementMap in="SourceGraphic" in2="smoothedNoise" scale="12" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
     <slot />
   </body>
 </html>

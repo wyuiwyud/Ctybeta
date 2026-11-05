@@ -428,18 +428,18 @@ html.lenis, html.lenis body {
 .stage-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(4, 4, 7, 0.92) 100%);
+  background: radial-gradient(ellipse 90% 80% at 50% 50%, transparent 48%, rgba(2, 3, 6, 0.40) 75%, rgba(2, 3, 6, 0.88) 100%);
   pointer-events: none;
 }
 
 .stage-crt-grain {
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%),
-              linear-gradient(90deg, rgba(200, 255, 0, 0.015), rgba(0, 240, 255, 0.012), rgba(255, 0, 100, 0.012));
-  background-size: 100% 3px, 6px 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.10) 50%),
+              linear-gradient(90deg, rgba(200, 255, 0, 0.006), rgba(0, 240, 255, 0.005), rgba(255, 0, 100, 0.005));
+  background-size: 100% 2px, 4px 100%;
   pointer-events: none;
-  opacity: 0.55;
+  opacity: 0.18;
 }
 
 /* ========================================================================= */
@@ -474,15 +474,61 @@ html.lenis, html.lenis body {
 }
 
 /* ========================================================================= */
-/* 10. SPATIAL GLASSMORPHIC MODAL DRAWERS (ROI & Nesting Lab, Blueprint)    */
+/* 10. SPATIAL GLASSMORPHIC MODAL DRAWERS & BALANCED LIQUID GLASS           */
 /* ========================================================================= */
+.liquid-glass-balanced {
+  position: relative;
+  background: rgba(8, 12, 20, 0.72);
+  backdrop-filter: blur(24px) saturate(185%) contrast(104%);
+  -webkit-backdrop-filter: blur(24px) saturate(185%) contrast(104%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 18px 42px -10px rgba(0, 0, 0, 0.72),
+    0 0 1px 1px rgba(255, 255, 255, 0.04),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 1px 0 rgba(200, 255, 0, 0.06);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-balanced:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 24px 50px -10px rgba(0, 0, 0, 0.82),
+    0 0 24px rgba(200, 255, 0, 0.08),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -1px 1px 0 rgba(200, 255, 0, 0.12);
+}
+
+.liquid-glass-pill {
+  position: relative;
+  background: rgba(9, 13, 22, 0.76);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 10px 28px -6px rgba(0, 0, 0, 0.55),
+    0 0 1px 1px rgba(255, 255, 255, 0.04),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.30);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-pill:hover {
+  border-color: rgba(200, 255, 0, 0.45);
+  box-shadow:
+    0 14px 34px -4px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(200, 255, 0, 0.16),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.38);
+}
+
+
+
 .spatial-drawer {
   position: fixed;
   inset: 0;
   z-index: 9990;
-  background: rgba(4, 4, 7, 0.78);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(4, 4, 7, 0.82);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -500,18 +546,153 @@ html.lenis, html.lenis body {
 }
 
 .spatial-drawer-panel {
+  position: relative;
   width: 100%;
   max-width: 920px;
   max-height: 88vh;
   overflow-y: auto;
-  background: rgba(12, 16, 24, 0.94);
+  background: rgba(10, 14, 22, 0.92);
+  backdrop-filter: blur(28px) saturate(185%);
+  -webkit-backdrop-filter: blur(28px) saturate(185%);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 16px;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 30px rgba(200, 255, 0, 0.08);
+  border-radius: 18px;
+  box-shadow:
+    0 28px 65px -15px rgba(0, 0, 0, 0.92),
+    0 0 35px rgba(200, 255, 0, 0.08),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25);
   transform: scale(0.96) translateY(12px);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+/* Custom scrollbar inside spatial drawer */
+.spatial-drawer-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.spatial-drawer-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 9999px;
+}
+.spatial-drawer-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+}
+.spatial-drawer-panel::-webkit-scrollbar-thumb:hover {
+  background: #c8ff00;
+}
+
+/* Mouse-tracking Specular Rim Light on Panel */
+.spatial-drawer-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    480px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+    rgba(255, 255, 255, 0.45),
+    rgba(200, 255, 0, 0.18) 35%,
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.85;
 }
 
 .spatial-drawer.open .spatial-drawer-panel {
   transform: scale(1) translateY(0);
+}
+
+/* ========================================================================= */
+/* 11. CENTRAL GLOSSY CHROMATIC LIQUID WAVE BLAST                            */
+/* ========================================================================= */
+.liquid-blast-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 480px;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.liquid-blast-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(200, 255, 0, 0.55) 0%,
+    rgba(56, 189, 248, 0.42) 28%,
+    rgba(168, 85, 247, 0.28) 52%,
+    transparent 72%
+  );
+  filter: blur(35px);
+  transform: scale(0.01);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.liquid-blast-ring {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0.01);
+  opacity: 0;
+  will-change: transform, opacity;
+  box-sizing: border-box;
+}
+
+.liquid-blast-ring.ring-1 {
+  width: 380px;
+  height: 380px;
+  border: 2.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 0 35px rgba(200, 255, 0, 0.9),
+    inset 0 0 45px rgba(56, 189, 248, 0.7),
+    0 0 90px rgba(168, 85, 247, 0.6);
+  background: radial-gradient(circle, transparent 62%, rgba(200, 255, 0, 0.12) 80%, rgba(255, 255, 255, 0.35) 100%);
+}
+
+.liquid-blast-ring.ring-2 {
+  width: 520px;
+  height: 520px;
+  border: 2px solid rgba(56, 189, 248, 0.85);
+  box-shadow:
+    0 0 45px rgba(56, 189, 248, 0.8),
+    inset 0 0 50px rgba(200, 255, 0, 0.5),
+    0 0 110px rgba(255, 255, 255, 0.5);
+}
+
+.liquid-blast-ring.ring-3 {
+  width: 660px;
+  height: 660px;
+  border: 1.5px solid rgba(200, 255, 0, 0.75);
+  box-shadow:
+    0 0 60px rgba(200, 255, 0, 0.65),
+    0 0 130px rgba(168, 85, 247, 0.45);
+}
+
+/* Tweakpane Container Strict Docking (Always Bottom-Left) */
+#tweakpane-container {
+  position: fixed !important;
+  bottom: 24px !important;
+  left: 24px !important;
+  top: auto !important;
+  right: auto !important;
+  z-index: 120 !important;
+}
+
+#tweakpane-container .tp-dfwv {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 240px !important;
 }

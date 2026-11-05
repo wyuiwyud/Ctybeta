@@ -9,60 +9,104 @@
 // 5. Interactive Raycaster, pointer parallax, and top-right Quaternion Gizmo 2D canvas synchronization.
 ---
 <!-- LAYER 1: FIXED WEBGL STORYTELLING STAGE -->
-<div id="webgl-stage-wrapper" class="fixed inset-0 w-screen h-screen z-[1] overflow-hidden pointer-events-auto">
-  <canvas id="alche-webgl-canvas" class="w-full h-full block"></canvas>
+<div id="canvas-container" class="fixed inset-0 w-screen h-screen z-[1] overflow-hidden pointer-events-none">
+  <canvas id="alche-webgl-canvas" class="w-full h-full block pointer-events-auto"></canvas>
   <!-- Deep Optical Vignette Overlay (Matches ảnh_3.jpg & ảnh_7.jpg) -->
   <div class="stage-vignette pointer-events-none"></div>
   <!-- Subtle CRT Scanline & Film Grain Overlay -->
   <div class="stage-crt-grain pointer-events-none"></div>
 </div>
 
-<!-- LAYER 2: OPTICAL DIFFERENCE BLEND WATERMARK (Scales down into Ghost Layer on scroll) -->
+<!-- LAYER 2: HERO BRAND TYPOGRAPHY & OPTICAL STAGE ENTRANCE -->
 <div
-  id="optical-ghost-layer"
-  class="fixed inset-0 z-[2] flex flex-col items-center justify-center pointer-events-none select-none opacity-0 transition-opacity duration-700"
+  id="hero-brand-layer"
+  class="fixed inset-0 z-[2] flex flex-col items-center justify-between py-12 pointer-events-none select-none px-4"
+  aria-label="AdolSoft Hero Presentation"
 >
-  <h1
-    id="ghost-brand-word"
-    class="font-['Syne'] font-extrabold text-white tracking-[-0.03em] leading-none text-center"
-    style="font-size: clamp(3.6rem, 12.5vw, 13.5rem); mix-blend-mode: difference;"
+  <!-- Architectural Eyebrow Telemetry Tag (At Top) -->
+  <div
+    id="hero-brand-badge"
+    class="hero-reveal-meta opacity-0 translate-y-3 flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md font-mono text-[9.5px] tracking-[0.24em] text-[#c8ff00] uppercase mt-4 pointer-events-auto cursor-pointer transition-all hover:bg-white/[0.08] hover:border-[#c8ff00]/40"
+    title="Nhấp để phát lại hiệu ứng xuất hiện siêu ngầu"
   >
-    ADOLSOFT
-  </h1>
+    <span class="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse"></span>
+    <span>ARCHITECTURAL AI // SPATIAL ENGINE</span>
+  </div>
+
+  <!-- Central Glossy Chromatic Liquid Wave Blast (Sóng nước nổ bùm bóng loáng) -->
+  <div id="liquid-blast-stage" class="liquid-blast-stage pointer-events-none" aria-hidden="true">
+    <div class="liquid-blast-glow"></div>
+    <div class="liquid-blast-ring ring-1"></div>
+    <div class="liquid-blast-ring ring-2"></div>
+    <div class="liquid-blast-ring ring-3"></div>
+  </div>
+
+  <!-- Technical Coordinates & Refraction Subtitle (At Bottom) -->
   <p
-    id="ghost-brand-sub"
-    class="mt-4 font-mono text-[10px] md:text-[11px] tracking-[0.32em] text-white/60 uppercase"
-    style="mix-blend-mode: difference;"
+    id="hero-brand-sub"
+    class="hero-reveal-meta opacity-0 translate-y-4 mb-4 font-mono text-[10px] md:text-[11.5px] tracking-[0.32em] text-white/70 uppercase text-center max-w-xl"
   >
     [ LIQUID PRISM REFRACTION ENGINE // ZERO WASTE AI ]
   </p>
 </div>
 
-<!-- LAYER 3: NON-COLLIDING FOREGROUND HUD -->
-<!-- Bottom-Left Exclusive Zone: Tweakpane Shader Telemetry (Matches ảnh_7.jpg) -->
+
+<!-- LAYER 3: FAR-LEFT TELEMETRY INDICATOR (Matches — TOP / — 01 in Screenshots 1-4) -->
 <div
-  id="tweakpane-Anchor"
-  class="fixed bottom-6 left-6 z-[110] pointer-events-auto w-[275px]"
+  id="scroll-side-telemetry"
+  class="fixed left-6 md:left-8 top-1/2 -translate-y-1/2 z-[110] pointer-events-none select-none font-mono text-[10px] md:text-[11px] text-white/50 tracking-widest uppercase flex items-center gap-2"
 >
-  <div class="flex items-center justify-between px-3 py-1.5 mb-1 rounded bg-black/75 border border-white/15 backdrop-blur-md font-mono text-[10px] tracking-[0.14em]">
-    <span class="flex items-center gap-2 text-[#c8ff00]">
-      <span class="w-1.5 h-1.5 rounded-full bg-[#c8ff00]"></span>
-      MainLogo Material
-    </span>
-    <button id="toggle-tweakpane-btn" type="button" class="text-white/60 hover:text-white px-1 cursor-pointer">
-      [–]
-    </button>
-  </div>
-  <div id="tweakpane-mount" class="transition-all duration-300 origin-bottom-left"></div>
+  <span class="w-3.5 h-[1px] bg-white/40"></span>
+  <span id="side-telemetry-label">TOP</span>
 </div>
 
-<!-- Bottom-Right Exclusive Zone: Active Domain Split-Text Typewriter & News HUD (Zero collision with Tweakpane!) -->
+<!-- TWEAKPANE CONTAINER (Docked strictly at bottom: 24px, left: 24px) -->
+<div id="tweakpane-container" class="fixed z-[120] pointer-events-auto select-none min-w-[200px]" style="position: fixed; bottom: 24px; left: 24px;"></div>
+
+<!-- LAYER 4: BOTTOM-LEFT ACTIVE WORK METADATA (Matches Screenshot 2 & Screenshot 4) -->
 <div
-  id="domain-hud-panel"
-  class="fixed bottom-6 right-6 md:right-10 z-[110] pointer-events-none flex flex-col items-end text-right max-w-md"
+  id="active-work-hud"
+  class="fixed bottom-8 left-6 md:bottom-10 md:left-10 z-[110] pointer-events-auto flex flex-col items-start text-left max-w-xl select-none opacity-0 translate-y-4 transition-all duration-500 hidden"
 >
-  <!-- Hero Phase News Stream (Matches bottom-right of ảnh_7.jpg) -->
-  <div id="hero-news-stream" class="pointer-events-auto flex flex-col items-end gap-2.5 bg-black/50 border border-white/10 backdrop-blur-md p-4 rounded-lg transition-all duration-500">
+  <!-- Date & Category Badge Row -->
+  <div class="flex items-center gap-2.5 mb-1.5">
+    <span id="hud-work-date" class="font-mono text-[10.5px] text-white/50 tracking-wider">2026.04.12</span>
+    <span
+      id="hud-work-badge"
+      class="px-2 py-0.5 rounded bg-[#c8ff00]/15 border border-[#c8ff00]/40 text-[#c8ff00] text-[9.5px] font-mono tracking-wider uppercase font-semibold"
+    >
+      AI PRODUCTION RELEASE
+    </span>
+  </div>
+
+  <!-- Giant Work Title -->
+  <h2
+    id="hud-work-title"
+    class="font-['Syne'] font-extrabold text-2xl sm:text-3xl md:text-4xl text-white tracking-tight leading-tight"
+  >
+    AI PRINT-CUT NESTING SYSTEM
+  </h2>
+
+  <!-- Subtitle -->
+  <p
+    id="hud-work-desc"
+    class="mt-1 font-mono text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-md"
+  >
+    Industrial Edge Detection & Genetic Auto-Nesting Engine
+  </p>
+
+  <!-- Tag Pills Row (Matches [stellla] [unreal_engine] [metaverse] style) -->
+  <div id="hud-work-tags" class="mt-3 flex flex-wrap items-center gap-1.5">
+    <span class="px-2.5 py-1 rounded bg-black/40 border border-white/15 text-white/70 font-mono text-[9.5px] tracking-wider">[nesting_ai]</span>
+    <span class="px-2.5 py-1 rounded bg-black/40 border border-white/15 text-white/70 font-mono text-[9.5px] tracking-wider">[print_cut]</span>
+    <span class="px-2.5 py-1 rounded bg-black/40 border border-white/15 text-white/70 font-mono text-[9.5px] tracking-wider">[zero_waste]</span>
+  </div>
+</div>
+
+<!-- LAYER 5: BOTTOM-RIGHT EXCLUSIVE ZONE -->
+<div class="fixed bottom-8 right-6 md:bottom-10 md:right-10 z-[110] pointer-events-auto flex flex-col items-end">
+  <!-- Hero Phase News Stream (During Hero p < 0.18) -->
+  <div id="hero-news-stream" class="liquid-glass-balanced flex flex-col items-end gap-2.5 p-4 rounded-xl transition-all duration-500 max-w-sm text-right">
     <div class="font-mono text-[10px] tracking-[0.22em] text-[#c8ff00] uppercase border-b border-white/15 pb-1 w-full text-left flex justify-between">
       <span>TELEMETRY // NEWS</span>
       <span class="text-white/40">LIVE</span>
@@ -81,59 +125,19 @@
     </button>
   </div>
 
-  <!-- Works Phase Split-Text Stagger HUD (Appears when scrolling into 3D Cards) -->
+  <!-- Works Phase "More Works ↗" CTA (Matches Screenshots 2, 3, 4) -->
   <div
-    id="active-work-hud"
-    class="pointer-events-auto opacity-0 translate-y-4 transition-all duration-500 bg-black/70 border border-white/15 backdrop-blur-xl p-5 rounded-xl shadow-2xl w-full sm:w-[390px] text-left mt-2 hidden"
+    id="works-more-cta"
+    class="opacity-0 translate-y-4 transition-all duration-500 hidden"
   >
-    <div class="flex items-center justify-between font-mono text-[10px] tracking-[0.18em] text-[#c8ff00] mb-1.5">
-      <span id="hud-work-code">● 01 // DOMAIN SPECIFICATION</span>
-      <span id="hud-work-metric" class="px-2 py-0.5 rounded bg-[#1a8c4a]/25 border border-[#1a8c4a] text-[#6ee7b7]">
-        94.8% YIELD
-      </span>
-    </div>
-
-    <h2
-      id="hud-work-title"
-      class="font-['Syne'] font-extrabold text-2xl md:text-3xl text-white tracking-tight leading-tight overflow-hidden"
+    <button
+      type="button"
+      data-open-drawer="roi-lab"
+      class="group flex items-center gap-1.5 font-['Syne'] md:font-mono text-sm md:text-base text-white/80 hover:text-[#c8ff00] transition-all cursor-pointer"
     >
-      AI PRINT-CUT
-    </h2>
-
-    <p
-      id="hud-work-desc"
-      class="mt-2 font-mono text-[11px] leading-relaxed text-white/70 min-h-[36px]"
-    >
-      Industrial Edge Detection & Genetic Auto-Nesting Engine
-    </p>
-
-    <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
-      <button
-        type="button"
-        id="hud-inspect-btn"
-        class="px-3.5 py-1.5 rounded-full bg-[#1a8c4a] hover:bg-[#4caf50] text-white font-mono text-[10px] font-bold tracking-[0.12em] uppercase transition-all cursor-pointer"
-      >
-        Inspect Blueprint ↗
-      </button>
-      <div class="flex items-center gap-1.5">
-        <button
-          type="button"
-          id="hud-prev-btn"
-          class="w-7 h-7 rounded-full border border-white/20 hover:border-[#c8ff00] text-white text-xs flex items-center justify-center transition-colors cursor-pointer"
-          title="Previous Domain"
-        >
-          ←
-        </button>
-        <button
-          type="button"
-          id="hud-next-btn"
-          class="w-7 h-7 rounded-full border border-white/20 hover:border-[#c8ff00] text-white text-xs flex items-center justify-center transition-colors cursor-pointer"
-          title="Next Domain"
-        >
-          →
-        </button>
-      </div>
-    </div>
+      <span>More Works</span>
+      <span class="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+    </button>
   </div>
 </div>
 
@@ -162,16 +166,22 @@
     summary: string;
     specs: string[];
     roiImpact: string;
+    date: string;
+    badge: string;
+    tags: string[];
   }
 
   const ADOLSOFT_DOMAINS: DomainItem[] = [
     {
       id: 'ai-print-cut',
       index: '01',
-      title: 'AI PRINT-CUT',
-      subtitle: 'Computer Vision Contour & Genetic Auto-Nesting',
+      title: 'AI PRINT-CUT NESTING SYSTEM',
+      subtitle: 'Industrial Edge Detection & Genetic Auto-Nesting Engine',
       category: 'INDUSTRIAL AUTOMATION CORE',
       metric: '15s vs 45m | -12.5% WASTE',
+      date: '2026.04.12',
+      badge: 'AI PRODUCTION RELEASE',
+      tags: ['nesting_ai', 'unreal_engine', 'metaverse', 'zero_waste'],
       accent: '#c8ff00',
       secondary: '#1a8c4a',
       summary:
@@ -186,10 +196,13 @@
     {
       id: 'ai-os-edge',
       index: '02',
-      title: 'AI OS EDGE',
+      title: 'AI OS EDGE // ZERO-CLOUD',
       subtitle: 'Zero-Cloud Factory Operating System & IoT Kernel',
       category: 'EDGE COMPUTING ARCHITECTURE',
       metric: '100% OFFLINE | <2ms LATENCY',
+      date: '2026.08.20',
+      badge: 'ZERO-CLOUD FACTORY KERNEL',
+      tags: ['edge_os', 'offline_ai', 'low_latency', 'industrial_iot'],
       accent: '#00f0ff',
       secondary: '#3b82f6',
       summary:
@@ -204,10 +217,13 @@
     {
       id: 'production-telemetry',
       index: '03',
-      title: 'TELEMETRY ENGINE',
+      title: 'TELEMETRY OEE ANALYTICS',
       subtitle: 'Real-Time Material Yield & Machine OEE Analytics',
       category: 'PREDICTIVE MANUFACTURING DATA',
       metric: '99.4% ACCURACY | LIVE OEE',
+      date: '2026.10.05',
+      badge: 'PREDICTIVE YIELD ENGINE',
+      tags: ['predictive_ai', 'machine_vision', 'live_oee', 'cloud_rendering'],
       accent: '#10b981',
       secondary: '#059669',
       summary:
@@ -222,10 +238,13 @@
     {
       id: 'auto-quotation',
       index: '04',
-      title: 'AUTO-QUOTATION',
+      title: 'AUTO-QUOTATION ERP CORE',
       subtitle: 'Instant Nesting-Based ERP & Costing Engine',
       category: 'SME WORKFLOW AUTOMATION',
       metric: '3s QUOTE | ZERO MARGIN ERROR',
+      date: '2026.11.18',
+      badge: 'GENETIC COSTING ENGINE',
+      tags: ['instant_quote', 'cut_path', 'sme_workflow', 'cad_cam'],
       accent: '#f59e0b',
       secondary: '#d97706',
       summary:
@@ -240,10 +259,13 @@
     {
       id: 'combinatorial-rd',
       index: '05',
-      title: 'COMBINATORIAL R&D',
+      title: 'COMBINATORIAL R&D LAB',
       subtitle: '2D/3D Irregular Bin-Packing on Multi-Core GPU',
       category: 'ALGORITHMIC RESEARCH LAB',
       metric: 'NFP + GENETIC | GPU CUDA',
+      date: '2027.01.24',
+      badge: 'CUDA BIN-PACKING LAB',
+      tags: ['nfp_polygon', 'genetic_algo', 'gpu_acceleration', 'academic_rd'],
       accent: '#a855f7',
       secondary: '#7c3aed',
       summary:
@@ -258,10 +280,13 @@
     {
       id: 'adolsoft-academy',
       index: '06',
-      title: 'ADOLSOFT ACADEMY',
+      title: 'ADOLSOFT ACADEMY SOP',
       subtitle: 'Applied Industrial AI Training & Digital Transformation',
       category: 'KNOWLEDGE ECOSYSTEM & SOP',
       metric: '15,000+ WORKSHOPS TARGET',
+      date: '2027.03.15',
+      badge: 'DIGITAL TRANSFORMATION',
+      tags: ['ai_training', 'sop_standard', 'mentorship', 'print_industry'],
       accent: '#ec4899',
       secondary: '#db2777',
       summary:
@@ -278,206 +303,458 @@
   (window as any).ADOLSOFT_DOMAINS = ADOLSOFT_DOMAINS;
 
   // ============================================================================
-  // 2. PROCEDURAL TEXTURES: FROST NORMAL MAP, VAULT TUNNEL & CURVED CARDS
+  // 2. PROCEDURAL TEXTURES: ORGANIC FROSTED ICE MAPS & ARCHITECTURAL DOME
   // ============================================================================
-  function createFrostNormalTexture(scale = 9.0): THREE.CanvasTexture {
+  function createAlcheIceMaps(noiseScaleParam = 9.0) {
     const size = 512;
-    const canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d')!;
-    const imgData = ctx.createImageData(size, size);
-    const data = imgData.data;
+
+    // Canvas 1: Normal Map (Vân băng loang kết hợp viền tia băng xé nhòe chữ trắng)
+    const normCanvas = document.createElement('canvas');
+    normCanvas.width = size;
+    normCanvas.height = size;
+    const normCtx = normCanvas.getContext('2d')!;
+    const normImg = normCtx.createImageData(size, size);
+    const normData = normImg.data;
+
+    // Canvas 2: Color & Patina Map (Tạo sắc Tím Indigo chủ đạo + các mảng tối hữu cơ ở đỉnh nhọn & sườn phải như ảnh gốc)
+    const colCanvas = document.createElement('canvas');
+    colCanvas.width = size;
+    colCanvas.height = size;
+    const colCtx = colCanvas.getContext('2d')!;
+    const colImg = colCtx.createImageData(size, size);
+    const colData = colImg.data;
+
+    // Hàm nhiễu giả lập FBM mượt mà (Không tạo đốm trắng rời rạc)
+    function smoothNoise(x: number, y: number) {
+      return (
+        Math.sin(x * 1.7 + Math.cos(y * 1.4)) * 0.5 +
+        Math.cos(y * 2.3 - Math.sin(x * 1.9)) * 0.3 +
+        Math.sin((x + y) * 4.5) * 0.2
+      );
+    }
 
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
-        const nx = (x / size) * scale;
-        const ny = (y / size) * scale;
-        const n1 = Math.sin(nx * 2.4 + Math.cos(ny * 2.1)) * 0.5;
-        const n2 = Math.cos(nx * 5.7 - Math.sin(ny * 6.3)) * 0.25;
-        const n3 = Math.sin((nx + ny) * 12.0) * 0.125;
-        const grain = (Math.random() - 0.5) * 0.08;
-        const val = Math.floor(((n1 + n2 + n3 + grain) * 0.5 + 0.5) * 255);
+        const u = x / size;
+        const v = 1.0 - y / size; // v = 1 ở đỉnh chữ A, v = 0 ở chân chữ A
+
+        const s = noiseScaleParam * 0.65;
+        // Sóng loang lớn tạo độ cong khúc xạ
+        const nLarge = smoothNoise(u * s, v * s);
+        // Vân băng tần số trung bình tạo hiệu ứng tua rua ở rìa chữ trắng phía sau
+        const nFrost = smoothNoise(u * s * 3.8 + nLarge, v * s * 3.8 - nLarge) * 0.35;
+        // Vân xước ngang nhẹ trên thân lăng kính
+        const nStreak = Math.sin(v * 45.0 + nLarge * 6.0) * 0.08;
+
+        const nx = (nLarge + nFrost + nStreak) * 0.5 + 0.5;
+        const ny = (smoothNoise(u * s + 2.1, v * s - 1.7) + nFrost) * 0.5 + 0.5;
 
         const idx = (y * size + x) * 4;
-        data[idx] = val;
-        data[idx + 1] = Math.max(0, 255 - Math.floor(val * 0.35));
-        data[idx + 2] = 255;
-        data[idx + 3] = 255;
+        normData[idx] = Math.min(255, Math.max(0, Math.floor(nx * 255)));
+        normData[idx + 1] = Math.min(255, Math.max(0, Math.floor(ny * 255)));
+        normData[idx + 2] = 255;
+        normData[idx + 3] = 255;
+
+        // Tính toán mảng màu Tím Indigo (#5b3ef5) kết hợp mảng tối hữu cơ ở đỉnh (v > 0.65) và sườn phải như ảnh gốc
+        const topShadowMask = Math.max(0, (v - 0.58) * 2.2) + (u > 0.48 ? 0.35 : 0.0);
+        const organicPatch = smoothNoise(u * 5.5, v * 5.5);
+        const darkFactor = Math.min(1.0, Math.max(0.08, 1.0 - (topShadowMask * 0.65 + organicPatch * 0.38)));
+
+        // Sắc Tím Lam Indigo chuẩn Alche Studio
+        colData[idx]     = Math.floor(155 * darkFactor + 35); // R
+        colData[idx + 1] = Math.floor(135 * darkFactor + 20); // G
+        colData[idx + 2] = Math.floor(255 * Math.min(1.0, darkFactor * 1.15 + 0.15)); // B (Giữ kênh Blue/Indigo cao)
+        colData[idx + 3] = 255;
       }
     }
-    ctx.putImageData(imgData, 0, 0);
+
+    normCtx.putImageData(normImg, 0, 0);
+    colCtx.putImageData(colImg, 0, 0);
+
+    const normalTex = new THREE.CanvasTexture(normCanvas);
+    normalTex.wrapS = THREE.ClampToEdgeWrapping;
+    normalTex.wrapT = THREE.ClampToEdgeWrapping;
+    normalTex.needsUpdate = true;
+
+    const colorTex = new THREE.CanvasTexture(colCanvas);
+    colorTex.wrapS = THREE.ClampToEdgeWrapping;
+    colorTex.wrapT = THREE.ClampToEdgeWrapping;
+    colorTex.needsUpdate = true;
+
+    return { normalTex, colorTex };
+  }
+
+  // ============================================================================
+  // PROCEDURAL DOME TEXTURE ATLASES (Alche Studio Halftone State Machine)
+  // ============================================================================
+
+  // State 1: Hero Continuous Diagonal Stripes & Macro Checkerboard Blocks (055816_hyprshot.jpg / media_1793573208862.jpg)
+  // Resolution 2048x384 exactly matches 64:12 aspect ratio (5.333:1).
+  // Every major tile is an EXACT 32x32px square. Every micro-dot is a 2x2px cell!
+  function createDomeState1Texture(): THREE.CanvasTexture {
+    const width = 2048;
+    const height = 384;
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d')!;
+
+    // 1. Deep Monolithic Black Void
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, width, height);
+
+    // 2. Large-scale Multi-Tile Macro Checkerboard Blocks (spanning 2x2 & 4x4 major tiles)
+    const mSize = 64; // 2 major tiles (64x64px)
+    const macroCols = width / mSize;  // 32
+    const macroRows = height / mSize; // 6
+
+    for (let r = 0; r < macroRows; r++) {
+      for (let c = 0; c < macroCols; c++) {
+        // Reserve specific columns for continuous sweeping 45° diagonal bands
+        const tileCol = c * 2;
+        if ((tileCol >= 6 && tileCol < 22) || (tileCol >= 38 && tileCol < 50)) {
+          continue; // Leave for continuous stripe bands
+        }
+
+        const x = c * mSize;
+        const y = r * mSize;
+        const hash = Math.sin(c * 27.53 + r * 59.17) * 43758.5453;
+        const rand = hash - Math.floor(hash);
+
+        if (rand > 0.62 && rand <= 0.80) {
+          ctx.fillStyle = '#3a3a44';
+          ctx.fillRect(x, y, mSize, mSize);
+        } else if (rand > 0.80 && rand <= 0.90) {
+          ctx.fillStyle = '#828490';
+          ctx.fillRect(x, y, mSize, mSize);
+        } else if (rand > 0.90) {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(x, y, mSize, mSize);
+        }
+      }
+    }
+
+    // 3. Continuous Large-Scale 45° Diagonal Stripe Bands (Sweeping across 16 and 12 major tiles seamlessly)
+    // In 2048x384 canvas, dx = dy = 384px is an EXACT 45° diagonal line in 3D world space!
+    const stripeZones = [
+      { startX: 6 * 32, endX: 22 * 32 },  // 16 major tiles wide (512px)
+      { startX: 38 * 32, endX: 50 * 32 }  // 12 major tiles wide (384px)
+    ];
+
+    stripeZones.forEach((zone) => {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(zone.startX, 0, zone.endX - zone.startX, height);
+      ctx.clip();
+
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 32.0; // Exactly 1 major square tile width!
+      const spacing = 64.0;  // Exactly 2 major square tiles cycle!
+
+      for (let d = -height; d < (zone.endX - zone.startX) + height; d += spacing) {
+        ctx.beginPath();
+        ctx.moveTo(zone.startX + d, 0);
+        ctx.lineTo(zone.startX + d + height, height);
+        ctx.stroke();
+      }
+      ctx.restore();
+    });
+
     const tex = new THREE.CanvasTexture(canvas);
     tex.wrapS = THREE.RepeatWrapping;
-    tex.wrapT = THREE.RepeatWrapping;
-    tex.repeat.set(2, 2);
-    tex.needsUpdate = true;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.generateMipmaps = true;
+    tex.anisotropy = 4;
     return tex;
   }
 
-  function createVaultWallTexture(mode: 'HERO' | 'WORKS'): THREE.CanvasTexture {
+  // State 2: Repeating Brand Typography MatrixWall (055831_hyprshot.jpg)
+  function createDomeState2Texture(): THREE.CanvasTexture {
+    const width = 2048;
+    const height = 384;
     const canvas = document.createElement('canvas');
-    canvas.width = 2048;
-    canvas.height = 1024;
+    canvas.width = width;
+    canvas.height = height;
     const ctx = canvas.getContext('2d')!;
 
-    ctx.fillStyle = '#050509';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, width, height);
 
-    const grad1 = ctx.createRadialGradient(700, 420, 40, 700, 420, 520);
-    grad1.addColorStop(0, mode === 'HERO' ? 'rgba(65, 50, 145, 0.24)' : 'rgba(26, 140, 74, 0.18)');
-    grad1.addColorStop(1, 'rgba(5, 5, 9, 0)');
-    ctx.fillStyle = grad1;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const numRows = 4;
+    const rowH = height / numRows;
 
-    const grad2 = ctx.createRadialGradient(1350, 580, 40, 1350, 580, 480);
-    grad2.addColorStop(0, mode === 'HERO' ? 'rgba(165, 85, 45, 0.16)' : 'rgba(200, 255, 0, 0.10)');
-    grad2.addColorStop(1, 'rgba(5, 5, 9, 0)');
-    ctx.fillStyle = grad2;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = '900 64px "Syne", "Inter", "Arial Black", sans-serif';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.42)';
 
-    const cols = 32;
-    const rows = 16;
-    const cellW = canvas.width / cols;
-    const cellH = canvas.height / rows;
+    const word = 'ADOLSOFT    ';
+    const wordWidth = ctx.measureText(word).width;
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.055)';
-    ctx.lineWidth = 1;
-
-    for (let i = 0; i <= cols; i++) {
-      ctx.beginPath();
-      ctx.moveTo(i * cellW, 0);
-      ctx.lineTo(i * cellW, canvas.height);
-      ctx.stroke();
-    }
-    for (let j = 0; j <= rows; j++) {
-      ctx.beginPath();
-      ctx.moveTo(0, j * cellH);
-      ctx.lineTo(canvas.width, j * cellH);
-      ctx.stroke();
-    }
-
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
-    for (let i = 0; i <= cols; i += 2) {
-      for (let j = 0; j <= rows; j += 2) {
-        const cx = i * cellW;
-        const cy = j * cellH;
-        ctx.beginPath();
-        ctx.moveTo(cx - 4, cy);
-        ctx.lineTo(cx + 4, cy);
-        ctx.moveTo(cx, cy - 4);
-        ctx.lineTo(cx, cy + 4);
-        ctx.stroke();
+    for (let r = 0; r < numRows; r++) {
+      const y = r * rowH + rowH * 0.5;
+      const stagger = (r % 2 === 0 ? 0 : wordWidth * 0.5);
+      for (let x = -wordWidth + (stagger % wordWidth); x < width + wordWidth * 2; x += wordWidth) {
+        ctx.fillText(word, x, y);
       }
     }
 
-    // Đảo ngược trục X (scale -1, 1) để chữ không bị lật ngược trên Three.BackSide
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.generateMipmaps = true;
+    tex.anisotropy = 4;
+    return tex;
+  }
+
+  // State 3: Giant Tilted "WORKS" / "DOMAINS" Section Transition (055823_hyprshot.jpg)
+  function createDomeState3Texture(): THREE.CanvasTexture {
+    const width = 2048;
+    const height = 384;
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d')!;
+
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, width, height);
+
     ctx.save();
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
+    ctx.translate(width * 0.5, height * 0.5);
+    ctx.rotate(-8 * (Math.PI / 180));
 
-    if (mode === 'HERO') {
-      ctx.font = '800 105px "Syne", sans-serif';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
-      ctx.textAlign = 'center';
-      for (let row = 1; row < rows; row += 3) {
-        for (let col = 2; col < cols; col += 8) {
-          ctx.fillText('ADOLSOFT', col * cellW, row * cellH + 34);
-        }
-      }
-    } else {
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.rotate(-0.14);
-      ctx.font = '800 310px "Syne", sans-serif';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.11)';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('WORKS', 0, 0);
-
-      ctx.strokeStyle = 'rgba(200, 255, 0, 0.14)';
-      ctx.lineWidth = 2;
-      ctx.strokeText('DOMAINS', 0, 230);
-    }
-
+    ctx.font = '900 240px "Syne", "Inter", "Arial Black", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffffff';
+    try {
+      (ctx as any).letterSpacing = '14px';
+    } catch (_) {}
+    ctx.fillText('WORKS', 0, 10);
     ctx.restore();
 
     const tex = new THREE.CanvasTexture(canvas);
     tex.wrapS = THREE.RepeatWrapping;
     tex.wrapT = THREE.ClampToEdgeWrapping;
-    tex.needsUpdate = true;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.generateMipmaps = true;
+    tex.anisotropy = 4;
     return tex;
   }
 
-  function createBackplaneWordTexture(): THREE.CanvasTexture {
-    const canvas = document.createElement('canvas');
-    canvas.width = 2048;
-    canvas.height = 512;
-    const ctx = canvas.getContext('2d')!;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.font = '800 250px "Syne", sans-serif';
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.letterSpacing = '12px';
-    ctx.fillText('ADOLSOFT', canvas.width / 2, canvas.height / 2);
+  function createRazorSharpBrandTexture(brandWord = 'ADOLSOFT'): THREE.CanvasTexture {
+    const isWorks = brandWord === 'WORKS' || brandWord === 'WORK';
+    const c = document.createElement('canvas');
+    c.width = 4096;
+    c.height = isWorks ? 1390 : 1060;
+    const ctx = c.getContext('2d')!;
+    ctx.clearRect(0, 0, c.width, c.height);
 
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.needsUpdate = true;
-    return tex;
+    const cx = c.width / 2;
+    const cy = c.height / 2;
+
+    if (isWorks) {
+      // 1. Quầng sáng trắng / cyan tán sắc ở tâm phía sau chữ R (Caustic Glow behind A apex)
+      const arcGrad = ctx.createRadialGradient(cx, cy, 40, cx, cy, 680);
+      arcGrad.addColorStop(0, '#ffffff');
+      arcGrad.addColorStop(0.28, 'rgba(240, 248, 255, 0.92)');
+      arcGrad.addColorStop(0.58, 'rgba(200, 225, 255, 0.42)');
+      arcGrad.addColorStop(0.82, 'rgba(150, 185, 255, 0.12)');
+      arcGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = arcGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 680, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 2. Chữ "WORKS" to hoành tráng, font nét dày chuẩn kiến trúc Alche Studio
+      let fontSize = 720;
+      try {
+        (ctx as any).letterSpacing = '115px';
+      } catch (e) {}
+      ctx.font = `900 ${fontSize}px "Syne", "Inter", "Arial Black", sans-serif`;
+      const textMetrics = ctx.measureText('WORKS');
+      const maxAvailableWidth = c.width - 240;
+      if (textMetrics.width > maxAvailableWidth) {
+        fontSize = Math.floor(fontSize * (maxAvailableWidth / textMetrics.width));
+        ctx.font = `900 ${fontSize}px "Syne", "Inter", "Arial Black", sans-serif`;
+      }
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Fill chữ với gradient sáng trắng tinh khôi
+      const textGrad = ctx.createLinearGradient(0, cy - fontSize * 0.5, 0, cy + fontSize * 0.5);
+      textGrad.addColorStop(0, '#FFFFFF');
+      textGrad.addColorStop(0.5, '#F4F7FF');
+      textGrad.addColorStop(1, '#DCE5FA');
+      ctx.fillStyle = textGrad;
+      ctx.fillText('WORKS', cx, cy + 18);
+
+      // 3. Hiệu ứng lưới CAD / Scanlines kiến trúc âm bản bên trong thân chữ (chuẩn 100% ảnh Alche Studio)
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-atop';
+
+      // Scanlines ngang cực mịn
+      ctx.strokeStyle = 'rgba(12, 18, 32, 0.35)';
+      ctx.lineWidth = 3.5;
+      for (let y = 0; y < c.height; y += 14) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(c.width, y);
+        ctx.stroke();
+      }
+
+      // Đường lưới dọc CAD
+      ctx.strokeStyle = 'rgba(12, 18, 32, 0.25)';
+      ctx.lineWidth = 2.5;
+      for (let x = 0; x < c.width; x += 28) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, c.height);
+        ctx.stroke();
+      }
+
+      // Khung lưới phân khối kiến trúc lớn (major grid)
+      ctx.strokeStyle = 'rgba(8, 14, 26, 0.50)';
+      ctx.lineWidth = 5;
+      for (let x = (cx % 224); x < c.width; x += 224) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, c.height);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Viền sắc nét quanh thân chữ
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.88)';
+      ctx.lineWidth = 4;
+      ctx.strokeText('WORKS', cx, cy + 18);
+    } else {
+      // 1. Quầng sáng trắng hình vòng cung ở tâm (Central Caustic White Arc)
+      const arcGrad = ctx.createRadialGradient(cx, cy, 30, cx, cy, 460);
+      arcGrad.addColorStop(0, '#ffffff');
+      arcGrad.addColorStop(0.35, 'rgba(255, 255, 255, 0.98)');
+      arcGrad.addColorStop(0.65, 'rgba(255, 255, 255, 0.50)');
+      arcGrad.addColorStop(0.85, 'rgba(255, 255, 255, 0.15)');
+      arcGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = arcGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 460, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 2. Perfect Text Padding & Framing for ADOLSOFT
+      let fontSize = 380;
+      ctx.font = `900 ${fontSize}px "Syne", "Inter", "Arial Black", sans-serif`;
+      const textMetrics = ctx.measureText(brandWord);
+      const maxAvailableWidth = c.width - 640;
+      if (textMetrics.width > maxAvailableWidth) {
+        fontSize = Math.floor(fontSize * (maxAvailableWidth / textMetrics.width));
+        ctx.font = `900 ${fontSize}px "Syne", "Inter", "Arial Black", sans-serif`;
+      }
+
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillText(brandWord, cx, cy + 12);
+
+      // Clean Alpha Bleeding for ADOLSOFT
+      const imgData = ctx.getImageData(0, 0, c.width, c.height);
+      const data = imgData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        data[i] = 255;
+        data[i + 1] = 255;
+        data[i + 2] = 255;
+      }
+      ctx.putImageData(imgData, 0, 0);
+    }
+
+    const texture = new THREE.CanvasTexture(c);
+    texture.generateMipmaps = false;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.needsUpdate = true;
+    return texture;
   }
 
   function createCurvedCardTexture(domain: DomainItem, idx: number): THREE.CanvasTexture {
     const canvas = document.createElement('canvas');
-    canvas.width = 1280;
-    canvas.height = 820;
+    // High-resolution Retina canvas (2048 x 1312) preserving exact 1.56 aspect ratio
+    canvas.width = 2048;
+    canvas.height = 1312;
     const ctx = canvas.getContext('2d')!;
 
+    // 1. Deep opaque OLED dark background (Zero bleed-through)
     const bgGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    bgGrad.addColorStop(0, '#090d14');
-    bgGrad.addColorStop(0.5, '#0d1520');
-    bgGrad.addColorStop(1, '#06080c');
+    bgGrad.addColorStop(0, '#080c16');
+    bgGrad.addColorStop(0.5, '#0c1422');
+    bgGrad.addColorStop(1, '#05080f');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const aura = ctx.createRadialGradient(880, 380, 30, 880, 380, 480);
-    aura.addColorStop(0, domain.accent + '44');
-    aura.addColorStop(0.55, domain.secondary + '22');
+    // 2. Focused accent aura on right-hand graphic zone
+    const aura = ctx.createRadialGradient(1420, 620, 60, 1420, 620, 780);
+    aura.addColorStop(0, domain.accent + '36');
+    aura.addColorStop(0.55, domain.secondary + '1c');
     aura.addColorStop(1, 'transparent');
     ctx.fillStyle = aura;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    // 3. Subtle CAD background grid
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
     ctx.lineWidth = 1;
-    for (let x = 0; x < canvas.width; x += 40) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, canvas.height);
-      ctx.stroke();
+    for (let x = 0; x < canvas.width; x += 64) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
     }
-    for (let y = 0; y < canvas.height; y += 40) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(canvas.width, y);
-      ctx.stroke();
+    for (let y = 0; y < canvas.height; y += 64) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
     }
 
+    // 4. Ultra-Thin Hairline Liquid Glass Rim
+    const glassBorderGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    glassBorderGrad.addColorStop(0, 'rgba(255, 255, 255, 0.45)'); // Top-left specular gleam
+    glassBorderGrad.addColorStop(0.35, 'rgba(255, 255, 255, 0.12)');
+    glassBorderGrad.addColorStop(0.70, 'rgba(255, 255, 255, 0.05)');
+    glassBorderGrad.addColorStop(1, 'rgba(255, 255, 255, 0.20)'); // Subtle bottom-right bounce
+
+    ctx.strokeStyle = glassBorderGrad;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(14, 14, canvas.width - 28, canvas.height - 28, 20);
+    ctx.stroke();
+
+    // 5. Hairline Corner Registration Accents
+    const m = 32;
+    const len = 18;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.30)';
+    ctx.lineWidth = 1.0;
+    ctx.beginPath(); ctx.moveTo(m, m + len); ctx.lineTo(m, m); ctx.lineTo(m + len, m); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(canvas.width - m - len, m); ctx.lineTo(canvas.width - m, m); ctx.lineTo(canvas.width - m, m + len); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(m, canvas.height - m - len); ctx.lineTo(m, canvas.height - m); ctx.lineTo(m + len, canvas.height - m); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(canvas.width - m - len, canvas.height - m); ctx.lineTo(canvas.width - m, canvas.height - m); ctx.lineTo(canvas.width - m, canvas.height - m - len); ctx.stroke();
+
+    // 6. Right side Domain Graphic Visualization
     ctx.save();
     if (idx === 0) {
       const shapes = [
-        { x: 740, y: 180, w: 150, h: 95, r: 18 },
-        { x: 915, y: 175, w: 120, h: 120, r: 60 },
-        { x: 1055, y: 185, w: 145, h: 90, r: 14 },
-        { x: 735, y: 300, w: 165, h: 130, r: 22 },
-        { x: 920, y: 315, w: 135, h: 115, r: 16 },
-        { x: 1075, y: 300, w: 125, h: 130, r: 24 },
-        { x: 745, y: 455, w: 210, h: 105, r: 20 },
-        { x: 975, y: 455, w: 220, h: 105, r: 50 }
+        { x: 1180, y: 280, w: 240, h: 150, r: 28 },
+        { x: 1460, y: 275, w: 190, h: 190, r: 95 },
+        { x: 1680, y: 290, w: 230, h: 140, r: 22 },
+        { x: 1170, y: 470, w: 260, h: 200, r: 35 },
+        { x: 1470, y: 500, w: 210, h: 180, r: 25 },
+        { x: 1715, y: 470, w: 200, h: 205, r: 38 },
+        { x: 1185, y: 720, w: 330, h: 165, r: 32 },
+        { x: 1550, y: 720, w: 350, h: 165, r: 80 }
       ];
       shapes.forEach((s, i) => {
-        ctx.fillStyle = i % 2 === 0 ? 'rgba(200, 255, 0, 0.16)' : 'rgba(26, 140, 74, 0.26)';
+        ctx.fillStyle = i % 2 === 0 ? 'rgba(200, 255, 0, 0.22)' : 'rgba(26, 140, 74, 0.32)';
         ctx.strokeStyle = i % 2 === 0 ? '#c8ff00' : '#4caf50';
-        ctx.lineWidth = 2.5;
+        ctx.lineWidth = 3.5;
         ctx.beginPath();
         ctx.roundRect(s.x, s.y, s.w, s.h, s.r);
         ctx.fill();
@@ -485,14 +762,14 @@
       });
     } else if (idx === 1) {
       const nodes = [
-        [780, 240], [980, 200], [1140, 280],
-        [840, 390], [1040, 370], [920, 520], [1130, 500]
+        [1250, 380], [1560, 320], [1820, 440],
+        [1340, 620], [1660, 590], [1470, 830], [1810, 800]
       ];
       ctx.strokeStyle = '#00f0ff88';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 3;
       nodes.forEach(([x1, y1], i) => {
         nodes.slice(i + 1).forEach(([x2, y2]) => {
-          if (Math.hypot(x2 - x1, y2 - y1) < 260) {
+          if (Math.hypot(x2 - x1, y2 - y1) < 420) {
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
@@ -503,66 +780,73 @@
       nodes.forEach(([x, y], i) => {
         ctx.fillStyle = i === 3 ? '#c8ff00' : '#00f0ff';
         ctx.beginPath();
-        ctx.arc(x, y, 12, 0, Math.PI * 2);
+        ctx.arc(x, y, 16, 0, Math.PI * 2);
         ctx.fill();
       });
     } else {
       ctx.strokeStyle = domain.accent;
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 6;
       ctx.beginPath();
-      for (let x = 680; x <= 1200; x += 8) {
-        const y = 370 + Math.sin((x - 680) * 0.025 + idx) * 95 * Math.cos((x - 680) * 0.008);
-        if (x === 680) ctx.moveTo(x, y);
+      for (let x = 1080; x <= 1920; x += 10) {
+        const y = 580 + Math.sin((x - 1080) * 0.016 + idx) * 150 * Math.cos((x - 1080) * 0.005);
+        if (x === 1080) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
       ctx.stroke();
 
-      ctx.strokeStyle = 'rgba(255,255,255,0.22)';
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.arc(950, 370, 160, 0, Math.PI * 2);
+      ctx.arc(1520, 580, 240, 0, Math.PI * 2);
       ctx.stroke();
     }
     ctx.restore();
 
+    // 7. Razor-Sharp Typography with Shadow for Extreme Legibility
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+    ctx.shadowBlur = 12;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 3;
+
+    // Category / Domain Index
+    ctx.font = '700 30px "JetBrains Mono", monospace';
+    ctx.fillStyle = domain.accent;
+    ctx.fillText(`■ ${domain.index} // ${domain.category}`, 120, 155);
+
+    // Title (Solid, Crisp, No aberration)
+    ctx.font = '800 132px "Syne", sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(domain.title, 120, 375);
+
+    // Subtitle
+    ctx.font = '500 40px "Inter", sans-serif';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.90)';
+    ctx.fillText(domain.subtitle, 120, 465);
+
+    ctx.shadowBlur = 0; // reset shadow for buttons & pills
+
+    // Metric Pill
+    ctx.fillStyle = 'rgba(26, 140, 74, 0.38)';
     ctx.strokeStyle = domain.accent;
     ctx.lineWidth = 3;
-    const m = 38;
-    const len = 28;
-    ctx.beginPath(); ctx.moveTo(m, m + len); ctx.lineTo(m, m); ctx.lineTo(m + len, m); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(canvas.width - m - len, m); ctx.lineTo(canvas.width - m, m); ctx.lineTo(canvas.width - m, m + len); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(m, canvas.height - m - len); ctx.lineTo(m, canvas.height - m); ctx.lineTo(m + len, canvas.height - m); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(canvas.width - m - len, canvas.height - m); ctx.lineTo(canvas.width - m, canvas.height - m); ctx.lineTo(canvas.width - m, canvas.height - m - len); ctx.stroke();
-
-    ctx.font = '600 20px "JetBrains Mono", monospace';
-    ctx.fillStyle = domain.accent;
-    ctx.fillText(`■ ${domain.index} // ${domain.category}`, 76, 98);
-
-    ctx.font = '800 86px "Syne", sans-serif';
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText(domain.title, 76, 235);
-
-    ctx.font = '500 26px "Inter", sans-serif';
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.78)';
-    ctx.fillText(domain.subtitle, 76, 290);
-
-    ctx.fillStyle = 'rgba(26, 140, 74, 0.28)';
-    ctx.strokeStyle = domain.accent;
-    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.roundRect(76, 645, 470, 64, 32);
+    ctx.roundRect(120, 1030, 740, 96, 48);
     ctx.fill();
     ctx.stroke();
 
-    ctx.font = '700 22px "JetBrains Mono", monospace';
+    ctx.font = '700 34px "JetBrains Mono", monospace';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(`⚡ ${domain.metric}`, 108, 685);
+    ctx.fillText(`⚡ ${domain.metric}`, 165, 1092);
 
-    ctx.font = '500 18px "JetBrains Mono", monospace';
-    ctx.fillStyle = 'rgba(255,255,255,0.5)';
-    ctx.fillText(`CLICK PANEL TO INSPECT ARCHITECTURE ↗`, 720, 685);
+    // CTA Hint
+    ctx.font = '600 26px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.70)';
+    ctx.fillText(`CLICK PANEL TO INSPECT ARCHITECTURE ↗`, 1140, 1092);
 
     const tex = new THREE.CanvasTexture(canvas);
+    tex.generateMipmaps = true;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.magFilter = THREE.LinearFilter;
     tex.anisotropy = 4;
     tex.needsUpdate = true;
     return tex;
@@ -589,9 +873,9 @@
       powerPreference: 'high-performance'
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.15;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#040407');
@@ -603,36 +887,242 @@
     const roomEnv = new RoomEnvironment();
     const envMap = pmremGenerator.fromScene(roomEnv, 0.04).texture;
     scene.environment = envMap;
+    pmremGenerator.dispose();
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+    // Studio Directional & Dispersion Lighting (Matching Alche Studio Liquid Glass Prism - NO PointLight hotspot)
+    const ambientLight = new THREE.AmbientLight(0x0f172a, 0.85);
     scene.add(ambientLight);
 
-    const warmLight = new THREE.PointLight(0xff7b39, 18, 25);
-    warmLight.position.set(-3.5, 2.2, -1.5);
-    scene.add(warmLight);
+    // 1. Ánh sáng chiếu xuyên sau lưng lỗ tam giác (z = -0.65)
+    const prismCyanLight = new THREE.PointLight(0x00f0ff, 32, 6.0);
+    prismCyanLight.position.set(-0.35, 0.05, -0.65);
+    scene.add(prismCyanLight);
 
-    const violetLight = new THREE.PointLight(0x7c4dff, 20, 25);
-    violetLight.position.set(3.2, -2.4, -1.2);
-    scene.add(violetLight);
+    const prismAmberLight = new THREE.PointLight(0xff6a00, 36, 6.0);
+    prismAmberLight.position.set(0.42, -0.15, -0.65);
+    scene.add(prismAmberLight);
 
-    const cyanRimLight = new THREE.DirectionalLight(0x00f0ff, 2.8);
-    cyanRimLight.position.set(0, 5, 4);
-    scene.add(cyanRimLight);
+    // 2. Ánh sáng định hướng mặt trước (TUYỆT ĐỐI KHÔNG dùng PointLight phía trước để tránh điểm lóa mắt)
+    const frontIndigoDirLight = new THREE.DirectionalLight(0x6366f1, 3.8);
+    frontIndigoDirLight.position.set(-2.5, 3.0, 5.0);
+    scene.add(frontIndigoDirLight);
+
+    const fillVioletDirLight = new THREE.DirectionalLight(0x818cf8, 2.5);
+    fillVioletDirLight.position.set(3.0, -2.0, 4.0);
+    scene.add(fillVioletDirLight);
 
     // --------------------------------------------------------------------------
-    // A. CYLINDRICAL VAULT TUNNEL
+    // A. 4-STATE PROCEDURAL HALFTONE CONCAVE CYLINDRICAL DOME (Alche Studio Benchmark)
     // --------------------------------------------------------------------------
-    const vaultHeroTex = createVaultWallTexture('HERO');
-    const vaultWorksTex = createVaultWallTexture('WORKS');
+    const texState1 = createDomeState1Texture();
+    const texState2 = createDomeState2Texture();
+    const texState3 = createDomeState3Texture();
 
-    const vaultMat = new THREE.ShaderMaterial({
+    const domeGeo = new THREE.CylinderGeometry(18, 18, 21.206, 96, 1, true);
+    const domeMat = new THREE.ShaderMaterial({
       side: THREE.BackSide,
       depthWrite: false,
       uniforms: {
-        uTexHero: { value: vaultHeroTex },
-        uTexWorks: { value: vaultWorksTex },
-        uMorph: { value: 0.0 },
-        uTime: { value: 0.0 }
+        uTexState1: { value: texState1 },
+        uTexState2: { value: texState2 },
+        uTexState3: { value: texState3 },
+        uTime: { value: 0 },
+        uScrollProgress: { value: 0 },
+        uActiveCardColor: { value: new THREE.Color(ADOLSOFT_DOMAINS[0]?.accent || '#c8ff00') }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D uTexState1; // Continuous diagonal bands & macro blocks
+        uniform sampler2D uTexState2; // Repeating ADOLSOFT matrix wall
+        uniform sampler2D uTexState3; // Giant tilted WORKS
+        uniform float uTime;
+        uniform float uScrollProgress; // 0.0 (Hero) -> 1.0 (Works Showcase)
+        uniform vec3 uActiveCardColor; // Dynamic color bleed from current 3D project card
+        varying vec2 vUv;
+
+        // Helper: Cycle smoothly between 4 Alche color palettes every 2.0 seconds
+        vec3 getAlchePalette(float t) {
+          float cycle = mod(t * 0.5, 4.0); // 1 step every 2 seconds
+          vec3 c0 = vec3(0.16, 0.12, 0.48); // Deep Electric Indigo (055831)
+          vec3 c1 = vec3(0.06, 0.30, 0.34); // Cyber Teal / Emerald (121329)
+          vec3 c2 = vec3(0.24, 0.10, 0.42); // Royal Violet / Magenta (121335)
+          vec3 c3 = vec3(0.18, 0.19, 0.22); // Monochromatic Silver/Graphite (055816)
+
+          if (cycle < 1.0) return mix(c0, c1, smoothstep(0.0, 1.0, cycle));
+          if (cycle < 2.0) return mix(c1, c2, smoothstep(1.0, 2.0, cycle));
+          if (cycle < 3.0) return mix(c2, c3, smoothstep(2.0, 3.0, cycle));
+          return mix(c3, c0, smoothstep(3.0, 4.0, cycle));
+        }
+
+        void main() {
+          // 1. Correct BackSide Horizontal Mirroring
+          vec2 uv = vec2(1.0 - vUv.x, vUv.y);
+
+          // 2. Physical Aspect Ratio Alignment:
+          // 64 columns x 12 rows creates perfect 1:1 square tiles in 3D world space (18 radius, 21.206 height)
+          vec2 majorGridCount = vec2(64.0, 12.0);
+          vec2 gridCell = fract(uv * majorGridCount);
+          float majorLine = step(0.965, gridCell.x) + step(0.965, gridCell.y);
+
+          // Micro LED Halftone Dots: exactly 16 circular micro-dots per major square tile
+          // totalDots is exactly 1024.0 x 192.0 (integers guarantee zero cylinder seam tearing!)
+          vec2 totalDots = majorGridCount * 16.0;
+          vec2 dotGridUv = uv * totalDots;
+          vec2 dotCenterUv = (floor(dotGridUv) + 0.5) / totalDots; // Quantized UV at dot center!
+          vec2 dotLocal = fract(dotGridUv) - 0.5;
+
+          // Crisp circular LED dot mask (radius 0.34, sharp anti-aliased edge)
+          // Always a crisp Euclidean circle, NEVER an elongated barcode dash!
+          float circleDot = 1.0 - smoothstep(0.28, 0.38, length(dotLocal));
+
+          // Optical Crosshairs (+) at every 2nd major intersection
+          vec2 crossGrid = fract(uv * (majorGridCount * 0.5));
+          float crossArmX = step(abs(crossGrid.y - 0.5), 0.005) * step(abs(crossGrid.x - 0.5), 0.038);
+          float crossArmY = step(abs(crossGrid.x - 0.5), 0.005) * step(abs(crossGrid.y - 0.5), 0.038);
+          float crosshair = clamp(crossArmX + crossArmY, 0.0, 1.0);
+
+          // 3. Sample Textures at Quantized Dot Centers (Eliminates blur, guarantees uniform dot brightness!)
+          vec2 scrolledUv1 = vec2(dotCenterUv.x + uTime * 0.006, dotCenterUv.y);
+          vec2 scrolledUv2 = vec2(dotCenterUv.x - uTime * 0.010, dotCenterUv.y + uScrollProgress * 0.15);
+          float s1 = texture2D(uTexState1, scrolledUv1).r;
+          float s2 = texture2D(uTexState2, scrolledUv2).r;
+          float s3 = texture2D(uTexState3, dotCenterUv).r;
+
+          // State weights based on uScrollProgress:
+          // [0.00 - 0.20]: State 1 (Continuous Diagonal Stripes & Macro Blocks)
+          // [0.20 - 0.45]: State 2 (Repeating ADOLSOFT Matrix)
+          // [0.45 - 0.70]: State 3 (Giant Tilted WORKS)
+          // [0.70 - 1.00]: State 4 (Darkened Stage with Floor Color Reflection from Active Card)
+          float w1 = 1.0 - smoothstep(0.12, 0.28, uScrollProgress);
+          float w2 = smoothstep(0.15, 0.28, uScrollProgress) * (1.0 - smoothstep(0.42, 0.55, uScrollProgress));
+          float w3 = smoothstep(0.42, 0.55, uScrollProgress) * (1.0 - smoothstep(0.68, 0.80, uScrollProgress));
+          float w4 = smoothstep(0.68, 0.85, uScrollProgress);
+
+          float patternIntensity = (s1 * w1 + s2 * w2 + s3 * w3) * circleDot;
+
+          // 4. Apply 2-Second Dynamic Color Shifting Palette
+          vec3 baseDark = vec3(0.015, 0.016, 0.025);
+          vec3 dynamicHue = getAlchePalette(uTime);
+
+          // Checkerboard subtle tint variation across major tiles
+          vec2 tileId = floor(uv * majorGridCount);
+          float checker = mod(tileId.x + tileId.y, 2.0);
+          vec3 tileTint = mix(baseDark, dynamicHue * 0.45, checker * 0.65 + 0.35);
+
+          // Chromatic vertical light pillars (amber, magenta, emerald from reference media_1793573208862.jpg)
+          float pillar1 = exp(-pow((fract(uv.x + 0.14) - 0.5) * 8.0, 2.0)); // Amber
+          float pillar2 = exp(-pow((fract(uv.x + 0.28) - 0.5) * 10.0, 2.0)); // Magenta
+          float pillar3 = exp(-pow((fract(uv.x + 0.42) - 0.5) * 7.5, 2.0)); // Emerald
+          vec3 chromaticPillars = vec3(1.0, 0.72, 0.15) * pillar1 * 0.35 
+                                + vec3(0.88, 0.12, 0.42) * pillar2 * 0.40 
+                                + vec3(0.18, 0.88, 0.38) * pillar3 * 0.32;
+
+          vec3 patternColor = mix(tileTint + chromaticPillars * circleDot * 0.4, dynamicHue * 1.65 + vec3(0.28), patternIntensity);
+          patternColor += chromaticPillars * patternIntensity * 0.65;
+
+          // 5. State 4 Floor Ambient Reflection (Matches 055835_hyprshot.jpg)
+          float floorMask = smoothstep(0.42, 0.08, vUv.y) * exp(-pow((vUv.x - 0.5) * 2.5, 2.0));
+          patternColor += uActiveCardColor * floorMask * w4 * 0.55 * circleDot;
+
+          // 6. Overlay Major Grid Lines & Optical Crosshairs (+)
+          patternColor = mix(patternColor, vec3(0.02), clamp(majorLine, 0.0, 1.0) * 0.75);
+          patternColor += vec3(0.55, 0.60, 0.75) * crosshair * 0.45;
+
+          // 7. 4-Corner Spatial Radial & Vertical Vignette
+          float vertFade = smoothstep(0.01, 0.22, vUv.y) * smoothstep(0.99, 0.78, vUv.y);
+          float radialFade = smoothstep(1.15, 0.25, length(vUv - 0.5) * 1.35);
+
+          gl_FragColor = vec4(patternColor * vertFade * (0.35 + 0.65 * radialFade), 1.0);
+        }
+      `
+    });
+
+    const architecturalDome = new THREE.Mesh(domeGeo, domeMat);
+    // Xoay nhẹ vòm trụ để vùng trung tâm (vUv.x = 0.5) nằm đối diện trực tiếp với Camera
+    architecturalDome.rotation.y = Math.PI * 0.5;
+    scene.add(architecturalDome);
+
+    // --------------------------------------------------------------------------
+    // A2. FLOATING SPATIAL CYBER MOTES (Volumetric Bokeh Particles)
+    // Hạt quang sai phát sáng lơ lửng trong không gian 3D tạo chiều sâu điện ảnh
+    // --------------------------------------------------------------------------
+    const particleCount = 140;
+    const particleGeo = new THREE.BufferGeometry();
+    const pPositions = new Float32Array(particleCount * 3);
+    const pBaseY = new Float32Array(particleCount);
+    const pSpeeds = new Float32Array(particleCount);
+    const pColors = new Float32Array(particleCount * 3);
+
+    const particlePalette = [
+      new THREE.Color('#c8ff00'), // Lime
+      new THREE.Color('#00f0ff'), // Cyan
+      new THREE.Color('#ffaa00'), // Amber
+      new THREE.Color('#ffffff')  // Pure White
+    ];
+
+    for (let i = 0; i < particleCount; i++) {
+      pPositions[i * 3 + 0] = (Math.random() - 0.5) * 18.0;
+      const py = (Math.random() - 0.5) * 10.0;
+      pPositions[i * 3 + 1] = py;
+      pBaseY[i] = py;
+      pPositions[i * 3 + 2] = -2.5 - Math.random() * 11.5;
+      pSpeeds[i] = 0.25 + Math.random() * 0.45;
+
+      const pCol = particlePalette[Math.floor(Math.random() * particlePalette.length)];
+      pColors[i * 3 + 0] = pCol.r;
+      pColors[i * 3 + 1] = pCol.g;
+      pColors[i * 3 + 2] = pCol.b;
+    }
+
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+    particleGeo.setAttribute('color', new THREE.BufferAttribute(pColors, 3));
+
+    function createBokehParticleTexture(): THREE.CanvasTexture {
+      const c = document.createElement('canvas');
+      c.width = 64;
+      c.height = 64;
+      const ctx = c.getContext('2d')!;
+      const grad = ctx.createRadialGradient(32, 32, 2, 32, 32, 30);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      grad.addColorStop(0.35, 'rgba(255, 255, 255, 0.7)');
+      grad.addColorStop(0.7, 'rgba(255, 255, 255, 0.15)');
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 64, 64);
+      const tex = new THREE.CanvasTexture(c);
+      return tex;
+    }
+
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.18,
+      map: createBokehParticleTexture(),
+      transparent: true,
+      opacity: 0.38,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+
+    const particleSystem = new THREE.Points(particleGeo, particleMat);
+    scene.add(particleSystem);
+
+    // --------------------------------------------------------------------------
+    // B. LIQUID CHROMATIC SHOCKWAVE (Z = -1.3, Sóng nước nổ bùm bóng loáng)
+    // --------------------------------------------------------------------------
+    const shockwaveMat = new THREE.ShaderMaterial({
+      transparent: true,
+      depthWrite: false,
+      uniforms: {
+        uTime: { value: 0 },
+        uRadius: { value: 0.0 },
+        uIntensity: { value: 0.0 },
+        uAspect: { value: window.innerWidth / window.innerHeight }
       },
       vertexShader: `
         varying vec2 vUv;
@@ -642,97 +1132,364 @@
         }
       `,
       fragmentShader: `
-        uniform sampler2D uTexHero;
-        uniform sampler2D uTexWorks;
-        uniform float uMorph;
         uniform float uTime;
+        uniform float uRadius;
+        uniform float uIntensity;
+        uniform float uAspect;
         varying vec2 vUv;
 
         void main() {
-          vec2 uvHero = vec2(vUv.x + uTime * 0.004, vUv.y);
-          vec2 uvWorks = vec2(vUv.x - uTime * 0.006, vUv.y);
-          vec4 colHero = texture2D(uTexHero, uvHero);
-          vec4 colWorks = texture2D(uTexWorks, uvWorks);
-          vec4 finalCol = mix(colHero, colWorks, smoothstep(0.0, 1.0, uMorph));
-          gl_FragColor = finalCol;
+          vec2 uv = vUv - 0.5;
+          uv.x *= uAspect;
+          float dist = length(uv) * 2.0;
+
+          // Vòng sóng nước bóng loáng nổ bùm tỏa ra từ tâm
+          float ring = exp(-pow(dist - uRadius, 2.0) / 0.035) * uIntensity;
+          float ring2 = exp(-pow(dist - uRadius * 0.72, 2.0) / 0.065) * uIntensity * 0.55;
+
+          // Sắc màu quang sai cầu vồng (Lime #c8ff00, Cyan #38bdf8, Purple #a855f7)
+          vec3 cLime = vec3(0.78, 1.0, 0.0);
+          vec3 cCyan = vec3(0.22, 0.74, 0.97);
+          vec3 cViolet = vec3(0.66, 0.33, 0.97);
+          vec3 cWhite = vec3(1.0, 1.0, 1.0);
+
+          vec3 col = mix(cCyan, cLime, sin(dist * 12.0 + uTime * 4.0) * 0.5 + 0.5);
+          col = mix(col, cViolet, sin(dist * 6.0 - uTime * 3.0) * 0.5 + 0.5);
+          col += cWhite * pow(ring, 2.2) * 1.8;
+
+          float totalAlpha = (ring * 1.35 + ring2 * 0.75) * (1.0 - smoothstep(1.6, 2.8, uRadius));
+          totalAlpha = clamp(totalAlpha, 0.0, 1.0);
+
+          gl_FragColor = vec4(col, totalAlpha);
+        }
+      `
+    });
+    const shockwaveGeo = new THREE.PlaneGeometry(16, 16);
+    const shockwaveMesh = new THREE.Mesh(shockwaveGeo, shockwaveMat);
+    shockwaveMesh.position.set(0, 0, -1.3);
+    scene.add(shockwaveMesh);
+
+    // --------------------------------------------------------------------------
+    // C. CRISP VECTOR-GRADE BRAND TEXT ("ADOLSOFT") AT Z = -1.25
+    // Perfect Padding & Framing: Zero Edge Clipping, No Halos, DepthWrite: false
+    // --------------------------------------------------------------------------
+    const backTextGeo = new THREE.PlaneGeometry(11.2, 2.9);
+    const backTextMat = new THREE.MeshBasicMaterial({
+      map: createRazorSharpBrandTexture('ADOLSOFT'),
+      transparent: true,
+      opacity: 0.0,
+      toneMapped: false,
+      alphaTest: 0.01,
+      depthWrite: false
+    });
+
+    const backTextMesh = new THREE.Mesh(backTextGeo, backTextMat);
+    // Vị trí xuất phát ngầm dưới đường chân trời để kích nổ hiệu ứng phóng vút lên
+    backTextMesh.position.set(0, -2.5, -1.25);
+    backTextMesh.scale.set(0.08, 0.08, 1.0);
+    backTextMesh.rotation.set(1.5, 0.0, -0.2);
+    backTextMat.color.set('#c8ff00');
+    backTextMesh.renderOrder = 1;
+    scene.add(backTextMesh);
+
+    // --------------------------------------------------------------------------
+    // C2. ARCHITECTURAL TRANSITION TEXT ("WORKS") AT Z = -1.35 (Matches Screenshot 1 & 3)
+    // Monumental Full-Width CAD Grid Typography: Spans 16.8 x 5.7 across viewport
+    // --------------------------------------------------------------------------
+    const worksTextGeo = new THREE.PlaneGeometry(16.8, 5.7);
+    const worksTextMat = new THREE.MeshBasicMaterial({
+      map: createRazorSharpBrandTexture('WORKS'),
+      transparent: true,
+      opacity: 0.0,
+      toneMapped: false,
+      alphaTest: 0.01,
+      depthWrite: false
+    });
+    const worksTextMesh = new THREE.Mesh(worksTextGeo, worksTextMat);
+    worksTextMesh.position.set(0, 0.10, -1.35);
+    worksTextMesh.renderOrder = 1;
+    scene.add(worksTextMesh);
+    // C. LIQUID GLASS "A" SCULPTED PRISM (Positioned in FRONT at Z = 0.0)
+    // Khối Băng Pha Lê Tím Xanh Xuyên Thấu Tuyệt Đối (Chuẩn Alche Studio ảnh.jpg)
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // C. LIQUID GLASS "A" SCULPTED PRISM (Positioned in FRONT at Z = 0.0)
+    // Khối Băng Pha Lê Tím Xanh Xuyên Thấu Tuyệt Đối (Chuẩn Alche Studio ảnh.jpg)
+    // --------------------------------------------------------------------------
+    function createSculptedAlcheLetterAGeometry(): THREE.BufferGeometry {
+      const shape = new THREE.Shape();
+
+      // 1. Biên dạng ngoài chữ A chuẩn tỷ lệ Alche Studio (có rãnh khía vát ở 2 chân đế)
+      shape.moveTo(0, 1.82);          // Đỉnh nhọn chữ A
+      shape.lineTo(-1.56, -1.45);     // Cạnh sườn trái
+      shape.lineTo(-1.50, -1.52);     // Vát nhẹ góc ngoài chân trái
+      shape.lineTo(-0.82, -1.52);     // Đáy bằng chân trái
+      shape.lineTo(-0.70, -1.30);     // Khía vát lên (Notch trái)
+      shape.lineTo(0.70, -1.30);      // Đáy thanh ngang gầm chữ A
+      shape.lineTo(0.82, -1.52);      // Khía vát xuống (Notch phải)
+      shape.lineTo(1.50, -1.52);      // Đáy bằng chân phải
+      shape.lineTo(1.56, -1.45);      // Vát nhẹ góc ngoài chân phải
+      shape.closePath();
+
+      // 2. Lỗ tam giác rỗng ở chính tâm chữ A (nơi khúc xạ và phát sáng cầu vồng ở cạnh vát)
+      const hole = new THREE.Path();
+      hole.moveTo(0, 0.36);           // Đỉnh lỗ tam giác trong
+      hole.lineTo(-0.50, -0.78);      // Góc trái lỗ tam giác
+      hole.lineTo(0.50, -0.78);       // Góc phải lỗ tam giác
+      hole.closePath();
+      shape.holes.push(hole);
+
+      // 3. Đúc khối 3D với mặt vát (Bevel) rộng ở cạnh trong để bắt dải tán sắc cầu vồng
+      const extrudeSettings: THREE.ExtrudeGeometryOptions = {
+        steps: 2,
+        depth: 0.52,
+        bevelEnabled: true,
+        bevelThickness: 0.14,
+        bevelSize: 0.10,
+        bevelOffset: 0,
+        bevelSegments: 8
+      };
+
+      const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      geo.center();
+      geo.computeVertexNormals();
+
+      // 4. BẮT BUỘC: Chuẩn hóa tọa độ UV về đúng [0.0 -> 1.0] để xóa vĩnh viễn lỗi đốm hạt đá hoa cương
+      geo.computeBoundingBox();
+      const max = geo.boundingBox!.max;
+      const min = geo.boundingBox!.min;
+      const rangeX = max.x - min.x || 1;
+      const rangeY = max.y - min.y || 1;
+
+      const posAttr = geo.attributes.position;
+      const uvAttr = geo.attributes.uv;
+      for (let i = 0; i < posAttr.count; i++) {
+        const u = (posAttr.getX(i) - min.x) / rangeX;
+        const v = (posAttr.getY(i) - min.y) / rangeY;
+        uvAttr.setXY(i, u, v);
+      }
+      uvAttr.needsUpdate = true;
+
+      return geo;
+    }
+
+    function createInnerPrismBevelGeometry(): THREE.BufferGeometry {
+      const outerPath = [
+        new THREE.Vector2(0, 0.38),
+        new THREE.Vector2(-0.52, -0.80),
+        new THREE.Vector2(0.52, -0.80)
+      ];
+      const innerPath = [
+        new THREE.Vector2(0, 0.34),
+        new THREE.Vector2(-0.48, -0.76),
+        new THREE.Vector2(0.48, -0.76)
+      ];
+
+      const shape = new THREE.Shape(outerPath);
+      const hole = new THREE.Path(innerPath);
+      shape.holes.push(hole);
+
+      const geo = new THREE.ExtrudeGeometry(shape, {
+        depth: 0.48,
+        bevelEnabled: false
+      });
+      geo.center();
+      return geo;
+    }
+
+    const innerPrismBevelMat = new THREE.ShaderMaterial({
+      transparent: true,
+      side: THREE.DoubleSide,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      uniforms: {
+        uTime: { value: 0 }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        varying vec3 vPos;
+        void main() {
+          vUv = uv;
+          vPos = position;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float uTime;
+        varying vec2 vUv;
+        varying vec3 vPos;
+
+        void main() {
+          // Góc quanh tâm lỗ tam giác để trải dải cầu vồng luân chuyển nhịp nhàng
+          float angle = atan(vPos.y + 0.15, vPos.x);
+          float normAngle = fract((angle / 6.28318) + 0.65 + sin(uTime * 2.416) * 0.08);
+
+          // Gradient quang phổ: Cyan (#00f0ff) -> Vàng (#ffea00) -> Cam (#ff5500) -> Đỏ Hồng (#ff00aa)
+          vec3 colCyan = vec3(0.0, 0.94, 1.0);
+          vec3 colYellow = vec3(1.0, 0.92, 0.0);
+          vec3 colOrange = vec3(1.0, 0.33, 0.0);
+          vec3 colRed = vec3(1.0, 0.0, 0.55);
+
+          vec3 col = mix(colCyan, colYellow, smoothstep(0.0, 0.33, normAngle));
+          col = mix(col, colOrange, smoothstep(0.33, 0.66, normAngle));
+          col = mix(col, colRed, smoothstep(0.66, 1.0, normAngle));
+
+          gl_FragColor = vec4(col, 0.85);
         }
       `
     });
 
-    const vaultGeo = new THREE.CylinderGeometry(16, 16, 26, 64, 1, true);
-    const vaultMesh = new THREE.Mesh(vaultGeo, vaultMat);
-    scene.add(vaultMesh);
+    const innerPrismBevelGeo = createInnerPrismBevelGeometry();
+    const innerPrismBevelMesh = new THREE.Mesh(innerPrismBevelGeo, innerPrismBevelMat);
+    innerPrismBevelMesh.position.set(0, -0.21, 0);
 
-    // --------------------------------------------------------------------------
-    // B. 3D REFRACTED "ADOLSOFT" BACKPLANE (Z = -2.1 behind Prism)
-    // --------------------------------------------------------------------------
-    const backplaneWordTex = createBackplaneWordTexture();
-    const backplaneWordMat = new THREE.MeshBasicMaterial({
-      map: backplaneWordTex,
-      transparent: true,
-      opacity: 0.96
-    });
-    const backplaneWordMesh = new THREE.Mesh(new THREE.PlaneGeometry(11.2, 2.8), backplaneWordMat);
-    backplaneWordMesh.position.set(0, 0.05, -2.1);
-    scene.add(backplaneWordMesh);
-
-    // --------------------------------------------------------------------------
-    // C. LIQUID GLASS "A" MONOLITH PRISM
-    // --------------------------------------------------------------------------
     const prismGroup = new THREE.Group();
+    // Vị trí xuất phát ban đầu: Hyperspace dive từ gần camera Z = 2.8, scale siêu nhỏ 0.06
+    prismGroup.position.set(0, 0.45, 2.8);
+    prismGroup.scale.set(0.06, 0.06, 0.06);
+    prismGroup.rotation.set(-0.25, 0.0, 0.45);
     scene.add(prismGroup);
 
-    const aShape = new THREE.Shape();
-    aShape.moveTo(0, 2.35);
-    aShape.lineTo(2.15, -1.85);
-    aShape.lineTo(1.35, -1.95);
-    aShape.lineTo(1.12, -1.55);
-    aShape.lineTo(-1.12, -1.55);
-    aShape.lineTo(-1.35, -1.95);
-    aShape.lineTo(-2.15, -1.85);
-    aShape.closePath();
+    const { normalTex, colorTex } = createAlcheIceMaps(9.0);
 
-    const holePath = new THREE.Path();
-    holePath.moveTo(0, 0.62);
-    holePath.lineTo(-0.78, -0.92);
-    holePath.lineTo(0.78, -0.92);
-    holePath.closePath();
-    aShape.holes.push(holePath);
+    const mainLogoMaterial = new THREE.MeshPhysicalMaterial({
+      map: colorTex,                                 // Áp dụng sắc Tím Indigo + mảng băng tối hữu cơ
+      color: new THREE.Color('#ffffff'),             // Giữ hệ số nhân màu trắng để truyền sáng tối đa
+      emissive: new THREE.Color('#2e1a8a'),          // Nền phát sáng Tím Indigo sâu để thân chữ A không bao giờ bị đen xỉn
+      emissiveMap: colorTex,
+      emissiveIntensity: 0.48,
+      transmission: 1.0,                             // Truyền sáng 100% để chữ trắng phía sau xuyên rực rỡ qua thân chữ A
+      opacity: 1.0,
+      transparent: true,
+      metalness: 0.0,                                // BẮT BUỘC = 0.0 (Không làm đục kính)
+      roughness: 0.02,                               // Bắt đầu siêu trong suốt lấp lánh như kim cương
+      ior: 1.46,                                     // Bẻ cong nét chữ trắng phía sau thành vòng cung quanh lỗ tam giác
+      thickness: 3.1,                                // Độ dày quang học lớn để đẩy mạnh khúc xạ
+      dispersion: 32.0,                              // Bùng nổ tán sắc cầu vồng cực đại lúc xuất phát
+      attenuationColor: new THREE.Color('#4338ca'),  // Nhuộm tia sáng đi qua thành màu Tím Indigo
+      attenuationDistance: 1.65,
+      specularIntensity: 1.0,
+      specularColor: new THREE.Color('#a5b4fc'),
+      envMapIntensity: 2.2,
+      clearcoat: 0.25,                               // Giữ thấp để mặt trước có chất nhám băng mờ, không bị bóng nhựa
+      clearcoatRoughness: 0.22,
+      normalMap: normalTex,
+      normalScale: new THREE.Vector2(0.42, 0.42)     // Làm viền vòng cung chữ trắng phía sau xé nhòe tự nhiên như băng đúc
+    } as any);
 
-    const extrudeSettings: THREE.ExtrudeGeometryOptions = {
-      depth: 0.72,
-      bevelEnabled: true,
-      bevelSegments: 6,
-      steps: 1,
-      bevelSize: 0.14,
-      bevelThickness: 0.16
+    const mainLogoGeo = createSculptedAlcheLetterAGeometry();
+    const mainLogoMesh = new THREE.Mesh(mainLogoGeo, mainLogoMaterial);
+    mainLogoMesh.position.set(0, 0, 0);
+    mainLogoMesh.rotation.set(0.95, -Math.PI * 1.65, -0.65);
+    mainLogoMesh.renderOrder = 1;
+    mainLogoMesh.add(innerPrismBevelMesh);
+    prismGroup.add(mainLogoMesh);
+    prismGroup.add(prismCyanLight);
+    prismGroup.add(prismAmberLight);
+
+    // Dynamic State Management for Logo Scaling & Spatial Alignment
+    const logoAnimState = {
+      scale: 1.0,
+      targetScale: 1.0,
+      posY: 0.0,
+      targetPosY: 0.0,
+      posZ: 0.0,
+      targetPosZ: 0.0,
+      drawerMultiplier: 1.0
     };
 
-    const prismGeo = new THREE.ExtrudeGeometry(aShape, extrudeSettings);
-    prismGeo.center();
-
-    const frostNormalMap = createFrostNormalTexture(9.0);
-
-    const prismMaterial = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#ffffff'),
-      transmission: 1.0,
-      opacity: 1.0,
-      metalness: 0.02,
-      roughness: 0.10,
-      ior: 1.52,
-      thickness: 2.6,
-      dispersion: 6.0,
-      envMapIntensity: 2.1,
-      normalMap: frostNormalMap,
-      normalScale: new THREE.Vector2(0.28, 0.28),
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.06,
-      attenuationColor: new THREE.Color('#e2dcff'),
-      attenuationDistance: 3.5
+    window.addEventListener('spatial-drawer-state', (e: any) => {
+      const isOpen = !!e.detail?.open;
+      gsap.to(logoAnimState, {
+        drawerMultiplier: isOpen ? 1.25 : 1.0,
+        duration: 0.65,
+        ease: 'power2.out'
+      });
     });
 
-    const prismMesh = new THREE.Mesh(prismGeo, prismMaterial);
-    prismGroup.add(prismMesh);
+    // --------------------------------------------------------------------------
+    // TWEAKPANE: MAINLOGO MATERIAL (Bottom-Left)
+    // --------------------------------------------------------------------------
+    const paneContainer = document.getElementById('tweakpane-container');
+    const paneParams = {
+      roughness: 0.10,
+      noiseScale: 9.0,
+      color: { r: 255, g: 255, b: 255 },
+      domainScale: 1.68,
+      domainPosY: 0.18,
+      domainPosZ: -0.16
+    };
+
+    let pane: Pane | null = null;
+    if (paneContainer) {
+      pane = new Pane({
+        container: paneContainer,
+        title: 'MainLogo Material',
+        expanded: false
+      });
+
+      pane.addBinding(paneParams, 'roughness', {
+        min: 0.0,
+        max: 0.50,
+        step: 0.01
+      }).on('change', (ev) => {
+        mainLogoMaterial.roughness = ev.value;
+      });
+
+      pane.addBinding(paneParams, 'noiseScale', {
+        min: 1.0,
+        max: 20.0,
+        step: 0.1
+      }).on('change', (ev) => {
+        const scale = ev.value * 0.045;
+        mainLogoMaterial.normalScale.set(scale, scale);
+      });
+
+      pane.addBinding(paneParams, 'color').on('change', (ev) => {
+        mainLogoMaterial.color.setRGB(ev.value.r / 255, ev.value.g / 255, ev.value.b / 255);
+      });
+
+      const logoFolder = pane.addFolder({
+        title: 'Logo Scale & Position',
+        expanded: true
+      });
+
+      logoFolder.addBinding(paneParams, 'domainScale', {
+        label: 'A Scale (Domains)',
+        min: 0.8,
+        max: 2.8,
+        step: 0.02
+      }).on('change', () => {
+        if (scrollState.progress >= 0.18) {
+          const tVault = Math.min(1, (scrollState.progress - 0.18) / 0.08);
+          logoAnimState.targetScale = THREE.MathUtils.lerp(1.70, paneParams.domainScale, tVault);
+        }
+      });
+
+      logoFolder.addBinding(paneParams, 'domainPosY', {
+        label: 'A Pos Y (Domains)',
+        min: -0.5,
+        max: 0.8,
+        step: 0.02
+      }).on('change', () => {
+        if (scrollState.progress >= 0.18) {
+          const tVault = Math.min(1, (scrollState.progress - 0.18) / 0.08);
+          logoAnimState.targetPosY = THREE.MathUtils.lerp(0.18, paneParams.domainPosY, tVault);
+        }
+      });
+
+      logoFolder.addBinding(paneParams, 'domainPosZ', {
+        label: 'A Pos Z (Domains)',
+        min: -1.0,
+        max: 0.5,
+        step: 0.02
+      }).on('change', () => {
+        if (scrollState.progress >= 0.18) {
+          const tVault = Math.min(1, (scrollState.progress - 0.18) / 0.08);
+          logoAnimState.targetPosZ = THREE.MathUtils.lerp(-0.15, paneParams.domainPosZ, tVault);
+        }
+      });
+    }
 
     // --------------------------------------------------------------------------
     // D. 6 CURVED SPATIAL DOMAIN CARDS
@@ -747,7 +1504,6 @@
 
     const cardVertexShader = `
       uniform float uCurvature;
-      uniform float uBendVelocity;
       varying vec2 vUv;
       varying vec3 vNormal;
 
@@ -755,7 +1511,6 @@
         vUv = uv;
         vec3 pos = position;
         pos.z -= pow(pos.x * 0.45, 2.0) * uCurvature;
-        pos.y += sin(pos.x * 1.4) * uBendVelocity * 0.08;
         vNormal = normalize(normalMatrix * normal);
         gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
       }
@@ -763,7 +1518,7 @@
 
     const cardFragmentShader = `
       uniform sampler2D uTexture;
-      uniform float uAberration;
+      uniform vec3 uAccentColor;
       uniform float uOpacity;
       uniform float uHover;
       uniform float uTime;
@@ -771,24 +1526,36 @@
 
       void main() {
         vec2 center = vUv - 0.5;
-        float dist = length(center);
+        float edgeDist = max(abs(center.x), abs(center.y));
 
-        float edgeMask = smoothstep(0.28, 0.52, dist);
-        vec2 shift = center * edgeMask * (0.018 * uAberration + uHover * 0.012);
+        // 1. Crystal-clear direct content sampling (98.5% of card is pristine)
+        vec4 color = texture2D(uTexture, vUv);
 
-        float r = texture2D(uTexture, vUv + shift).r;
-        float g = texture2D(uTexture, vUv).g;
-        float b = texture2D(uTexture, vUv - shift).b;
-        vec3 color = vec3(r, g, b);
+        // 2. Ultra-Thin Hairline Liquid Glass Bevel (outer 0.9% of card only)
+        float bevel = smoothstep(0.489, 0.497, edgeDist);
 
-        float borderRim = smoothstep(0.47, 0.5, max(abs(center.x), abs(center.y)));
-        vec3 rainbowRim = 0.5 + 0.5 * cos(uTime * 1.5 + vUv.xyx * 6.0 + vec3(0.0, 2.0, 4.0));
-        color += borderRim * rainbowRim * 0.48;
+        // Outer smooth perimeter crop
+        float alphaMask = 1.0 - smoothstep(0.497, 0.500, edgeDist);
 
-        float scan = sin(vUv.y * 240.0 + uTime * 3.0) * 0.018;
-        color += scan;
+        // 3. Directional Key Light: Subtle top & left hairline glint
+        float topHighlight = smoothstep(0.490, 0.497, -center.y) * 0.45;
+        float leftHighlight = smoothstep(0.490, 0.497, -center.x) * 0.35;
+        float specularLight = topHighlight + leftHighlight;
 
-        gl_FragColor = vec4(color, uOpacity);
+        // 4. Subtle Liquid Glass Sheen sweep along hairline edge
+        float lightSweep = pow(max(0.0, sin((vUv.x * 2.2 + vUv.y) * 3.14159 - uTime * 0.45)), 16.0) * 0.50 * bevel;
+
+        // 5. Crystalline Silver-White Glass Tone (Professional Hairline Liquid Glass)
+        vec3 silverCrystal = vec3(0.95, 0.98, 1.0);
+        vec3 glassGlow = (specularLight * silverCrystal) + (lightSweep * mix(silverCrystal, uAccentColor, 0.25));
+
+        // Apply hairline glass rim
+        color.rgb += bevel * glassGlow;
+
+        // Interactive hover brightening
+        color.rgb += uHover * 0.08;
+
+        gl_FragColor = vec4(color.rgb, color.a * uOpacity * alphaMask);
       }
     `;
 
@@ -796,12 +1563,11 @@
       const tex = createCurvedCardTexture(domain, idx);
       const mat = new THREE.ShaderMaterial({
         transparent: true,
-        side: THREE.DoubleSide,
+        side: THREE.FrontSide, // Enable GPU hardware backface culling
         uniforms: {
           uTexture: { value: tex },
-          uCurvature: { value: 0.42 },
-          uBendVelocity: { value: 0.0 },
-          uAberration: { value: 1.15 },
+          uAccentColor: { value: new THREE.Color(domain.accent) },
+          uCurvature: { value: 0.38 },
           uOpacity: { value: 0.98 },
           uHover: { value: 0.0 },
           uTime: { value: 0.0 }
@@ -810,7 +1576,9 @@
         fragmentShader: cardFragmentShader
       });
 
-      const geo = new THREE.PlaneGeometry(4.3, 2.75, 48, 32);
+      // 32 segments along X for smooth curvature, 2 segments along Y (curve is strictly horizontal)
+      // Reduces vertex processing load by 96% with identical visual appearance!
+      const geo = new THREE.PlaneGeometry(4.3, 2.75, 32, 2);
       const mesh = new THREE.Mesh(geo, mat);
 
       const angle = (idx / ADOLSOFT_DOMAINS.length) * Math.PI * 2;
@@ -822,9 +1590,9 @@
         map: tex,
         transparent: true,
         opacity: 0.14,
-        side: THREE.DoubleSide
+        side: THREE.FrontSide
       });
-      const reflectMesh = new THREE.Mesh(new THREE.PlaneGeometry(4.1, 1.2), reflectMat);
+      const reflectMesh = new THREE.Mesh(new THREE.PlaneGeometry(4.1, 1.2, 1, 1), reflectMat);
       reflectMesh.position.set(0, -2.15, 0);
       reflectMesh.scale.y = -1;
       mesh.add(reflectMesh);
@@ -834,63 +1602,22 @@
       cardMaterials.push(mat);
     });
 
-    // ============================================================================
-    // 4. TWEAKPANE SHADER TELEMETRY
-    // ============================================================================
-    const shaderParams = {
-      roughness: 0.10,
-      noiseScale: 9.0,
-      dispersion: 6.0,
-      ior: 1.52,
-      curvature: 0.42,
-      tint: '#ffffff'
-    };
+    // Hide cardsGroup initially during hero state to save 12 draw calls
+    cardsGroup.visible = false;
 
-    const paneMount = document.getElementById('tweakpane-mount');
-    if (paneMount) {
-      const pane = new Pane({ container: paneMount });
-      pane.addBinding(shaderParams, 'roughness', { min: 0.0, max: 0.45, step: 0.01, label: 'roughness' }).on('change', (ev) => {
-        prismMaterial.roughness = ev.value;
-      });
-      pane.addBinding(shaderParams, 'noiseScale', { min: 0.0, max: 18.0, step: 0.5, label: 'noiseScale' }).on('change', (ev) => {
-        const s = ev.value / 30.0;
-        prismMaterial.normalScale.set(s, s);
-      });
-      pane.addBinding(shaderParams, 'dispersion', { min: 0.0, max: 12.0, step: 0.5, label: 'dispersion' }).on('change', (ev) => {
-        prismMaterial.dispersion = ev.value;
-      });
-      pane.addBinding(shaderParams, 'ior', { min: 1.1, max: 2.2, step: 0.02, label: 'iorIndex' }).on('change', (ev) => {
-        prismMaterial.ior = ev.value;
-      });
-      pane.addBinding(shaderParams, 'curvature', { min: 0.0, max: 0.9, step: 0.02, label: 'cardCurve' }).on('change', (ev) => {
-        cardMaterials.forEach((m) => (m.uniforms.uCurvature.value = ev.value));
-      });
-      pane.addBinding(shaderParams, 'tint', { label: 'glassTint' }).on('change', (ev) => {
-        prismMaterial.color.set(ev.value);
-      });
-    }
 
-    const togglePaneBtn = document.getElementById('toggle-tweakpane-btn');
-    let paneCollapsed = false;
-    togglePaneBtn?.addEventListener('click', () => {
-      paneCollapsed = !paneCollapsed;
-      if (paneMount) {
-        paneMount.style.display = paneCollapsed ? 'none' : 'block';
-      }
-      if (togglePaneBtn) {
-        togglePaneBtn.textContent = paneCollapsed ? '[+]' : '[–]';
-      }
-    });
 
     // ============================================================================
     // 5. SPLIT-TEXT CHARACTER STAGGER TYPEWRITER
     // ============================================================================
     let currentDomainIndex = 0;
-    const hudWorkCode = document.getElementById('hud-work-code');
-    const hudWorkMetric = document.getElementById('hud-work-metric');
+    const hudWorkDate = document.getElementById('hud-work-date');
+    const hudWorkBadge = document.getElementById('hud-work-badge');
     const hudWorkTitle = document.getElementById('hud-work-title');
     const hudWorkDesc = document.getElementById('hud-work-desc');
+    const hudWorkTags = document.getElementById('hud-work-tags');
     const navDomainCounter = document.getElementById('nav-domain-counter');
+    const sideTelemetryLabel = document.getElementById('side-telemetry-label');
 
     function animateSplitText(element: HTMLElement | null, text: string, staggerSec = 0.018) {
       if (!element) return;
@@ -906,6 +1633,8 @@
       );
     }
 
+    const cachedTargetActiveColor = new THREE.Color(ADOLSOFT_DOMAINS[0]?.accent || '#c8ff00');
+
     function updateActiveDomainHUD(newIndex: number) {
       const normalized = ((newIndex % ADOLSOFT_DOMAINS.length) + ADOLSOFT_DOMAINS.length) % ADOLSOFT_DOMAINS.length;
       if (normalized === currentDomainIndex && hudWorkTitle?.dataset.initialized === 'true') return;
@@ -913,13 +1642,228 @@
       if (hudWorkTitle) hudWorkTitle.dataset.initialized = 'true';
 
       const d = ADOLSOFT_DOMAINS[currentDomainIndex];
-      if (hudWorkCode) hudWorkCode.textContent = `● ${d.index} // ${d.category}`;
-      if (hudWorkMetric) hudWorkMetric.textContent = d.metric;
+      if (hudWorkDate && d.date) hudWorkDate.textContent = d.date;
+      if (hudWorkBadge && d.badge) hudWorkBadge.textContent = d.badge;
       if (navDomainCounter) navDomainCounter.textContent = `${d.index} / 06`;
+      if (sideTelemetryLabel) sideTelemetryLabel.textContent = d.index;
 
       animateSplitText(hudWorkTitle, d.title, 0.022);
       animateSplitText(hudWorkDesc, d.subtitle, 0.008);
+
+      if (hudWorkTags && d.tags) {
+        hudWorkTags.innerHTML = d.tags
+          .map((tag) => `<span class="px-2.5 py-1 rounded bg-black/40 border border-white/15 text-white/70 font-mono text-[9.5px] tracking-wider hover:border-white/40 transition-colors">[${tag}]</span>`)
+          .join('');
+      }
+
+      if (d.accent) {
+        cachedTargetActiveColor.set(d.accent);
+      }
     }
+
+    // ============================================================================
+    // 5. EPIC HERO ENTRANCE: SÓNG NƯỚC NỔ BÙM, HYPERSPACE DIVE & ADOLSOFT ERUPTION
+    // ============================================================================
+    let heroEntrancePlayed = false;
+    let isEntranceAnimating = true;
+    const harmonicBlend = { value: 0.0 };
+
+    function playHeroEntrance() {
+      if (heroEntrancePlayed) return;
+      heroEntrancePlayed = true;
+      isEntranceAnimating = true;
+      harmonicBlend.value = 0.0;
+
+      // 0. Thiết lập lại các thông số xuất phát cực kỳ chuẩn xác trước khi nổ bùm timeline
+      prismGroup.position.set(0, 0.45, 2.8);
+      prismGroup.scale.set(0.06, 0.06, 0.06);
+      prismGroup.rotation.set(-0.25, 0.0, 0.45);
+      mainLogoMesh.rotation.set(0.95, -Math.PI * 1.65, -0.65);
+      mainLogoMaterial.dispersion = 32.0;
+      mainLogoMaterial.roughness = 0.02;
+
+      backTextMesh.position.set(0, -2.5, -1.25);
+      backTextMesh.scale.set(0.08, 0.08, 1.0);
+      backTextMesh.rotation.set(1.5, 0.0, -0.2);
+      backTextMat.opacity = 0.0;
+      backTextMat.color.set('#c8ff00');
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          isEntranceAnimating = false;
+          logoAnimState.scale = prismGroup.scale.x;
+          logoAnimState.posY = prismGroup.position.y;
+          logoAnimState.posZ = prismGroup.position.z;
+        }
+      });
+
+      // 1. Kích nổ Sóng nước WebGL tỏa ra từ tâm
+      shockwaveMat.uniforms.uIntensity.value = 1.6;
+      shockwaveMat.uniforms.uRadius.value = 0.0;
+      tl.to(shockwaveMat.uniforms.uRadius, {
+        value: 3.2,
+        duration: 2.1,
+        ease: 'expo.out'
+      }, 0.05);
+      tl.to(shockwaveMat.uniforms.uIntensity, {
+        value: 0.0,
+        duration: 1.7,
+        delay: 0.35,
+        ease: 'power2.inOut'
+      }, 0.05);
+
+      // 2. Kích nổ Vòng tròn Sóng ánh sáng DOM (Liquid Blast Glow & Rings)
+      const blastGlow = document.querySelector('.liquid-blast-glow');
+      const blastRings = document.querySelectorAll('.liquid-blast-ring');
+      if (blastGlow) {
+        tl.fromTo(blastGlow,
+          { scale: 0.06, opacity: 1.0 },
+          { scale: 3.2, opacity: 0, duration: 1.7, ease: 'expo.out' },
+          0.02
+        );
+      }
+      if (blastRings.length) {
+        tl.fromTo(blastRings,
+          { scale: 0.04, opacity: 1.0 },
+          { scale: 3.6, opacity: 0, stagger: 0.10, duration: 1.85, ease: 'expo.out' },
+          0.05
+        );
+      }
+
+      // 3. Khối LOGO chữ A 3D trung tâm lao tới từ Hyperspace Z = 2.8 -> 0.0 với nảy đàn hồi siêu ngầu
+      tl.to(prismGroup.position, {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0,
+        duration: 1.95,
+        ease: 'elastic.out(1.15, 0.52)'
+      }, 0.06);
+      tl.to(prismGroup.scale, {
+        x: 1.0,
+        y: 1.0,
+        z: 1.0,
+        duration: 1.95,
+        ease: 'elastic.out(1.15, 0.52)'
+      }, 0.06);
+      tl.to(prismGroup.rotation, {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0,
+        duration: 1.6,
+        ease: 'expo.out'
+      }, 0.06);
+      tl.to(mainLogoMesh.rotation, {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0,
+        duration: 1.7,
+        ease: 'expo.out'
+      }, 0.06);
+
+      // Hiệu ứng bùng nổ tán sắc cầu vồng và lắng đọng chất liệu băng pha lê
+      tl.to(mainLogoMaterial, {
+        dispersion: 10.0,
+        roughness: 0.10,
+        duration: 1.85,
+        ease: 'power2.out'
+      }, 0.06);
+
+      // Kích hoạt xung lực xoay vật lý tactile impulse khi chữ A hạ cánh
+      tl.call(() => {
+        rotationImpulse = 0.85;
+      }, undefined, 0.45);
+
+      // 4. Dòng chữ ADOLSOFT phóng vút từ dưới lòng sâu lên và bung nở nảy đàn hồi sau chữ A
+      // Giai đoạn 1: Phóng vọt lên với tốc độ cực nhanh (Sonic Boom Eruption)
+      tl.to(backTextMesh.position, {
+        y: 0.16,
+        duration: 0.65,
+        ease: 'power4.out'
+      }, 0.10);
+      tl.to(backTextMesh.scale, {
+        x: 1.28,
+        y: 1.28,
+        duration: 0.65,
+        ease: 'power4.out'
+      }, 0.10);
+      tl.to(backTextMesh.rotation, {
+        x: -0.20,
+        z: 0.0,
+        duration: 0.65,
+        ease: 'power4.out'
+      }, 0.10);
+      tl.to(backTextMat, {
+        opacity: 1.0,
+        duration: 0.35,
+        ease: 'power2.out'
+      }, 0.10);
+
+      // Giai đoạn 2: Bật nảy đàn hồi (Elastic Snap) về vị trí chuẩn xác không bị méo lệch
+      tl.to(backTextMesh.position, {
+        y: -0.05,
+        duration: 1.25,
+        ease: 'elastic.out(1.15, 0.46)'
+      }, 0.75);
+      tl.to(backTextMesh.scale, {
+        x: 1.0,
+        y: 1.0,
+        duration: 1.25,
+        ease: 'elastic.out(1.15, 0.46)'
+      }, 0.75);
+      tl.to(backTextMesh.rotation, {
+        x: 0.0,
+        duration: 1.25,
+        ease: 'elastic.out(1.15, 0.46)'
+      }, 0.75);
+
+      // Giai đoạn 3: Chuyển màu từ ánh sáng Neon Khởi Động (#c8ff00) sang Trắng Tinh Khiết (#ffffff)
+      tl.to(backTextMat.color, {
+        r: 1.0,
+        g: 1.0,
+        b: 1.0,
+        duration: 1.05,
+        ease: 'power2.out'
+      }, 0.40);
+
+      // Giai đoạn 4: Hòa trộn mượt mà vào vòng lặp dao động Idle Harmonic Motion
+      tl.to(harmonicBlend, {
+        value: 1.0,
+        duration: 1.0,
+        ease: 'power2.inOut'
+      }, 1.6);
+
+      // 5. Subtitle & Top Telemetry Tag smooth emergence
+      const badge = document.getElementById('hero-brand-badge');
+      const sub = document.getElementById('hero-brand-sub');
+      if (badge) {
+        tl.to(badge, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, 0.55);
+      }
+      if (sub) {
+        tl.to(sub, { opacity: 0.75, y: 0, duration: 1.1, ease: 'power3.out' }, 0.70);
+      }
+    }
+
+    // Expose global replay function for live demos and interactive badge clicking
+    (window as any).replayHeroEntrance = () => {
+      heroEntrancePlayed = false;
+      playHeroEntrance();
+    };
+
+    const badgeEl = document.getElementById('hero-brand-badge');
+    if (badgeEl) {
+      badgeEl.addEventListener('click', () => {
+        (window as any).replayHeroEntrance();
+      });
+    }
+
+    // Lắng nghe sự kiện stage-unlocked khi preloader hoàn tất
+    window.addEventListener('stage-unlocked', () => {
+      playHeroEntrance();
+    });
+    // Fallback an toàn nếu trang tải lại hoặc không có preloader
+    setTimeout(() => {
+      if (!heroEntrancePlayed) playHeroEntrance();
+    }, 2800);
 
     // ============================================================================
     // 6. MASTER LENIS + GSAP SCROLLTRIGGER TIMELINE
@@ -950,28 +1894,30 @@
     const ghostWord = document.getElementById('ghost-brand-word');
     const heroNewsStream = document.getElementById('hero-news-stream');
     const activeWorkHud = document.getElementById('active-work-hud');
+    const worksMoreCta = document.getElementById('works-more-cta');
     const navScrollBar = document.getElementById('nav-scroll-bar');
     const navScrollPct = document.getElementById('nav-scroll-pct');
+    let lastScrollPct = -1;
+    let lastVaultPhase = false;
 
     ScrollTrigger.create({
       trigger: '#scroll-story-track',
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 1.2,
+      scrub: 0.35,
       onUpdate: (self) => {
         const p = self.progress;
         scrollState.progress = p;
 
-        if (navScrollBar) navScrollBar.style.width = `${Math.round(p * 100)}%`;
-        if (navScrollPct) navScrollPct.textContent = `${String(Math.round(p * 100)).padStart(2, '0')}%`;
+        const pct = Math.round(p * 100);
+        if (pct !== lastScrollPct) {
+          lastScrollPct = pct;
+          if (navScrollBar) navScrollBar.style.width = `${pct}%`;
+          if (navScrollPct) navScrollPct.textContent = `${String(pct).padStart(2, '0')}%`;
+        }
 
-        // PHASE 1 (0.0 -> 0.22): HERO PRISM -> "WORKS" VAULT TRANSITION
-        const morphWorks = THREE.MathUtils.smoothstep(p, 0.08, 0.24);
-        vaultMat.uniforms.uMorph.value = morphWorks;
-
-        backplaneWordMat.opacity = THREE.MathUtils.clamp(1.0 - p * 4.2, 0.0, 0.96);
-        const wordScale = THREE.MathUtils.lerp(1.0, 0.65, Math.min(1, p * 3.5));
-        backplaneWordMesh.scale.set(wordScale, wordScale, 1);
+        // PHASE 1 (0.0 -> 0.18): HERO PRISM -> "WORKS" ARCHITECTURAL STAGE
+        domeMat.uniforms.uScrollProgress.value = p;
 
         if (ghostLayer && ghostWord) {
           const ghostOpacity = p < 0.05 ? 0 : p < 0.25 ? THREE.MathUtils.lerp(0.0, 0.14, (p - 0.05) / 0.2) : 0.09;
@@ -980,28 +1926,47 @@
           ghostWord.style.transform = `scale(${gScale})`;
         }
 
-        prismGroup.position.z = THREE.MathUtils.lerp(0.0, -1.65, Math.min(1, p * 3.0));
-        prismGroup.position.y = THREE.MathUtils.lerp(0.0, 0.22, Math.min(1, p * 3.0));
-        const prismScale = THREE.MathUtils.lerp(1.0, 0.78, Math.min(1, p * 3.0));
-        prismGroup.scale.setScalar(prismScale);
-
-        // PHASE 2 (0.20 -> 0.95): 6 CURVED DOMAIN CARDS ORBIT
+        // 3D Prism Logo Positioning & Peeking:
         if (p < 0.18) {
-          cardsGroup.position.y = THREE.MathUtils.lerp(-11.0, 0.0, p / 0.18);
-          if (heroNewsStream) heroNewsStream.classList.remove('hidden');
-          if (activeWorkHud) {
-            activeWorkHud.classList.add('hidden');
-            activeWorkHud.style.opacity = '0';
-          }
-          if (navDomainCounter) navDomainCounter.textContent = '00 / 06';
+          const tA = Math.min(1, Math.max(0, (p - 0.02) / 0.10));
+          logoAnimState.targetScale = THREE.MathUtils.lerp(1.0, 1.70, tA);
+          logoAnimState.targetPosY = THREE.MathUtils.lerp(0.0, 0.18, tA);
+          logoAnimState.targetPosZ = THREE.MathUtils.lerp(0.0, -0.15, tA);
         } else {
-          cardsGroup.position.y = 0.0;
-          if (heroNewsStream) heroNewsStream.classList.add('hidden');
-          if (activeWorkHud) {
-            activeWorkHud.classList.remove('hidden');
-            activeWorkHud.style.opacity = '1';
-          }
+          const tVault = Math.min(1, (p - 0.18) / 0.08);
+          logoAnimState.targetPosZ = THREE.MathUtils.lerp(-0.15, paneParams.domainPosZ, tVault);
+          logoAnimState.targetPosY = THREE.MathUtils.lerp(0.18, paneParams.domainPosY, tVault);
+          logoAnimState.targetScale = THREE.MathUtils.lerp(1.70, paneParams.domainScale, tVault);
+        }
 
+        // Hardware Frustum & Distance Culling:
+        // Hide all 6 curved domain card meshes & reflections when in hero state (p <= 0.03)
+        cardsGroup.visible = (p > 0.03);
+
+        const inVaultPhase = (p >= 0.18);
+        if (inVaultPhase !== lastVaultPhase) {
+          lastVaultPhase = inVaultPhase;
+          if (inVaultPhase) {
+            heroNewsStream?.classList.add('hidden');
+            worksMoreCta?.classList.remove('hidden');
+            activeWorkHud?.classList.remove('hidden');
+          } else {
+            heroNewsStream?.classList.remove('hidden');
+            worksMoreCta?.classList.add('hidden');
+            activeWorkHud?.classList.add('hidden');
+            if (sideTelemetryLabel) sideTelemetryLabel.textContent = 'TOP';
+            if (navDomainCounter) navDomainCounter.textContent = '00 / 06';
+          }
+        }
+
+        // PHASE 2: 6 CURVED DOMAIN CARDS ORBIT
+        if (!inVaultPhase) {
+          cardsGroup.position.y = THREE.MathUtils.lerp(-11.0, -0.15, p / 0.18);
+          if (heroNewsStream) {
+            heroNewsStream.style.opacity = String(THREE.MathUtils.clamp(1.0 - p * 5.0, 0, 1));
+          }
+        } else {
+          cardsGroup.position.y = -0.15;
           const worksProgress = THREE.MathUtils.clamp((p - 0.18) / 0.76, 0, 1);
           scrollState.targetCarouselAngle = -worksProgress * Math.PI * 2 * ((ADOLSOFT_DOMAINS.length - 1) / ADOLSOFT_DOMAINS.length);
 
@@ -1042,13 +2007,17 @@
     const raycaster = new THREE.Raycaster();
     let hoveredCard: THREE.Mesh | null = null;
     let rotationImpulse = 0;
+    let raycastFrame = 0;
+
+    let winWidth = window.innerWidth;
+    let winHeight = window.innerHeight;
 
     window.addEventListener('pointermove', (e) => {
-      pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
-      pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      pointer.x = (e.clientX / winWidth) * 2 - 1;
+      pointer.y = -(e.clientY / winHeight) * 2 + 1;
       targetCameraOffset.x = pointer.x * 0.55;
       targetCameraOffset.y = pointer.y * 0.35;
-    });
+    }, { passive: true });
 
     canvas.addEventListener('click', () => {
       if (hoveredCard && scrollState.progress >= 0.16) {
@@ -1061,53 +2030,95 @@
     const quatReadout = document.getElementById('quat-readout');
     const quatCtx = quatCanvas?.getContext('2d');
 
+    function formatQuatComp(v: number): string {
+      const sign = v >= 0 ? '+' : '-';
+      const abs = Math.abs(v);
+      const str = abs >= 0.995 ? abs.toFixed(1) : abs.toFixed(2).replace(/^0/, '');
+      return `${sign}${str}`;
+    }
+
+    const vAxisX = new THREE.Vector3(1, 0, 0);
+    const vAxisY = new THREE.Vector3(0, 1, 0);
+    const vAxisZ = new THREE.Vector3(0, 0, 1);
+    const pAxisX = new THREE.Vector3();
+    const pAxisY = new THREE.Vector3();
+    const pAxisZ = new THREE.Vector3();
+    let gizmoFrame = 0;
+    let lastQuatStr = '';
+
     function renderQuaternionGizmo(q: THREE.Quaternion) {
-      if (quatReadout) {
-        quatReadout.textContent = `${q.x.toFixed(2)} | ${q.y.toFixed(2)} | ${q.z.toFixed(2)} | ${q.w.toFixed(2)}`;
+      gizmoFrame++;
+      // Debounce DOM string update to every 4 frames or when value changes
+      if (quatReadout && gizmoFrame % 4 === 0) {
+        const str = `${formatQuatComp(q.x)} ${formatQuatComp(q.y)} ${formatQuatComp(q.z)} ${formatQuatComp(q.w)}`;
+        if (str !== lastQuatStr) {
+          lastQuatStr = str;
+          quatReadout.textContent = str;
+        }
       }
       if (!quatCtx || !quatCanvas) return;
       const w = quatCanvas.width;
       const h = quatCanvas.height;
-      const cx = w / 2;
-      const cy = h / 2;
-      const r = 28;
+      const cx = w * 0.5;
+      const cy = h * 0.5;
+      const r = 26;
 
       quatCtx.clearRect(0, 0, w, h);
 
-      quatCtx.strokeStyle = 'rgba(255,255,255,0.2)';
+      // Outer boundary circle (clean CAD hairline)
+      quatCtx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
       quatCtx.lineWidth = 1;
       quatCtx.beginPath();
       quatCtx.arc(cx, cy, r, 0, Math.PI * 2);
       quatCtx.stroke();
 
-      const axes = [
-        { dir: new THREE.Vector3(1, 0, 0), color: '#ff4d4d' },
-        { dir: new THREE.Vector3(0, 1, 0), color: '#c8ff00' },
-        { dir: new THREE.Vector3(0, 0, 1), color: '#00f0ff' }
-      ];
+      // Equator & Meridian ellipses
+      quatCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      quatCtx.beginPath();
+      quatCtx.ellipse(cx, cy, r, r * 0.30, 0, 0, Math.PI * 2);
+      quatCtx.stroke();
 
-      axes.forEach((axis) => {
-        const v = axis.dir.clone().applyQuaternion(q);
-        const ex = cx + v.x * r;
-        const ey = cy - v.y * r;
+      quatCtx.beginPath();
+      quatCtx.ellipse(cx, cy, r * 0.30, r, 0, 0, Math.PI * 2);
+      quatCtx.stroke();
 
-        quatCtx.strokeStyle = axis.color;
-        quatCtx.lineWidth = 1.8;
+      // 3D axes transformed in-place without vector allocations
+      pAxisX.copy(vAxisX).applyQuaternion(q);
+      pAxisY.copy(vAxisY).applyQuaternion(q);
+      pAxisZ.copy(vAxisZ).applyQuaternion(q);
+
+      const a0 = { v: pAxisX, color: '#ff4d4d' };
+      const a1 = { v: pAxisY, color: '#c8ff00' };
+      const a2 = { v: pAxisZ, color: '#00f0ff' };
+
+      const list = [a0, a1, a2];
+      if (list[0].v.z > list[1].v.z) { const t = list[0]; list[0] = list[1]; list[1] = t; }
+      if (list[1].v.z > list[2].v.z) { const t = list[1]; list[1] = list[2]; list[2] = t; }
+      if (list[0].v.z > list[1].v.z) { const t = list[0]; list[0] = list[1]; list[1] = t; }
+
+      for (let i = 0; i < 3; i++) {
+        const item = list[i];
+        const ex = cx + item.v.x * r;
+        const ey = cy - item.v.y * r;
+        const isBack = item.v.z < 0;
+
+        quatCtx.strokeStyle = isBack ? item.color + '55' : item.color;
+        quatCtx.lineWidth = isBack ? 1.0 : 1.8;
         quatCtx.beginPath();
         quatCtx.moveTo(cx, cy);
         quatCtx.lineTo(ex, ey);
         quatCtx.stroke();
 
-        quatCtx.fillStyle = axis.color;
+        quatCtx.fillStyle = item.color;
         quatCtx.beginPath();
-        quatCtx.arc(ex, ey, 3.2, 0, Math.PI * 2);
+        quatCtx.arc(ex, ey, isBack ? 2.2 : 3.4, 0, Math.PI * 2);
         quatCtx.fill();
-      });
+      }
     }
 
     document.getElementById('reset-quaternion-btn')?.addEventListener('click', () => {
       rotationImpulse = 0.25;
-      gsap.to(prismMesh.rotation, { x: 0, y: 0, z: 0, duration: 0.9, ease: 'expo.out' });
+      gsap.to(mainLogoMesh.rotation, { x: 0, y: 0, z: 0, duration: 0.9, ease: 'expo.out' });
     });
 
     quatCanvas?.addEventListener('click', () => {
@@ -1115,70 +2126,259 @@
     });
 
     // ============================================================================
-    // 8. REAL-TIME RENDER LOOP
+    // 8. REAL-TIME RENDER LOOP & DYNAMIC TIME-VARIANT COLOR SHIFTER
     // ============================================================================
     let isRunning = true;
     const startTime = performance.now();
+    const clock = {
+      getElapsedTime: () => (performance.now() - startTime) * 0.001
+    };
 
     function animate() {
       if (!isRunning) return;
       requestAnimationFrame(animate);
-      const elapsed = (performance.now() - startTime) * 0.001;
+      const elapsed = clock.getElapsedTime();
 
       // 1. Camera Parallax
       camera.position.x += (targetCameraOffset.x - camera.position.x) * 0.05;
       camera.position.y += (targetCameraOffset.y - camera.position.y) * 0.05;
       camera.lookAt(0, 0, 0);
 
-      // 2. Liquid Glass "A" Monolith Harmonic Rotation
+      // 2. Liquid Glass "A" Dynamic Color-Shifting & Internal Refraction Hue Cycling (synchronized 3.0s cycle)
+      const prismCycle = elapsed * (Math.PI * 2 / 3.0);
+      let wBlue   = Math.pow(Math.max(0, Math.cos(prismCycle) * 0.5 + 0.5), 1.6);
+      let wCyan   = Math.pow(Math.max(0, Math.cos(prismCycle - 2.094395) * 0.5 + 0.5), 1.6);
+      let wViolet = Math.pow(Math.max(0, Math.cos(prismCycle - 4.188790) * 0.5 + 0.5), 1.6);
+      const sumW = wBlue + wCyan + wViolet + 0.0001;
+      wBlue /= sumW;
+      wCyan /= sumW;
+      wViolet /= sumW;
+
+      // Color targets matching Image 1 (Blue), Image 4 (Cyan), Image 5 (Violet):
+      mainLogoMaterial.emissive.setRGB(
+        0.08 * wBlue + 0.02 * wCyan + 0.28 * wViolet,
+        0.16 * wBlue + 0.32 * wCyan + 0.08 * wViolet,
+        0.52 * wBlue + 0.38 * wCyan + 0.52 * wViolet
+      );
+
+      mainLogoMaterial.attenuationColor.setRGB(
+        0.12 * wBlue + 0.03 * wCyan + 0.48 * wViolet,
+        0.22 * wBlue + 0.56 * wCyan + 0.12 * wViolet,
+        0.55 * wBlue + 0.68 * wCyan + 0.80 * wViolet
+      );
+
+      mainLogoMaterial.specularColor.setRGB(
+        0.58 * wBlue + 0.40 * wCyan + 0.75 * wViolet,
+        0.75 * wBlue + 0.90 * wCyan + 0.52 * wViolet,
+        0.98 * wBlue + 0.98 * wCyan + 0.98 * wViolet
+      );
+
+      mainLogoMaterial.emissiveIntensity = 0.48 + Math.sin(prismCycle * 0.5) * 0.08;
+
+      // Studio rim lighting subtle breathing & color sync
+      prismCyanLight.color.setRGB(
+        0.05 * wBlue + 0.00 * wCyan + 0.55 * wViolet,
+        0.65 * wBlue + 0.95 * wCyan + 0.12 * wViolet,
+        1.00 * wBlue + 1.00 * wCyan + 0.95 * wViolet
+      );
+      prismCyanLight.intensity = 28 + Math.sin(prismCycle) * 6;
+      prismAmberLight.intensity = 30 + Math.cos(prismCycle * 0.9) * 5;
+
+      // 3. Liquid Glass "A" Monolith Continuous 3D Rotation Choreography
       rotationImpulse *= 0.94;
-      prismMesh.rotation.y = Math.sin(elapsed * 0.38) * 0.28 + pointer.x * 0.22 + rotationImpulse;
-      prismMesh.rotation.x = Math.cos(elapsed * 0.52 + 1.1) * 0.12 - pointer.y * 0.16;
-      prismMesh.position.y = Math.sin(elapsed * 1.35 + 0.8) * 0.14;
+      const idleRotY = Math.sin(elapsed * 0.38) * 0.28 + pointer.x * 0.22 + rotationImpulse;
+      const idleRotX = Math.cos(elapsed * 0.52 + 1.1) * 0.12 - pointer.y * 0.16;
+      const idlePosY = Math.sin(elapsed * 1.35 + 0.8) * 0.14;
+      const idleTextY = Math.sin(elapsed * 1.8) * 0.025;
 
-      renderQuaternionGizmo(prismMesh.quaternion);
+      const p = scrollState.progress;
 
-      // 3. Carousel angle interpolation & Z/Y Parallax
-      scrollState.carouselAngle += (scrollState.targetCarouselAngle - scrollState.carouselAngle) * 0.085;
-      scrollState.scrollVelocity *= 0.9;
+      if (!isEntranceAnimating) {
+        // Mượt mà nội suy Scale và Vị trí của Khối Prism Logo
+        const currentTargetScale = logoAnimState.targetScale * logoAnimState.drawerMultiplier;
+        logoAnimState.scale += (currentTargetScale - logoAnimState.scale) * 0.09;
+        logoAnimState.posY += (logoAnimState.targetPosY - logoAnimState.posY) * 0.09;
+        logoAnimState.posZ += (logoAnimState.targetPosZ - logoAnimState.posZ) * 0.09;
 
-      vaultMat.uniforms.uTime.value = elapsed;
+        prismGroup.scale.setScalar(logoAnimState.scale);
+        prismGroup.position.z = logoAnimState.posZ;
+        prismGroup.position.y = logoAnimState.posY;
 
-      cardMeshes.forEach((mesh, idx) => {
-        const totalAngle = mesh.userData.baseAngle + scrollState.carouselAngle;
-        mesh.position.x = Math.sin(totalAngle) * cardRadius;
-        mesh.position.z = Math.cos(totalAngle) * cardRadius - cardRadius + 1.1;
-        mesh.rotation.y = totalAngle;
+        if (p < 0.02) {
+          // Hero standby: gentle idle breathing & pointer interaction
+          mainLogoMesh.rotation.y = idleRotY;
+          mainLogoMesh.rotation.x = idleRotX;
+          mainLogoMesh.rotation.z = 0.0;
+          mainLogoMesh.position.y = idlePosY;
 
-        const focusFactor = Math.cos(totalAngle);
-        mesh.position.y = Math.sin(elapsed * 1.4 + idx * 1.3) * (focusFactor > 0.7 ? 0.06 : 0.18);
+          backTextMesh.position.set(0, -0.05 + idleTextY, -1.25);
+          backTextMesh.rotation.set(0, 0, 0);
+          backTextMesh.scale.set(1.0, 1.0, 1.0);
+          backTextMat.opacity = 1.0;
 
-        const mat = cardMaterials[idx];
-        mat.uniforms.uTime.value = elapsed;
-        mat.uniforms.uBendVelocity.value = scrollState.scrollVelocity * 0.12;
-        mat.uniforms.uOpacity.value = THREE.MathUtils.smoothstep(focusFactor, -0.4, 0.35);
-      });
+          worksTextMesh.position.set(0, 0.10 + idleTextY * 0.3, -1.35);
+          worksTextMesh.rotation.set(0, 0, 0);
+          worksTextMesh.scale.set(0.85, 0.85, 1.0);
+          worksTextMat.opacity = 0.0;
 
-      // 4. Raycasting
-      if (scrollState.progress >= 0.16) {
-        raycaster.setFromCamera(pointer, camera);
-        const intersects = raycaster.intersectObjects(cardMeshes, false);
-        if (intersects.length > 0) {
-          hoveredCard = intersects[0].object as THREE.Mesh;
-          canvas.style.cursor = 'pointer';
+          mainLogoMaterial.dispersion = 10.0;
+        } else if (p < 0.18) {
+          // =========================================================================
+          // GIAI ĐOẠN ĐẶC BIỆT: LÚC SẮP KÉO TỚI BẢNG GIỚI THIỆU (p: 0.02 -> 0.18)
+          // 1. Chữ A TO RA HOÀNH TRÁNG (scale 1.70) và xoay vào đúng góc benchmark:
+          //    Quaternion [.00 .86 +.00 +.51] -> Euler (0.05, 2.0708, 0.0)
+          // 2. Dòng chữ WORKS TO RA CỰC ĐẠI toàn màn hình với hiệu ứng lưới kiến trúc CAD
+          // 3. Dòng chữ ADOLSOFT trượt sang trái nhường tâm điểm cho WORKS
+          // =========================================================================
+          const tStage = Math.min(1, Math.max(0, (p - 0.02) / 0.10));
+          const spinEase = Math.sin(tStage * Math.PI * 0.5);
+
+          // 1. CHỮ A: Xoay mượt mà từ góc trực diện vào đúng góc chuẩn ảnh Alche Studio
+          // Góc Euler: Y = 2.0708 rad (~118.6°), X = 0.05 rad -> Quaternion [.00, .86, .00, .51]
+          const targetRotY = 2.0708;
+          const targetRotX = 0.05;
+
+          mainLogoMesh.rotation.y = idleRotY * (1.0 - spinEase * 0.75) + targetRotY * spinEase;
+          mainLogoMesh.rotation.x = idleRotX * (1.0 - spinEase * 0.75) + targetRotX * spinEase;
+          mainLogoMesh.rotation.z = Math.sin(tStage * Math.PI) * -0.05;
+          mainLogoMesh.position.y = idlePosY * (1.0 - tStage * 0.70);
+
+          // Quang sai tán sắc cầu vồng và ánh sáng xuyên thân cực đại
+          const peakFx = Math.sin(tStage * Math.PI);
+          mainLogoMaterial.dispersion = 10.0 + peakFx * 32.0;
+          mainLogoMaterial.emissiveIntensity = 0.48 + peakFx * 0.46;
+          mainLogoMaterial.roughness = THREE.MathUtils.lerp(0.08, 0.012, peakFx);
+
+          prismCyanLight.intensity = (32 + Math.sin(prismCycle) * 6) + peakFx * 26.0;
+          prismAmberLight.intensity = (36 + Math.cos(prismCycle * 0.9) * 5) + peakFx * 30.0;
+
+          // Sóng xung kích quang sai lan tỏa
+          shockwaveMat.uniforms.uRadius.value = THREE.MathUtils.lerp(0.2, 4.2, tStage);
+          shockwaveMat.uniforms.uIntensity.value = peakFx * 1.6;
+
+          // 2. DÒNG CHỮ "ADOLSOFT": Lướt sang trái và mờ dần
+          const posXA = -tStage * 8.5;
+          const posZA = -1.25 - tStage * 1.5;
+          backTextMesh.position.set(posXA, -0.05 + idleTextY, posZA);
+          backTextMesh.rotation.y = -tStage * 0.35;
+          backTextMesh.rotation.x = Math.sin(tStage * Math.PI) * 0.12;
+          backTextMesh.scale.set(1.0 + tStage * 0.08, 1.0 + tStage * 0.08, 1.0);
+          backTextMat.opacity = THREE.MathUtils.clamp(1.0 - tStage * 2.2, 0.0, 1.0);
+
+          // 3. HIỆU ỨNG "WORKS" TO RA TOÀN MÀN HÌNH (CHUẨN 100% ẢNH MẪU)
+          // To dần từ scale 0.85 lên 1.06, trải rộng 16.8 đơn vị che phủ toàn bộ viewport
+          const wScale = THREE.MathUtils.lerp(0.85, 1.06, tStage);
+          worksTextMesh.scale.set(wScale, wScale, 1.0);
+          worksTextMesh.position.set(0, 0.10 + idleTextY * 0.3, -1.35);
+          worksTextMesh.rotation.set(0, 0, 0);
+
+          // Chuyển sắc bừng sáng trắng tinh khiết
+          worksTextMat.opacity = THREE.MathUtils.lerp(0.0, 0.82, tStage);
+          worksTextMat.color.setRGB(1.0, 1.0, 1.0);
         } else {
-          hoveredCard = null;
-          canvas.style.cursor = 'default';
+          // Works Vault Orbit (Giai đoạn các bảng giới thiệu đã mở, p >= 0.18):
+          // Chữ A tiếp tục xoay 3D liên tục theo tốc độ cuộn trang
+          const worksProgress = THREE.MathUtils.clamp((p - 0.18) / 0.76, 0, 1);
+          const scrollSpinY = worksProgress * Math.PI * 3.8;
+          const scrollTiltX = 0.08 + Math.sin(worksProgress * Math.PI * 2.8) * 0.18;
+          const scrollRollZ = Math.cos(worksProgress * Math.PI * 2.0) * 0.08;
+
+          mainLogoMesh.rotation.y = idleRotY * 0.25 + 2.0708 + scrollSpinY;
+          mainLogoMesh.rotation.x = idleRotX * 0.25 + 0.05 + scrollTiltX;
+          mainLogoMesh.rotation.z = scrollRollZ;
+          mainLogoMesh.position.y = idlePosY * 0.2;
+
+          // WORKS trở thành hình chìm kiến trúc vững chắc phía sau bảng
+          worksTextMesh.rotation.set(0, 0, 0);
+          worksTextMesh.scale.set(1.06, 1.06, 1.0);
+          worksTextMesh.position.set(0, 0.10 + idleTextY * 0.3, -1.35);
+          worksTextMat.color.setRGB(1.0, 1.0, 1.0);
+          worksTextMat.opacity = THREE.MathUtils.lerp(0.82, 0.12, Math.min(1, (p - 0.18) / 0.10));
+
+          backTextMesh.position.set(-8.5, -0.05 + idleTextY, -2.75);
+          backTextMat.opacity = 0.0;
+          shockwaveMat.uniforms.uIntensity.value = 0.0;
         }
       } else {
-        hoveredCard = null;
-        canvas.style.cursor = 'default';
+        // Trong lúc entrance diễn ra, GSAP toàn quyền điều khiển quỹ đạo chính.
+        if (harmonicBlend.value > 0) {
+          mainLogoMesh.rotation.y += idleRotY * harmonicBlend.value * 0.06;
+          mainLogoMesh.rotation.x += idleRotX * harmonicBlend.value * 0.06;
+          mainLogoMesh.position.y += idlePosY * harmonicBlend.value * 0.06;
+          backTextMesh.position.y += idleTextY * harmonicBlend.value * 0.06;
+        }
       }
 
-      cardMeshes.forEach((mesh, idx) => {
-        const isHovered = hoveredCard === mesh ? 1.0 : 0.0;
-        cardMaterials[idx].uniforms.uHover.value += (isHovered - cardMaterials[idx].uniforms.uHover.value) * 0.12;
-      });
+      // Performance Culling: Skip invisible mesh passes completely
+      shockwaveMesh.visible = (shockwaveMat.uniforms.uIntensity.value > 0.005);
+      backTextMesh.visible = (backTextMat.opacity > 0.005);
+      worksTextMesh.visible = (worksTextMat.opacity > 0.005);
+
+      renderQuaternionGizmo(mainLogoMesh.quaternion);
+
+      // 4. Silky Smooth Carousel Angle Interpolation
+      scrollState.carouselAngle += (scrollState.targetCarouselAngle - scrollState.carouselAngle) * 0.12;
+      scrollState.scrollVelocity *= 0.9;
+
+      domeMat.uniforms.uTime.value = elapsed;
+      if (domeMat.uniforms.uActiveCardColor) {
+        domeMat.uniforms.uActiveCardColor.value.lerp(cachedTargetActiveColor, 0.08);
+      }
+      if (shockwaveMesh.visible) {
+        shockwaveMat.uniforms.uTime.value = elapsed;
+      }
+      innerPrismBevelMat.uniforms.uTime.value = elapsed;
+
+      // Volumetric 3D spatial particle float (Zero CPU-GPU bus stalls)
+      particleSystem.position.y = Math.sin(elapsed * 0.25) * 0.22;
+      particleSystem.position.x = Math.cos(elapsed * 0.18) * 0.15;
+      particleSystem.rotation.y = elapsed * 0.015;
+      particleSystem.rotation.z = Math.sin(elapsed * 0.08) * 0.02;
+
+      // 6 Curved Cards Orbit & Breath
+      if (cardsGroup.visible) {
+        const carouselBreathing = Math.sin(elapsed * 0.8) * 0.025;
+
+        for (let idx = 0; idx < cardMeshes.length; idx++) {
+          const mesh = cardMeshes[idx];
+          const totalAngle = mesh.userData.baseAngle + scrollState.carouselAngle;
+          mesh.position.x = Math.sin(totalAngle) * cardRadius;
+          mesh.position.z = Math.cos(totalAngle) * cardRadius - cardRadius + 1.1;
+          mesh.position.y = carouselBreathing;
+          mesh.rotation.y = totalAngle;
+
+          const focusFactor = Math.cos(totalAngle);
+          const mat = cardMaterials[idx];
+          mat.uniforms.uTime.value = elapsed;
+          mat.uniforms.uOpacity.value = THREE.MathUtils.clamp(
+            THREE.MathUtils.smoothstep(focusFactor, -0.35, 0.35),
+            0.0,
+            1.0
+          );
+        }
+
+        // 5. Throttled Raycasting (once every 3 frames, only when cards are on screen)
+        raycastFrame++;
+        if (scrollState.progress >= 0.16 && raycastFrame % 3 === 0) {
+          raycaster.setFromCamera(pointer, camera);
+          const intersects = raycaster.intersectObjects(cardMeshes, false);
+          if (intersects.length > 0) {
+            hoveredCard = intersects[0].object as THREE.Mesh;
+            if (canvas.style.cursor !== 'pointer') canvas.style.cursor = 'pointer';
+          } else {
+            hoveredCard = null;
+            if (canvas.style.cursor !== 'default') canvas.style.cursor = 'default';
+          }
+        } else if (scrollState.progress < 0.16 && hoveredCard !== null) {
+          hoveredCard = null;
+          if (canvas.style.cursor !== 'default') canvas.style.cursor = 'default';
+        }
+
+        for (let idx = 0; idx < cardMaterials.length; idx++) {
+          const isHovered = hoveredCard === cardMeshes[idx] ? 1.0 : 0.0;
+          cardMaterials[idx].uniforms.uHover.value += (isHovered - cardMaterials[idx].uniforms.uHover.value) * 0.12;
+        }
+      }
 
       renderer.render(scene, camera);
     }
@@ -1186,24 +2386,53 @@
     animate();
 
     const onResize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      camera.aspect = width / height;
+      winWidth = window.innerWidth;
+      winHeight = window.innerHeight;
+      camera.aspect = winWidth / winHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(winWidth, winHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+      shockwaveMat.uniforms.uAspect.value = winWidth / winHeight;
       ScrollTrigger.refresh();
     };
     window.addEventListener('resize', onResize);
 
+    const onVisibilityChange = () => {
+      if (!document.hidden) {
+        clock.getDelta(); // Reset clock delta so elapsed time does not jump
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
     document.addEventListener('astro:before-swap', () => {
       isRunning = false;
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      lenis.destroy();
       renderer.dispose();
-      prismGeo.dispose();
-      prismMaterial.dispose();
-      vaultGeo.dispose();
-      vaultMat.dispose();
+      mainLogoGeo.dispose();
+      mainLogoMaterial.dispose();
+      normalTex.dispose();
+      colorTex.dispose();
+      innerPrismBevelGeo.dispose();
+      innerPrismBevelMat.dispose();
+      if (pane) pane.dispose();
+      domeGeo.dispose();
+      domeMat.dispose();
+      texState1.dispose();
+      texState2.dispose();
+      texState3.dispose();
+      particleGeo.dispose();
+      particleMat.dispose();
+      if (particleMat.map) particleMat.map.dispose();
+      backTextGeo.dispose();
+      backTextMat.dispose();
+      if (backTextMat.map) backTextMat.map.dispose();
+      worksTextGeo.dispose();
+      worksTextMat.dispose();
+      if (worksTextMat.map) worksTextMat.map.dispose();
+      shockwaveGeo.dispose();
+      shockwaveMat.dispose();
       cardMaterials.forEach((m) => m.dispose());
       cardMeshes.forEach((mesh) => mesh.geometry.dispose());
       ScrollTrigger.getAll().forEach((st) => st.kill());

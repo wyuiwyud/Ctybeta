@@ -187,17 +187,24 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
               </button>
               <button
                 type="button"
-                id="btn-random-shapes"
-                class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs tracking-wider uppercase transition-all"
+                id="btn-compare-manual"
+                class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs tracking-wider uppercase transition-all flex items-center gap-1.5"
               >
-                ↺ Randomize Shapes
+                <span>⇄</span> So sánh: Xếp Thủ Công
+              </button>
+              <button
+                type="button"
+                id="btn-random-shapes"
+                class="px-3 py-2 rounded-lg border border-white/15 hover:border-white text-white/80 hover:text-white font-mono text-xs tracking-wider uppercase transition-all"
+              >
+                ↺ Đổi Mẫu Decal
               </button>
               <button
                 type="button"
                 id="btn-toggle-nfp"
                 class="px-3 py-2 rounded-lg border border-white/20 hover:border-[#c8ff00] text-white/80 hover:text-[#c8ff00] font-mono text-xs tracking-wider uppercase transition-all"
               >
-                ⚙ NFP 0.5° Rotation: ON
+                ⚙ NFP 0.5°: ON
               </button>
             </div>
           </div>
@@ -461,6 +468,9 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       <!-- Modal Top Bar -->
       <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
         <div class="flex items-center gap-3">
+          <span class="w-5 h-5 rounded-sm bg-[#c8ff00]/15 border border-[#c8ff00]/60 flex items-center justify-center text-[#c8ff00] text-[10px] font-mono shadow-[0_0_12px_rgba(200,255,0,0.35)]">
+            ▲
+          </span>
           <span id="blueprint-code" class="font-mono text-xs tracking-[0.2em] text-[#c8ff00] uppercase">
             ● 01 // DOMAIN BLUEPRINT
           </span>
@@ -549,18 +559,43 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       </div>
     </div>
   </div>
-</BaseLayout>
 
-<!-- ========================================================================= -->
+  <!-- FLOATING QUICK CONNECT CAPSULE (Centered, Non-Colliding) -->
+  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] hidden sm:flex items-center gap-2.5 pointer-events-auto select-none">
+    <a
+      href="https://zalo.me/0559879392"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="liquid-glass-pill px-4 py-1.5 rounded-full hover:border-[#38bdf8]/60 font-mono text-[11px] text-white/80 hover:text-white flex items-center gap-2 transition-all shadow-xl"
+    >
+      <span class="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-ping"></span>
+      <span>Zalo: 0559.879.392</span>
+    </a>
+    <button
+      type="button"
+      data-open-drawer="roi-lab"
+      class="px-4 py-1.5 rounded-full bg-[#1a8c4a]/35 border border-[#1a8c4a] hover:bg-[#1a8c4a] text-white font-mono text-[11px] font-semibold tracking-wider uppercase transition-all backdrop-blur-md shadow-xl flex items-center gap-1.5 cursor-pointer"
+    >
+      <span class="w-1.5 h-1.5 rounded-full bg-[#c8ff00]"></span>
+      <span>Demo Xưởng (15s) ↗</span>
+    </button>
+  </div>
+
+  <!-- ========================================================================= -->
   <!-- CLIENT INTERACTIVE CONTROLLERS (Preloader, Drawers, GA Canvas, ROI)      -->
   <!-- ========================================================================= -->
   <script>
     // 1. CAD ARCHITECTURAL PRELOADER LOGIC (Matches ảnh_8.jpg)
-    window.addEventListener('DOMContentLoaded', () => {
+    function initPreloader() {
       const preloader = document.getElementById('cad-preloader');
       const counter = document.getElementById('cad-counter');
       const progressBar = document.getElementById('cad-progress-bar');
       const statusMsg = document.getElementById('cad-status-msg');
+
+      if (!preloader) {
+        window.dispatchEvent(new CustomEvent('stage-unlocked'));
+        return;
+      }
 
       const statusStages = [
         { pct: 15, msg: 'INITIALIZING THREE.JS WEBGL RENDERER...' },
@@ -570,9 +605,22 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
         { pct: 100, msg: 'STAGE READY // LAUNCHING ADOLSOFT ENGINE' }
       ];
 
+      const safetyTimer = setTimeout(() => {
+        clearInterval(interval);
+        if (preloader) preloader.classList.add('loaded');
+        window.dispatchEvent(new CustomEvent('stage-unlocked'));
+      }, 1500);
+
+      preloader.addEventListener('click', () => {
+        clearInterval(interval);
+        clearTimeout(safetyTimer);
+        preloader.classList.add('loaded');
+        window.dispatchEvent(new CustomEvent('stage-unlocked'));
+      });
+
       let progress = 0;
       const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 4) + 2;
+        progress += Math.floor(Math.random() * 10) + 8;
         if (progress > 100) progress = 100;
 
         if (counter) counter.textContent = `${String(progress).padStart(3, '0')}%`;
@@ -583,12 +631,20 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
 
         if (progress >= 100) {
           clearInterval(interval);
+          clearTimeout(safetyTimer);
           setTimeout(() => {
             if (preloader) preloader.classList.add('loaded');
-          }, 350);
+            window.dispatchEvent(new CustomEvent('stage-unlocked'));
+          }, 120);
         }
-      }, 25);
-    });
+      }, 20);
+    }
+
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', initPreloader);
+    } else {
+      initPreloader();
+    }
 
     // 2. SPATIAL MODAL DRAWERS MANAGEMENT (ROI Lab & Domain Blueprint)
     function openDrawer(drawerId: string) {
@@ -596,6 +652,7 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       if (drawer) {
         drawer.classList.add('open');
         document.body.style.overflow = 'hidden';
+        window.dispatchEvent(new CustomEvent('spatial-drawer-state', { detail: { open: true, drawerId } }));
       }
     }
 
@@ -604,7 +661,10 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       if (drawer) {
         drawer.classList.remove('open');
         const anyOpen = document.querySelectorAll('.spatial-drawer.open').length > 0;
-        if (!anyOpen) document.body.style.overflow = '';
+        if (!anyOpen) {
+          document.body.style.overflow = '';
+          window.dispatchEvent(new CustomEvent('spatial-drawer-state', { detail: { open: false } }));
+        }
       }
     }
 
@@ -633,9 +693,8 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
     document.querySelectorAll('.spatial-drawer').forEach((drawer) => {
       drawer.addEventListener('click', (e) => {
         if (e.target === drawer) {
-          drawer.classList.remove('open');
-          const anyOpen = document.querySelectorAll('.spatial-drawer.open').length > 0;
-          if (!anyOpen) document.body.style.overflow = '';
+          const id = drawer.id.replace('drawer-', '');
+          closeDrawer(id);
         }
       });
     });
@@ -644,9 +703,9 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.spatial-drawer.open').forEach((drawer) => {
-          drawer.classList.remove('open');
+          const id = drawer.id.replace('drawer-', '');
+          closeDrawer(id);
         });
-        document.body.style.overflow = '';
       }
     });
 
@@ -811,13 +870,68 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
           ctx.restore();
         });
 
-        // Bounding Box Line showing tightest pack
-        ctx.strokeStyle = '#c8ff00';
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([4, 4]);
-        ctx.strokeRect(20, 20, 760, 460);
-        ctx.setLineDash([]);
+        if (isManualCompare) {
+          // Manual mode: scattered with high waste
+          ctx.strokeStyle = 'rgba(244, 63, 94, 0.6)';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([4, 4]);
+          ctx.strokeRect(20, 20, 760, 460);
+          ctx.setLineDash([]);
+
+          ctx.fillStyle = 'rgba(244, 63, 94, 0.9)';
+          ctx.font = '10.5px monospace';
+          ctx.fillText('⚠ PHÔI THỪA RẢI RÁC — 19.8% KHOẢNG TRẮNG CHẾT (XOAY TAY COREL)', 30, 470);
+        } else {
+          // AI Genetic Nesting mode: tight pack + preserved remnant roll zone
+          ctx.strokeStyle = '#c8ff00';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([4, 4]);
+          ctx.strokeRect(20, 20, 620, 460);
+          ctx.setLineDash([]);
+
+          // Preserved remnant decal roll zone on the right
+          ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
+          ctx.fillRect(645, 20, 135, 460);
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(645, 20, 135, 460);
+
+          ctx.fillStyle = '#38bdf8';
+          ctx.font = 'bold 10.5px monospace';
+          ctx.fillText('VÙNG PHÔI DƯ', 662, 240);
+          ctx.fillText('TIẾT KIỆM (14.8%)', 652, 260);
+        }
       }
+
+      let isManualCompare = false;
+      const btnCompare = document.getElementById('btn-compare-manual');
+      const kpiYield = document.getElementById('kpi-yield');
+
+      btnCompare?.addEventListener('click', () => {
+        isManualCompare = !isManualCompare;
+        if (btnCompare) {
+          btnCompare.innerHTML = isManualCompare
+            ? '<span>✓</span> Đang xem: Xếp Thủ Công'
+            : '<span>⇄</span> So sánh: Xếp Thủ Công';
+          btnCompare.classList.toggle('bg-rose-500/25', isManualCompare);
+          btnCompare.classList.toggle('border-rose-400', isManualCompare);
+        }
+        if (kpiYield) {
+          kpiYield.textContent = isManualCompare ? '82.3%' : '94.8%';
+          kpiYield.className = isManualCompare
+            ? "font-['Syne'] font-extrabold text-3xl text-rose-400"
+            : "font-['Syne'] font-extrabold text-3xl text-[#c8ff00]";
+        }
+        if (isManualCompare) {
+          shapes.forEach((s, idx) => {
+            s.x = 40 + (idx % 4) * 180 + Math.random() * 25;
+            s.y = 40 + Math.floor(idx / 4) * 80 + Math.random() * 15;
+          });
+        } else {
+          generateShapes();
+        }
+        drawNesting();
+      });
 
       drawNesting();
 
@@ -852,6 +966,15 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
         } else {
           cancelAnimationFrame(animationFrameId);
         }
+      });
+
+      // Track mouse position on spatial drawer panel for specular highlight
+      window.addEventListener('pointermove', (e) => {
+        document.querySelectorAll<HTMLElement>('.spatial-drawer-panel').forEach((panel) => {
+          const rect = panel.getBoundingClientRect();
+          panel.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          panel.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
       });
     }
 
@@ -896,3 +1019,4 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
     });
     calculateROI();
   </script>
+</BaseLayout>

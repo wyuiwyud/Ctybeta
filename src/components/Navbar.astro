@@ -36,7 +36,7 @@
 
   <!-- Right: Scroll Progress Pill & Contact CTA -->
   <div class="flex items-center gap-3 pointer-events-auto">
-    <div class="flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-black/65 border border-white/15 backdrop-blur-md font-mono text-[11px]">
+    <div class="liquid-glass-pill flex items-center gap-3 px-3.5 py-1.5 rounded-full font-mono text-[11px]">
       <span id="nav-domain-counter" class="text-[#c8ff00] font-bold tracking-wider">00 / 06</span>
       <div class="w-14 h-[2px] bg-white/15 overflow-hidden rounded-full">
         <div id="nav-scroll-bar" class="h-full bg-[#c8ff00] w-0 transition-all duration-75"></div>
@@ -47,31 +47,34 @@
     <button
       type="button"
       data-open-drawer="roi-lab"
-      class="hidden sm:inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/25 bg-white/[0.04] hover:bg-[#1a8c4a] hover:border-[#1a8c4a] text-white font-mono text-[10px] tracking-[0.14em] uppercase transition-all backdrop-blur-md"
+      class="hidden sm:inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#1a8c4a]/60 bg-[#1a8c4a]/20 hover:bg-[#1a8c4a] hover:border-[#1a8c4a] text-white font-mono text-[10px] tracking-[0.14em] uppercase transition-all backdrop-blur-md shadow-[0_0_15px_rgba(26,140,74,0.3)] cursor-pointer"
     >
       Simulate ROI ↗
     </button>
   </div>
 </header>
 
-<!-- Top-Right Quaternion 3D Gizmo Widget (Inspired by ảnh_7.jpg of Alche Studio) -->
+<!-- Top-Right Quaternion 3D Gizmo Widget (Matches Alche Studio Screenshots 1-4) -->
 <aside
   id="quaternion-gizmo-panel"
-  class="fixed top-20 right-6 md:right-10 z-[110] hidden lg:flex flex-col items-end gap-2 pointer-events-auto select-none"
+  class="fixed top-16 right-8 md:right-10 z-[110] hidden lg:flex flex-col items-end gap-1.5 pointer-events-auto select-none"
 >
-  <div class="px-3 py-1.5 rounded bg-black/55 border border-white/10 backdrop-blur-md font-mono text-[9.5px] tracking-widest text-white/55 flex items-center gap-3">
-    <span class="text-white/35">MainLogo Quaternion</span>
-    <span id="quat-readout" class="text-white/85">0.00 | 0.00 | 0.00 | 1.00</span>
+  <div class="font-mono text-[9px] tracking-widest text-white/40 flex items-center gap-1.5">
+    <span>MainLogo Quaternion</span>
+    <span class="text-white/30">::</span>
+  </div>
+  <div id="quat-readout" class="font-mono text-[10.5px] tracking-wider text-white/85">
+    +.08 +.27 .00 .96
   </div>
 
-  <div class="relative w-20 h-20 rounded-full border border-white/15 bg-black/45 backdrop-blur-md flex items-center justify-center shadow-[inset_0_0_18px_rgba(255,255,255,0.04)]">
-    <canvas id="quaternion-canvas" width="80" height="80" class="w-20 h-20 cursor-pointer" title="Click to impulse prism rotation"></canvas>
+  <div class="relative w-[72px] h-[72px] flex items-center justify-center my-0.5">
+    <canvas id="quaternion-canvas" width="72" height="72" class="w-[72px] h-[72px] cursor-pointer" title="Click to impulse prism rotation"></canvas>
   </div>
 
   <button
     type="button"
     id="reset-quaternion-btn"
-    class="font-mono text-[9.5px] tracking-[0.14em] text-white/45 hover:text-[#c8ff00] transition-colors uppercase"
+    class="font-mono text-[9px] tracking-[0.14em] text-white/40 hover:text-white transition-colors cursor-pointer"
   >
     Reset Quaternion
   </button>
