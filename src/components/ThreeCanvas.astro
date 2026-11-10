@@ -40,14 +40,6 @@
     <div class="liquid-blast-ring ring-2"></div>
     <div class="liquid-blast-ring ring-3"></div>
   </div>
-
-  <!-- Technical Coordinates & Refraction Subtitle (At Bottom) -->
-  <p
-    id="hero-brand-sub"
-    class="hero-reveal-meta opacity-0 translate-y-4 mb-4 font-mono text-[10px] md:text-[11.5px] tracking-[0.32em] text-white/70 uppercase text-center max-w-xl"
-  >
-    [ LIQUID PRISM REFRACTION ENGINE // ZERO WASTE AI ]
-  </p>
 </div>
 
 
@@ -63,47 +55,145 @@
 <!-- TWEAKPANE CONTAINER (Docked strictly at bottom: 24px, left: 24px) -->
 <div id="tweakpane-container" class="fixed z-[120] pointer-events-auto select-none min-w-[200px]" style="position: fixed; bottom: 24px; left: 24px;"></div>
 
-<!-- LAYER 4: BOTTOM-LEFT ACTIVE WORK METADATA (Matches Screenshot 2 & Screenshot 4) -->
-<div
-  id="active-work-hud"
-  class="fixed bottom-8 left-6 md:bottom-10 md:left-10 z-[110] pointer-events-auto flex flex-col items-start text-left max-w-xl select-none opacity-0 translate-y-4 transition-all duration-500 hidden"
->
-  <!-- Date & Category Badge Row -->
-  <div class="flex items-center gap-2.5 mb-1.5">
-    <span id="hud-work-date" class="font-mono text-[10.5px] text-white/50 tracking-wider">2026.04.12</span>
-    <span
-      id="hud-work-badge"
-      class="px-2 py-0.5 rounded bg-[#c8ff00]/15 border border-[#c8ff00]/40 text-[#c8ff00] text-[9.5px] font-mono tracking-wider uppercase font-semibold"
+<!-- ========================================================================= -->
+<!-- SCI-FI COMMAND CENTER HUD: HEADER OVERLAY & SURROUNDING SUB-FOLDERS / TAGS -->
+<!-- ========================================================================= -->
+
+<!-- ========================================================================= -->
+<!-- TEMPLATE MOCKUP LAYOUT: HEADER OVERLAY & SURROUNDING COLOR-CODED BOXES    -->
+<!-- ========================================================================= -->
+
+<!-- PHẦN 1: HEADER OVERLAY (Tiêu đề & Mô tả trung tâm phía trên thẻ 3D) -->
+<div class="fixed top-[84px] sm:top-[90px] md:top-[96px] left-0 right-0 flex justify-center pointer-events-none z-[50]">
+  <div
+    id="header-overlay-hud"
+    class="active-domain-header flex flex-col items-center text-center w-full max-w-[800px] px-5 select-none opacity-0 translate-y-3 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hidden"
+  >
+    <!-- Heading: TIÊU ĐỀ CỦA THẺ -->
+    <h2
+      id="header-hud-title"
+      class="font-['Syne',sans-serif] font-extrabold text-[24px] sm:text-[28px] md:text-[30px] text-white tracking-[-0.02em] leading-tight uppercase mb-2 drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]"
     >
-      AI PRODUCTION RELEASE
-    </span>
-  </div>
+      TIÊU ĐỀ CỦA THẺ
+    </h2>
 
-  <!-- Giant Work Title -->
-  <h2
-    id="hud-work-title"
-    class="font-['Syne'] font-extrabold text-2xl sm:text-3xl md:text-4xl text-white tracking-tight leading-tight"
-  >
-    AI PRINT-CUT NESTING SYSTEM
-  </h2>
-
-  <!-- Subtitle -->
-  <p
-    id="hud-work-desc"
-    class="mt-1 font-mono text-[11px] sm:text-xs text-white/70 leading-relaxed max-w-md"
-  >
-    Industrial Edge Detection & Genetic Auto-Nesting Engine
-  </p>
-
-  <!-- Tag Pills Row (Matches [stellla] [unreal_engine] [metaverse] style) -->
-  <div id="hud-work-tags" class="mt-3 flex flex-wrap items-center gap-1.5">
-    <span class="px-2.5 py-1 rounded bg-black/40 border border-white/15 text-white/70 font-mono text-[9.5px] tracking-wider">[nesting_ai]</span>
-    <span class="px-2.5 py-1 rounded bg-black/40 border border-white/15 text-white/70 font-mono text-[9.5px] tracking-wider">[print_cut]</span>
-    <span class="px-2.5 py-1 rounded bg-black/40 border border-white/15 text-white/70 font-mono text-[9.5px] tracking-wider">[zero_waste]</span>
+    <!-- Sub-headline: MÔ TẢ VĂN BẢN Mô tả -->
+    <p
+      id="header-hud-desc"
+      class="font-['JetBrains_Mono',monospace] text-[11px] sm:text-[12px] md:text-[13px] text-white/70 leading-[1.5] max-w-[720px] px-3 mb-6"
+    >
+      MÔ TẢ VĂN BẢN Mô tả: Xây dựng hệ điều hành, công cụ cài đặt và hạ tầng Linux thân thiện cho người dùng phổ thông và doanh nghiệp
+    </p>
   </div>
 </div>
 
-<!-- LAYER 5: BOTTOM-RIGHT EXCLUSIVE ZONE -->
+<!-- PHẦN 2.1: CỤM BÊN TRÁI MÀN HÌNH (SATELLITE PILL STACK Y CHANG MẪU) -->
+<div class="fixed left-2 sm:left-3 md:left-4 lg:left-6 xl:left-8 top-[63%] -translate-y-1/2 z-[40] pointer-events-auto select-none hidden md:block">
+  <div
+    id="left-cluster-hud"
+    class="sat-pill-stack opacity-0 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hidden md:flex"
+  >
+  </div>
+</div>
+
+<!-- PHẦN 2.2: CỤM BÊN PHẢI MÀN HÌNH (SATELLITE PILL STACK Y CHANG MẪU) -->
+<div class="fixed right-2 sm:right-3 md:right-4 lg:right-6 xl:right-8 top-[63%] -translate-y-1/2 z-[40] pointer-events-auto select-none hidden md:block">
+  <div
+    id="right-cluster-hud"
+    class="sat-pill-stack opacity-0 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hidden md:flex"
+  >
+  </div>
+</div>
+
+<!-- PHẦN 2.3: CỤM THANH ĐÁY MÀN HÌNH (6 KHỐI TRẮNG - ĐỎ - ĐỎ - ĐỎ - XANH DƯƠNG - XANH LÁ) -->
+<div class="fixed bottom-2 sm:bottom-2.5 md:bottom-3 left-0 right-0 flex justify-center pointer-events-auto select-none z-[40] px-4">
+  <div
+    id="bottom-cluster-hud"
+    class="flex items-center justify-center gap-2 sm:gap-2.5 md:gap-3 max-w-[96vw] opacity-0 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hidden"
+  >
+    <!-- Ô 1 (Trắng): Nút CTA chính Blueprint -->
+    <button
+      type="button"
+      class="sat-tag sat-tag-white hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex items-center justify-center cursor-pointer relative"
+      data-speed="0.95"
+      data-hud-action="blueprint"
+      title="Khám phá chi tiết Blueprint"
+    >
+      <div class="template-gloss"></div>
+      <div class="flex items-center justify-center gap-1.5 font-['Syne'] font-extrabold text-[11px] sm:text-xs tracking-wider uppercase">
+        <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+        <span>BLUEPRINT ↗</span>
+      </div>
+    </button>
+
+    <!-- Ô 2 (Đỏ): USB Installer -->
+    <button
+      type="button"
+      class="sat-tag sat-tag-red hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
+      data-speed="0.80"
+      data-hud-action="blueprint"
+      title="USB Installer Live ISO"
+    >
+      <div class="template-gloss"></div>
+      <span class="font-mono text-[8px] text-[#ef233c] tracking-widest uppercase font-bold">INSTALLER</span>
+      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-white tracking-wide">LIVE USB</span>
+    </button>
+
+    <!-- Ô 3 (Đỏ): Kernel Patch -->
+    <button
+      type="button"
+      class="sat-tag sat-tag-red hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
+      data-speed="0.70"
+      data-hud-action="blueprint"
+      title="Kernel RT Patch"
+    >
+      <div class="template-gloss"></div>
+      <span class="font-mono text-[8px] text-[#ef233c] tracking-widest uppercase font-bold">KERNEL</span>
+      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-white tracking-wide">RT PATCH</span>
+    </button>
+
+    <!-- Ô 4 (Đỏ): Auto Nesting -->
+    <button
+      type="button"
+      class="sat-tag sat-tag-red hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
+      data-speed="0.60"
+      data-hud-action="blueprint"
+      title="Genetic Auto-Nesting Engine"
+    >
+      <div class="template-gloss"></div>
+      <span class="font-mono text-[8px] text-[#ef233c] tracking-widest uppercase font-bold">NESTING</span>
+      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-white tracking-wide">AUTO GA</span>
+    </button>
+
+    <!-- Ô 5 (Xanh dương): MQTT Bus -->
+    <button
+      type="button"
+      class="sat-tag sat-tag-blue hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
+      data-speed="0.85"
+      data-hud-action="blueprint"
+      title="Cloudless MQTT Local Bus"
+    >
+      <div class="template-gloss"></div>
+      <span class="font-mono text-[8px] text-[#0070f3] tracking-widest uppercase font-bold">NETWORK</span>
+      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-white tracking-wide">MQTT BUS</span>
+    </button>
+
+    <!-- Ô 6 (Xanh lá): Real-Time OEE -->
+    <button
+      type="button"
+      class="sat-tag sat-tag-green hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
+      data-speed="0.75"
+      data-hud-action="blueprint"
+      title="Live OEE 99.4% Machine Analytics"
+    >
+      <div class="template-gloss"></div>
+      <span class="font-mono text-[8px] text-[#22c55e] tracking-widest uppercase font-bold">ANALYTICS</span>
+      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-[#22c55e] tracking-wide">OEE 99.4%</span>
+    </button>
+  </div>
+</div>
+
+<!-- LAYER 5: BOTTOM-RIGHT EXCLUSIVE ZONE (Hero Phase News Stream) -->
 <div class="fixed bottom-8 right-6 md:bottom-10 md:right-10 z-[110] pointer-events-auto flex flex-col items-end">
   <!-- Hero Phase News Stream (During Hero p < 0.18) -->
   <div id="hero-news-stream" class="liquid-glass-balanced flex flex-col items-end gap-2.5 p-4 rounded-xl transition-all duration-500 max-w-sm text-right">
@@ -111,7 +201,7 @@
       <span>TELEMETRY // NEWS</span>
       <span class="text-white/40">LIVE</span>
     </div>
-    <button type="button" data-open-drawer="roi-lab" class="text-left group w-full cursor-pointer">
+    <button type="button" data-open-drawer="founder-architect" class="text-left group w-full cursor-pointer">
       <span class="font-mono text-[9.5px] text-white/45 block">2026.10 // PRODUCTION RELEASE</span>
       <span class="text-xs text-white/85 group-hover:text-[#c8ff00] transition-colors block">
         AI Print-Cut đạt tốc độ Nesting 14.2s — Tiết kiệm 12.5% Decal ↗
@@ -122,21 +212,6 @@
       <span class="text-xs text-white/85 group-hover:text-[#c8ff00] transition-colors block">
         Founder Lê Trường Duy — Top 250 AI Young Guru Toàn Quốc ↗
       </span>
-    </button>
-  </div>
-
-  <!-- Works Phase "More Works ↗" CTA (Matches Screenshots 2, 3, 4) -->
-  <div
-    id="works-more-cta"
-    class="opacity-0 translate-y-4 transition-all duration-500 hidden"
-  >
-    <button
-      type="button"
-      data-open-drawer="roi-lab"
-      class="group flex items-center gap-1.5 font-['Syne'] md:font-mono text-sm md:text-base text-white/80 hover:text-[#c8ff00] transition-all cursor-pointer"
-    >
-      <span>More Works</span>
-      <span class="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
     </button>
   </div>
 </div>
@@ -154,6 +229,23 @@
   // ============================================================================
   // 1. ADOLSOFT 6 CORE TECHNOLOGY DOMAINS DATA (VERIFIED BENCHMARKS)
   // ============================================================================
+  export interface DomainHUDSubfolders {
+    left: {
+      kernel: { title: string; val: string; desc: string };
+      security: { title: string; val: string; desc: string };
+      custom: { title: string; val: string; desc: string };
+    };
+    right: {
+      resources: { title: string; val: string; desc: string };
+      roi: { title: string; val: string; desc: string };
+      portal: { title: string; val: string; desc: string; link?: string };
+    };
+    bottom: {
+      modules: string[];
+      primaryCta: string;
+    };
+  }
+
   export interface DomainItem {
     id: string;
     index: string;
@@ -169,6 +261,7 @@
     date: string;
     badge: string;
     tags: string[];
+    hud: DomainHUDSubfolders;
   }
 
   const ADOLSOFT_DOMAINS: DomainItem[] = [
@@ -191,12 +284,28 @@
         'Độ phủ vật liệu trung bình: 94.8% (Tiết kiệm 10–15% Decal/Bạt/PP)',
         'Xuất trực tiếp PDF/DXF/PLT cho máy Mimaki, Graphtec, Roland, máy Trung Quốc'
       ],
-      roiImpact: 'Thu hồi 100% vốn bản quyền Gói Standard (6–8 triệu/năm) chỉ sau 1.5 tháng.'
+      roiImpact: 'Thu hồi 100% vốn bản quyền Gói Standard (6–8 triệu/năm) chỉ sau 1.5 tháng.',
+      hud: {
+        left: {
+          kernel: { title: 'TRẠNG THÁI NHÂN KERNEL', val: 'GA-NESTING // V2.4-OPT', desc: 'Minkowski NFP 0.5°' },
+          security: { title: 'BẢO MẬT & LOCAL AI', val: '100% OFFLINE // NO CLOUD', desc: 'Bảo mật file thiết kế' },
+          custom: { title: 'KIẾN TRÚC & XUẤT LỆNH', val: 'PDF / DXF / HP-GL', desc: 'Graphtec, Mimaki, Roland' }
+        },
+        right: {
+          resources: { title: 'TÀI NGUYÊN & SPECS', val: 'WHITEPAPER V2.4 ↗', desc: 'Sổ tay kỹ thuật dàn trang' },
+          roi: { title: 'CHỈ SỐ HIỆU SUẤT ROI', val: 'TIẾT KIỆM 12.5% VẬT TƯ', desc: '14.2s vs 45m Corel' },
+          portal: { title: 'CỔNG DỊCH VỤ XƯỞNG', val: 'TRIỂN KHAI 15 PHÚT ↗', desc: 'Hỗ trợ cấu hình máy cắt', link: 'https://zalo.me/0559879392' }
+        },
+        bottom: {
+          modules: ['Auto-Contour AI', 'Auto-Bleed 1.5mm', 'No-Fit Polygon', 'Optical Crosshairs', 'Multi-Head Cut'],
+          primaryCta: 'Khám phá chi tiết Blueprint ↗'
+        }
+      }
     },
     {
       id: 'ai-os-edge',
       index: '02',
-      title: 'AI OS EDGE // ZERO-CLOUD',
+      title: 'HỆ ĐIỀU HÀNH ADOLOS // AI EDGE',
       subtitle: 'Zero-Cloud Factory Operating System & IoT Kernel',
       category: 'EDGE COMPUTING ARCHITECTURE',
       metric: '100% OFFLINE | <2ms LATENCY',
@@ -212,7 +321,23 @@
         'Đồng bộ trạng thái đầu cắt & áp lực dao bế theo thời gian thực',
         'Lộ trình thương mại hóa bản Prototype: Q3/2027'
       ],
-      roiImpact: 'Giảm 85% thời gian chết (Downtime) khi chuyển đổi lệnh in liên hoàn.'
+      roiImpact: 'Giảm 85% thời gian chết (Downtime) khi chuyển đổi lệnh in liên hoàn.',
+      hud: {
+        left: {
+          kernel: { title: 'TRẠNG THÁI NHÂN KERNEL', val: 'ARCH LINUX // 6.12-LTS', desc: 'Real-time PREEMPT_RT' },
+          security: { title: 'BẢO MẬT & ZERO-CLOUD', val: '100% OFFLINE // AIR-GAP', desc: 'Cách ly hoàn toàn Internet' },
+          custom: { title: 'TÙY BIẾN GIAO DIỆN', val: 'ADOL DECOR UI // WAYLAND', desc: 'Custom Industrial Desktop' }
+        },
+        right: {
+          resources: { title: 'TÀI NGUYÊN & BỘ CÀI', val: 'ADOLOS ISO // LIVE USB ↗', desc: 'Bộ cài đặt một chạm' },
+          roi: { title: 'CHỈ SỐ ĐỘ TRỄ HẠ TẦNG', val: '< 2ms INDUSTRIAL LATENCY', desc: 'Đồng bộ đầu cắt đa máy' },
+          portal: { title: 'CỔNG DỊCH VỤ TRIỂN KHAI', val: 'ĐĂNG KÝ PILOT B2B ↗', desc: 'Setup xưởng quy mô 10+ máy', link: 'https://zalo.me/0559879392' }
+        },
+        bottom: {
+          modules: ['USB Cài đặt', 'Bản vá Kernel RT', 'Kho Driver Máy Cắt', 'Cài đặt Từ Xa', 'Local MQTT Bus'],
+          primaryCta: 'Khám phá chi tiết Blueprint ↗'
+        }
+      }
     },
     {
       id: 'production-telemetry',
@@ -233,7 +358,23 @@
         'Giám sát hiệu suất thiết bị tổng thể (OEE) đa dây chuyền',
         'Cảnh báo sớm lệch trục cắt trước khi hỏng hàng loạt'
       ],
-      roiImpact: 'Loại bỏ 98% phế phẩm do lỗi cắt lệch đường viền bế.'
+      roiImpact: 'Loại bỏ 98% phế phẩm do lỗi cắt lệch đường viền bế.',
+      hud: {
+        left: {
+          kernel: { title: 'TRẠNG THÁI NHÂN KERNEL', val: 'TELEMETRY ENGINE // V1.8', desc: 'Modbus & RS485 Stream' },
+          security: { title: 'GIÁM SÁT SẢN LƯỢNG', val: '99.4% REAL-TIME OEE', desc: 'Đo mét vuông Decal / ca' },
+          custom: { title: 'QUANG HỌC & SENSOR', val: 'OPTICAL DRIFT: 0.02mm', desc: 'Tự động bù sai số laser' }
+        },
+        right: {
+          resources: { title: 'TÀI NGUYÊN & BÁO CÁO', val: 'OEE REPORT TEMPLATE ↗', desc: 'Biểu đồ hao hụt vật tư' },
+          roi: { title: 'CHỈ SỐ TIẾT KIỆM', val: '-98% PHẾ PHẨM LỆCH BẾ', desc: 'Chống lệch trục cắt hàng loạt' },
+          portal: { title: 'CỔNG DỊCH VỤ GIÁM SÁT', val: 'KẾT NỐI SENSOR ↗', desc: 'Tích hợp trong 1 ca làm việc', link: 'https://zalo.me/0559879392' }
+        },
+        bottom: {
+          modules: ['Live OEE Meter', 'Cảm biến Hao mòn Dao', 'Bù Lệch Trục Y', 'Nhật ký Lỗi Cắt', 'Export Excel Ca'],
+          primaryCta: 'Khám phá chi tiết Blueprint ↗'
+        }
+      }
     },
     {
       id: 'auto-quotation',
@@ -254,7 +395,23 @@
         'Khởi tạo phiếu lệnh sản xuất kèm mã QR tra cứu tiến độ đơn hàng',
         'Tích hợp xuất báo giá nhanh qua Zalo/PDF cho đội ngũ Sales B2B'
       ],
-      roiImpact: 'Tăng 3.2 lần tốc độ phản hồi báo giá khách hàng sỉ.'
+      roiImpact: 'Tăng 3.2 lần tốc độ phản hồi báo giá khách hàng sỉ.',
+      hud: {
+        left: {
+          kernel: { title: 'TRẠNG THÁI NHÂN KERNEL', val: 'CUT-PATH COSTING // V3.1', desc: 'Minkowski Length Engine' },
+          security: { title: 'ĐỘ CHÍNH XÁC BIÊN ĐỘ', val: 'ZERO MARGIN DRIFT // 100%', desc: 'Khóa biên độ giá sỉ/lẻ' },
+          custom: { title: 'KẾT NỐI ZALO & ERP', val: 'ZALO B2B BOT // QR ORDER', desc: 'Tạo lệnh sản xuất 1 click' }
+        },
+        right: {
+          resources: { title: 'TÀI LIỆU & BẢNG GIÁ', val: 'MẪU BÁO GIÁ CHUẨN ↗', desc: 'Tích hợp biểu mẫu xưởng' },
+          roi: { title: 'TỐC ĐỘ PHẢN HỒI ĐƠN', val: '3s PHẢN HỒI KHÁCH HÀNG', desc: 'Nhanh hơn 3.2 lần thủ công' },
+          portal: { title: 'CỔNG DỊCH VỤ BÁN HÀNG', val: 'DÙNG THỬ BÁO GIÁ ↗', desc: 'Đồng bộ kho vật tư ngay', link: 'https://zalo.me/0559879392' }
+        },
+        bottom: {
+          modules: ['Đo Mét Tới Dao Bế', 'Tính Mực In Thực', 'Zalo PDF Báo Giá', 'Mã QR Theo Dõi', 'Phiếu Lệnh Xưởng'],
+          primaryCta: 'Khám phá chi tiết Blueprint ↗'
+        }
+      }
     },
     {
       id: 'combinatorial-rd',
@@ -275,7 +432,23 @@
         'Tối ưu hóa đồng thời bài toán cắt 2D Decal, gỗ CNC và kim loại tấm',
         'Nền tảng nghiên cứu cốt lõi của Founder Lê Trường Duy'
       ],
-      roiImpact: 'Vượt hiệu suất sắp xếp thủ công của kỹ thuật viên lành nghề từ 12–18%.'
+      roiImpact: 'Vượt hiệu suất sắp xếp thủ công của kỹ thuật viên lành nghề từ 12–18%.',
+      hud: {
+        left: {
+          kernel: { title: 'TRẠNG THÁI NHÂN KERNEL', val: 'CUDA CORE // RTX-ACCEL', desc: 'Parallel Genetic Population' },
+          security: { title: 'ĐA GIÁC LÕM PHỨC TẠP', val: 'HOLE-FILLING // 0.5° STEP', desc: 'Chấp nhận dị hình lồng ghép' },
+          custom: { title: 'ỨNG DỤNG MỞ RỘNG', val: 'DECAL / GỖ CNC / METAL', desc: 'Tối ưu vật tư tấm 2D' }
+        },
+        right: {
+          resources: { title: 'CÔNG TRÌNH NGHIÊN CỨU', val: 'NFP PAPERS & BENCHMARK ↗', desc: 'Academic Publication' },
+          roi: { title: 'HIỆU SUẤT VƯỢT TRỘI', val: '+12% - 18% VS MANUAL', desc: 'Vượt chuyên gia xếp tay' },
+          portal: { title: 'KẾT NỐI HỌC THUẬT', val: 'HỢP TÁC R&D TOÀN CẦU ↗', desc: 'Master of AI in Australia', link: 'https://zalo.me/0559879392' }
+        },
+        bottom: {
+          modules: ['Minkowski Sum GPU', 'Genetic Population 100', 'Irregular Nesting 3D', 'Non-Convex Boundary', 'CUDA Benchmark'],
+          primaryCta: 'Khám phá chi tiết Blueprint ↗'
+        }
+      }
     },
     {
       id: 'adolsoft-academy',
@@ -296,11 +469,213 @@
         'Mentorship 1-1 trực tiếp cùng Founder & Ban cố vấn kỹ thuật máy in',
         'Cơ chế chia sẻ doanh thu và cổ phần ưu đãi ESOP cho thành viên cốt lõi'
       ],
-      roiImpact: 'Chuẩn hóa tay nghề nhân sự mới tại xưởng in chỉ sau 1 buổi hướng dẫn.'
+      roiImpact: 'Chuẩn hóa tay nghề nhân sự mới tại xưởng in chỉ sau 1 buổi hướng dẫn.',
+      hud: {
+        left: {
+          kernel: { title: 'QUY TRÌNH CHUẨN HÓA', val: 'SOP ZERO-WASTE // V5.0', desc: 'Bàn giao sau 15 phút' },
+          security: { title: 'MẠNG LƯỚI XƯỞNG TOÀN QUỐC', val: '15,000+ WORKSHOPS TARGET', desc: 'Bao phủ 63 tỉnh thành' },
+          custom: { title: 'MENTORSHIP TRỰC TIẾP', val: '1-ON-1 VỚI FOUNDER', desc: 'Đồng hành kỹ thuật trọn đời' }
+        },
+        right: {
+          resources: { title: 'TÀI LIỆU ĐÀO TẠO', val: 'VIDEO SOP CẦM TAY CHỈ VIỆC ↗', desc: 'Trọn bộ bài giảng thực chiến' },
+          roi: { title: 'THỜI GIAN THÍCH ỨNG', val: 'CHUẨN HÓA KỸ THUẬT 15P', desc: 'Thợ mới làm như thợ lành nghề' },
+          portal: { title: 'CỘNG ĐỒNG KỸ THUẬT', val: 'THAM GIA MẠNG LƯỚI ↗', desc: 'Chia sẻ file mẫu & tip máy in', link: 'https://zalo.me/0559879392' }
+        },
+        bottom: {
+          modules: ['Khóa Học Dàn Trang AI', 'Sổ Tay Khắc Phục Lỗi Máy', 'Bản Quyền Đào Tạo Xưởng', 'ESOP Cho Cộng Sự', 'Hỗ Trợ Kỹ Thuật 24/7'],
+          primaryCta: 'Khám phá chi tiết Blueprint ↗'
+        }
+      }
     }
   ];
 
   (window as any).ADOLSOFT_DOMAINS = ADOLSOFT_DOMAINS;
+
+  // ============================================================================
+  // 1.1 DOMAIN SATELLITE SYSTEM: INDEPENDENT SATELLITES FOR EACH OF THE 6 CARDS
+  // ============================================================================
+  export interface SatelliteItem {
+    type: 'red' | 'blue' | 'green' | 'white';
+    badge: string;
+    tag: string;
+    title: string;
+    desc: string;
+    link?: string;
+    isCta?: boolean;
+  }
+
+  export interface DomainSatelliteGroup {
+    title: string;
+    summary: string;
+    left: SatelliteItem[];
+    right: SatelliteItem[];
+    bottom: SatelliteItem[];
+  }
+
+  const DOMAIN_SATELLITE_DATA: DomainSatelliteGroup[] = [
+    // 01 // AI PRINT-CUT NESTING SYSTEM
+    {
+      title: 'AI PRINT-CUT NESTING SYSTEM',
+      summary: 'MÔ TẢ VĂN BẢN: Phần mềm tự động nhận diện biên dạng tem nhãn (Auto-Contour), bù tràn lề 1.5mm và xếp khít bằng Giải thuật Di truyền chạy 100% Offline.',
+      left: [
+        { type: 'red', badge: '01', tag: 'KERNEL // GA', title: 'MINKOWSKI NFP 0.5°', desc: 'CUDA Accelerated Population' },
+        { type: 'red', badge: 'AIR-GAP', tag: 'ZERO-CLOUD', title: '100% OFFLINE', desc: 'Bảo mật file thiết kế xưởng' },
+        { type: 'blue', badge: '120 FPS', tag: 'AUTO-BLEED', title: '1.5MM TRÀN LỀ', desc: 'Auto-Contour AI Engine' },
+        { type: 'red', badge: 'IO-CORE', tag: 'DRIVER BRIDGE', title: 'MIMAKI / GRAPHTEC', desc: 'Direct HP-GL / DXF Stream' },
+        { type: 'red', badge: 'VISION', tag: 'OPTICAL MARK', title: 'AUTO-REGISTRATION', desc: 'Mắt đọc định vị quang học' }
+      ],
+      right: [
+        { type: 'red', badge: 'SPECS', tag: 'WHITEPAPER V2.4', title: 'SYSTEM DOCS ↗', desc: 'Industrial CAD Standards' },
+        { type: 'green', badge: 'BENCHMARK', tag: 'ROI BENCHMARK', title: '-12.5% MATERIAL', desc: '14.2s Prep // 94.8% Yield' },
+        { type: 'red', badge: 'TARGET', tag: 'OPTICAL CROSSHAIR', title: 'QUAD-POINT REG', desc: 'Chống lệch dao bế đa điểm' },
+        { type: 'red', badge: 'DECAL', tag: 'MEDIA YIELD', title: '94.8% DECAL PHỦ', desc: 'Tiết kiệm 10–15% Decal/PP' },
+        { type: 'red', badge: 'B2B', tag: 'DEPLOYMENT', title: 'SETUP 15 PHÚT ↗', desc: 'Hỗ trợ kỹ thuật xưởng in', link: 'https://zalo.me/0559879392' }
+      ],
+      bottom: [
+        { type: 'white', badge: 'CTA', tag: 'CTA', title: 'BLUEPRINT ↗', desc: 'Khám phá chi tiết', isCta: true },
+        { type: 'red', badge: '01', tag: 'CONTOUR', title: 'NEURAL EDGE', desc: 'Auto Contour' },
+        { type: 'red', badge: '02', tag: 'AUTO-BLEED', title: '1.5MM TRÀN', desc: 'Bù tràn lề' },
+        { type: 'red', badge: '03', tag: 'NESTING', title: 'NO-FIT POLYGON', desc: 'Giải thuật Minkowski' },
+        { type: 'blue', badge: '04', tag: 'CROSSHAIR', title: 'MẮT ĐỌC QUANG', desc: 'Định vị dao' },
+        { type: 'green', badge: '05', tag: 'YIELD', title: '94.8% PHỦ', desc: 'Độ phủ decal' }
+      ]
+    },
+    // 02 // HỆ ĐIỀU HÀNH ADOLOS // AI EDGE
+    {
+      title: 'HỆ ĐIỀU HÀNH ADOLOS // AI EDGE',
+      summary: 'MÔ TẢ VĂN BẢN: Hệ điều hành AI cục bộ triển khai tại xưởng, điều phối hàng đợi máy in/máy bế qua giao thức công nghiệp cách ly hoàn toàn Internet.',
+      left: [
+        { type: 'red', badge: '02', tag: 'KERNEL // RT', title: 'ARCH LINUX 6.12', desc: 'Real-Time PREEMPT_RT' },
+        { type: 'red', badge: 'AIR-GAP', tag: 'ZERO-CLOUD', title: '100% OFFLINE', desc: 'Cách ly hoàn toàn Internet' },
+        { type: 'blue', badge: '120 FPS', tag: 'WAYLAND UI', title: 'ADOL DECOR UI', desc: 'GPU Hardware Comp' },
+        { type: 'red', badge: 'IO-BUS', tag: 'DRIVER BRIDGE', title: 'CNC / GRAPHTEC', desc: 'Multi-Tool HP-GL Bridge' },
+        { type: 'red', badge: 'QUEUE', tag: 'SPOOLER DAEMON', title: 'PRINT-CUT QUEUE', desc: 'Hàng đợi máy in độc lập' }
+      ],
+      right: [
+        { type: 'red', badge: 'ISO', tag: 'ADOLOS ISO', title: 'LIVE USB ↗', desc: 'Bộ cài đặt một chạm' },
+        { type: 'green', badge: 'LATENCY', tag: 'REAL-TIME SYNC', title: '< 2ms LATENCY', desc: 'Đồng bộ đầu bế thời gian thực' },
+        { type: 'red', badge: 'SECURITY', tag: 'ISOLATION', title: 'FACTORY SHIELD', desc: 'Bảo mật mẫu độc quyền B2B' },
+        { type: 'red', badge: 'UPTIME', tag: 'RELIABILITY', title: '99.99% UP-TIME', desc: 'Chống treo máy ca dài' },
+        { type: 'red', badge: 'B2B', tag: 'DEPLOYMENT', title: 'PILOT XƯỞNG ↗', desc: 'Setup xưởng quy mô 10+ máy', link: 'https://zalo.me/0559879392' }
+      ],
+      bottom: [
+        { type: 'white', badge: 'CTA', tag: 'CTA', title: 'BLUEPRINT ↗', desc: 'Khám phá chi tiết', isCta: true },
+        { type: 'red', badge: '01', tag: 'INSTALLER', title: 'LIVE USB', desc: 'Cài đặt một chạm' },
+        { type: 'red', badge: '02', tag: 'KERNEL', title: 'RT PATCH', desc: 'Bản vá RT' },
+        { type: 'red', badge: '03', tag: 'DRIVER', title: 'RS-485 BUS', desc: 'Giao tiếp phần cứng' },
+        { type: 'blue', badge: '04', tag: 'NETWORK', title: 'MQTT LOCAL', desc: 'Bus truyền thông' },
+        { type: 'green', badge: '05', tag: 'DOWNTIME', title: '-85% TRỄ', desc: 'Giảm thời gian chết' }
+      ]
+    },
+    // 03 // TELEMETRY OEE ANALYTICS
+    {
+      title: 'TELEMETRY OEE ANALYTICS',
+      summary: 'MÔ TẢ VĂN BẢN: Đo lường và dự báo hao hụt vật tư theo từng ca máy, tự động phát hiện sai lệch quang học và cảnh báo mòn lưỡi dao cắt.',
+      left: [
+        { type: 'red', badge: '03', tag: 'SENSOR STREAM', title: 'MODBUS & RS485', desc: 'Real-Time Telemetry Stream' },
+        { type: 'red', badge: 'QC-RADAR', tag: 'DEFECT RADAR', title: '-98% PHẾ PHẨM', desc: 'Chống lệch trục cắt hàng loạt' },
+        { type: 'blue', badge: '0.02mm', tag: 'OPTICAL DRIFT', title: 'LASER SENSOR', desc: 'Tự động bù sai số Laser' },
+        { type: 'red', badge: 'WEAR', tag: 'BLADE WEAR', title: 'SMART BLADE', desc: 'Cảnh báo mòn lưỡi bế tự động' },
+        { type: 'red', badge: 'SPEED', tag: 'CUT-SPEED SENSOR', title: 'RPM MONITORING', desc: 'Giám sát tốc độ vòng quay' }
+      ],
+      right: [
+        { type: 'red', badge: 'OEE', tag: 'OEE REPORT', title: 'EXPORT EXCEL ↗', desc: 'Biểu đồ hao hụt theo ca' },
+        { type: 'green', badge: 'BENCHMARK', tag: 'REAL-TIME OEE', title: '99.4% ACCURACY', desc: 'Đo mét vuông Decal / ca máy' },
+        { type: 'red', badge: 'ALERT', tag: 'EARLY WARNING', title: 'AXIS ALIGNMENT', desc: 'Cảnh báo lệch trục trước khi cắt' },
+        { type: 'red', badge: 'ENERGY', tag: 'POWER AUDIT', title: '-24% ĐIỆN NĂNG', desc: 'Tối ưu dòng điện động cơ' },
+        { type: 'red', badge: 'B2B', tag: 'DEPLOYMENT', title: 'GẮN SENSOR ↗', desc: 'Tích hợp dây chuyền trong 1 ca', link: 'https://zalo.me/0559879392' }
+      ],
+      bottom: [
+        { type: 'white', badge: 'CTA', tag: 'CTA', title: 'BLUEPRINT ↗', desc: 'Khám phá chi tiết', isCta: true },
+        { type: 'red', badge: '01', tag: 'LIVE OEE', title: '99.4% METRIC', desc: 'Đo lường OEE' },
+        { type: 'red', badge: '02', tag: 'BLADE', title: 'CẢM BIẾN DAO', desc: 'Hao mòn lưỡi' },
+        { type: 'red', badge: '03', tag: 'AXIS DRIFT', title: 'BÙ LỆCH Y', desc: 'Cân bằng trục' },
+        { type: 'blue', badge: '04', tag: 'DATA LOG', title: 'AUDIT CA', desc: 'Nhật ký ca' },
+        { type: 'green', badge: '05', tag: 'ANALYTICS', title: 'OEE 99.4%', desc: 'Độ chính xác' }
+      ]
+    },
+    // 04 // AUTO-QUOTATION ERP CORE
+    {
+      title: 'AUTO-QUOTATION ERP CORE',
+      summary: 'MÔ TẢ VĂN BẢN: Báo giá tự động cho xưởng in dựa trên diện tích xếp khuôn thực tế và tổng chiều dài đường đi dao cắt (Cut-Path Length).',
+      left: [
+        { type: 'red', badge: '04', tag: 'COSTING KERNEL', title: 'CUT-PATH LENGTH', desc: 'Đo chính xác đường dao bế' },
+        { type: 'red', badge: 'PRICING', tag: 'MARGIN LOCK', title: 'ZERO DRIFT 100%', desc: 'Khóa biên độ giá sỉ theo mét' },
+        { type: 'blue', badge: 'BOT AI', tag: 'ZALO ERP', title: 'ZALO B2B BOT', desc: 'Gửi báo giá tự động 3 giây' },
+        { type: 'red', badge: 'TRACKING', tag: 'QR TRACKING', title: 'ORDER QR CODE', desc: 'Truy xuất tiến độ in ấn 1 chạm' },
+        { type: 'red', badge: 'INVOICE', tag: 'VAT ENGINE', title: 'AUTO E-INVOICE', desc: 'Tự động xuất hóa đơn điện tử' }
+      ],
+      right: [
+        { type: 'red', badge: 'SALES', tag: 'ERP TEMPLATES', title: 'MẪU BÁO GIÁ ↗', desc: 'Đồng bộ biểu mẫu xưởng in' },
+        { type: 'green', badge: 'SPEED', tag: 'SPEED QUOTE', title: '3s PHẢN HỒI', desc: 'Nhanh hơn 3.2 lần tính tay' },
+        { type: 'red', badge: 'CALC', tag: 'MEDIA & INK', title: 'TÍNH MỰC IN THỰC', desc: 'Định lượng hao hụt mực chuẩn' },
+        { type: 'red', badge: 'MARGIN', tag: 'PROFIT LOCK', title: '32% LÃI GỘP', desc: 'Cố định tỷ suất lợi nhuận' },
+        { type: 'red', badge: 'B2B', tag: 'DEPLOYMENT', title: 'DÙNG THỬ ERP ↗', desc: 'Tích hợp kho xưởng tức thì', link: 'https://zalo.me/0559879392' }
+      ],
+      bottom: [
+        { type: 'white', badge: 'CTA', tag: 'CTA', title: 'BLUEPRINT ↗', desc: 'Khám phá chi tiết', isCta: true },
+        { type: 'red', badge: '01', tag: 'CUT-PATH', title: 'ĐO MÉT TỚI', desc: 'Chiều dài dao' },
+        { type: 'red', badge: '02', tag: 'INK CALC', title: 'MỰC IN THỰC', desc: 'Chi phí mực' },
+        { type: 'red', badge: '03', tag: 'ZALO BOT', title: 'GỬI PDF 3S', desc: 'Báo giá nhanh' },
+        { type: 'blue', badge: '04', tag: 'QR STATUS', title: 'TIẾN ĐỘ', desc: 'Mã QR đơn' },
+        { type: 'green', badge: '05', tag: 'CONVERSION', title: '+3.2x SALES', desc: 'Tăng tốc chốt deal' }
+      ]
+    },
+    // 05 // COMBINATORIAL R&D LAB
+    {
+      title: 'COMBINATORIAL R&D LAB',
+      summary: 'MÔ TẢ VĂN BẢN: Nghiên cứu giải thuật No-Fit Polygon (NFP) kết hợp tiến hóa quần thể trên đa luồng GPU CUDA, tối ưu cắt 2D Decal và CNC.',
+      left: [
+        { type: 'red', badge: '05', tag: 'CUDA ACCEL', title: 'GPU BIN-PACKING', desc: 'Minkowski Sum Acceleration' },
+        { type: 'red', badge: 'ALGO', tag: 'NON-CONVEX', title: 'HOLE-FILLING 0.5°', desc: 'Đa giác lõm lồng ghép phức tạp' },
+        { type: 'blue', badge: 'EXPANSION', tag: 'MULTI-MATERIAL', title: 'DECAL / GỖ CNC', desc: 'Tối ưu kim loại tấm và mica' },
+        { type: 'red', badge: 'GENETIC', tag: 'POPULATION', title: 'GENETIC GA 100', desc: 'Đột biến & lai ghép đa quần thể' },
+        { type: 'red', badge: 'PARALLEL', tag: 'MULTI-THREAD', title: 'OPENMP // CUDA', desc: 'Tính toán song song đa luồng' }
+      ],
+      right: [
+        { type: 'red', badge: 'PAPERS', tag: 'PUBLICATIONS', title: 'NFP PAPERS ↗', desc: 'Academic Research & Data' },
+        { type: 'green', badge: 'BENCHMARK', tag: 'YIELD LAB', title: '+18% VS MANUAL', desc: 'Vượt kỹ thuật viên lành nghề' },
+        { type: 'red', badge: 'BENCHMARK', tag: 'GPU BENCHMARK', title: '10,000 PARTS/S', desc: 'Xử lý song song siêu tốc' },
+        { type: 'red', badge: 'NFP-CORE', tag: 'POLYGON SUM', title: 'MINKOWSKI MATRIX', desc: 'Giải pháp tính hình học tối ưu' },
+        { type: 'red', badge: 'B2B', tag: 'GLOBAL R&D', title: 'HỢP TÁC R&D ↗', desc: 'Master of AI in Australia', link: 'https://zalo.me/0559879392' }
+      ],
+      bottom: [
+        { type: 'white', badge: 'CTA', tag: 'CTA', title: 'BLUEPRINT ↗', desc: 'Khám phá chi tiết', isCta: true },
+        { type: 'red', badge: '01', tag: 'MINKOWSKI', title: 'SUM GPU', desc: 'Cộng Minkowski' },
+        { type: 'red', badge: '02', tag: 'POPULATION', title: 'GENETIC 100', desc: 'Quần thể gen' },
+        { type: 'red', badge: '03', tag: 'IRREGULAR', title: 'NESTING 3D', desc: 'Dị hình đa giác' },
+        { type: 'blue', badge: '04', tag: 'ROTATION', title: 'BƯỚC 0.5°', desc: 'Góc xoay vi phân' },
+        { type: 'green', badge: '05', tag: 'BENCHMARK', title: '+18% YIELD', desc: 'Độ phủ vượt trội' }
+      ]
+    },
+    // 06 // ADOLSOFT ACADEMY SOP
+    {
+      title: 'ADOLSOFT ACADEMY SOP',
+      summary: 'MÔ TẢ VĂN BẢN: Đào tạo chuyển đổi số thực chiến cho xưởng in ấn và huấn luyện kỹ sư ứng dụng AI trẻ chuẩn hóa quy trình SOP.',
+      left: [
+        { type: 'red', badge: '06', tag: 'SOP STANDARD', title: 'SOP ZERO-WASTE', desc: 'Chuẩn hóa tiền kỳ sau 15 phút' },
+        { type: 'red', badge: 'NETWORK', tag: 'COMMUNITY', title: '15,000+ XƯỞNG', desc: 'Mạng lưới bao phủ toàn quốc' },
+        { type: 'blue', badge: 'MENTOR', tag: 'MENTORSHIP', title: '1-ON-1 FOUNDER', desc: 'Đồng hành kỹ thuật trọn đời' },
+        { type: 'red', badge: '24/7', tag: 'TECH SUPPORT', title: 'HỖ TRỢ 24/7', desc: 'Xử lý sự cố máy in tức thì' },
+        { type: 'red', badge: 'ACCREDIT', tag: 'CERTIFICATE', title: 'CHỨNG CHỈ SOP', desc: 'Công nhận tay nghề thợ in' }
+      ],
+      right: [
+        { type: 'red', badge: 'COURSES', tag: 'ACADEMY', title: 'VIDEO SOP ↗', desc: 'Trọn bộ bài giảng thực chiến' },
+        { type: 'green', badge: 'BENCHMARK', tag: 'TRAINING ROI', title: '15P THÀNH THẠO', desc: 'Thợ mới làm chuẩn như thợ cũ' },
+        { type: 'red', badge: 'ESOP', tag: 'INCENTIVE', title: 'CỔ PHẦN CỘNG SỰ', desc: 'Chia sẻ doanh thu bền vững' },
+        { type: 'red', badge: 'LIBRARY', tag: 'TEMPLATES', title: 'KHO FILE VECTOR', desc: '10,000+ mẫu tem nhãn sẵn' },
+        { type: 'red', badge: 'B2B', tag: 'COMMUNITY', title: 'GIA NHẬP MẠNG LƯỚI ↗', desc: 'Kết nối chủ xưởng in ấn', link: 'https://zalo.me/0559879392' }
+      ],
+      bottom: [
+        { type: 'white', badge: 'CTA', tag: 'CTA', title: 'BLUEPRINT ↗', desc: 'Khám phá chi tiết', isCta: true },
+        { type: 'red', badge: '01', tag: 'COURSE', title: 'DÀN TRANG AI', desc: 'Khóa học' },
+        { type: 'red', badge: '02', tag: 'HANDBOOK', title: 'SỔ TAY MÁY', desc: 'Cẩm nang' },
+        { type: 'red', badge: '03', tag: 'LICENSE', title: 'BẢN QUYỀN SOP', desc: 'Chuyển giao' },
+        { type: 'blue', badge: '04', tag: 'ESOP', title: 'CỘNG SỰ', desc: 'Cổ phần ESOP' },
+        { type: 'green', badge: '05', tag: 'SUPPORT', title: '24/7 TEAM', desc: 'Hỗ trợ kỹ thuật' }
+      ]
+    }
+  ];
 
   // ============================================================================
   // 2. PROCEDURAL TEXTURES: ORGANIC FROSTED ICE MAPS & ARCHITECTURAL DOME
@@ -682,30 +1057,39 @@
     return texture;
   }
 
-  function createCurvedCardTexture(domain: DomainItem, idx: number): THREE.CanvasTexture {
-    const canvas = document.createElement('canvas');
-    // High-resolution Retina canvas (2048 x 1312) preserving exact 1.56 aspect ratio
-    canvas.width = 2048;
-    canvas.height = 1312;
-    const ctx = canvas.getContext('2d')!;
+  // Pre-load the 100% full-cover liquid glass fluid art background images for the 6 cards
+  const cardBgImages: HTMLImageElement[] = [];
+  for (let i = 0; i < 6; i++) {
+    const img = new Image();
+    img.src = `/assets/cards/liquid_full_${i}.jpg`;
+    cardBgImages.push(img);
+  }
 
-    // 1. Deep opaque OLED dark background (Zero bleed-through)
-    const bgGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    bgGrad.addColorStop(0, '#080c16');
-    bgGrad.addColorStop(0.5, '#0c1422');
-    bgGrad.addColorStop(1, '#05080f');
-    ctx.fillStyle = bgGrad;
+  function drawCardContent(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, domain: DomainItem, idx: number) {
+    // 1. Draw 100% Full-Cover Liquid Glass Chromatic Sculpture
+    const bgImg = cardBgImages[idx] || cardBgImages[0];
+    if (bgImg && bgImg.complete && bgImg.naturalWidth > 0) {
+      ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+    } else {
+      // Fallback dark gradient base
+      const bgGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      bgGrad.addColorStop(0, '#060912');
+      bgGrad.addColorStop(0.5, '#0a0e1c');
+      bgGrad.addColorStop(1, '#04070e');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // 2. Optical Glass Scrim (Tạo độ trong kính tối nhẹ bên trái để chữ nổi bật 100% trên nền chất lỏng)
+    const glassOverlay = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    glassOverlay.addColorStop(0, 'rgba(4, 7, 14, 0.72)');
+    glassOverlay.addColorStop(0.48, 'rgba(4, 7, 14, 0.42)');
+    glassOverlay.addColorStop(0.85, 'rgba(4, 7, 14, 0.08)');
+    glassOverlay.addColorStop(1, 'rgba(4, 7, 14, 0.22)');
+    ctx.fillStyle = glassOverlay;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 2. Focused accent aura on right-hand graphic zone
-    const aura = ctx.createRadialGradient(1420, 620, 60, 1420, 620, 780);
-    aura.addColorStop(0, domain.accent + '36');
-    aura.addColorStop(0.55, domain.secondary + '1c');
-    aura.addColorStop(1, 'transparent');
-    ctx.fillStyle = aura;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // 3. Subtle CAD background grid
+    // 3. Subtle CAD architectural background grid
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
     ctx.lineWidth = 1;
     for (let x = 0; x < canvas.width; x += 64) {
@@ -715,118 +1099,41 @@
       ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
     }
 
-    // 4. Ultra-Thin Hairline Liquid Glass Rim
-    const glassBorderGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    glassBorderGrad.addColorStop(0, 'rgba(255, 255, 255, 0.45)'); // Top-left specular gleam
-    glassBorderGrad.addColorStop(0.35, 'rgba(255, 255, 255, 0.12)');
-    glassBorderGrad.addColorStop(0.70, 'rgba(255, 255, 255, 0.05)');
-    glassBorderGrad.addColorStop(1, 'rgba(255, 255, 255, 0.20)'); // Subtle bottom-right bounce
-
-    ctx.strokeStyle = glassBorderGrad;
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.roundRect(14, 14, canvas.width - 28, canvas.height - 28, 20);
-    ctx.stroke();
-
-    // 5. Hairline Corner Registration Accents
-    const m = 32;
-    const len = 18;
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.30)';
-    ctx.lineWidth = 1.0;
+    // 4. Hairline Corner Registration Accents
+    const m = 64;
+    const len = 20;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.50)';
+    ctx.lineWidth = 1.4;
     ctx.beginPath(); ctx.moveTo(m, m + len); ctx.lineTo(m, m); ctx.lineTo(m + len, m); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(canvas.width - m - len, m); ctx.lineTo(canvas.width - m, m); ctx.lineTo(canvas.width - m, m + len); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(m, canvas.height - m - len); ctx.lineTo(m, canvas.height - m); ctx.lineTo(m + len, canvas.height - m); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(canvas.width - m - len, canvas.height - m); ctx.lineTo(canvas.width - m, canvas.height - m); ctx.lineTo(canvas.width - m, canvas.height - m - len); ctx.stroke();
 
-    // 6. Right side Domain Graphic Visualization
-    ctx.save();
-    if (idx === 0) {
-      const shapes = [
-        { x: 1180, y: 280, w: 240, h: 150, r: 28 },
-        { x: 1460, y: 275, w: 190, h: 190, r: 95 },
-        { x: 1680, y: 290, w: 230, h: 140, r: 22 },
-        { x: 1170, y: 470, w: 260, h: 200, r: 35 },
-        { x: 1470, y: 500, w: 210, h: 180, r: 25 },
-        { x: 1715, y: 470, w: 200, h: 205, r: 38 },
-        { x: 1185, y: 720, w: 330, h: 165, r: 32 },
-        { x: 1550, y: 720, w: 350, h: 165, r: 80 }
-      ];
-      shapes.forEach((s, i) => {
-        ctx.fillStyle = i % 2 === 0 ? 'rgba(200, 255, 0, 0.22)' : 'rgba(26, 140, 74, 0.32)';
-        ctx.strokeStyle = i % 2 === 0 ? '#c8ff00' : '#4caf50';
-        ctx.lineWidth = 3.5;
-        ctx.beginPath();
-        ctx.roundRect(s.x, s.y, s.w, s.h, s.r);
-        ctx.fill();
-        ctx.stroke();
-      });
-    } else if (idx === 1) {
-      const nodes = [
-        [1250, 380], [1560, 320], [1820, 440],
-        [1340, 620], [1660, 590], [1470, 830], [1810, 800]
-      ];
-      ctx.strokeStyle = '#00f0ff88';
-      ctx.lineWidth = 3;
-      nodes.forEach(([x1, y1], i) => {
-        nodes.slice(i + 1).forEach(([x2, y2]) => {
-          if (Math.hypot(x2 - x1, y2 - y1) < 420) {
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
-          }
-        });
-      });
-      nodes.forEach(([x, y], i) => {
-        ctx.fillStyle = i === 3 ? '#c8ff00' : '#00f0ff';
-        ctx.beginPath();
-        ctx.arc(x, y, 16, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    } else {
-      ctx.strokeStyle = domain.accent;
-      ctx.lineWidth = 6;
-      ctx.beginPath();
-      for (let x = 1080; x <= 1920; x += 10) {
-        const y = 580 + Math.sin((x - 1080) * 0.016 + idx) * 150 * Math.cos((x - 1080) * 0.005);
-        if (x === 1080) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.arc(1520, 580, 240, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-    ctx.restore();
-
-    // 7. Razor-Sharp Typography with Shadow for Extreme Legibility
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-    ctx.shadowBlur = 12;
+    // 5. Razor-Sharp Typography with Drop Shadows for Extreme Legibility over Fluid Art
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.96)';
+    ctx.shadowBlur = 24;
     ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 3;
+    ctx.shadowOffsetY = 6;
 
-    // Category / Domain Index
+    // Category / Domain Index Tag
     ctx.font = '700 30px "JetBrains Mono", monospace';
     ctx.fillStyle = domain.accent;
     ctx.fillText(`■ ${domain.index} // ${domain.category}`, 120, 155);
 
-    // Title (Solid, Crisp, No aberration)
+    // Title (Solid, Crisp, Architectural Typography)
     ctx.font = '800 132px "Syne", sans-serif';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(domain.title, 120, 375);
 
     // Subtitle
     ctx.font = '500 40px "Inter", sans-serif';
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.90)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
     ctx.fillText(domain.subtitle, 120, 465);
 
     ctx.shadowBlur = 0; // reset shadow for buttons & pills
 
-    // Metric Pill
-    ctx.fillStyle = 'rgba(26, 140, 74, 0.38)';
+    // Metric Pill (Frosted Glass Capsule)
+    ctx.fillStyle = 'rgba(6, 11, 20, 0.88)';
     ctx.strokeStyle = domain.accent;
     ctx.lineWidth = 3;
     ctx.beginPath();
@@ -840,15 +1147,35 @@
 
     // CTA Hint
     ctx.font = '600 26px "JetBrains Mono", monospace';
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.70)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
     ctx.fillText(`CLICK PANEL TO INSPECT ARCHITECTURE ↗`, 1140, 1092);
+  }
+
+  function createCurvedCardTexture(domain: DomainItem, idx: number): THREE.CanvasTexture {
+    const canvas = document.createElement('canvas');
+    // High-resolution Retina canvas (2048 x 1312) preserving exact 1.56 aspect ratio
+    canvas.width = 2048;
+    canvas.height = 1312;
+    const ctx = canvas.getContext('2d')!;
+
+    drawCardContent(ctx, canvas, domain, idx);
 
     const tex = new THREE.CanvasTexture(canvas);
-    tex.generateMipmaps = true;
-    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.generateMipmaps = false;
+    tex.minFilter = THREE.LinearFilter;
     tex.magFilter = THREE.LinearFilter;
-    tex.anisotropy = 4;
+    tex.anisotropy = 8;
     tex.needsUpdate = true;
+
+    // If image was not yet loaded into cache, re-draw once it finishes loading
+    const bgImg = cardBgImages[idx] || cardBgImages[0];
+    if (bgImg && (!bgImg.complete || bgImg.naturalWidth === 0)) {
+      bgImg.addEventListener('load', () => {
+        drawCardContent(ctx, canvas, domain, idx);
+        tex.needsUpdate = true;
+      });
+    }
+
     return tex;
   }
 
@@ -1522,40 +1849,66 @@
       uniform float uOpacity;
       uniform float uHover;
       uniform float uTime;
+      uniform float uScrollPos;
+      uniform float uScrollSpeed;
       varying vec2 vUv;
 
+      // Hàm khoảng cách hộp bo tròn chuẩn toán học (Aspect Ratio Corrected)
+      float sdRoundedBox(vec2 p, vec2 b, float r) {
+        vec2 q = abs(p) - b + r;
+        return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r;
+      }
+
       void main() {
-        vec2 center = vUv - 0.5;
-        float edgeDist = max(abs(center.x), abs(center.y));
+        // 1. Chuẩn hóa tỉ lệ chính xác theo kích thước Plane (4.3 / 2.75 = 1.563636)
+        // Việc nhân aspect vào x giúp góc bo là một cung tròn hoàn hảo, không bị méo elip dẹt
+        float aspect = 1.563636;
+        vec2 p = (vUv - 0.5) * vec2(aspect, 1.0);
+        vec2 b = vec2(aspect * 0.5, 0.5); // Nửa kích thước hộp theo tọa độ chuẩn
+        float radius = 0.092;              // Bán kính bo góc chuẩn Apple Squircle
 
-        // 1. Crystal-clear direct content sampling (98.5% of card is pristine)
-        vec4 color = texture2D(uTexture, vUv);
+        // 2. Tính khoảng cách SDF
+        float dist = sdRoundedBox(p, b, radius);
 
-        // 2. Ultra-Thin Hairline Liquid Glass Bevel (outer 0.9% of card only)
-        float bevel = smoothstep(0.489, 0.497, edgeDist);
+        // 3. Khử răng cưa sub-pixel phần cứng bằng hàm vi sai vi phân fwidth()
+        float aa = fwidth(dist);
+        float cardMask = 1.0 - smoothstep(-aa, aa, dist);
 
-        // Outer smooth perimeter crop
-        float alphaMask = 1.0 - smoothstep(0.497, 0.500, edgeDist);
+        // Discard pixel bên ngoài vùng bo tròn để tránh rò rỉ độ mờ và tối ưu GPU
+        if (cardMask <= 0.0005) {
+          discard;
+        }
 
-        // 3. Directional Key Light: Subtle top & left hairline glint
-        float topHighlight = smoothstep(0.490, 0.497, -center.y) * 0.45;
-        float leftHighlight = smoothstep(0.490, 0.497, -center.x) * 0.35;
-        float specularLight = topHighlight + leftHighlight;
+        // Lấy màu sắc từ texture gốc
+        vec4 texColor = texture2D(uTexture, vUv);
 
-        // 4. Subtle Liquid Glass Sheen sweep along hairline edge
-        float lightSweep = pow(max(0.0, sin((vUv.x * 2.2 + vUv.y) * 3.14159 - uTime * 0.45)), 16.0) * 0.50 * bevel;
+        // 4. Đường viền phát sáng vi mô (Border Rim) có độ dày đồng nhất 100% tại mọi cung cua
+        float borderWidth = 0.0075;
+        float borderDist = abs(dist + borderWidth * 0.5) - borderWidth * 0.5;
+        float borderMask = 1.0 - smoothstep(-aa, aa, borderDist);
 
-        // 5. Crystalline Silver-White Glass Tone (Professional Hairline Liquid Glass)
-        vec3 silverCrystal = vec3(0.95, 0.98, 1.0);
-        vec3 glassGlow = (specularLight * silverCrystal) + (lightSweep * mix(silverCrystal, uAccentColor, 0.25));
+        // 5. Hiệu ứng viền bóng kính phản chiếu & dynamic scroll sheen
+        vec2 normP = normalize(p + vec2(0.0001));
+        float cornerSpecular = max(0.0, dot(-normP, normalize(vec2(-1.0, 1.2)))) * 0.65;
 
-        // Apply hairline glass rim
-        color.rgb += bevel * glassGlow;
+        // Vệt lướt sáng óng ánh dọc viền khi cuộn trang
+        float angle = atan(p.y, p.x);
+        float scrollSweepPhase = angle * 1.5 + uScrollPos * 16.0 + uTime * 0.75;
+        float scrollGlint = pow(max(0.0, sin(scrollSweepPhase)), 12.0) * (0.50 + uScrollSpeed * 1.6);
+
+        // Kết hợp màu viền neon tinh khiết (Crystal Silver & Accent)
+        vec3 silverCrystal = vec3(0.96, 0.98, 1.0);
+        vec3 rimColor = mix(silverCrystal, uAccentColor, 0.35);
+        vec3 borderEffect = (cornerSpecular * silverCrystal) + (scrollGlint * rimColor * 1.4);
+        vec3 finalBorderColor = mix(rimColor, silverCrystal, cornerSpecular) + borderEffect;
+
+        // Blend đường viền vào màu thẻ
+        vec3 finalColor = mix(texColor.rgb, finalBorderColor, borderMask * 0.88);
 
         // Interactive hover brightening
-        color.rgb += uHover * 0.08;
+        finalColor += uHover * 0.08;
 
-        gl_FragColor = vec4(color.rgb, color.a * uOpacity * alphaMask);
+        gl_FragColor = vec4(finalColor, cardMask * texColor.a * uOpacity);
       }
     `;
 
@@ -1570,7 +1923,9 @@
           uCurvature: { value: 0.38 },
           uOpacity: { value: 0.98 },
           uHover: { value: 0.0 },
-          uTime: { value: 0.0 }
+          uTime: { value: 0.0 },
+          uScrollPos: { value: 0.0 },
+          uScrollSpeed: { value: 0.0 }
         },
         vertexShader: cardVertexShader,
         fragmentShader: cardFragmentShader
@@ -1586,17 +1941,6 @@
       mesh.rotation.y = angle;
       mesh.userData = { domainIndex: idx, baseAngle: angle };
 
-      const reflectMat = new THREE.MeshBasicMaterial({
-        map: tex,
-        transparent: true,
-        opacity: 0.14,
-        side: THREE.FrontSide
-      });
-      const reflectMesh = new THREE.Mesh(new THREE.PlaneGeometry(4.1, 1.2, 1, 1), reflectMat);
-      reflectMesh.position.set(0, -2.15, 0);
-      reflectMesh.scale.y = -1;
-      mesh.add(reflectMesh);
-
       cardsGroup.add(mesh);
       cardMeshes.push(mesh);
       cardMaterials.push(mat);
@@ -1608,58 +1952,254 @@
 
 
     // ============================================================================
-    // 5. SPLIT-TEXT CHARACTER STAGGER TYPEWRITER
+    // 5. SCI-FI HUD AUDIO FEEDBACK & ACTIVE DOMAIN DATA CONTROLLER
     // ============================================================================
     let currentDomainIndex = 0;
-    const hudWorkDate = document.getElementById('hud-work-date');
-    const hudWorkBadge = document.getElementById('hud-work-badge');
-    const hudWorkTitle = document.getElementById('hud-work-title');
-    const hudWorkDesc = document.getElementById('hud-work-desc');
-    const hudWorkTags = document.getElementById('hud-work-tags');
+    let audioCtx: AudioContext | null = null;
+
+    function playSciFiTick() {
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (audioCtx && audioCtx.state === 'running') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(700, audioCtx.currentTime + 0.032);
+          gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.032);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.032);
+        }
+      } catch (_) {}
+    }
+
+    window.addEventListener('pointerdown', () => {
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }, { once: true });
+
+    const headerOverlayHud = document.getElementById('header-overlay-hud');
+    const headerHudCategory = document.getElementById('header-hud-category');
+    const headerHudTitle = document.getElementById('header-hud-title');
+    const headerHudDesc = document.getElementById('header-hud-desc');
+
+    const leftClusterHud = document.getElementById('left-cluster-hud');
+    const rightClusterHud = document.getElementById('right-cluster-hud');
+    const bottomClusterHud = document.getElementById('bottom-cluster-hud');
+
     const navDomainCounter = document.getElementById('nav-domain-counter');
     const sideTelemetryLabel = document.getElementById('side-telemetry-label');
 
-    function animateSplitText(element: HTMLElement | null, text: string, staggerSec = 0.018) {
-      if (!element) return;
-      element.innerHTML = text
-        .split('')
-        .map((ch) => `<span class="inline-block char-unit">${ch === ' ' ? '&nbsp;' : ch}</span>`)
-        .join('');
-      const chars = element.querySelectorAll('.char-unit');
-      gsap.fromTo(
-        chars,
-        { yPercent: 115, opacity: 0 },
-        { yPercent: 0, opacity: 1, duration: 0.38, stagger: staggerSec, ease: 'power3.out', overwrite: true }
-      );
-    }
-
     const cachedTargetActiveColor = new THREE.Color(ADOLSOFT_DOMAINS[0]?.accent || '#c8ff00');
 
-    function updateActiveDomainHUD(newIndex: number) {
+    function renderDomainSatellites(index: number) {
+      const d = DOMAIN_SATELLITE_DATA[index] || DOMAIN_SATELLITE_DATA[0];
+
+      // Cập nhật Tiêu đề & Mô tả trung tâm của thẻ
+      if (headerHudTitle) headerHudTitle.textContent = d.title;
+      if (headerHudDesc) headerHudDesc.textContent = d.summary;
+
+      // Render Vệ tinh cụm Trái (Pill Stack y chang thiết kế mẫu)
+      if (leftClusterHud) {
+        leftClusterHud.innerHTML = d.left.map((item, index) => `
+          <div
+            class="sat-pill sat-pill-${item.type} hud-interactive-tag flex flex-col justify-center px-6 py-2"
+            style="z-index: ${index + 1};"
+            data-hud-action="blueprint"
+            title="${item.desc}"
+          >
+            <div class="flex items-center justify-between font-mono text-[9px] tracking-wider uppercase mb-0.5" style="color: ${item.type === 'red' ? '#ef233c' : item.type === 'blue' ? '#3b82f6' : '#22c55e'}">
+              <span class="flex items-center gap-1.5 font-bold">
+                <span class="w-1.5 h-1.5 rounded-full ${item.type === 'red' ? 'bg-[#ef233c]' : item.type === 'blue' ? 'bg-[#3b82f6]' : 'bg-[#22c55e]'} animate-pulse"></span>
+                ${item.tag}
+              </span>
+              <span class="text-white/40 font-mono text-[8.5px]">${item.badge}</span>
+            </div>
+            <div class="font-['Syne'] font-extrabold text-[13.5px] text-white tracking-wide truncate drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight">
+              ${item.title}
+            </div>
+            <div class="font-mono text-[9px] text-white/60 tracking-tight truncate mt-0.5">
+              ${item.desc}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Vệ tinh cụm Phải (Pill Stack y chang thiết kế mẫu)
+      if (rightClusterHud) {
+        rightClusterHud.innerHTML = d.right.map((item, index) => {
+          if (item.link) {
+            return `
+              <a
+                href="${item.link}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sat-pill sat-pill-${item.type} hud-interactive-tag flex flex-col justify-center px-6 py-2 block text-right"
+                style="z-index: ${index + 1};"
+                title="${item.desc}"
+              >
+                <div class="flex items-center justify-between font-mono text-[9px] tracking-wider uppercase mb-0.5" style="color: ${item.type === 'red' ? '#ef233c' : item.type === 'green' ? '#22c55e' : '#3b82f6'}">
+                  <span class="text-white/40 font-mono text-[8.5px]">${item.badge}</span>
+                  <span class="flex items-center gap-1.5 font-bold">
+                    ${item.tag}
+                    <span class="w-1.5 h-1.5 rounded-full ${item.type === 'red' ? 'bg-[#ef233c]' : item.type === 'green' ? 'bg-[#22c55e]' : 'bg-[#3b82f6]'}"></span>
+                  </span>
+                </div>
+                <div class="font-['Syne'] font-extrabold text-[13.5px] text-white tracking-wide truncate drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight group-hover:text-[#c8ff00] transition-colors">
+                  ${item.title}
+                </div>
+                <div class="font-mono text-[9px] text-white/60 tracking-tight truncate mt-0.5">
+                  ${item.desc}
+                </div>
+              </a>
+            `;
+          }
+          return `
+            <div
+              class="sat-pill sat-pill-${item.type} hud-interactive-tag flex flex-col justify-center px-6 py-2 text-right"
+              style="z-index: ${index + 1};"
+              data-hud-action="blueprint"
+              title="${item.desc}"
+            >
+              <div class="flex items-center justify-between font-mono text-[9px] tracking-wider uppercase mb-0.5" style="color: ${item.type === 'red' ? '#ef233c' : item.type === 'green' ? '#22c55e' : '#3b82f6'}">
+                <span class="text-white/40 font-mono text-[8.5px]">${item.badge}</span>
+                <span class="flex items-center gap-1.5 font-bold">
+                  ${item.tag}
+                  <span class="w-1.5 h-1.5 rounded-full ${item.type === 'red' ? 'bg-[#ef233c]' : item.type === 'green' ? 'bg-[#22c55e]' : 'bg-[#3b82f6]'} ${item.type === 'green' ? 'animate-pulse' : ''}"></span>
+                </span>
+              </div>
+              <div class="font-['Syne'] font-extrabold text-[13.5px] ${item.type === 'green' ? 'text-[#22c55e]' : 'text-white'} tracking-wide truncate drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight">
+                ${item.title}
+              </div>
+              <div class="font-mono text-[9px] text-white/60 tracking-tight truncate mt-0.5">
+                ${item.desc}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render 6 Vệ tinh cụm Chân đáy riêng biệt
+      if (bottomClusterHud) {
+        bottomClusterHud.innerHTML = d.bottom.map((item) => {
+          if (item.isCta) {
+            return `
+              <button
+                type="button"
+                class="sat-tag sat-tag-white hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex items-center justify-center cursor-pointer relative"
+                data-hud-action="blueprint"
+                title="Khám phá chi tiết Blueprint"
+              >
+                <div class="template-gloss"></div>
+                <div class="flex items-center justify-center gap-1.5 font-['Syne'] font-extrabold text-[11px] sm:text-xs tracking-wider uppercase">
+                  <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                  <span>${item.title}</span>
+                </div>
+              </button>
+            `;
+          }
+          return `
+            <button
+              type="button"
+              class="sat-tag sat-tag-${item.type} hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
+              data-hud-action="blueprint"
+              title="${item.desc || item.title}"
+            >
+              <div class="template-gloss"></div>
+              <span class="font-mono text-[8px] tracking-widest uppercase font-bold" style="color: ${item.type === 'red' ? '#ef233c' : item.type === 'blue' ? '#0070f3' : '#22c55e'}">${item.tag}</span>
+              <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] ${item.type === 'green' ? 'text-[#22c55e]' : 'text-white'} tracking-wide">${item.title}</span>
+            </button>
+          `;
+        }).join('');
+      }
+    }
+
+    let isSatellitesVisible = false;
+    let neighborCardsFadeFactor = 1.0; // 1.0: hiển thị bình thường khi lướt, 0.0: ẩn mờ thẻ 2 bên khi thẻ vào giữa
+
+    function showSatellitesForDomain(newIndex: number) {
+      if (scrollState.progress < 0.16) return;
+      isSatellitesVisible = true;
+
       const normalized = ((newIndex % ADOLSOFT_DOMAINS.length) + ADOLSOFT_DOMAINS.length) % ADOLSOFT_DOMAINS.length;
-      if (normalized === currentDomainIndex && hudWorkTitle?.dataset.initialized === 'true') return;
       currentDomainIndex = normalized;
-      if (hudWorkTitle) hudWorkTitle.dataset.initialized = 'true';
+      if (headerHudTitle) headerHudTitle.dataset.initialized = 'true';
 
       const d = ADOLSOFT_DOMAINS[currentDomainIndex];
-      if (hudWorkDate && d.date) hudWorkDate.textContent = d.date;
-      if (hudWorkBadge && d.badge) hudWorkBadge.textContent = d.badge;
       if (navDomainCounter) navDomainCounter.textContent = `${d.index} / 06`;
       if (sideTelemetryLabel) sideTelemetryLabel.textContent = d.index;
-
-      animateSplitText(hudWorkTitle, d.title, 0.022);
-      animateSplitText(hudWorkDesc, d.subtitle, 0.008);
-
-      if (hudWorkTags && d.tags) {
-        hudWorkTags.innerHTML = d.tags
-          .map((tag) => `<span class="px-2.5 py-1 rounded bg-black/40 border border-white/15 text-white/70 font-mono text-[9.5px] tracking-wider hover:border-white/40 transition-colors">[${tag}]</span>`)
-          .join('');
-      }
 
       if (d.accent) {
         cachedTargetActiveColor.set(d.accent);
       }
+
+      playSciFiTick();
+
+      // Nạp dữ liệu vệ tinh độc lập riêng biệt của thẻ
+      renderDomainSatellites(currentDomainIndex);
+
+      headerOverlayHud?.classList.remove('hidden');
+      leftClusterHud?.classList.remove('hidden');
+      rightClusterHud?.classList.remove('hidden');
+      bottomClusterHud?.classList.remove('hidden');
+
+      // Thẻ đã cố định chính giữa -> Hiển thị các vệ tinh rõ nét và sắc nét
+      gsap.fromTo(
+        [headerOverlayHud, leftClusterHud, rightClusterHud, bottomClusterHud],
+        { opacity: 0, scale: 0.94, y: 10, x: 0 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          x: 0,
+          duration: 0.38,
+          ease: 'power3.out',
+          stagger: 0.03,
+          overwrite: 'auto'
+        }
+      );
     }
+
+    function hideSatellites(immediate = false) {
+      isSatellitesVisible = false;
+      if (immediate) {
+        gsap.set([headerOverlayHud, leftClusterHud, rightClusterHud, bottomClusterHud], {
+          opacity: 0,
+          overwrite: 'auto'
+        });
+      } else {
+        gsap.to([headerOverlayHud, leftClusterHud, rightClusterHud, bottomClusterHud], {
+          opacity: 0,
+          duration: 0.16,
+          ease: 'power2.in',
+          overwrite: 'auto'
+        });
+      }
+    }
+
+    const updateActiveDomainHUD = showSatellitesForDomain;
+
+    // Micro-interactions Event Listeners:
+    document.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement)?.closest('[data-hud-action="blueprint"], #bottom-hud-primary-cta');
+      if (target) {
+        window.dispatchEvent(new CustomEvent('open-domain-modal', { detail: { index: currentDomainIndex } }));
+      }
+    });
+
+    document.addEventListener('pointerover', (e) => {
+      const target = (e.target as HTMLElement)?.closest('.hud-interactive-tag');
+      if (target) {
+        playSciFiTick();
+      }
+    });
 
     // ============================================================================
     // 5. EPIC HERO ENTRANCE: SÓNG NƯỚC NỔ BÙM, HYPERSPACE DIVE & ADOLSOFT ERUPTION
@@ -1832,14 +2372,10 @@
         ease: 'power2.inOut'
       }, 1.6);
 
-      // 5. Subtitle & Top Telemetry Tag smooth emergence
+      // 5. Top Telemetry Tag smooth emergence
       const badge = document.getElementById('hero-brand-badge');
-      const sub = document.getElementById('hero-brand-sub');
       if (badge) {
         tl.to(badge, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, 0.55);
-      }
-      if (sub) {
-        tl.to(sub, { opacity: 0.75, y: 0, duration: 1.1, ease: 'power3.out' }, 0.70);
       }
     }
 
@@ -1886,15 +2422,9 @@
       scrollVelocity: 0
     };
 
-    lenis.on('scroll', (e: { velocity?: number }) => {
-      scrollState.scrollVelocity = THREE.MathUtils.clamp(e.velocity || 0, -25, 25);
-    });
-
     const ghostLayer = document.getElementById('optical-ghost-layer');
     const ghostWord = document.getElementById('ghost-brand-word');
     const heroNewsStream = document.getElementById('hero-news-stream');
-    const activeWorkHud = document.getElementById('active-work-hud');
-    const worksMoreCta = document.getElementById('works-more-cta');
     const navScrollBar = document.getElementById('nav-scroll-bar');
     const navScrollPct = document.getElementById('nav-scroll-pct');
     let lastScrollPct = -1;
@@ -1948,12 +2478,32 @@
           lastVaultPhase = inVaultPhase;
           if (inVaultPhase) {
             heroNewsStream?.classList.add('hidden');
-            worksMoreCta?.classList.remove('hidden');
-            activeWorkHud?.classList.remove('hidden');
+            renderDomainSatellites(currentDomainIndex);
+            headerOverlayHud?.classList.remove('hidden');
+            leftClusterHud?.classList.remove('hidden');
+            rightClusterHud?.classList.remove('hidden');
+            bottomClusterHud?.classList.remove('hidden');
+            gsap.to([headerOverlayHud, leftClusterHud, rightClusterHud, bottomClusterHud], {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              duration: 0.45,
+              ease: 'cubic-bezier(0.16, 1, 0.3, 1)',
+              stagger: 0.04
+            });
           } else {
             heroNewsStream?.classList.remove('hidden');
-            worksMoreCta?.classList.add('hidden');
-            activeWorkHud?.classList.add('hidden');
+            gsap.to([headerOverlayHud, leftClusterHud, rightClusterHud, bottomClusterHud], {
+              opacity: 0,
+              duration: 0.25,
+              ease: 'power2.in',
+              onComplete: () => {
+                headerOverlayHud?.classList.add('hidden');
+                leftClusterHud?.classList.add('hidden');
+                rightClusterHud?.classList.add('hidden');
+                bottomClusterHud?.classList.add('hidden');
+              }
+            });
             if (sideTelemetryLabel) sideTelemetryLabel.textContent = 'TOP';
             if (navDomainCounter) navDomainCounter.textContent = '00 / 06';
           }
@@ -1961,31 +2511,187 @@
 
         // PHASE 2: 6 CURVED DOMAIN CARDS ORBIT
         if (!inVaultPhase) {
-          cardsGroup.position.y = THREE.MathUtils.lerp(-11.0, -0.15, p / 0.18);
+          cardsGroup.position.y = THREE.MathUtils.lerp(-11.0, -0.42, p / 0.18);
           if (heroNewsStream) {
             heroNewsStream.style.opacity = String(THREE.MathUtils.clamp(1.0 - p * 5.0, 0, 1));
           }
         } else {
-          cardsGroup.position.y = -0.15;
+          cardsGroup.position.y = -0.42;
           const worksProgress = THREE.MathUtils.clamp((p - 0.18) / 0.76, 0, 1);
           scrollState.targetCarouselAngle = -worksProgress * Math.PI * 2 * ((ADOLSOFT_DOMAINS.length - 1) / ADOLSOFT_DOMAINS.length);
 
           const activeIdx = Math.round(worksProgress * (ADOLSOFT_DOMAINS.length - 1));
-          updateActiveDomainHUD(activeIdx);
+          const d = ADOLSOFT_DOMAINS[activeIdx];
+          if (navDomainCounter) navDomainCounter.textContent = `${d.index} / 06`;
+          if (sideTelemetryLabel) sideTelemetryLabel.textContent = d.index;
+          if (d.accent) cachedTargetActiveColor.set(d.accent);
         }
       }
     });
 
+    // ============================================================================
+    // 6. CYLINDRICAL SNAPPING & MAGNETIC SCROLL INTERPOLATION (Immediate Dynamic Snap)
+    // ============================================================================
+    let snapTimeout: ReturnType<typeof setTimeout> | null = null;
+    let isSnapping = false;
+
+    // Danh sách tọa độ chính xác của 6 thẻ:
+    // Thẻ 0: 0.1800 | Thẻ 1: 0.3320 | Thẻ 2: 0.4840 | Thẻ 3: 0.6360 | Thẻ 4: 0.7880 | Thẻ 5: 0.9400
+    const cardProgressPoints = [0.1800, 0.3320, 0.4840, 0.6360, 0.7880, 0.9400];
+
+    function snapToNearestCard(predictive = false) {
+      const p = scrollState.progress;
+      const v = scrollState.scrollVelocity;
+
+      // 1. Nếu đang ở vùng Hero đỉnh trang (p < 0.12) và không có ý định cuộn xuống -> để tự do
+      if (p < 0.12 && v <= 0.04) return;
+      // 2. Nếu đang ở Thẻ 1 và người dùng cuộn ngược dứt khoát lên trên -> nhường quyền về đỉnh trang
+      if (p <= 0.16 && v < -0.15) return;
+
+      // 3. Tự động nhận diện thẻ mục tiêu đồng bộ:
+      // Tìm thẻ hiện tại gần vị trí cuộn nhất
+      let currentIdx = 0;
+      let minDiff = 999;
+      cardProgressPoints.forEach((cardP, idx) => {
+        const diff = Math.abs(p - cardP);
+        if (diff < minDiff) {
+          minDiff = diff;
+          currentIdx = idx;
+        }
+      });
+
+      let targetIdx = currentIdx;
+
+      // Nhận diện hướng lướt đồng bộ cho TẤT CẢ các thẻ (kể cả Thẻ 1 sang Thẻ 2):
+      // - Nếu đang ở Thẻ 1 (idx = 0) và người dùng cuộn xuống (v > 0.04) -> chuyển êm sang Thẻ 2 (targetIdx = 1)
+      // - Nếu vừa lướt từ Hero xuống mà chưa có thẻ nào -> tự động đón vào Thẻ 1
+      if (p < 0.16 && v > 0.03) {
+        targetIdx = 0; // Đón Thẻ 1 khi từ Hero xuống
+      } else if (v > 0.04 && currentIdx < cardProgressPoints.length - 1) {
+        targetIdx = currentIdx + 1; // Cuộn xuống -> sang thẻ tiếp theo
+      } else if (v < -0.04 && currentIdx > 0) {
+        targetIdx = currentIdx - 1; // Cuộn lên -> về thẻ trước đó
+      }
+
+      const targetProgress = cardProgressPoints[targetIdx];
+
+      // Di chuyển thẻ về vị trí đích
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      const targetScrollY = targetProgress * maxScroll;
+      const currentScrollY = window.scrollY;
+
+      // Nếu đang lệch khỏi tâm thẻ hơn 10px thì thực hiện chuyển động lấy đà mượt mà
+      if (Math.abs(currentScrollY - targetScrollY) > 10) {
+        isSnapping = true;
+        hideSatellites(); // Đang di chuyển -> Ẩn các vệ tinh
+
+        const snapObj = { y: currentScrollY };
+        const dist = Math.abs(currentScrollY - targetScrollY);
+
+        // Hiệu ứng chuyển động lấy đà: giây đầu chậm, giây sau tăng tốc rồi đáp êm
+        const duration = THREE.MathUtils.clamp(dist / 1200 + 0.45, 0.55, 0.78);
+
+        gsap.killTweensOf(snapObj);
+        gsap.to(snapObj, {
+          y: targetScrollY,
+          duration: duration,
+          ease: 'cubic-bezier(0.38, 0.04, 0.22, 1)',
+          overwrite: 'auto',
+          onUpdate: () => {
+            lenis.scrollTo(snapObj.y, { immediate: true });
+          },
+          onComplete: () => {
+            isSnapping = false;
+            // Thẻ đã tự di chuyển ở giữa xong -> MỚI ĐƯỢC HIỂN THỊ CÁC VỆ TINH XUNG QUANH
+            showSatellitesForDomain(targetIdx);
+          }
+        });
+      } else {
+        if (!isSnapping) {
+          showSatellitesForDomain(targetIdx);
+        }
+      }
+    }
+
+    function scheduleSnap(fast = false) {
+      if (snapTimeout) clearTimeout(snapTimeout);
+      // Rút ngắn delay phản ứng: 20ms khi buông tay/chuột, 45ms khi dừng con lăn
+      const delayMs = fast ? 20 : 45;
+      snapTimeout = setTimeout(() => {
+        if (!isSnapping) {
+          snapToNearestCard(true);
+        }
+      }, delayMs);
+    }
+
+    lenis.on('scroll', (e: { velocity?: number }) => {
+      scrollState.scrollVelocity = THREE.MathUtils.clamp(e.velocity || 0, -25, 25);
+      
+      // Khi bắt đầu chuyển động trong vùng xem thẻ, ẩn vệ tinh
+      if (scrollState.progress >= 0.16 && Math.abs(scrollState.scrollVelocity) > 0.08) {
+        hideSatellites();
+      }
+
+      // Kích hoạt khi lướt trong vùng chuyển tiếp vào thẻ (p >= 0.10)
+      if (!isSnapping && scrollState.progress >= 0.10) {
+        scheduleSnap(false);
+      }
+    });
+
+    // Khi người dùng nhả chuột hoặc nhấc tay khỏi màn hình -> phản ứng tức thì (fast = true)
+    window.addEventListener('mouseup', () => {
+      if (scrollState.progress >= 0.10) {
+        scheduleSnap(true);
+      }
+    });
+
+    window.addEventListener('touchend', () => {
+      if (scrollState.progress >= 0.10) {
+        scheduleSnap(true);
+      }
+    });
+
+    // Bắt sự kiện dừng con lăn chuột với độ trễ phản ứng siêu nhạy 40ms
+    let wheelIdleTimer: ReturnType<typeof setTimeout> | null = null;
+    window.addEventListener('wheel', () => {
+      if (scrollState.progress >= 0.10) {
+        if (wheelIdleTimer) clearTimeout(wheelIdleTimer);
+        wheelIdleTimer = setTimeout(() => {
+          if (!isSnapping) {
+            snapToNearestCard(true);
+          }
+        }, 40);
+      }
+    }, { passive: true });
+
     document.getElementById('hud-prev-btn')?.addEventListener('click', () => {
       const nextIdx = Math.max(0, currentDomainIndex - 1);
       const targetP = 0.18 + (nextIdx / (ADOLSOFT_DOMAINS.length - 1)) * 0.76;
-      lenis.scrollTo(targetP * (document.body.scrollHeight - window.innerHeight));
+      isSnapping = true;
+      hideSatellites();
+      lenis.scrollTo(targetP * (document.body.scrollHeight - window.innerHeight), {
+        duration: 0.65,
+        easing: (t: number) => 1 - Math.pow(1 - t, 3),
+        onComplete: () => {
+          isSnapping = false;
+          showSatellitesForDomain(nextIdx);
+        }
+      });
     });
 
     document.getElementById('hud-next-btn')?.addEventListener('click', () => {
       const nextIdx = Math.min(ADOLSOFT_DOMAINS.length - 1, currentDomainIndex + 1);
       const targetP = 0.18 + (nextIdx / (ADOLSOFT_DOMAINS.length - 1)) * 0.76;
-      lenis.scrollTo(targetP * (document.body.scrollHeight - window.innerHeight));
+      isSnapping = true;
+      hideSatellites();
+      lenis.scrollTo(targetP * (document.body.scrollHeight - window.innerHeight), {
+        duration: 0.65,
+        easing: (t: number) => 1 - Math.pow(1 - t, 3),
+        onComplete: () => {
+          isSnapping = false;
+          showSatellitesForDomain(nextIdx);
+        }
+      });
     });
 
     document.querySelectorAll('[data-scroll-to]').forEach((btn) => {
@@ -2339,6 +3045,12 @@
       if (cardsGroup.visible) {
         const carouselBreathing = Math.sin(elapsed * 0.8) * 0.025;
 
+        // Cập nhật mượt mà độ mờ của các thẻ xung quanh 2 bên:
+        // Khi vệ tinh hiện (ở giữa): neighborCardsFadeFactor dần về 0.0 (ẩn mờ)
+        // Khi người dùng lướt: neighborCardsFadeFactor dần về 1.0 (hiện lại)
+        const targetFade = isSatellitesVisible ? 0.0 : 1.0;
+        neighborCardsFadeFactor += (targetFade - neighborCardsFadeFactor) * 0.12;
+
         for (let idx = 0; idx < cardMeshes.length; idx++) {
           const mesh = cardMeshes[idx];
           const totalAngle = mesh.userData.baseAngle + scrollState.carouselAngle;
@@ -2346,15 +3058,28 @@
           mesh.position.z = Math.cos(totalAngle) * cardRadius - cardRadius + 1.1;
           mesh.position.y = carouselBreathing;
           mesh.rotation.y = totalAngle;
+          mesh.rotation.z = 0;
+          mesh.rotation.x = 0;
 
           const focusFactor = Math.cos(totalAngle);
-          const mat = cardMaterials[idx];
-          mat.uniforms.uTime.value = elapsed;
-          mat.uniforms.uOpacity.value = THREE.MathUtils.clamp(
+          const baseOpacity = THREE.MathUtils.clamp(
             THREE.MathUtils.smoothstep(focusFactor, -0.35, 0.35),
             0.0,
             1.0
           );
+
+          // Thẻ ở chính giữa (focusFactor cao > 0.88) luôn giữ 100% độ rõ nét
+          // Các thẻ 2 bên xung quanh (focusFactor <= 0.88) sẽ mờ dần và ẩn đi khi thẻ giữa xuất hiện vệ tinh
+          const isCenterCard = focusFactor > 0.88;
+          const finalOpacity = isCenterCard
+            ? baseOpacity
+            : baseOpacity * neighborCardsFadeFactor;
+
+          const mat = cardMaterials[idx];
+          mat.uniforms.uTime.value = elapsed;
+          mat.uniforms.uScrollPos.value = scrollState.progress;
+          mat.uniforms.uScrollSpeed.value = 0.0;
+          mat.uniforms.uOpacity.value = finalOpacity;
         }
 
         // 5. Throttled Raycasting (once every 3 frames, only when cards are on screen)

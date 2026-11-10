@@ -696,3 +696,218 @@ html.lenis, html.lenis body {
   bottom: auto !important;
   width: 240px !important;
 }
+
+/* ========================================================================= */
+/* SCI-FI HUD COMMAND CENTER & SUB-FOLDERS / TAGS SYSTEM                    */
+/* ========================================================================= */
+:root {
+  --active-accent: #c8ff00;
+  --active-accent-glow: rgba(200, 255, 0, 0.4);
+}
+
+.hud-folder-card {
+  position: relative;
+  background: rgba(6, 9, 18, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+}
+
+.hud-folder-card:hover {
+  border-color: var(--active-accent, #c8ff00) !important;
+  box-shadow: 0 0 25px var(--active-accent-glow, rgba(200, 255, 0, 0.35)), inset 0 0 15px rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+}
+
+/* ========================================================================= */
+/* TEMPLATE MOCKUP HUD CAPSULES (Red, Blue, Green, White layout)             */
+/* ========================================================================= */
+.template-hud-box {
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.template-hud-box:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.template-gloss {
+  display: none;
+}
+
+/* ========================================================================= */
+/* SATELLITE HUD PILL STACK (Matches image: pill shape, stacked layers, glowing glass) */
+/* ========================================================================= */
+.sat-pill-stack {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+}
+
+.sat-pill {
+  position: relative;
+  width: 250px; /* Kéo rộng to dài hơn */
+  min-height: 82px; /* Kéo rộng chiều cao thoải mái */
+  border-radius: 9999px; /* Complete Capsule / Pill Shape */
+  background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(255, 255, 255, 0.44) 0%, rgba(180, 195, 220, 0.22) 45%, rgba(12, 14, 22, 0.88) 85%, rgba(6, 8, 14, 0.98) 100%);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 -5px 15px rgba(255, 255, 255, 0.2),
+    0 12px 28px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.7);
+  margin-top: -18px; /* Overlapping vertical stack */
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, filter 0.25s ease;
+  user-select: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.sat-pill:first-child {
+  margin-top: 0;
+}
+
+.sat-pill:hover {
+  transform: translateY(-4px) scale(1.03);
+  z-index: 50 !important;
+  box-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.4),
+    0 14px 30px rgba(0, 0, 0, 0.95),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95);
+}
+
+/* Subtle Color Accent Trims */
+.sat-pill-red {
+  border-top-color: rgba(255, 120, 135, 0.85);
+  box-shadow: 
+    0 -3px 14px rgba(239, 35, 60, 0.25),
+    0 10px 25px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+.sat-pill-red:hover {
+  border-top-color: #ff4b60;
+  box-shadow: 
+    0 0 28px rgba(239, 35, 60, 0.5),
+    0 14px 30px rgba(0, 0, 0, 0.95);
+}
+
+.sat-pill-blue {
+  border-top-color: rgba(120, 180, 255, 0.85);
+  box-shadow: 
+    0 -3px 14px rgba(0, 112, 243, 0.25),
+    0 10px 25px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+.sat-pill-blue:hover {
+  border-top-color: #3b82f6;
+  box-shadow: 
+    0 0 28px rgba(0, 112, 243, 0.5),
+    0 14px 30px rgba(0, 0, 0, 0.95);
+}
+
+.sat-pill-green {
+  border-top-color: rgba(130, 255, 175, 0.85);
+  box-shadow: 
+    0 -3px 14px rgba(34, 197, 94, 0.25),
+    0 10px 25px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+.sat-pill-green:hover {
+  border-top-color: #22c55e;
+  box-shadow: 
+    0 0 28px rgba(34, 197, 94, 0.5),
+    0 14px 30px rgba(0, 0, 0, 0.95);
+}
+
+/* Backward compatibility for bottom row tags */
+.sat-tag {
+  position: relative;
+  border-radius: 12px;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+  will-change: transform, opacity;
+  overflow: hidden;
+  user-select: none;
+}
+
+.sat-tag-red {
+  background: #0c0e15;
+  border: 1.5px solid #ef233c;
+  box-shadow: 0 0 20px rgba(239, 35, 60, 0.5), 0 8px 25px rgba(0, 0, 0, 0.95);
+}
+.sat-tag-red:hover {
+  border-color: #ff3b53;
+  box-shadow: 0 0 30px rgba(239, 35, 60, 0.8), 0 10px 32px rgba(0, 0, 0, 0.98);
+  transform: translateY(-2px);
+}
+
+.sat-tag-blue {
+  background: #0c0e15;
+  border: 1.5px solid #0070f3;
+  box-shadow: 0 0 20px rgba(0, 112, 243, 0.5), 0 8px 25px rgba(0, 0, 0, 0.95);
+}
+.sat-tag-blue:hover {
+  border-color: #3291ff;
+  box-shadow: 0 0 30px rgba(0, 112, 243, 0.8), 0 10px 32px rgba(0, 0, 0, 0.98);
+  transform: translateY(-2px);
+}
+
+.sat-tag-green {
+  background: #0c0e15;
+  border: 1.5px solid #22c55e;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.5), 0 8px 25px rgba(0, 0, 0, 0.95);
+}
+.sat-tag-green:hover {
+  border-color: #4ade80;
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.8), 0 10px 32px rgba(0, 0, 0, 0.98);
+  transform: translateY(-2px);
+}
+
+.sat-tag-white {
+  background: #ffffff;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.7), 0 8px 25px rgba(0, 0, 0, 0.95);
+  color: #000000;
+}
+.sat-tag-white:hover {
+  background: #c8ff00;
+  border-color: #c8ff00;
+  box-shadow: 0 0 32px rgba(200, 255, 0, 0.85), 0 10px 32px rgba(0, 0, 0, 0.98);
+  transform: translateY(-2px);
+}
+
+/* ========================================================================= */
+/* ACTIVE DOMAIN HEADER CSS QUY CHUẨN                                        */
+/* ========================================================================= */
+.active-domain-header {
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+.active-domain-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.active-domain-header p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+
+

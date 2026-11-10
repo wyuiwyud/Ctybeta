@@ -59,19 +59,30 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       </p>
     </div>
 
-    <!-- Centerpiece Typography: Solid 'A' + Wireframe 'DOLSOFT' (Matches ảnh_8.jpg) -->
-    <div class="relative z-10 flex items-baseline justify-center tracking-tight select-none">
-      <!-- Solid White Monolith 'A' -->
-      <span class="font-['Syne'] font-extrabold text-white text-6xl sm:text-8xl md:text-9xl leading-none">
-        A
-      </span>
-      <!-- Wireframe / Outline 'DOLSOFT' with Technical Dimensions -->
-      <span
-        class="font-['Syne'] font-extrabold text-transparent text-6xl sm:text-8xl md:text-9xl leading-none ml-1"
-        style="-webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55); letter-spacing: 0.04em;"
-      >
-        DOLSOFT
-      </span>
+    <!-- Centerpiece Typography: Official Brand Logo & Monolith 'A' + Wireframe 'DOLSOFT' -->
+    <div class="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 tracking-tight select-none mb-2">
+      <!-- Glow Container with Official Logo Icon -->
+      <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl bg-gradient-to-br from-[#22c55e]/25 via-transparent to-[#16a34a]/15 border border-[#22c55e]/50 p-2.5 flex items-center justify-center shadow-[0_0_35px_rgba(34,197,94,0.35)]">
+        <img
+          src="/logo.png"
+          alt="AdolSoft Official Insignia"
+          class="w-full h-full object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
+        />
+      </div>
+
+      <div class="flex items-baseline justify-center">
+        <!-- Solid White Monolith 'A' -->
+        <span class="font-['Syne'] font-extrabold text-white text-5xl sm:text-7xl md:text-8xl leading-none">
+          A
+        </span>
+        <!-- Wireframe / Outline 'DOLSOFT' with Technical Dimensions -->
+        <span
+          class="font-['Syne'] font-extrabold text-transparent text-5xl sm:text-7xl md:text-8xl leading-none ml-1"
+          style="-webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55); letter-spacing: 0.04em;"
+        >
+          DOLSOFT
+        </span>
+      </div>
     </div>
 
     <!-- Architectural Dimension Reference Line -->
@@ -106,9 +117,9 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
   </aside>
 
   <!-- ========================================================================= -->
-  <!-- 6. SPATIAL DRAWER 1: B2B ROI & LIVE GENETIC AUTO-NESTING LAB              -->
+  <!-- 6. SPATIAL DRAWER 1: FOUNDER & ARCHITECT PROFILE MODAL                    -->
   <!-- ========================================================================= -->
-  <div id="drawer-roi-lab" class="spatial-drawer" role="dialog" aria-modal="true" aria-label="B2B ROI and Auto-Nesting Lab">
+  <div id="drawer-founder-architect" class="spatial-drawer" role="dialog" aria-modal="true" aria-label="Founder and Architect Profile">
     <div class="spatial-drawer-panel p-6 sm:p-8 md:p-10 text-white">
       <!-- Modal Header -->
       <div class="flex items-center justify-between border-b border-white/10 pb-5 mb-6">
@@ -116,296 +127,35 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
           <span class="w-2.5 h-2.5 rounded-full bg-[#c8ff00] animate-ping"></span>
           <div>
             <h2 class="font-['Syne'] font-extrabold text-lg sm:text-xl text-white tracking-wide">
-              ADOLSOFT EXPERIMENTAL COMMAND DOCK
+              ADOLSOFT ARCHITECTURAL LABS
             </h2>
             <p class="font-mono text-[10.5px] tracking-widest text-[#c8ff00] uppercase">
-              B2B ROI CALCULATOR & LIVE GENETIC AUTO-NESTING SIMULATOR
+              FOUNDER & AI SOLUTION ARCHITECT PROFILE
             </p>
           </div>
         </div>
 
         <button
           type="button"
-          data-close-drawer="roi-lab"
+          data-close-drawer="founder-architect"
           class="px-3 py-1.5 rounded-md border border-white/20 bg-white/5 hover:bg-white/15 text-white/70 hover:text-white font-mono text-xs tracking-wider uppercase transition-colors"
         >
           ✕ Close [ESC]
         </button>
       </div>
 
-      <!-- Tab Switcher Navigation -->
-      <div class="flex items-center gap-2 mb-6 border-b border-white/10 pb-3 font-mono text-xs">
-        <button
-          type="button"
-          id="tab-btn-nesting"
-          class="tab-btn active px-4 py-2 rounded-md bg-[#1a8c4a]/30 border border-[#1a8c4a] text-white font-semibold flex items-center gap-2 transition-all"
-        >
-          <span>01 //</span> Live Genetic Nesting Lab
-        </button>
-        <button
-          type="button"
-          id="tab-btn-roi"
-          class="tab-btn px-4 py-2 rounded-md bg-white/5 border border-white/10 text-white/60 hover:text-white transition-all"
-        >
-          <span>02 //</span> B2B ROI Calculator
-        </button>
-        <button
-          type="button"
-          id="tab-btn-founder"
-          class="tab-btn px-4 py-2 rounded-md bg-white/5 border border-white/10 text-white/60 hover:text-white transition-all"
-        >
-          <span>03 //</span> Founder & Architect
-        </button>
-      </div>
-
-      <!-- TAB 1: LIVE GENETIC AUTO-NESTING LAB -->
-      <div id="tab-content-nesting" class="tab-pane block space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- Left: Interactive Canvas Simulator -->
-          <div class="lg:col-span-8 bg-black/60 border border-white/15 rounded-xl p-4 flex flex-col gap-3">
-            <div class="flex items-center justify-between font-mono text-[11px] text-white/60 pb-2 border-b border-white/10">
-              <span class="flex items-center gap-2 text-[#c8ff00]">
-                <span class="w-2 h-2 rounded-full bg-[#c8ff00]"></span>
-                VIRTUAL PRINT-CUT ROLL (1.2m WIDTH)
-              </span>
-              <span id="nesting-gen-badge" class="text-white/40">GENERATION: 042 / 100</span>
-            </div>
-
-            <!-- Simulation Canvas -->
-            <div class="relative w-full aspect-[16/10] bg-[#070a0f] rounded-lg overflow-hidden border border-white/10 flex items-center justify-center">
-              <canvas id="nesting-simulation-canvas" width="800" height="500" class="w-full h-full block"></canvas>
-            </div>
-
-            <!-- Canvas Controls -->
-            <div class="flex flex-wrap items-center gap-2 pt-2">
-              <button
-                type="button"
-                id="btn-run-nesting"
-                class="px-4 py-2 rounded-lg bg-[#1a8c4a] hover:bg-[#4caf50] text-white font-mono text-xs font-bold tracking-wider uppercase transition-all flex items-center gap-2"
-              >
-                <span>►</span> Run GA Optimization
-              </button>
-              <button
-                type="button"
-                id="btn-compare-manual"
-                class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs tracking-wider uppercase transition-all flex items-center gap-1.5"
-              >
-                <span>⇄</span> So sánh: Xếp Thủ Công
-              </button>
-              <button
-                type="button"
-                id="btn-random-shapes"
-                class="px-3 py-2 rounded-lg border border-white/15 hover:border-white text-white/80 hover:text-white font-mono text-xs tracking-wider uppercase transition-all"
-              >
-                ↺ Đổi Mẫu Decal
-              </button>
-              <button
-                type="button"
-                id="btn-toggle-nfp"
-                class="px-3 py-2 rounded-lg border border-white/20 hover:border-[#c8ff00] text-white/80 hover:text-[#c8ff00] font-mono text-xs tracking-wider uppercase transition-all"
-              >
-                ⚙ NFP 0.5°: ON
-              </button>
-            </div>
-          </div>
-
-          <!-- Right: Telemetry KPI Cards -->
-          <div class="lg:col-span-4 flex flex-col gap-3">
-            <div class="bg-black/40 border border-white/10 rounded-xl p-4">
-              <span class="font-mono text-[10px] tracking-wider text-white/45 uppercase block mb-1">
-                Material Yield (Độ Phủ Decal)
-              </span>
-              <div class="flex items-baseline gap-2">
-                <span id="kpi-yield" class="font-['Syne'] font-extrabold text-3xl text-[#c8ff00]">94.8%</span>
-                <span class="font-mono text-xs text-[#6ee7b7]">+12.5% vs Manual</span>
-              </div>
-              <div class="w-full bg-white/10 h-1.5 rounded-full mt-2 overflow-hidden">
-                <div class="h-full bg-[#c8ff00] w-[94.8%]"></div>
-              </div>
-            </div>
-
-            <div class="bg-black/40 border border-white/10 rounded-xl p-4">
-              <span class="font-mono text-[10px] tracking-wider text-white/45 uppercase block mb-1">
-                Prep-Time Per Job (Thời Gian Tiền Kỳ)
-              </span>
-              <div class="flex items-baseline gap-2">
-                <span class="font-['Syne'] font-extrabold text-3xl text-white">14.2s</span>
-                <span class="font-mono text-xs text-white/45">vs 45m Corel</span>
-              </div>
-              <p class="font-mono text-[10px] text-white/60 mt-1">
-                Rút ngắn 99.4% thời gian tạo đường bế và xếp khít file in.
-              </p>
-            </div>
-
-            <div class="bg-black/40 border border-white/10 rounded-xl p-4">
-              <span class="font-mono text-[10px] tracking-wider text-white/45 uppercase block mb-1">
-                Algorithm Core (Cốt Lõi Giải Thuật)
-              </span>
-              <p class="font-mono text-[11px] text-white/80 leading-relaxed">
-                ● No-Fit Polygon (NFP) Minkowski Sum<br />
-                ● Multi-Core CPU/GPU Genetic Population<br />
-                ● Auto-Bleed 1.5mm & Optical Crosshairs
-              </p>
-            </div>
-
-            <button
-              type="button"
-              data-switch-to-tab="roi"
-              class="w-full py-3 rounded-xl bg-gradient-to-r from-[#1a8c4a] to-[#2e7d32] hover:opacity-95 text-white font-mono text-xs font-bold tracking-widest uppercase text-center transition-all shadow-lg"
-            >
-              Calculate Your Factory ROI ↗
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: B2B ROI CALCULATOR -->
-      <div id="tab-content-roi" class="tab-pane hidden space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <!-- Inputs Column -->
-          <div class="lg:col-span-6 bg-black/50 border border-white/15 rounded-xl p-6 space-y-5">
-            <h3 class="font-mono text-xs tracking-widest text-[#c8ff00] uppercase">
-              // THÔNG SỐ XƯỞNG IN SẢN XUẤT
-            </h3>
-
-            <!-- Slider 1: Decal Volume -->
-            <div>
-              <div class="flex justify-between font-mono text-xs mb-1.5">
-                <span class="text-white/70">1. Diện tích Decal in/ngày:</span>
-                <span id="roi-vol-val" class="text-[#c8ff00] font-bold">50 m²/ngày</span>
-              </div>
-              <input
-                type="range"
-                id="roi-input-vol"
-                min="10"
-                max="200"
-                step="5"
-                value="50"
-                class="w-full accent-[#c8ff00] cursor-pointer"
-              />
-              <div class="flex justify-between text-[10px] font-mono text-white/35 mt-1">
-                <span>10 m² (Xưởng nhỏ)</span>
-                <span>200 m² (Xưởng quy mô lớn)</span>
-              </div>
-            </div>
-
-            <!-- Slider 2: Material Cost -->
-            <div>
-              <div class="flex justify-between font-mono text-xs mb-1.5">
-                <span class="text-white/70">2. Giá thành Decal trung bình:</span>
-                <span id="roi-cost-val" class="text-[#c8ff00] font-bold">45,000 VNĐ/m²</span>
-              </div>
-              <input
-                type="range"
-                id="roi-input-cost"
-                min="20000"
-                max="120000"
-                step="5000"
-                value="45000"
-                class="w-full accent-[#c8ff00] cursor-pointer"
-              />
-              <div class="flex justify-between text-[10px] font-mono text-white/35 mt-1">
-                <span>20,000 đ (Bạt hiflex)</span>
-                <span>120,000 đ (Decal xi/phản quang)</span>
-              </div>
-            </div>
-
-            <!-- Slider 3: Work Days -->
-            <div>
-              <div class="flex justify-between font-mono text-xs mb-1.5">
-                <span class="text-white/70">3. Số ngày vận hành/tháng:</span>
-                <span id="roi-days-val" class="text-[#c8ff00] font-bold">26 ngày</span>
-              </div>
-              <input
-                type="range"
-                id="roi-input-days"
-                min="20"
-                max="30"
-                step="1"
-                value="26"
-                class="w-full accent-[#c8ff00] cursor-pointer"
-              />
-            </div>
-
-            <!-- Slider 4: Saving Percentage -->
-            <div>
-              <div class="flex justify-between font-mono text-xs mb-1.5">
-                <span class="text-white/70">4. Mức tiết kiệm hao hụt vật tư:</span>
-                <span id="roi-pct-val" class="text-[#c8ff00] font-bold">12.5%</span>
-              </div>
-              <input
-                type="range"
-                id="roi-input-pct"
-                min="8"
-                max="18"
-                step="0.5"
-                value="12.5"
-                class="w-full accent-[#c8ff00] cursor-pointer"
-              />
-            </div>
-          </div>
-
-          <!-- Outputs Column -->
-          <div class="lg:col-span-6 flex flex-col justify-between gap-4">
-            <div class="bg-gradient-to-br from-[#1a8c4a]/25 to-black/70 border border-[#1a8c4a]/60 rounded-xl p-6">
-              <span class="font-mono text-xs tracking-widest text-[#6ee7b7] uppercase block mb-1">
-                TIẾT KIỆM VẬT TƯ HÀNG THÁNG
-              </span>
-              <div id="roi-monthly-save" class="font-['Syne'] font-extrabold text-4xl sm:text-5xl text-[#c8ff00]">
-                7,312,500 đ
-              </div>
-              <p class="font-mono text-xs text-white/60 mt-2">
-                Trực tiếp cắt giảm chi phí decal phế liệu bỏ đi trong quá trình bế khuôn.
-              </p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-black/50 border border-white/10 rounded-xl p-4">
-                <span class="font-mono text-[10px] text-white/40 uppercase block mb-1">
-                  TIẾT KIỆM HÀNG NĂM
-                </span>
-                <div id="roi-yearly-save" class="font-['Syne'] font-bold text-2xl text-white">
-                  87,750,000 đ
-                </div>
-              </div>
-
-              <div class="bg-black/50 border border-white/10 rounded-xl p-4">
-                <span class="font-mono text-[10px] text-white/40 uppercase block mb-1">
-                  THỜI GIAN HOÀN VỐN BẢN QUYỀN
-                </span>
-                <div id="roi-payback" class="font-['Syne'] font-bold text-2xl text-[#6ee7b7]">
-                  1.1 THÁNG
-                </div>
-                <span class="font-mono text-[9px] text-white/40">Gói Standard 8tr/năm</span>
-              </div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
-              <div>
-                <p class="font-['Syne'] font-bold text-sm text-white">Đăng ký Demo Xếp File Thực Tế</p>
-                <p class="font-mono text-[10.5px] text-white/50">Gửi file mẫu để AI xếp thử & đo lường độ phủ trực tiếp.</p>
-              </div>
-              <a
-                href="https://zalo.me/0559879392"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="px-4 py-2 rounded-lg bg-[#c8ff00] hover:bg-[#aee600] text-black font-mono text-xs font-bold tracking-wider uppercase transition-colors"
-              >
-                Gửi File Zalo ↗
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: FOUNDER & ARCHITECT PROFILE -->
-      <div id="tab-content-founder" class="tab-pane hidden space-y-6">
+      <!-- FOUNDER & ARCHITECT PROFILE CONTENT -->
+      <div class="space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-5 flex flex-col items-center sm:items-start text-center sm:text-left gap-4">
             <div class="w-32 h-32 rounded-2xl bg-gradient-to-tr from-[#1a8c4a] via-[#c8ff00] to-white/20 p-[2px] shadow-2xl">
-              <div class="w-full h-full bg-[#090d14] rounded-2xl flex flex-col items-center justify-center p-3">
-                <span class="font-['Syne'] font-extrabold text-3xl text-white">LTD</span>
-                <span class="font-mono text-[9px] tracking-widest text-[#c8ff00] uppercase mt-1">FOUNDER</span>
+              <div class="w-full h-full bg-[#090d14] rounded-2xl flex flex-col items-center justify-center p-3 relative overflow-hidden group">
+                <img
+                  src="/logo.png"
+                  alt="AdolSoft Logo Emblem"
+                  class="w-20 h-20 object-contain drop-shadow-[0_4px_16px_rgba(34,197,94,0.4)]"
+                />
+                <span class="font-mono text-[9px] tracking-widest text-[#c8ff00] uppercase mt-1">ADOLSOFT LABS</span>
               </div>
             </div>
 
@@ -542,43 +292,14 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
               href="https://zalo.me/0559879392"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex-1 py-2.5 rounded-lg bg-[#c8ff00] hover:bg-[#aee600] text-black font-mono text-xs font-bold tracking-widest uppercase text-center transition-colors"
+              class="w-full py-2.5 rounded-lg bg-[#c8ff00] hover:bg-[#aee600] text-black font-mono text-xs font-bold tracking-widest uppercase text-center transition-colors"
             >
               Liên Hệ Triển Khai Xưởng In ↗
             </a>
-            <button
-              type="button"
-              data-open-drawer="roi-lab"
-              data-close-drawer="domain-blueprint"
-              class="px-4 py-2.5 rounded-lg border border-white/20 hover:border-white text-white font-mono text-xs tracking-wider uppercase transition-colors"
-            >
-              Mở ROI Lab ⚙
-            </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- FLOATING QUICK CONNECT CAPSULE (Centered, Non-Colliding) -->
-  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] hidden sm:flex items-center gap-2.5 pointer-events-auto select-none">
-    <a
-      href="https://zalo.me/0559879392"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="liquid-glass-pill px-4 py-1.5 rounded-full hover:border-[#38bdf8]/60 font-mono text-[11px] text-white/80 hover:text-white flex items-center gap-2 transition-all shadow-xl"
-    >
-      <span class="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-ping"></span>
-      <span>Zalo: 0559.879.392</span>
-    </a>
-    <button
-      type="button"
-      data-open-drawer="roi-lab"
-      class="px-4 py-1.5 rounded-full bg-[#1a8c4a]/35 border border-[#1a8c4a] hover:bg-[#1a8c4a] text-white font-mono text-[11px] font-semibold tracking-wider uppercase transition-all backdrop-blur-md shadow-xl flex items-center gap-1.5 cursor-pointer"
-    >
-      <span class="w-1.5 h-1.5 rounded-full bg-[#c8ff00]"></span>
-      <span>Demo Xưởng (15s) ↗</span>
-    </button>
   </div>
 
   <!-- ========================================================================= -->
@@ -672,12 +393,7 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       btn.addEventListener('click', () => {
         const id = (btn as HTMLElement).dataset.openDrawer;
         if (id) {
-          if (id === 'founder-architect') {
-            openDrawer('roi-lab');
-            switchTab('founder');
-          } else {
-            openDrawer(id);
-          }
+          openDrawer(id);
         }
       });
     });
@@ -709,37 +425,7 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       }
     });
 
-    // 3. TAB NAVIGATION INSIDE ROI LAB
-    function switchTab(tabKey: string) {
-      const tabs = ['nesting', 'roi', 'founder'];
-      tabs.forEach((t) => {
-        const btn = document.getElementById(`tab-btn-${t}`);
-        const content = document.getElementById(`tab-content-${t}`);
-        if (t === tabKey) {
-          btn?.classList.add('active', 'bg-[#1a8c4a]/30', 'border-[#1a8c4a]', 'text-white', 'font-semibold');
-          btn?.classList.remove('bg-white/5', 'border-white/10', 'text-white/60');
-          content?.classList.remove('hidden');
-          content?.classList.add('block');
-        } else {
-          btn?.classList.remove('active', 'bg-[#1a8c4a]/30', 'border-[#1a8c4a]', 'text-white', 'font-semibold');
-          btn?.classList.add('bg-white/5', 'border-white/10', 'text-white/60');
-          content?.classList.add('hidden');
-          content?.classList.remove('block');
-        }
-      });
-    }
-
-    document.getElementById('tab-btn-nesting')?.addEventListener('click', () => switchTab('nesting'));
-    document.getElementById('tab-btn-roi')?.addEventListener('click', () => switchTab('roi'));
-    document.getElementById('tab-btn-founder')?.addEventListener('click', () => switchTab('founder'));
-    document.querySelectorAll('[data-switch-to-tab]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const target = (btn as HTMLElement).dataset.switchToTab;
-        if (target) switchTab(target);
-      });
-    });
-
-    // 4. DOMAIN BLUEPRINT INSPECTION MODAL LISTENER
+    // 3. DOMAIN BLUEPRINT INSPECTION MODAL LISTENER
     window.addEventListener('open-domain-modal', (e: any) => {
       const idx = e.detail?.index ?? 0;
       const domains = (window as any).ADOLSOFT_DOMAINS;
@@ -773,250 +459,13 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       openDrawer('domain-blueprint');
     });
 
-    // 5. INTERACTIVE LIVE GENETIC AUTO-NESTING CANVAS SIMULATOR
-    const nestingCanvas = document.getElementById('nesting-simulation-canvas') as HTMLCanvasElement | null;
-    if (nestingCanvas) {
-      const ctx = nestingCanvas.getContext('2d');
-      let animationFrameId: number;
-      let generation = 42;
-      let isOptimizing = false;
-
-      interface DecalShape {
-        x: number;
-        y: number;
-        w: number;
-        h: number;
-        r: number;
-        color: string;
-        type: 'rect' | 'circle' | 'contour';
-      }
-
-      let shapes: DecalShape[] = [];
-
-      function generateShapes() {
-        shapes = [];
-        const colors = ['#c8ff00', '#1a8c4a', '#00f0ff', '#f59e0b', '#a855f7'];
-        for (let i = 0; i < 24; i++) {
-          const type = i % 3 === 0 ? 'circle' : i % 3 === 1 ? 'contour' : 'rect';
-          shapes.push({
-            x: 40 + (i % 6) * 120 + Math.random() * 10,
-            y: 40 + Math.floor(i / 6) * 100 + Math.random() * 10,
-            w: 70 + Math.random() * 35,
-            h: 60 + Math.random() * 25,
-            r: 12 + Math.random() * 14,
-            color: colors[i % colors.length],
-            type
-          });
-        }
-      }
-
-      generateShapes();
-
-      function drawNesting() {
-        if (!ctx || !nestingCanvas) return;
-        ctx.clearRect(0, 0, nestingCanvas.width, nestingCanvas.height);
-
-        // Draw Roll Grid & Bleed Margin Guidelines
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-        ctx.lineWidth = 1;
-        for (let x = 0; x < nestingCanvas.width; x += 30) {
-          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, nestingCanvas.height); ctx.stroke();
-        }
-        for (let y = 0; y < nestingCanvas.height; y += 30) {
-          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(nestingCanvas.width, y); ctx.stroke();
-        }
-
-        // Draw Nested Decal Polygons
-        shapes.forEach((s, idx) => {
-          ctx.save();
-          // Draw Bleed Contour Line (Red fine stroke)
-          ctx.strokeStyle = 'rgba(255, 77, 77, 0.45)';
-          ctx.lineWidth = 1;
-          ctx.strokeRect(s.x - 3, s.y - 3, s.w + 6, s.h + 6);
-
-          // Draw Primary Cut Contour
-          ctx.fillStyle = s.color + '26';
-          ctx.strokeStyle = s.color;
-          ctx.lineWidth = 2;
-
-          if (s.type === 'circle') {
-            const rad = Math.min(s.w, s.h) / 2;
-            ctx.beginPath();
-            ctx.arc(s.x + s.w / 2, s.y + s.h / 2, rad, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-          } else {
-            ctx.beginPath();
-            ctx.roundRect(s.x, s.y, s.w, s.h, s.r);
-            ctx.fill();
-            ctx.stroke();
-          }
-
-          // Registration Crosshair in center
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-          ctx.lineWidth = 1;
-          const cx = s.x + s.w / 2;
-          const cy = s.y + s.h / 2;
-          ctx.beginPath();
-          ctx.moveTo(cx - 5, cy); ctx.lineTo(cx + 5, cy);
-          ctx.moveTo(cx, cy - 5); ctx.lineTo(cx, cy + 5);
-          ctx.stroke();
-
-          // Label ID
-          ctx.font = '9px monospace';
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-          ctx.fillText(`P${idx + 1}`, s.x + 6, s.y + 14);
-
-          ctx.restore();
-        });
-
-        if (isManualCompare) {
-          // Manual mode: scattered with high waste
-          ctx.strokeStyle = 'rgba(244, 63, 94, 0.6)';
-          ctx.lineWidth = 1.5;
-          ctx.setLineDash([4, 4]);
-          ctx.strokeRect(20, 20, 760, 460);
-          ctx.setLineDash([]);
-
-          ctx.fillStyle = 'rgba(244, 63, 94, 0.9)';
-          ctx.font = '10.5px monospace';
-          ctx.fillText('⚠ PHÔI THỪA RẢI RÁC — 19.8% KHOẢNG TRẮNG CHẾT (XOAY TAY COREL)', 30, 470);
-        } else {
-          // AI Genetic Nesting mode: tight pack + preserved remnant roll zone
-          ctx.strokeStyle = '#c8ff00';
-          ctx.lineWidth = 1.5;
-          ctx.setLineDash([4, 4]);
-          ctx.strokeRect(20, 20, 620, 460);
-          ctx.setLineDash([]);
-
-          // Preserved remnant decal roll zone on the right
-          ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
-          ctx.fillRect(645, 20, 135, 460);
-          ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
-          ctx.lineWidth = 1;
-          ctx.strokeRect(645, 20, 135, 460);
-
-          ctx.fillStyle = '#38bdf8';
-          ctx.font = 'bold 10.5px monospace';
-          ctx.fillText('VÙNG PHÔI DƯ', 662, 240);
-          ctx.fillText('TIẾT KIỆM (14.8%)', 652, 260);
-        }
-      }
-
-      let isManualCompare = false;
-      const btnCompare = document.getElementById('btn-compare-manual');
-      const kpiYield = document.getElementById('kpi-yield');
-
-      btnCompare?.addEventListener('click', () => {
-        isManualCompare = !isManualCompare;
-        if (btnCompare) {
-          btnCompare.innerHTML = isManualCompare
-            ? '<span>✓</span> Đang xem: Xếp Thủ Công'
-            : '<span>⇄</span> So sánh: Xếp Thủ Công';
-          btnCompare.classList.toggle('bg-rose-500/25', isManualCompare);
-          btnCompare.classList.toggle('border-rose-400', isManualCompare);
-        }
-        if (kpiYield) {
-          kpiYield.textContent = isManualCompare ? '82.3%' : '94.8%';
-          kpiYield.className = isManualCompare
-            ? "font-['Syne'] font-extrabold text-3xl text-rose-400"
-            : "font-['Syne'] font-extrabold text-3xl text-[#c8ff00]";
-        }
-        if (isManualCompare) {
-          shapes.forEach((s, idx) => {
-            s.x = 40 + (idx % 4) * 180 + Math.random() * 25;
-            s.y = 40 + Math.floor(idx / 4) * 80 + Math.random() * 15;
-          });
-        } else {
-          generateShapes();
-        }
-        drawNesting();
+    // Track mouse position on spatial drawer panel for specular highlight
+    window.addEventListener('pointermove', (e) => {
+      document.querySelectorAll<HTMLElement>('.spatial-drawer-panel').forEach((panel) => {
+        const rect = panel.getBoundingClientRect();
+        panel.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        panel.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
-
-      drawNesting();
-
-      document.getElementById('btn-random-shapes')?.addEventListener('click', () => {
-        generateShapes();
-        drawNesting();
-      });
-
-      document.getElementById('btn-run-nesting')?.addEventListener('click', () => {
-        isOptimizing = !isOptimizing;
-        const btn = document.getElementById('btn-run-nesting');
-        if (btn) {
-          btn.innerHTML = isOptimizing ? '<span>■</span> Pause GA Solver' : '<span>►</span> Run GA Optimization';
-        }
-
-        if (isOptimizing) {
-          const runStep = () => {
-            if (!isOptimizing) return;
-            generation++;
-            const badge = document.getElementById('nesting-gen-badge');
-            if (badge) badge.textContent = `GENERATION: ${String(generation).padStart(3, '0')} / 100`;
-
-            // Micro-nudge positions towards tight left packing
-            shapes.forEach((s) => {
-              s.x -= Math.random() * 1.5;
-              if (s.x < 30) s.x = 30 + Math.random() * 5;
-            });
-            drawNesting();
-            animationFrameId = requestAnimationFrame(runStep);
-          };
-          runStep();
-        } else {
-          cancelAnimationFrame(animationFrameId);
-        }
-      });
-
-      // Track mouse position on spatial drawer panel for specular highlight
-      window.addEventListener('pointermove', (e) => {
-        document.querySelectorAll<HTMLElement>('.spatial-drawer-panel').forEach((panel) => {
-          const rect = panel.getBoundingClientRect();
-          panel.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-          panel.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-        });
-      });
-    }
-
-    // 6. REACTIVE B2B ROI CALCULATOR ENGINE
-    const inputVol = document.getElementById('roi-input-vol') as HTMLInputElement | null;
-    const inputCost = document.getElementById('roi-input-cost') as HTMLInputElement | null;
-    const inputDays = document.getElementById('roi-input-days') as HTMLInputElement | null;
-    const inputPct = document.getElementById('roi-input-pct') as HTMLInputElement | null;
-
-    const valVol = document.getElementById('roi-vol-val');
-    const valCost = document.getElementById('roi-cost-val');
-    const valDays = document.getElementById('roi-days-val');
-    const valPct = document.getElementById('roi-pct-val');
-
-    const outMonthly = document.getElementById('roi-monthly-save');
-    const outYearly = document.getElementById('roi-yearly-save');
-    const outPayback = document.getElementById('roi-payback');
-
-    function calculateROI() {
-      const vol = parseFloat(inputVol?.value || '50');
-      const cost = parseFloat(inputCost?.value || '45000');
-      const days = parseFloat(inputDays?.value || '26');
-      const pct = parseFloat(inputPct?.value || '12.5') / 100;
-
-      if (valVol) valVol.textContent = `${vol} m²/ngày`;
-      if (valCost) valCost.textContent = `${cost.toLocaleString('vi-VN')} VNĐ/m²`;
-      if (valDays) valDays.textContent = `${days} ngày`;
-      if (valPct) valPct.textContent = `${(pct * 100).toFixed(1)}%`;
-
-      const monthlySave = vol * days * cost * pct;
-      const yearlySave = monthlySave * 12;
-      const standardCost = 8000000; // 8M VND standard package
-      const paybackMonths = standardCost / (monthlySave || 1);
-
-      if (outMonthly) outMonthly.textContent = `${Math.round(monthlySave).toLocaleString('vi-VN')} đ`;
-      if (outYearly) outYearly.textContent = `${Math.round(yearlySave).toLocaleString('vi-VN')} đ`;
-      if (outPayback) outPayback.textContent = `${paybackMonths.toFixed(1)} THÁNG`;
-    }
-
-    [inputVol, inputCost, inputDays, inputPct].forEach((input) => {
-      input?.addEventListener('input', calculateROI);
     });
-    calculateROI();
   </script>
 </BaseLayout>
