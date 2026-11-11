@@ -12,6 +12,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import ThreeCanvas from '../components/ThreeCanvas.astro';
+import InteractiveSignpostMenu from '../components/InteractiveSignpostMenu.astro';
 ---
 
 <BaseLayout
@@ -59,30 +60,19 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       </p>
     </div>
 
-    <!-- Centerpiece Typography: Official Brand Logo & Monolith 'A' + Wireframe 'DOLSOFT' -->
-    <div class="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 tracking-tight select-none mb-2">
-      <!-- Glow Container with Official Logo Icon -->
-      <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl bg-gradient-to-br from-[#22c55e]/25 via-transparent to-[#16a34a]/15 border border-[#22c55e]/50 p-2.5 flex items-center justify-center shadow-[0_0_35px_rgba(34,197,94,0.35)]">
-        <img
-          src="/logo.png"
-          alt="AdolSoft Official Insignia"
-          class="w-full h-full object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
-        />
-      </div>
-
-      <div class="flex items-baseline justify-center">
-        <!-- Solid White Monolith 'A' -->
-        <span class="font-['Syne'] font-extrabold text-white text-5xl sm:text-7xl md:text-8xl leading-none">
-          A
-        </span>
-        <!-- Wireframe / Outline 'DOLSOFT' with Technical Dimensions -->
-        <span
-          class="font-['Syne'] font-extrabold text-transparent text-5xl sm:text-7xl md:text-8xl leading-none ml-1"
-          style="-webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55); letter-spacing: 0.04em;"
-        >
-          DOLSOFT
-        </span>
-      </div>
+    <!-- Centerpiece Typography: Solid Monolith 'A' + Wireframe 'DOLSOFT' -->
+    <div class="relative z-10 flex items-baseline justify-center tracking-tight select-none mb-2">
+      <!-- Solid White Monolith 'A' với hiệu ứng phát sáng nhẹ -->
+      <span class="font-['Syne'] font-extrabold text-white text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none drop-shadow-[0_0_35px_rgba(255,255,255,0.4)]">
+        A
+      </span>
+      <!-- Wireframe / Outline 'DOLSOFT' với Technical Stroke -->
+      <span
+        class="font-['Syne'] font-extrabold text-transparent text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none ml-1.5"
+        style="-webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.65); letter-spacing: 0.04em;"
+      >
+        DOLSOFT
+      </span>
     </div>
 
     <!-- Architectural Dimension Reference Line -->
@@ -112,6 +102,176 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
       <div class="flex items-center justify-between font-mono text-[8.5px] tracking-widest text-white/30 uppercase mt-1">
         <span>MEM: ALLOCATED</span>
         <span>IOR: 1.52 // DISP: 6.0</span>
+      </div>
+    </div>
+
+    <!-- DUAL-ARM NEXUS ANIMATION: 2 CÁNH TAY TỪ 2 MÉP MÀN HÌNH HỘI TỤ & BÙNG NỔ LOGO -->
+    <div
+      id="dual-hand-nexus-container"
+      class="relative z-10 mt-6 sm:mt-8 w-full flex flex-col items-center justify-center group cursor-pointer select-none overflow-visible"
+      title="Nhấp để phát lại hoạt ảnh 2 cánh tay từ 2 mép màn hình và logo bùng nổ"
+    >
+      <!-- Vòng hào quang đa sắc xung quanh (Sci-Fi Ambient Pulse) -->
+      <div class="absolute -inset-6 rounded-3xl bg-gradient-to-r from-[#22c55e]/25 via-[#c8ff00]/20 to-[#0070f3]/25 blur-2xl opacity-70 pointer-events-none nexus-aura-pulse"></div>
+
+      <!-- Sân khấu căn giữa cho 2 cánh tay và logo bùng nổ (Kích thước lớn hoành tráng) -->
+      <div class="relative w-[94vw] sm:w-[620px] md:w-[740px] lg:w-[860px] xl:w-[940px] max-w-5xl aspect-[920/513] flex items-center justify-center overflow-visible">
+
+        <!-- Quầng hào quang vương miện tỏa sáng vĩnh cửu sau bùng nổ (Corona Glow) -->
+        <div
+          id="hand-logo-corona"
+          class="absolute left-[50.6%] top-[22.4%] -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-gradient-to-r from-[#22c55e]/35 via-[#c8ff00]/30 to-[#00f0ff]/20 blur-3xl pointer-events-none opacity-0 scale-50 transition-all duration-1000"
+        ></div>
+
+        <!-- Tia chớp hào quang Anamorphic Lens Flare ngang & dọc -->
+        <div
+          id="hand-flare-h"
+          class="absolute left-[50.6%] top-[22.4%] -translate-x-1/2 -translate-y-1/2 w-[520px] h-[3px] bg-gradient-to-r from-transparent via-[#c8ff00] to-transparent pointer-events-none opacity-0"
+        ></div>
+        <div
+          id="hand-flare-v"
+          class="absolute left-[50.6%] top-[22.4%] -translate-x-1/2 -translate-y-1/2 h-[420px] w-[3px] bg-gradient-to-b from-transparent via-[#22c55e] to-transparent pointer-events-none opacity-0"
+        ></div>
+
+        <!-- Sóng xung kích phát nổ vòng 1 (Shockwave Ring 1 - Lime Gold) -->
+        <div
+          id="hand-shockwave-1"
+          class="absolute left-[50.6%] top-[22.4%] -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-2 border-[#c8ff00] bg-[#c8ff00]/25 pointer-events-none opacity-0"
+        ></div>
+
+        <!-- Sóng xung kích phát nổ vòng 2 (Shockwave Ring 2 - Emerald) -->
+        <div
+          id="hand-shockwave-2"
+          class="absolute left-[50.6%] top-[22.4%] -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border border-[#22c55e] bg-[#22c55e]/15 pointer-events-none opacity-0"
+        ></div>
+
+        <!-- Sóng xung kích phát nổ vòng 3 (Shockwave Ring 3 - Electric Cyan Siêu Thanh) -->
+        <div
+          id="hand-shockwave-3"
+          class="absolute left-[50.6%] top-[22.4%] -translate-x-1/2 -translate-y-1/2 w-44 h-44 rounded-full border border-[#00f0ff] bg-[#00f0ff]/10 pointer-events-none opacity-0"
+        ></div>
+
+        <!-- Lõi chớp sáng bùng nổ Supernova tại tâm (Explosion Core Flash) -->
+        <div
+          id="hand-explosion-core"
+          class="absolute left-[50.6%] top-[22.4%] -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-full bg-gradient-to-r from-white via-[#c8ff00] to-[#22c55e] blur-xl pointer-events-none opacity-0"
+        ></div>
+
+        <!-- 12 Tia lửa hạt năng lượng Plasma đa sắc tỏa ra hình nan hoa khi bùng nổ -->
+        <div class="absolute left-[50.6%] top-[22.4%] -translate-x-1/2 -translate-y-1/2 w-0 h-0 pointer-events-none">
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#c8ff00] blur-[0.5px] opacity-0" data-angle="0"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#22c55e] blur-[0.5px] opacity-0" data-angle="30"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#ffffff] blur-[0.5px] opacity-0" data-angle="60"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#c8ff00] blur-[0.5px] opacity-0" data-angle="90"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#22c55e] blur-[0.5px] opacity-0" data-angle="120"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#00f0ff] blur-[0.5px] opacity-0" data-angle="150"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#ffffff] blur-[0.5px] opacity-0" data-angle="180"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#c8ff00] blur-[0.5px] opacity-0" data-angle="210"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#22c55e] blur-[0.5px] opacity-0" data-angle="240"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#00f0ff] blur-[0.5px] opacity-0" data-angle="270"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#ffffff] blur-[0.5px] opacity-0" data-angle="300"></div>
+          <div class="nexus-spark-particle absolute w-2.5 h-2.5 rounded-full bg-[#c8ff00] blur-[0.5px] opacity-0" data-angle="330"></div>
+        </div>
+
+        <!-- CÁNH TAY TRÁI (L-ARM): Bản vẽ độc lập hoàn chỉnh, lao từ mép trái màn hình vào tâm có góc xoay cử động -->
+        <img
+          id="hand-left-arm"
+          src="/assets/hand_left_full.png"
+          alt="AdolSoft Left Hand Full Master (From Screen Left Edge)"
+          class="absolute inset-0 w-full h-full object-contain pointer-events-none filter drop-shadow-[0_0_15px_rgba(255,255,255,0.7)] z-[1]"
+          style="transform: translateX(-85vw) rotate(-6deg); opacity: 0; will-change: transform, opacity;"
+        />
+
+        <!-- CÁNH TAY PHẢI (R-ARM): Bản vẽ độc lập hoàn chỉnh, lao từ mép phải màn hình vào tâm có góc xoay cử động -->
+        <img
+          id="hand-right-arm"
+          src="/assets/hand_right_full.png"
+          alt="AdolSoft Right Hand Full Master (From Screen Right Edge)"
+          class="absolute inset-0 w-full h-full object-contain pointer-events-none filter drop-shadow-[0_0_15px_rgba(255,255,255,0.7)] z-[1]"
+          style="transform: translateX(85vw) rotate(6deg); opacity: 0; will-change: transform, opacity;"
+        />
+
+        <!-- SVG TIA LASER NEON CHẠY QUANH VẼ NÉT THÀNH HÌNH VÔ CỰC HIỆN RÕ LÊN -->
+        <svg
+          id="infinity-tracer-svg"
+          viewBox="0 0 920 513"
+          class="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-[2]"
+        >
+          <defs>
+            <linearGradient id="infinityLaserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#22c55e" />
+              <stop offset="50%" stop-color="#c8ff00" />
+              <stop offset="100%" stop-color="#00f0ff" />
+            </linearGradient>
+
+            <filter id="infinityLaserGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3.5" result="blur1" />
+              <feGaussianBlur stdDeviation="9" result="blur2" />
+              <feMerge>
+                <feMergeNode in="blur2" />
+                <feMergeNode in="blur1" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Đường ray đứt đoạn mờ định hình khung Vô cực chuẩn tâm ngón tay -->
+          <path
+            id="infinity-ghost-track"
+            d="M 465,115 C 430,75 355,75 355,105 C 355,135 430,135 465,115 C 500,75 580,75 580,110 C 580,140 500,145 465,115 Z"
+            fill="none"
+            stroke="rgba(200, 255, 0, 0.35)"
+            stroke-width="2.5"
+            stroke-dasharray="5 5"
+            class="opacity-0 transition-opacity duration-300"
+          />
+
+          <!-- Tia Laser Neon chạy xung quanh vẽ nét Vô cực rực rỡ -->
+          <path
+            id="infinity-laser-stroke"
+            d="M 465,115 C 430,75 355,75 355,105 C 355,135 430,135 465,115 C 500,75 580,75 580,110 C 580,140 500,145 465,115 Z"
+            fill="none"
+            stroke="url(#infinityLaserGrad)"
+            stroke-width="5.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            filter="url(#infinityLaserGlow)"
+            class="opacity-0"
+          />
+
+          <!-- Hạt sao chổi dẫn đầu tia laser quét quanh đường Vô cực -->
+          <circle
+            id="infinity-spark-head"
+            r="7"
+            fill="#ffffff"
+            filter="url(#infinityLaserGlow)"
+            class="opacity-0"
+          >
+            <animateMotion
+              id="infinity-spark-anim"
+              dur="0.75s"
+              repeatCount="1"
+              fill="freeze"
+              begin="indefinite"
+              path="M 465,115 C 430,75 355,75 355,105 C 355,135 430,135 465,115 C 500,75 580,75 580,110 C 580,140 500,145 465,115 Z"
+            />
+          </circle>
+        </svg>
+
+        <!-- LOGO BÙNG NỔ NẰM TẠI TÂM: Biểu tượng 3D Lục bảo đồng nhất vô cực, chỉ bung nở sau khi viền Vô cực chạy xong -->
+        <div
+          id="hand-center-logo-wrap"
+          class="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-[3]"
+          style="transform-origin: 50.6% 22.4%; transform: scale(0); opacity: 0; will-change: transform, opacity, filter;"
+        >
+          <img
+            id="hand-center-logo"
+            src="/assets/emblem_harmonized_hd.png"
+            alt="AdolSoft Emerald Infinity Core Emblem (Letter 'A')"
+            class="w-full h-full object-contain filter drop-shadow-[0_0_18px_rgba(34,197,94,0.85)] drop-shadow-[0_0_35px_rgba(200,255,0,0.5)]"
+            style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;"
+          />
+        </div>
       </div>
     </div>
   </aside>
@@ -303,45 +463,249 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
   </div>
 
   <!-- ========================================================================= -->
+  <!-- 7. HỆ THỐNG MENU TƯƠNG TÁC BIỂN BÁO ĐÈN LED (TACO SIGNPOST INTERACTIVE)   -->
+  <!-- ========================================================================= -->
+  <InteractiveSignpostMenu />
+
+  <!-- ========================================================================= -->
   <!-- CLIENT INTERACTIVE CONTROLLERS (Preloader, Drawers, GA Canvas, ROI)      -->
   <!-- ========================================================================= -->
   <script>
-    // 1. CAD ARCHITECTURAL PRELOADER LOGIC (Matches ảnh_8.jpg)
+    // 1. CAD ARCHITECTURAL PRELOADER LOGIC & DUAL-ARM NEXUS ANIMATION
     function initPreloader() {
       const preloader = document.getElementById('cad-preloader');
       const counter = document.getElementById('cad-counter');
       const progressBar = document.getElementById('cad-progress-bar');
       const statusMsg = document.getElementById('cad-status-msg');
 
+      const handLeftArm = document.getElementById('hand-left-arm');
+      const handRightArm = document.getElementById('hand-right-arm');
+      const handCenterLogoWrap = document.getElementById('hand-center-logo-wrap');
+      const handCenterLogo = document.getElementById('hand-center-logo');
+      const logoCorona = document.getElementById('hand-logo-corona');
+      const nexusContainer = document.getElementById('dual-hand-nexus-container');
+
+      const infinityGhostTrack = document.getElementById('infinity-ghost-track');
+      const infinityLaserStroke = document.getElementById('infinity-laser-stroke');
+      const infinitySparkHead = document.getElementById('infinity-spark-head');
+      const infinitySparkAnim = document.getElementById('infinity-spark-anim');
+
       if (!preloader) {
         window.dispatchEvent(new CustomEvent('stage-unlocked'));
         return;
       }
 
+      function triggerExplosionEffect() {
+        const shockwave1 = document.getElementById('hand-shockwave-1');
+        const shockwave2 = document.getElementById('hand-shockwave-2');
+        const shockwave3 = document.getElementById('hand-shockwave-3');
+        const flareH = document.getElementById('hand-flare-h');
+        const flareV = document.getElementById('hand-flare-v');
+        const explosionCore = document.getElementById('hand-explosion-core');
+        const sparks = document.querySelectorAll('.nexus-spark-particle');
+
+        // Sóng xung kích 3 tầng
+        if (shockwave1) {
+          shockwave1.classList.remove('animate-shockwave-1');
+          void shockwave1.offsetWidth;
+          shockwave1.classList.add('animate-shockwave-1');
+        }
+        if (shockwave2) {
+          shockwave2.classList.remove('animate-shockwave-2');
+          void shockwave2.offsetWidth;
+          shockwave2.classList.add('animate-shockwave-2');
+        }
+        if (shockwave3) {
+          shockwave3.classList.remove('animate-shockwave-3');
+          void shockwave3.offsetWidth;
+          shockwave3.classList.add('animate-shockwave-3');
+        }
+
+        // Tia chớp hào quang ngang & dọc
+        if (flareH) {
+          flareH.classList.remove('animate-flare-h');
+          void flareH.offsetWidth;
+          flareH.classList.add('animate-flare-h');
+        }
+        if (flareV) {
+          flareV.classList.remove('animate-flare-v');
+          void flareV.offsetWidth;
+          flareV.classList.add('animate-flare-v');
+        }
+
+        // Lõi chớp sáng Plasma
+        if (explosionCore) {
+          explosionCore.classList.remove('animate-explosion-core');
+          void explosionCore.offsetWidth;
+          explosionCore.classList.add('animate-explosion-core');
+        }
+
+        // Hào quang vương miện quanh Logo
+        if (logoCorona) {
+          logoCorona.style.opacity = '1';
+          logoCorona.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+
+        // 12 Tia lửa hạt năng lượng bắn tỏa hình nan hoa
+        sparks.forEach((s) => {
+          const angle = parseFloat((s as HTMLElement).dataset.angle || '0');
+          const dist = 115 + Math.random() * 65;
+          const rad = (angle * Math.PI) / 180;
+          const tx = Math.cos(rad) * dist;
+          const ty = Math.sin(rad) * dist;
+
+          s.animate([
+            { transform: 'translate(-50%, -50%) translate(0px, 0px) scale(1.6)', opacity: 1 },
+            { transform: `translate(-50%, -50%) translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+          ], {
+            duration: 880,
+            easing: 'cubic-bezier(0.12, 0.9, 0.25, 1)'
+          });
+        });
+      }
+
+      let step1Timer: any = null;
+      let step2Timer: any = null;
+      let step3Timer: any = null;
+
+      // Hoạt ảnh 3 giai đoạn điện ảnh:
+      // Giai đoạn 1: 2 Cánh tay lao từ 2 mép màn hình vào giữa kết hợp thành hình Vô cực
+      // Giai đoạn 2: Tia laser neon chạy vòng quanh tạo nét Vô cực rực rỡ
+      // Giai đoạn 3: Chữ A 3D bùng nổ Supernova xuất hiện rõ nét tại tâm
+      function playDualArmConvergence(isReplay = false) {
+        if (!handLeftArm || !handRightArm || !handCenterLogoWrap) return;
+
+        // Dọn dẹp timer đang chạy nếu có
+        clearTimeout(step1Timer);
+        clearTimeout(step2Timer);
+        clearTimeout(step3Timer);
+
+        if (nexusContainer) nexusContainer.classList.remove('dual-arm-floating');
+        handLeftArm.classList.remove('animate-arm-left-gesture');
+        handRightArm.classList.remove('animate-arm-right-gesture');
+
+        // BẮT ĐẦU TỪ 2 MÉP NGOÀI MÀN HÌNH (-85vw và +85vw) VỚI GÓC XOAY CỬ ĐỘNG TỰ NHIÊN
+        handLeftArm.style.transition = isReplay ? 'transform 0.4s ease-out, opacity 0.3s ease-out' : 'none';
+        handRightArm.style.transition = isReplay ? 'transform 0.4s ease-out, opacity 0.3s ease-out' : 'none';
+        handCenterLogoWrap.style.transition = isReplay ? 'transform 0.35s ease-out, opacity 0.25s ease-out' : 'none';
+
+        handLeftArm.style.transform = 'translateX(-85vw) rotate(-6deg)';
+        handLeftArm.style.opacity = '0';
+        handRightArm.style.transform = 'translateX(85vw) rotate(6deg)';
+        handRightArm.style.opacity = '0';
+        handCenterLogoWrap.style.transform = 'scale(0)';
+        handCenterLogoWrap.style.opacity = '0';
+
+        if (infinityGhostTrack) {
+          infinityGhostTrack.style.opacity = '0';
+        }
+        if (infinityLaserStroke) {
+          infinityLaserStroke.classList.remove('animate-trace-infinity', 'infinity-loop-glowing');
+          infinityLaserStroke.style.opacity = '0';
+        }
+        if (infinitySparkHead) {
+          infinitySparkHead.style.opacity = '0';
+        }
+
+        if (logoCorona) {
+          logoCorona.style.opacity = '0';
+          logoCorona.style.transform = 'translate(-50%, -50%) scale(0.5)';
+        }
+
+        // Bước 1: 2 Cánh tay lao từ 2 mép màn hình vào giữa tâm, uốn lượn cử động sinh học
+        step1Timer = setTimeout(() => {
+          handLeftArm.style.transition = 'transform 0.92s cubic-bezier(0.12, 0.9, 0.25, 1), opacity 0.45s ease-out';
+          handRightArm.style.transition = 'transform 0.92s cubic-bezier(0.12, 0.9, 0.25, 1), opacity 0.45s ease-out';
+          handLeftArm.style.transform = 'translateX(0) rotate(0deg)';
+          handLeftArm.style.opacity = '1';
+          handRightArm.style.transform = 'translateX(0) rotate(0deg)';
+          handRightArm.style.opacity = '1';
+        }, isReplay ? 300 : 80);
+
+        // Bước 2: Hai bàn tay vừa khép lại ra hình thù VÔ CỰC -> TIA LASER CHẠY QUANH TẠO NÉT VÔ CỰC HIỆN RÕ LÊN!
+        step2Timer = setTimeout(() => {
+          if (infinityGhostTrack) {
+            infinityGhostTrack.style.opacity = '0.6';
+          }
+
+          if (infinityLaserStroke) {
+            infinityLaserStroke.classList.remove('animate-trace-infinity', 'infinity-loop-glowing');
+            void infinityLaserStroke.offsetWidth; // Force reflow để restart CSS animation
+            infinityLaserStroke.style.opacity = '1';
+            infinityLaserStroke.classList.add('animate-trace-infinity');
+          }
+
+          if (infinitySparkHead) {
+            infinitySparkHead.style.opacity = '1';
+            try {
+              (infinitySparkAnim as any)?.beginElement?.();
+            } catch (e) {}
+          }
+        }, isReplay ? 1280 : 980);
+
+        // Bước 3: Sau khi nét Vô cực đã chạy xong -> HIỆN RÕ LÊN TIẾP CHỮ A (BÙNG NỔ SUPERNOVA RỰC RỠ TẠI TÂM)!
+        step3Timer = setTimeout(() => {
+          // Ẩn hạt sao chổi, chuyển viền laser sang chế độ phát sáng hào quang vĩnh cửu
+          if (infinitySparkHead) {
+            infinitySparkHead.style.opacity = '0';
+          }
+          if (infinityLaserStroke) {
+            infinityLaserStroke.classList.add('infinity-loop-glowing');
+          }
+
+          // Kích hoạt toàn bộ hiệu ứng bùng nổ Supernova (Lens Flare, 3 Shockwaves, Plasma Core, 12 Sparks)
+          triggerExplosionEffect();
+
+          // Biểu tượng chữ A 3D bung nở sắc nét tại tâm vô cực
+          handCenterLogoWrap.style.transition = 'transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.22s ease-out';
+          handCenterLogoWrap.style.transform = 'scale(1)';
+          handCenterLogoWrap.style.opacity = '1';
+
+          // Kích hoạt cử động thở & nhịp rung sinh học tự nhiên cho 2 cánh tay
+          handLeftArm.classList.add('animate-arm-left-gesture');
+          handRightArm.classList.add('animate-arm-right-gesture');
+
+          if (nexusContainer) {
+            nexusContainer.classList.add('dual-arm-floating');
+          }
+        }, isReplay ? 2020 : 1720);
+      }
+
+      playDualArmConvergence(false);
+
+      if (nexusContainer) {
+        nexusContainer.addEventListener('click', (e) => {
+          e.stopPropagation(); // Giữ nguyên preloader để thưởng thức lại hoạt ảnh
+          playDualArmConvergence(true);
+        });
+      }
+
       const statusStages = [
-        { pct: 15, msg: 'INITIALIZING THREE.JS WEBGL RENDERER...' },
-        { pct: 35, msg: 'GENERATING FROST NORMAL NOISE BUFFER...' },
-        { pct: 60, msg: 'INVERTING VAULT UV COORDS (ZERO MIRROR BUG)...' },
-        { pct: 85, msg: 'COMPILING CYLINDRICAL DOMAIN GEOMETRIES...' },
+        { pct: 20, msg: 'INITIALIZING THREE.JS WEBGL RENDERER...' },
+        { pct: 45, msg: 'DEPLOYING DUAL-ARM VECTOR COORDINATES...' },
+        { pct: 75, msg: 'SYNCHRONIZING INFINITY LASER TRACE...' },
+        { pct: 95, msg: 'SUPERNOVA ERUPTION // MONOLITH "A" ONLINE' },
         { pct: 100, msg: 'STAGE READY // LAUNCHING ADOLSOFT ENGINE' }
       ];
+
+      let interval: any = null;
+      let progress = 0;
 
       const safetyTimer = setTimeout(() => {
         clearInterval(interval);
         if (preloader) preloader.classList.add('loaded');
         window.dispatchEvent(new CustomEvent('stage-unlocked'));
-      }, 1500);
+      }, 4200);
 
       preloader.addEventListener('click', () => {
         clearInterval(interval);
         clearTimeout(safetyTimer);
-        preloader.classList.add('loaded');
+        if (preloader) preloader.classList.add('loaded');
         window.dispatchEvent(new CustomEvent('stage-unlocked'));
       });
 
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 10) + 8;
+      interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 2) + 2;
         if (progress > 100) progress = 100;
 
         if (counter) counter.textContent = `${String(progress).padStart(3, '0')}%`;
@@ -356,9 +720,9 @@ import ThreeCanvas from '../components/ThreeCanvas.astro';
           setTimeout(() => {
             if (preloader) preloader.classList.add('loaded');
             window.dispatchEvent(new CustomEvent('stage-unlocked'));
-          }, 120);
+          }, 850);
         }
-      }, 20);
+      }, 50);
     }
 
     if (document.readyState === 'loading') {

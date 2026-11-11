@@ -1,0 +1,850 @@
+---
+// src/components/InteractiveSignpostMenu.astro
+// HỆ THỐNG MENU TƯƠNG TÁC BIỂN BÁO ĐÈN LED (TACO INTERACTIVE SIGNPOST TOTEM)
+// Thiết kế giao diện tương tác dựa trên mô hình biển báo LED 4 hộp:
+// [T] Top-Right (Xanh dương)  - Telemetry & Technology Pipeline
+// [A] Mid-Left (Vàng hoàng kim) - Architect & Labs
+// [C] Mid-Right (Cam rực lửa)   - Core Solutions & Genetic AI Print-Cut
+// [O] Bot-Left (Đỏ ruby)       - Origin & Spatial 3D Monolith
+---
+
+<div id="taco-menu-system" class="select-none pointer-events-none">
+  <!-- ========================================================================= -->
+  <!-- 1. CỘT BIỂN BÁO TƯƠNG TÁC (INTERACTIVE SIGNPOST TOTEM) CỐ ĐỊNH GÓC DƯỚI PHẢI -->
+  <!-- ========================================================================= -->
+  <aside
+    id="signpost-menu-totem"
+    class="fixed bottom-0 right-3 sm:right-6 md:right-10 z-[115] flex flex-col items-end transition-all duration-500 ease-out origin-bottom-right"
+    aria-label="Interactive Navigation Signpost Menu"
+  >
+    <!-- Thanh điều khiển đỉnh cột (Totem Top Controller Pill) -->
+    <div class="pointer-events-auto mb-2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#090d14]/85 backdrop-blur-md border border-white/15 text-[10px] font-mono tracking-wider shadow-2xl transition-all hover:border-white/30">
+      <div class="flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#eab308]"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#f97316]"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ef4444]"></span>
+      </div>
+      <span class="text-white/80 font-bold ml-1 tracking-widest text-[9.5px]">TACO // MENU</span>
+
+      <!-- Nút bật/tắt âm thanh hiệu ứng (SFX Toggle) -->
+      <button
+        type="button"
+        id="taco-sfx-toggle"
+        class="ml-1.5 p-1 rounded hover:bg-white/10 text-white/60 hover:text-white transition-colors"
+        title="Bật/Tắt âm thanh tương tác Sci-Fi"
+        aria-label="Toggle Sound FX"
+      >
+        <span id="taco-sfx-icon">🔊</span>
+      </button>
+
+      <!-- Nút thu nhỏ/mở rộng cột biển báo (Minimize Toggle) -->
+      <button
+        type="button"
+        id="taco-minimize-btn"
+        class="p-1 rounded hover:bg-white/10 text-white/60 hover:text-white transition-colors"
+        title="Thu nhỏ biển báo để xem trọn màn hình"
+        aria-label="Minimize Signpost"
+      >
+        ▼
+      </button>
+    </div>
+
+    <!-- Khung chính chứa Cột và 4 Hộp đèn LED (Tỷ lệ chuẩn 499 / 804) -->
+    <div
+      id="signpost-graphic-wrapper"
+      class="pointer-events-auto relative h-[250px] sm:h-[290px] md:h-[340px] lg:h-[370px] aspect-[499/804] transition-transform duration-300 ease-out"
+    >
+      <!-- Ảnh gốc 3D High-Res đã căn chỉnh kích thước viền khít hoàn hảo -->
+      <img
+        src="/assets/signpost_menu_tight.png"
+        alt="ADOLSOFT Interactive Signpost Menu Totem"
+        class="w-full h-full object-contain pointer-events-none select-none filter drop-shadow-[0_15px_35px_rgba(0,0,0,0.8)]"
+        loading="eager"
+      />
+
+      <!-- ===================================================================== -->
+      <!-- HOTSPOT 1: HỘP 'T' (TOP-RIGHT, MÀU XANH DƯƠNG)                        -->
+      <!-- ===================================================================== -->
+      <button
+        type="button"
+        id="taco-btn-t"
+        data-menu-key="t"
+        class="taco-sign-hotspot group absolute rounded-2xl cursor-pointer transition-all duration-200 outline-none"
+        style="left: 52.1%; top: 0.6%; width: 46.5%; height: 34.8%;"
+        aria-label="Open Telemetry & Tech Specs"
+      >
+        <!-- Hào quang Neon Blue khi Hover/Active & Nhấp nháy nhẹ thở sống động -->
+        <div class="taco-glow-layer taco-flicker-t absolute inset-0 rounded-2xl bg-[#3b82f6]/25 opacity-30 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none filter blur-md"></div>
+        <div class="taco-active-indicator absolute inset-0 rounded-2xl border-2 border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.8)] opacity-0 pointer-events-none transition-all duration-300"></div>
+
+        <!-- Floating HUD Tooltip bay sang bên trái khi Hover -->
+        <div class="taco-hud-tooltip absolute right-[108%] top-1/2 -translate-y-1/2 hidden group-hover:flex items-center gap-2 px-3 py-2 rounded-xl bg-[#090d14]/90 backdrop-blur-md border border-[#3b82f6]/50 shadow-[0_0_25px_rgba(59,130,246,0.35)] whitespace-nowrap pointer-events-none z-30 animate-fade-in-left">
+          <div class="w-2 h-2 rounded-full bg-[#3b82f6] animate-ping"></div>
+          <div class="flex flex-col text-left">
+            <span class="font-mono text-[11px] font-bold text-white tracking-wider flex items-center gap-1.5">
+              <span class="text-[#3b82f6]">[T]</span> TELEMETRY // TECH
+            </span>
+            <span class="font-mono text-[9px] text-white/50 tracking-widest uppercase">
+              Shader Engine & FPS Diagnostics
+            </span>
+          </div>
+          <span class="px-1.5 py-0.5 rounded bg-[#3b82f6]/20 text-[#60a5fa] font-mono text-[8px] uppercase tracking-widest ml-1">
+            OPEN
+          </span>
+        </div>
+      </button>
+
+      <!-- ===================================================================== -->
+      <!-- HOTSPOT 2: HỘP 'A' (MID-LEFT, MÀU VÀNG HOÀNG KIM)                     -->
+      <!-- ===================================================================== -->
+      <button
+        type="button"
+        id="taco-btn-a"
+        data-menu-key="a"
+        class="taco-sign-hotspot group absolute rounded-2xl cursor-pointer transition-all duration-200 outline-none"
+        style="left: 1.0%; top: 19.9%; width: 46.7%; height: 34.8%;"
+        aria-label="Open Architect & Founder Profile"
+      >
+        <!-- Hào quang Neon Yellow khi Hover/Active & Nhấp nháy nhẹ thở sống động -->
+        <div class="taco-glow-layer taco-flicker-a absolute inset-0 rounded-2xl bg-[#eab308]/25 opacity-30 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none filter blur-md"></div>
+        <div class="taco-active-indicator absolute inset-0 rounded-2xl border-2 border-[#eab308] shadow-[0_0_20px_rgba(234,179,8,0.8)] opacity-0 pointer-events-none transition-all duration-300"></div>
+
+        <!-- Floating HUD Tooltip bay sang bên trái khi Hover -->
+        <div class="taco-hud-tooltip absolute right-[108%] top-1/2 -translate-y-1/2 hidden group-hover:flex items-center gap-2 px-3 py-2 rounded-xl bg-[#090d14]/90 backdrop-blur-md border border-[#eab308]/50 shadow-[0_0_25px_rgba(234,179,8,0.35)] whitespace-nowrap pointer-events-none z-30 animate-fade-in-left">
+          <div class="w-2 h-2 rounded-full bg-[#eab308] animate-ping"></div>
+          <div class="flex flex-col text-left">
+            <span class="font-mono text-[11px] font-bold text-white tracking-wider flex items-center gap-1.5">
+              <span class="text-[#eab308]">[A]</span> ARCHITECT // LABS
+            </span>
+            <span class="font-mono text-[9px] text-white/50 tracking-widest uppercase">
+              Founder & AI Solution Architect
+            </span>
+          </div>
+          <span class="px-1.5 py-0.5 rounded bg-[#eab308]/20 text-[#facc15] font-mono text-[8px] uppercase tracking-widest ml-1">
+            OPEN
+          </span>
+        </div>
+      </button>
+
+      <!-- ===================================================================== -->
+      <!-- HOTSPOT 3: HỘP 'C' (MID-RIGHT, MÀU CAM RỰC LỬA)                      -->
+      <!-- ===================================================================== -->
+      <button
+        type="button"
+        id="taco-btn-c"
+        data-menu-key="c"
+        class="taco-sign-hotspot group absolute rounded-2xl cursor-pointer transition-all duration-200 outline-none"
+        style="left: 53.1%; top: 41.7%; width: 46.7%; height: 33.6%;"
+        aria-label="Open Core AI Solutions & Print-Cut"
+      >
+        <!-- Hào quang Neon Orange khi Hover/Active & Nhấp nháy nhẹ thở sống động -->
+        <div class="taco-glow-layer taco-flicker-c absolute inset-0 rounded-2xl bg-[#f97316]/25 opacity-30 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none filter blur-md"></div>
+        <div class="taco-active-indicator absolute inset-0 rounded-2xl border-2 border-[#f97316] shadow-[0_0_20px_rgba(249,115,22,0.8)] opacity-0 pointer-events-none transition-all duration-300"></div>
+
+        <!-- Floating HUD Tooltip bay sang bên trái khi Hover -->
+        <div class="taco-hud-tooltip absolute right-[108%] top-1/2 -translate-y-1/2 hidden group-hover:flex items-center gap-2 px-3 py-2 rounded-xl bg-[#090d14]/90 backdrop-blur-md border border-[#f97316]/50 shadow-[0_0_25px_rgba(249,115,22,0.35)] whitespace-nowrap pointer-events-none z-30 animate-fade-in-left">
+          <div class="w-2 h-2 rounded-full bg-[#f97316] animate-ping"></div>
+          <div class="flex flex-col text-left">
+            <span class="font-mono text-[11px] font-bold text-white tracking-wider flex items-center gap-1.5">
+              <span class="text-[#f97316]">[C]</span> CORE // AI PRINT-CUT
+            </span>
+            <span class="font-mono text-[9px] text-white/50 tracking-widest uppercase">
+              Genetic Nesting & CAD/CAM Engine
+            </span>
+          </div>
+          <span class="px-1.5 py-0.5 rounded bg-[#f97316]/20 text-[#fb923c] font-mono text-[8px] uppercase tracking-widest ml-1">
+            OPEN
+          </span>
+        </div>
+      </button>
+
+      <!-- ===================================================================== -->
+      <!-- HOTSPOT 4: HỘP 'O' (BOTTOM-LEFT, MÀU ĐỎ RUBY)                         -->
+      <!-- ===================================================================== -->
+      <button
+        type="button"
+        id="taco-btn-o"
+        data-menu-key="o"
+        class="taco-sign-hotspot group absolute rounded-2xl cursor-pointer transition-all duration-200 outline-none"
+        style="left: 0.6%; top: 63.4%; width: 47.1%; height: 33.6%;"
+        aria-label="Open Origin & Spatial 3D Monolith"
+      >
+        <!-- Hào quang Neon Red khi Hover/Active & Nhấp nháy nhẹ thở sống động -->
+        <div class="taco-glow-layer taco-flicker-o absolute inset-0 rounded-2xl bg-[#ef4444]/25 opacity-30 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none filter blur-md"></div>
+        <div class="taco-active-indicator absolute inset-0 rounded-2xl border-2 border-[#ef4444] shadow-[0_0_20px_rgba(239,68,68,0.8)] opacity-0 pointer-events-none transition-all duration-300"></div>
+
+        <!-- Floating HUD Tooltip bay sang bên trái khi Hover -->
+        <div class="taco-hud-tooltip absolute right-[108%] top-1/2 -translate-y-1/2 hidden group-hover:flex items-center gap-2 px-3 py-2 rounded-xl bg-[#090d14]/90 backdrop-blur-md border border-[#ef4444]/50 shadow-[0_0_25px_rgba(239,68,68,0.35)] whitespace-nowrap pointer-events-none z-30 animate-fade-in-left">
+          <div class="w-2 h-2 rounded-full bg-[#ef4444] animate-ping"></div>
+          <div class="flex flex-col text-left">
+            <span class="font-mono text-[11px] font-bold text-white tracking-wider flex items-center gap-1.5">
+              <span class="text-[#ef4444]">[O]</span> ORIGIN // SPATIAL 3D
+            </span>
+            <span class="font-mono text-[9px] text-white/50 tracking-widest uppercase">
+              Monolith "A" & Vector Stage
+            </span>
+          </div>
+          <span class="px-1.5 py-0.5 rounded bg-[#ef4444]/20 text-[#f87171] font-mono text-[8px] uppercase tracking-widest ml-1">
+            OPEN
+          </span>
+        </div>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- 2. NÚT DOCK THU GỌN (COMPACT DOCK PILL KHI THU NHỎ BIỂN BÁO)             -->
+  <!-- ========================================================================= -->
+  <button
+    type="button"
+    id="taco-dock-trigger"
+    class="pointer-events-auto fixed bottom-5 right-5 z-[115] hidden items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#090d14]/90 backdrop-blur-md border border-white/20 text-white font-mono text-xs tracking-wider shadow-[0_8px_32px_rgba(0,0,0,0.8)] hover:border-white/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+    aria-label="Expand TACO Signpost Menu"
+  >
+    <div class="flex items-center gap-1.5">
+      <span class="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
+      <span class="w-2 h-2 rounded-full bg-[#eab308]"></span>
+      <span class="w-2 h-2 rounded-full bg-[#f97316]"></span>
+      <span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+    </div>
+    <span class="font-['Syne'] font-bold tracking-widest text-[11px]">TACO MENU</span>
+    <span class="text-white/40 text-[10px]">▲</span>
+  </button>
+
+  <!-- ========================================================================= -->
+  <!-- 3. BẢNG GIAO DIỆN MENU TƯƠNG TÁC (INTERACTIVE TACO HUD DRAWER / MODAL)   -->
+  <!-- ========================================================================= -->
+  <div
+    id="taco-interactive-drawer"
+    class="fixed inset-0 z-[125] hidden opacity-0 transition-opacity duration-300 items-center justify-center p-4 sm:p-6 lg:p-10 pointer-events-none"
+    role="dialog"
+    aria-modal="true"
+    aria-label="ADOLSOFT TACO Interactive System Menu"
+  >
+    <!-- Phông nền tối mờ (Backdrop Blur) -->
+    <div id="taco-drawer-backdrop" class="absolute inset-0 bg-black/75 backdrop-blur-md cursor-pointer"></div>
+
+    <!-- Bảng điều khiển trung tâm (HUD Control Matrix) -->
+    <div
+      id="taco-drawer-panel"
+      class="relative z-10 w-full max-w-4xl max-h-[90vh] bg-[#090d14]/95 border border-white/15 rounded-3xl p-6 sm:p-8 flex flex-col shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden pointer-events-auto transform scale-95 transition-all duration-300"
+    >
+      <!-- Đường viền trang trí đa sắc công nghệ cao -->
+      <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#3b82f6] via-[#eab308] via-[#f97316] to-[#ef4444]"></div>
+
+      <!-- Tiêu đề Header -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-5 mb-5 flex-wrap gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#3b82f6]/30 via-[#eab308]/20 to-transparent border border-white/20 flex items-center justify-center font-mono font-bold text-xs text-[#c8ff00]">
+            A
+          </div>
+          <div>
+            <h2 class="font-['Syne'] font-extrabold text-xl text-white tracking-wide flex items-center gap-2">
+              ADOLSOFT // SPATIAL INTERACTIVE MENU
+              <span class="text-[10px] font-mono font-normal px-2 py-0.5 rounded bg-white/10 text-white/60">TACO SYSTEM</span>
+            </h2>
+            <p class="font-mono text-[10px] tracking-widest text-white/40 uppercase mt-0.5">
+              Giao diện điều khiển tương tác đa phân hệ // Real-Time Architecture
+            </p>
+          </div>
+        </div>
+
+        <!-- Nút đóng Drawer -->
+        <button
+          type="button"
+          id="taco-drawer-close"
+          class="px-3.5 py-1.5 rounded-lg border border-white/20 bg-white/5 hover:bg-white/15 text-white/70 hover:text-white font-mono text-xs tracking-wider uppercase transition-colors"
+        >
+          ✕ Close [ESC]
+        </button>
+      </div>
+
+      <!-- THANH CHUYỂN TAB ĐỒNG BỘ VỚI 4 HỘP BIỂN BÁO [T] - [A] - [C] - [O] -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+        <!-- Tab T -->
+        <button
+          type="button"
+          data-tab-target="t"
+          class="taco-tab-btn px-4 py-3 rounded-xl border border-[#3b82f6]/40 bg-[#3b82f6]/10 text-white font-mono text-xs flex flex-col items-start gap-1 transition-all hover:bg-[#3b82f6]/20 cursor-pointer text-left"
+        >
+          <div class="flex items-center justify-between w-full">
+            <span class="font-bold text-[#60a5fa] text-sm">[T] TELEMETRY</span>
+            <span class="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
+          </div>
+          <span class="text-[9.5px] text-white/50 tracking-wider">Tech & Shader Core</span>
+        </button>
+
+        <!-- Tab A -->
+        <button
+          type="button"
+          data-tab-target="a"
+          class="taco-tab-btn px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-white/70 font-mono text-xs flex flex-col items-start gap-1 transition-all hover:bg-white/[0.08] cursor-pointer text-left"
+        >
+          <div class="flex items-center justify-between w-full">
+            <span class="font-bold text-[#facc15] text-sm">[A] ARCHITECT</span>
+            <span class="w-2 h-2 rounded-full bg-[#eab308]"></span>
+          </div>
+          <span class="text-[9.5px] text-white/50 tracking-wider">Founder & Studio Labs</span>
+        </button>
+
+        <!-- Tab C -->
+        <button
+          type="button"
+          data-tab-target="c"
+          class="taco-tab-btn px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-white/70 font-mono text-xs flex flex-col items-start gap-1 transition-all hover:bg-white/[0.08] cursor-pointer text-left"
+        >
+          <div class="flex items-center justify-between w-full">
+            <span class="font-bold text-[#fb923c] text-sm">[C] CORE</span>
+            <span class="w-2 h-2 rounded-full bg-[#f97316]"></span>
+          </div>
+          <span class="text-[9.5px] text-white/50 tracking-wider">AI Print-Cut Nesting</span>
+        </button>
+
+        <!-- Tab O -->
+        <button
+          type="button"
+          data-tab-target="o"
+          class="taco-tab-btn px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-white/70 font-mono text-xs flex flex-col items-start gap-1 transition-all hover:bg-white/[0.08] cursor-pointer text-left"
+        >
+          <div class="flex items-center justify-between w-full">
+            <span class="font-bold text-[#f87171] text-sm">[O] ORIGIN</span>
+            <span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+          </div>
+          <span class="text-[9.5px] text-white/50 tracking-wider">Spatial 3D & Monolith</span>
+        </button>
+      </div>
+
+      <!-- NỘI DUNG TỪNG PHÂN HỆ (PLACEHOLDER GIAO DIỆN TƯƠNG TÁC SẴN SÀNG CHO DỮ LIỆU) -->
+      <div class="flex-1 overflow-y-auto pr-1 space-y-6">
+        <!-- ==================== TAB CONTENT: [T] TELEMETRY ==================== -->
+        <div id="taco-content-t" class="taco-tab-pane block space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col justify-between">
+              <span class="font-mono text-[10px] tracking-widest text-[#60a5fa] uppercase">WEBGL SHADER ENGINE</span>
+              <span class="font-['Syne'] font-extrabold text-2xl text-white my-2">Three.js 0.186</span>
+              <span class="font-mono text-[9.5px] text-white/40">Delta Prism Refraction // IOR 1.52</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col justify-between">
+              <span class="font-mono text-[10px] tracking-widest text-[#22c55e] uppercase">RENDER FPS // STABLE</span>
+              <span class="font-['Syne'] font-extrabold text-2xl text-white my-2">60.0 FPS</span>
+              <span class="font-mono text-[9.5px] text-white/40">Hardware Acceleration // GPU Active</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col justify-between">
+              <span class="font-mono text-[10px] tracking-widest text-[#c8ff00] uppercase">PIPELINE LATENCY</span>
+              <span class="font-['Syne'] font-extrabold text-2xl text-white my-2">14.2 ms</span>
+              <span class="font-mono text-[9.5px] text-white/40">Zero Frame Dropping Algorithm</span>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-[#3b82f6]/15 via-black to-black border border-[#3b82f6]/30">
+            <h4 class="font-['Syne'] font-bold text-base text-white mb-2 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#3b82f6]"></span>
+              Phân Hệ Giám Sát Kỹ Thuật (Telemetry Console)
+            </h4>
+            <p class="font-mono text-xs text-white/70 leading-relaxed mb-4">
+              Khu vực hiển thị thông số chẩn đoán thời gian thực, quản lý Quaternion ma trận góc quay 3D và tài nguyên bộ nhớ đồ họa. Dữ liệu chi tiết sẽ được kết nối theo yêu cầu của bạn.
+            </p>
+            <div class="flex items-center gap-3">
+              <button type="button" class="px-4 py-2 rounded-lg bg-[#3b82f6] hover:bg-[#2563eb] text-white font-mono text-xs font-bold uppercase transition-colors">
+                Kích hoạt Benchmark
+              </button>
+              <button type="button" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs uppercase transition-colors">
+                Xem Log Shaders
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== TAB CONTENT: [A] ARCHITECT ==================== -->
+        <div id="taco-content-a" class="taco-tab-pane hidden space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center p-5 rounded-2xl bg-gradient-to-r from-[#eab308]/15 via-black to-black border border-[#eab308]/30">
+            <div class="md:col-span-4 flex flex-col items-center text-center gap-3">
+              <div class="w-28 h-28 rounded-2xl bg-gradient-to-tr from-[#eab308] via-[#c8ff00] to-white/20 p-[2px]">
+                <div class="w-full h-full bg-[#090d14] rounded-2xl flex flex-col items-center justify-center p-3">
+                  <img src="/logo.png" alt="AdolSoft" class="w-16 h-16 object-contain" />
+                </div>
+              </div>
+              <div>
+                <h4 class="font-['Syne'] font-extrabold text-lg text-white">Lê Trường Duy</h4>
+                <p class="font-mono text-[10.5px] text-[#facc15] uppercase tracking-wider">Founder & AI Solution Architect</p>
+              </div>
+            </div>
+
+            <div class="md:col-span-8 flex flex-col gap-3">
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#eab308]/20 text-[#facc15] font-mono text-[10px] tracking-widest uppercase w-max">
+                ★ TOP 250 AI YOUNG GURU TOÀN QUỐC
+              </span>
+              <p class="font-mono text-xs text-white/80 leading-relaxed">
+                Định hướng kiến trúc AI ứng dụng thực chiến trong sản xuất in ấn công nghiệp, tự động hóa Nesting bản vẽ CAD/CAM và phát triển engine đồ họa không gian 3D tương tác.
+              </p>
+              <div class="flex flex-wrap gap-2 pt-2">
+                <a href="tel:0559879392" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-colors">
+                  📞 0559.879.392
+                </a>
+                <a href="mailto:duy@adolsoft.com" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-colors">
+                  ✉ duy@adolsoft.com
+                </a>
+                <a href="https://zalo.me/0559879392" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg bg-[#eab308] hover:bg-[#ca8a04] text-black font-mono text-xs font-bold transition-colors">
+                  Zalo Trực Tiếp ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== TAB CONTENT: [C] CORE ==================== -->
+        <div id="taco-content-c" class="taco-tab-pane hidden space-y-4">
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-[#f97316]/15 via-black to-black border border-[#f97316]/30">
+            <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <h4 class="font-['Syne'] font-extrabold text-lg text-white flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#f97316]"></span>
+                AI PRINT-CUT // GIẢI PHÁP LÕI SỐ 1
+              </h4>
+              <span class="px-2.5 py-1 rounded bg-[#f97316]/20 text-[#fb923c] font-mono text-[10px] tracking-widest uppercase">
+                TỐC ĐỘ 14.2 GIÂY
+              </span>
+            </div>
+            <p class="font-mono text-xs text-white/80 leading-relaxed mb-4">
+              Hệ thống tự động hóa dàn trang in ấn & cắt bế tem nhãn Decal. Sử dụng giải thuật di truyền Genetic Optimization giúp tiết kiệm 10% – 15% vật tư cuộn và giải phóng 90% thời gian xử lý thủ công của Kỹ thuật viên.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs text-white/70">
+              <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <span class="text-[#fb923c] block text-[10px] mb-1">TIẾT KIỆM DECAL</span>
+                <span class="font-bold text-white text-sm">12.5% - 15.0%</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <span class="text-[#fb923c] block text-[10px] mb-1">THU HỒI VỐN ROI</span>
+                <span class="font-bold text-white text-sm">Chỉ 1.5 tháng</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <span class="text-[#fb923c] block text-[10px] mb-1">ĐỊNH DẠNG MÁY CẮT</span>
+                <span class="font-bold text-white text-sm">PDF / DXF / PLT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== TAB CONTENT: [O] ORIGIN ==================== -->
+        <div id="taco-content-o" class="taco-tab-pane hidden space-y-4">
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-[#ef4444]/15 via-black to-black border border-[#ef4444]/30">
+            <h4 class="font-['Syne'] font-extrabold text-lg text-white mb-2 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+              ORIGIN // BẢN NGUYÊN KHÔNG GIAN 3D
+            </h4>
+            <p class="font-mono text-xs text-white/80 leading-relaxed mb-4">
+              Khối Monolith chữ "A" đa diện kết hợp hiệu ứng khúc xạ thủy tinh lỏng (Liquid Glass Dispersion), vòng lặp vô cực biểu tượng cho sự sáng tạo vô hạn của AdolSoft trong kỷ nguyên điện toán không gian (Spatial Computing).
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <button
+                type="button"
+                id="taco-reset-stage-btn"
+                class="px-4 py-2 rounded-lg bg-[#ef4444] hover:bg-[#dc2626] text-white font-mono text-xs font-bold uppercase transition-colors"
+              >
+                Reset Góc Nhìn Sân Khấu
+              </button>
+              <button
+                type="button"
+                id="taco-replay-preloader-btn"
+                class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs uppercase transition-colors"
+              >
+                Xem Lại Hoạt Ảnh Vô Cực 2 Cánh Tay
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Điều Hướng Nhanh -->
+      <div class="border-t border-white/10 pt-4 mt-6 flex items-center justify-between text-white/40 font-mono text-[10.5px]">
+        <span>HỆ THỐNG MENU TƯƠNG TÁC TACO // ADOLSOFT 2026</span>
+        <span class="text-[#c8ff00]">NHẤN PHÍM [ESC] HOẶC BẤM RA NGOÀI ĐỂ ĐÓNG</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #signpost-graphic-wrapper {
+    transform-origin: bottom center;
+    transition: transform 0.3s ease-out;
+  }
+
+  #signpost-graphic-wrapper:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Hiệu ứng khi rê chuột vào biển báo */
+  .taco-sign-hotspot:hover {
+    transform: scale(1.03);
+    z-index: 25;
+  }
+
+  /* Hiệu ứng Active cho từng hộp đèn */
+  .taco-sign-hotspot.is-active .taco-active-indicator {
+    opacity: 1 !important;
+  }
+
+  /* Hiệu ứng thở / nhấp nháy đèn LED nhẹ tự nhiên (Organic LED Glow Flicker) */
+  @keyframes ledPulseT {
+    0%, 100% { opacity: 0.25; filter: blur(7px) drop-shadow(0 0 6px rgba(59, 130, 246, 0.4)); }
+    50% { opacity: 0.65; filter: blur(10px) drop-shadow(0 0 16px rgba(59, 130, 246, 0.8)); }
+  }
+
+  @keyframes ledPulseA {
+    0%, 100% { opacity: 0.25; filter: blur(7px) drop-shadow(0 0 6px rgba(234, 179, 8, 0.4)); }
+    50% { opacity: 0.65; filter: blur(10px) drop-shadow(0 0 16px rgba(234, 179, 8, 0.8)); }
+  }
+
+  @keyframes ledPulseC {
+    0%, 100% { opacity: 0.25; filter: blur(7px) drop-shadow(0 0 6px rgba(249, 115, 22, 0.4)); }
+    50% { opacity: 0.65; filter: blur(10px) drop-shadow(0 0 16px rgba(249, 115, 22, 0.8)); }
+  }
+
+  @keyframes ledPulseO {
+    0%, 100% { opacity: 0.25; filter: blur(7px) drop-shadow(0 0 6px rgba(239, 68, 68, 0.4)); }
+    50% { opacity: 0.65; filter: blur(10px) drop-shadow(0 0 16px rgba(239, 68, 68, 0.8)); }
+  }
+
+  .taco-flicker-t {
+    animation: ledPulseT 3.6s ease-in-out infinite;
+  }
+
+  .taco-flicker-a {
+    animation: ledPulseA 4.2s ease-in-out infinite 0.7s;
+  }
+
+  .taco-flicker-c {
+    animation: ledPulseC 3.8s ease-in-out infinite 1.4s;
+  }
+
+  .taco-flicker-o {
+    animation: ledPulseO 4.6s ease-in-out infinite 2.1s;
+  }
+
+  /* Scanline quét nhẹ qua đèn LED */
+  .taco-sign-hotspot::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 14px;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.4) 51%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  /* Tooltip xuất hiện mượt mà */
+  @keyframes fadeInLeftTooltip {
+    from {
+      opacity: 0;
+      transform: translate(12px, -50%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0, -50%);
+    }
+  }
+
+  .animate-fade-in-left {
+    animation: fadeInLeftTooltip 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Trạng thái thu nhỏ cột */
+  #signpost-menu-totem.is-minimized,
+  #signpost-menu-totem.is-scrolled-hidden {
+    transform: translateY(125%) scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Trạng thái mở Drawer */
+  #taco-interactive-drawer.is-open {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  #taco-interactive-drawer.is-open #taco-drawer-panel {
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  // =========================================================================
+  // LOGIC ĐIỀU KHIỂN HỆ THỐNG MENU TƯƠNG TÁC TACO
+  // =========================================================================
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Khởi tạo Web Audio API tổng hợp âm thanh Sci-Fi Click (Zero Audio Files)
+    let audioCtx: AudioContext | null = null;
+    let sfxEnabled = true;
+
+    function getAudioContext(): AudioContext | null {
+      if (!sfxEnabled) return null;
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSciFiChirp(freq = 640, type: OscillatorType = 'sine', duration = 0.06) {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + duration);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playConfirmSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(520, ctx.currentTime);
+        osc.frequency.setValueAtTime(780, ctx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.16);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.16);
+      } catch (e) {}
+    }
+
+    // 2. Tham chiếu các phần tử DOM
+    const totem = document.getElementById('signpost-menu-totem');
+    const dockTrigger = document.getElementById('taco-dock-trigger');
+    const minimizeBtn = document.getElementById('taco-minimize-btn');
+    const sfxToggle = document.getElementById('taco-sfx-toggle');
+    const sfxIcon = document.getElementById('taco-sfx-icon');
+
+    const drawer = document.getElementById('taco-interactive-drawer');
+    const drawerBackdrop = document.getElementById('taco-drawer-backdrop');
+    const drawerClose = document.getElementById('taco-drawer-close');
+
+    const signButtons = document.querySelectorAll<HTMLButtonElement>('.taco-sign-hotspot');
+    const tabButtons = document.querySelectorAll<HTMLButtonElement>('.taco-tab-btn');
+    const tabPanes = document.querySelectorAll<HTMLElement>('.taco-tab-pane');
+
+    // 3. Xử lý âm thanh tương tác Hover trên từng hộp biển báo
+    const freqs: Record<string, number> = { t: 880, a: 660, c: 550, o: 440 };
+
+    signButtons.forEach((btn) => {
+      const key = btn.dataset.menuKey || 't';
+
+      btn.addEventListener('mouseenter', () => {
+        playSciFiChirp(freqs[key] || 600, 'sine', 0.05);
+      });
+
+      btn.addEventListener('click', () => {
+        playConfirmSound();
+        activateMenuKey(key, true);
+      });
+    });
+
+    // 4. Kích hoạt phân hệ tương tác (Mở Drawer & Chuyển Tab)
+    function activateMenuKey(key: string, openModal = true) {
+      // Đánh dấu active trên hộp đèn biển báo
+      signButtons.forEach((b) => {
+        if (b.dataset.menuKey === key) {
+          b.classList.add('is-active');
+        } else {
+          b.classList.remove('is-active');
+        }
+      });
+
+      // Cập nhật giao diện tab trong Drawer
+      const colorBorders: Record<string, string> = {
+        t: 'border-[#3b82f6]/50 bg-[#3b82f6]/15',
+        a: 'border-[#eab308]/50 bg-[#eab308]/15',
+        c: 'border-[#f97316]/50 bg-[#f97316]/15',
+        o: 'border-[#ef4444]/50 bg-[#ef4444]/15'
+      };
+
+      tabButtons.forEach((t) => {
+        const tKey = t.dataset.tabTarget;
+        if (tKey === key) {
+          t.className = `taco-tab-btn px-4 py-3 rounded-xl border ${colorBorders[key]} text-white font-mono text-xs flex flex-col items-start gap-1 transition-all cursor-pointer text-left shadow-lg`;
+        } else {
+          t.className = `taco-tab-btn px-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-white/70 font-mono text-xs flex flex-col items-start gap-1 transition-all hover:bg-white/[0.08] cursor-pointer text-left`;
+        }
+      });
+
+      // Hiển thị nội dung pane tương ứng
+      tabPanes.forEach((pane) => {
+        if (pane.id === `taco-content-${key}`) {
+          pane.classList.remove('hidden');
+          pane.classList.add('block');
+        } else {
+          pane.classList.remove('block');
+          pane.classList.add('hidden');
+        }
+      });
+
+      // Mở modal nếu cần
+      if (openModal && drawer) {
+        drawer.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    // 5. Chuyển Tab ngay trong Drawer
+    tabButtons.forEach((tBtn) => {
+      tBtn.addEventListener('click', () => {
+        const key = tBtn.dataset.tabTarget || 't';
+        playSciFiChirp(freqs[key] || 600, 'triangle', 0.07);
+        activateMenuKey(key, false);
+      });
+    });
+
+    // 6. Đóng Drawer
+    function closeDrawer() {
+      if (drawer) {
+        drawer.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+    if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+
+    // 7. Thu nhỏ / Mở rộng Cột Biển Báo
+    if (minimizeBtn) {
+      minimizeBtn.addEventListener('click', () => {
+        playSciFiChirp(400, 'sine', 0.08);
+        if (totem) totem.classList.add('is-minimized');
+        if (dockTrigger) {
+          dockTrigger.classList.remove('hidden');
+          dockTrigger.classList.add('flex');
+        }
+      });
+    }
+
+    if (dockTrigger) {
+      dockTrigger.addEventListener('click', () => {
+        playConfirmSound();
+        if (dockTrigger) {
+          dockTrigger.classList.remove('flex');
+          dockTrigger.classList.add('hidden');
+        }
+        if (totem) totem.classList.remove('is-minimized');
+      });
+    }
+
+    // 8. Bật/Tắt âm thanh SFX
+    if (sfxToggle && sfxIcon) {
+      sfxToggle.addEventListener('click', () => {
+        sfxEnabled = !sfxEnabled;
+        sfxIcon.textContent = sfxEnabled ? '🔊' : '🔇';
+        if (sfxEnabled) playSciFiChirp(700, 'sine', 0.05);
+      });
+    }
+
+    // 9. Nút Reset Stage & Replay Preloader trong tab [O]
+    const resetStageBtn = document.getElementById('taco-reset-stage-btn');
+    if (resetStageBtn) {
+      resetStageBtn.addEventListener('click', () => {
+        closeDrawer();
+        const resetGizmo = document.getElementById('reset-quaternion-btn');
+        if (resetGizmo) resetGizmo.click();
+      });
+    }
+
+    const replayBtn = document.getElementById('taco-replay-preloader-btn');
+    if (replayBtn) {
+      replayBtn.addEventListener('click', () => {
+        closeDrawer();
+        const preloader = document.getElementById('cad-preloader');
+        if (preloader) {
+          preloader.classList.remove('loaded');
+          const dualHandContainer = document.getElementById('dual-hand-nexus-container');
+          if (dualHandContainer) dualHandContainer.click();
+        }
+      });
+    }
+
+    // 10. KHI KÉO XUỐNG CÁC THẺ (DOMAIN CARDS / SCROLL STAGE) -> MENU BIỂN BÁO TỰ ĐỘNG THỤT XUỐNG BIẾN MẤT
+    let isHiddenByScroll = false;
+    function checkScrollHide() {
+      // Khi scroll ra khỏi hero (tiến vào vùng các thẻ card ở p >= 0.08 hoặc scrollY > 200px)
+      const scrollTrack = document.getElementById('scroll-story-track');
+      let scrollProgress = 0;
+      if (scrollTrack) {
+        const totalHeight = document.body.scrollHeight - window.innerHeight;
+        if (totalHeight > 0) {
+          scrollProgress = window.scrollY / totalHeight;
+        }
+      }
+
+      const shouldHide = scrollProgress >= 0.06 || window.scrollY > 250;
+
+      if (shouldHide && !isHiddenByScroll) {
+        isHiddenByScroll = true;
+        if (totem && !totem.classList.contains('is-minimized')) {
+          totem.classList.add('is-scrolled-hidden');
+        }
+        if (dockTrigger && !totem?.classList.contains('is-minimized')) {
+          dockTrigger.classList.remove('hidden');
+          dockTrigger.classList.add('flex');
+        }
+      } else if (!shouldHide && isHiddenByScroll) {
+        isHiddenByScroll = false;
+        if (totem && !totem.classList.contains('is-minimized')) {
+          totem.classList.remove('is-scrolled-hidden');
+        }
+        if (dockTrigger && !totem?.classList.contains('is-minimized')) {
+          dockTrigger.classList.remove('flex');
+          dockTrigger.classList.add('hidden');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', checkScrollHide, { passive: true });
+    window.addEventListener('stage-scroll-update', (e: any) => {
+      const p = e.detail?.progress ?? 0;
+      const shouldHide = p >= 0.05;
+      if (shouldHide && !isHiddenByScroll) {
+        isHiddenByScroll = true;
+        if (totem && !totem.classList.contains('is-minimized')) {
+          totem.classList.add('is-scrolled-hidden');
+        }
+        if (dockTrigger && !totem?.classList.contains('is-minimized')) {
+          dockTrigger.classList.remove('hidden');
+          dockTrigger.classList.add('flex');
+        }
+      } else if (!shouldHide && isHiddenByScroll) {
+        isHiddenByScroll = false;
+        if (totem && !totem.classList.contains('is-minimized')) {
+          totem.classList.remove('is-scrolled-hidden');
+        }
+        if (dockTrigger && !totem?.classList.contains('is-minimized')) {
+          dockTrigger.classList.remove('flex');
+          dockTrigger.classList.add('hidden');
+        }
+      }
+    });
+  });
+</script>
+

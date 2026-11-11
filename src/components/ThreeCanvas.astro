@@ -105,114 +105,12 @@
   </div>
 </div>
 
-<!-- PHẦN 2.3: CỤM THANH ĐÁY MÀN HÌNH (6 KHỐI TRẮNG - ĐỎ - ĐỎ - ĐỎ - XANH DƯƠNG - XANH LÁ) -->
-<div class="fixed bottom-2 sm:bottom-2.5 md:bottom-3 left-0 right-0 flex justify-center pointer-events-auto select-none z-[40] px-4">
+<!-- PHẦN 2.3: CỤM THANH ĐÁY MÀN HÌNH (6 KHỐI THƯ MỤC KÍNH MỜ 3D CHỨA TÀI LIỆU) -->
+<div class="fixed bottom-3 sm:bottom-4 md:bottom-5 left-0 right-0 flex justify-center pointer-events-auto select-none z-[40] px-4">
   <div
     id="bottom-cluster-hud"
-    class="flex items-center justify-center gap-2 sm:gap-2.5 md:gap-3 max-w-[96vw] opacity-0 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hidden"
+    class="flex items-end justify-center gap-2.5 sm:gap-3 md:gap-3.5 max-w-[96vw] opacity-0 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hidden"
   >
-    <!-- Ô 1 (Trắng): Nút CTA chính Blueprint -->
-    <button
-      type="button"
-      class="sat-tag sat-tag-white hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex items-center justify-center cursor-pointer relative"
-      data-speed="0.95"
-      data-hud-action="blueprint"
-      title="Khám phá chi tiết Blueprint"
-    >
-      <div class="template-gloss"></div>
-      <div class="flex items-center justify-center gap-1.5 font-['Syne'] font-extrabold text-[11px] sm:text-xs tracking-wider uppercase">
-        <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
-        <span>BLUEPRINT ↗</span>
-      </div>
-    </button>
-
-    <!-- Ô 2 (Đỏ): USB Installer -->
-    <button
-      type="button"
-      class="sat-tag sat-tag-red hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
-      data-speed="0.80"
-      data-hud-action="blueprint"
-      title="USB Installer Live ISO"
-    >
-      <div class="template-gloss"></div>
-      <span class="font-mono text-[8px] text-[#ef233c] tracking-widest uppercase font-bold">INSTALLER</span>
-      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-white tracking-wide">LIVE USB</span>
-    </button>
-
-    <!-- Ô 3 (Đỏ): Kernel Patch -->
-    <button
-      type="button"
-      class="sat-tag sat-tag-red hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
-      data-speed="0.70"
-      data-hud-action="blueprint"
-      title="Kernel RT Patch"
-    >
-      <div class="template-gloss"></div>
-      <span class="font-mono text-[8px] text-[#ef233c] tracking-widest uppercase font-bold">KERNEL</span>
-      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-white tracking-wide">RT PATCH</span>
-    </button>
-
-    <!-- Ô 4 (Đỏ): Auto Nesting -->
-    <button
-      type="button"
-      class="sat-tag sat-tag-red hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
-      data-speed="0.60"
-      data-hud-action="blueprint"
-      title="Genetic Auto-Nesting Engine"
-    >
-      <div class="template-gloss"></div>
-      <span class="font-mono text-[8px] text-[#ef233c] tracking-widest uppercase font-bold">NESTING</span>
-      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-white tracking-wide">AUTO GA</span>
-    </button>
-
-    <!-- Ô 5 (Xanh dương): MQTT Bus -->
-    <button
-      type="button"
-      class="sat-tag sat-tag-blue hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
-      data-speed="0.85"
-      data-hud-action="blueprint"
-      title="Cloudless MQTT Local Bus"
-    >
-      <div class="template-gloss"></div>
-      <span class="font-mono text-[8px] text-[#0070f3] tracking-widest uppercase font-bold">NETWORK</span>
-      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-white tracking-wide">MQTT BUS</span>
-    </button>
-
-    <!-- Ô 6 (Xanh lá): Real-Time OEE -->
-    <button
-      type="button"
-      class="sat-tag sat-tag-green hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
-      data-speed="0.75"
-      data-hud-action="blueprint"
-      title="Live OEE 99.4% Machine Analytics"
-    >
-      <div class="template-gloss"></div>
-      <span class="font-mono text-[8px] text-[#22c55e] tracking-widest uppercase font-bold">ANALYTICS</span>
-      <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] text-[#22c55e] tracking-wide">OEE 99.4%</span>
-    </button>
-  </div>
-</div>
-
-<!-- LAYER 5: BOTTOM-RIGHT EXCLUSIVE ZONE (Hero Phase News Stream) -->
-<div class="fixed bottom-8 right-6 md:bottom-10 md:right-10 z-[110] pointer-events-auto flex flex-col items-end">
-  <!-- Hero Phase News Stream (During Hero p < 0.18) -->
-  <div id="hero-news-stream" class="liquid-glass-balanced flex flex-col items-end gap-2.5 p-4 rounded-xl transition-all duration-500 max-w-sm text-right">
-    <div class="font-mono text-[10px] tracking-[0.22em] text-[#c8ff00] uppercase border-b border-white/15 pb-1 w-full text-left flex justify-between">
-      <span>TELEMETRY // NEWS</span>
-      <span class="text-white/40">LIVE</span>
-    </div>
-    <button type="button" data-open-drawer="founder-architect" class="text-left group w-full cursor-pointer">
-      <span class="font-mono text-[9.5px] text-white/45 block">2026.10 // PRODUCTION RELEASE</span>
-      <span class="text-xs text-white/85 group-hover:text-[#c8ff00] transition-colors block">
-        AI Print-Cut đạt tốc độ Nesting 14.2s — Tiết kiệm 12.5% Decal ↗
-      </span>
-    </button>
-    <button type="button" data-open-drawer="founder-architect" class="text-left group w-full cursor-pointer">
-      <span class="font-mono text-[9.5px] text-white/45 block">2026.08 // NATIONAL RECOGNITION</span>
-      <span class="text-xs text-white/85 group-hover:text-[#c8ff00] transition-colors block">
-        Founder Lê Trường Duy — Top 250 AI Young Guru Toàn Quốc ↗
-      </span>
-    </button>
   </div>
 </div>
 
@@ -2086,38 +1984,79 @@
         }).join('');
       }
 
-      // Render 6 Vệ tinh cụm Chân đáy riêng biệt
+      // Render 6 Vệ tinh cụm Chân đáy dạng THƯ MỤC KÍNH MỜ 3D CHỨA TÀI LIỆU
       if (bottomClusterHud) {
-        bottomClusterHud.innerHTML = d.bottom.map((item) => {
+        const materialTag = `
+          <div class="hidden 2xl:flex items-center gap-2.5 px-3.5 h-12 sm:h-13 md:h-14 lg:h-15 rounded-xl bg-[#1c1f26]/85 border border-white/10 font-mono text-[11px] text-white/60 shadow-[0_8px_20px_rgba(0,0,0,0.6)] backdrop-blur-md self-end mb-0.5 select-none shrink-0 pointer-events-none">
+            <span class="tracking-wider">MainLogo Material</span>
+            <span class="text-white/40 font-bold">=</span>
+          </div>
+        `;
+
+        const cardsHtml = d.bottom.map((item) => {
           if (item.isCta) {
             return `
               <button
                 type="button"
-                class="sat-tag sat-tag-white hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex items-center justify-center cursor-pointer relative"
+                class="folder-3d-card folder-accent-white hud-interactive-tag w-22 sm:w-26 md:w-30 lg:w-34 xl:w-36 h-12 sm:h-13 md:h-14 lg:h-15 relative"
                 data-hud-action="blueprint"
                 title="Khám phá chi tiết Blueprint"
               >
-                <div class="template-gloss"></div>
-                <div class="flex items-center justify-center gap-1.5 font-['Syne'] font-extrabold text-[11px] sm:text-xs tracking-wider uppercase">
-                  <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
-                  <span>${item.title}</span>
+                <!-- Trang tài liệu sau xòe nhẹ -->
+                <div class="folder-doc-paper-back"></div>
+                <!-- Trang tài liệu trước nhô lên miệng túi -->
+                <div class="folder-doc-paper">
+                  <div class="folder-doc-lines">
+                    <div class="folder-doc-line"></div>
+                    <div class="folder-doc-line"></div>
+                    <div class="folder-doc-line"></div>
+                  </div>
+                </div>
+                <!-- Tab tai thỏ hồ sơ -->
+                <div class="folder-tab-badge"></div>
+                <!-- Thân túi kính 3D màu trắng phong cách Blueprint với lỗ định vị kỹ thuật -->
+                <div class="folder-pocket-body !flex-row items-center justify-center gap-2 !px-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-black/90 shrink-0"></span>
+                  <div class="flex flex-col items-center leading-none">
+                    <span class="font-['Syne'] font-extrabold text-[11px] sm:text-[12px] text-black tracking-wider uppercase">BLUEPRINT</span>
+                    <span class="font-mono text-[9px] text-black/80 font-bold mt-0.5">↗</span>
+                  </div>
                 </div>
               </button>
             `;
           }
+          const colorClass = item.type === 'red' ? 'folder-accent-red' : item.type === 'blue' ? 'folder-accent-blue' : 'folder-accent-green';
+          const tagColor = item.type === 'red' ? '#ef233c' : item.type === 'blue' ? '#0070f3' : '#22c55e';
+
           return `
             <button
               type="button"
-              class="sat-tag sat-tag-${item.type} hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-11 sm:h-12 md:h-13 lg:h-14 px-2 py-1 flex flex-col items-center justify-center text-center cursor-pointer relative"
+              class="folder-3d-card ${colorClass} hud-interactive-tag w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-12 sm:h-13 md:h-14 lg:h-15 relative"
               data-hud-action="blueprint"
               title="${item.desc || item.title}"
             >
-              <div class="template-gloss"></div>
-              <span class="font-mono text-[8px] tracking-widest uppercase font-bold" style="color: ${item.type === 'red' ? '#ef233c' : item.type === 'blue' ? '#0070f3' : '#22c55e'}">${item.tag}</span>
-              <span class="font-['Syne'] font-bold text-[10.5px] sm:text-[11px] ${item.type === 'green' ? 'text-[#22c55e]' : 'text-white'} tracking-wide">${item.title}</span>
+              <!-- Trang tài liệu sau xòe nhẹ -->
+              <div class="folder-doc-paper-back"></div>
+              <!-- Trang tài liệu trước nhô lên miệng túi có dòng kẻ kỹ thuật -->
+              <div class="folder-doc-paper">
+                <div class="folder-doc-lines">
+                  <div class="folder-doc-line"></div>
+                  <div class="folder-doc-line"></div>
+                  <div class="folder-doc-line"></div>
+                </div>
+              </div>
+              <!-- Tab tai thỏ hồ sơ -->
+              <div class="folder-tab-badge"></div>
+              <!-- Thân túi kính mờ 3D -->
+              <div class="folder-pocket-body">
+                <span class="font-mono text-[7.5px] sm:text-[8px] tracking-widest uppercase font-bold truncate max-w-full" style="color: ${tagColor}">${item.tag}</span>
+                <span class="font-['Syne'] font-extrabold text-[10px] sm:text-[11px] ${item.type === 'green' ? 'text-[#22c55e]' : 'text-white'} tracking-wide truncate max-w-full mt-0.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">${item.title}</span>
+              </div>
             </button>
           `;
         }).join('');
+
+        bottomClusterHud.innerHTML = materialTag + cardsHtml;
       }
     }
 
@@ -2399,7 +2338,7 @@
     // Fallback an toàn nếu trang tải lại hoặc không có preloader
     setTimeout(() => {
       if (!heroEntrancePlayed) playHeroEntrance();
-    }, 2800);
+    }, 4500);
 
     // ============================================================================
     // 6. MASTER LENIS + GSAP SCROLLTRIGGER TIMELINE
@@ -2424,7 +2363,6 @@
 
     const ghostLayer = document.getElementById('optical-ghost-layer');
     const ghostWord = document.getElementById('ghost-brand-word');
-    const heroNewsStream = document.getElementById('hero-news-stream');
     const navScrollBar = document.getElementById('nav-scroll-bar');
     const navScrollPct = document.getElementById('nav-scroll-pct');
     let lastScrollPct = -1;
@@ -2477,7 +2415,6 @@
         if (inVaultPhase !== lastVaultPhase) {
           lastVaultPhase = inVaultPhase;
           if (inVaultPhase) {
-            heroNewsStream?.classList.add('hidden');
             renderDomainSatellites(currentDomainIndex);
             headerOverlayHud?.classList.remove('hidden');
             leftClusterHud?.classList.remove('hidden');
@@ -2492,7 +2429,6 @@
               stagger: 0.04
             });
           } else {
-            heroNewsStream?.classList.remove('hidden');
             gsap.to([headerOverlayHud, leftClusterHud, rightClusterHud, bottomClusterHud], {
               opacity: 0,
               duration: 0.25,
@@ -2512,9 +2448,6 @@
         // PHASE 2: 6 CURVED DOMAIN CARDS ORBIT
         if (!inVaultPhase) {
           cardsGroup.position.y = THREE.MathUtils.lerp(-11.0, -0.42, p / 0.18);
-          if (heroNewsStream) {
-            heroNewsStream.style.opacity = String(THREE.MathUtils.clamp(1.0 - p * 5.0, 0, 1));
-          }
         } else {
           cardsGroup.position.y = -0.42;
           const worksProgress = THREE.MathUtils.clamp((p - 0.18) / 0.76, 0, 1);
@@ -2626,6 +2559,9 @@
 
     lenis.on('scroll', (e: { velocity?: number }) => {
       scrollState.scrollVelocity = THREE.MathUtils.clamp(e.velocity || 0, -25, 25);
+      
+      // Dispatch custom event for HUD widgets like TACO Signpost
+      window.dispatchEvent(new CustomEvent('stage-scroll-update', { detail: { progress: scrollState.progress } }));
       
       // Khi bắt đầu chuyển động trong vùng xem thẻ, ẩn vệ tinh
       if (scrollState.progress >= 0.16 && Math.abs(scrollState.scrollVelocity) > 0.08) {

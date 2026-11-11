@@ -826,6 +826,174 @@ html.lenis, html.lenis body {
     0 14px 30px rgba(0, 0, 0, 0.95);
 }
 
+/* ========================================================================= */
+/* GLASSMORPHIC 3D FOLDER UI (6 Thành phần chân đáy dạng Thư mục chứa tài liệu) */
+/* ========================================================================= */
+.folder-3d-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 14px;
+  background: transparent;
+  user-select: none;
+  cursor: pointer;
+  perspective: 800px;
+  overflow: visible; /* Cho tài liệu nhô lên miệng túi */
+}
+
+/* 1. Các trang tài liệu kỹ thuật lấp ló nhô lên ở miệng thư mục */
+.folder-doc-paper {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 38px;
+  top: -10px;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(200, 215, 235, 0.12) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  z-index: 1;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), top 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Trang giấy thứ 2 chìm phía sau tạo chiều sâu tập tài liệu */
+.folder-doc-paper-back {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  height: 34px;
+  top: -15px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(160, 180, 210, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 0;
+  transform: rotate(-1.8deg);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), top 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Các dòng kẻ mờ trên tài liệu kỹ thuật */
+.folder-doc-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+  padding: 5px 8px 0 8px;
+}
+.folder-doc-line {
+  height: 2px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.folder-doc-line:nth-child(1) { width: 55%; background: rgba(200, 255, 0, 0.6); }
+.folder-doc-line:nth-child(2) { width: 75%; }
+.folder-doc-line:nth-child(3) { width: 45%; }
+
+/* 2. Thân túi thư mục kính mờ 3D (Frosted Glass Front Pocket) */
+.folder-pocket-body {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 13px;
+  background: linear-gradient(175deg, rgba(22, 28, 42, 0.88) 0%, rgba(8, 11, 18, 0.96) 100%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+  border-right: 1px solid rgba(255, 255, 255, 0.22);
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.8);
+  box-shadow: 
+    0 12px 28px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.45),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.8);
+  transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 8px;
+}
+
+/* Tab tai thỏ cắt góc hồ sơ kỹ thuật (Folder Tab Accent) */
+.folder-tab-badge {
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  height: 8px;
+  width: 32px;
+  border-radius: 4px 4px 0 0;
+  background: rgba(255, 255, 255, 0.22);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 2;
+}
+
+/* 3. Màu sắc chủ đạo & viền phát sáng (Glow Accent) */
+.folder-accent-red .folder-tab-badge { background: rgba(239, 35, 60, 0.4); border-top-color: #ef233c; }
+.folder-accent-red .folder-pocket-body {
+  border: 1.5px solid #ef233c;
+  box-shadow: 0 0 16px rgba(239, 35, 60, 0.4), 0 12px 28px rgba(0, 0, 0, 0.85);
+}
+.folder-accent-red:hover .folder-pocket-body {
+  border-color: #ff4b60;
+  box-shadow: 0 0 28px rgba(239, 35, 60, 0.75), 0 14px 32px rgba(0, 0, 0, 0.95), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.folder-accent-blue .folder-tab-badge { background: rgba(0, 112, 243, 0.4); border-top-color: #0070f3; }
+.folder-accent-blue .folder-pocket-body {
+  border: 1.5px solid #0070f3;
+  box-shadow: 0 0 16px rgba(0, 112, 243, 0.4), 0 12px 28px rgba(0, 0, 0, 0.85);
+}
+.folder-accent-blue:hover .folder-pocket-body {
+  border-color: #3291ff;
+  box-shadow: 0 0 28px rgba(0, 112, 243, 0.75), 0 14px 32px rgba(0, 0, 0, 0.95), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.folder-accent-green .folder-tab-badge { background: rgba(34, 197, 94, 0.4); border-top-color: #22c55e; }
+.folder-accent-green .folder-pocket-body {
+  border: 1.5px solid #22c55e;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.4), 0 12px 28px rgba(0, 0, 0, 0.85);
+}
+.folder-accent-green:hover .folder-pocket-body {
+  border-color: #4ade80;
+  box-shadow: 0 0 28px rgba(34, 197, 94, 0.75), 0 14px 32px rgba(0, 0, 0, 0.95), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.folder-accent-white .folder-tab-badge { background: rgba(255, 255, 255, 0.7); border-top-color: #ffffff; }
+.folder-accent-white .folder-pocket-body {
+  background: #ffffff;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.6), 0 12px 28px rgba(0, 0, 0, 0.85);
+  color: #000000;
+}
+.folder-accent-white:hover .folder-pocket-body {
+  background: #f4f4f5;
+  border-color: #c8ff00;
+  box-shadow: 0 0 32px rgba(200, 255, 0, 0.7), 0 14px 32px rgba(0, 0, 0, 0.95);
+}
+
+/* 4. Hiệu ứng Micro-interactions khi rê chuột (Hover) */
+.folder-3d-card:hover {
+  transform: translateY(-5px);
+}
+.folder-3d-card:hover .folder-doc-paper {
+  top: -20px; /* Tài liệu nhô cao hơn khi hover */
+  transform: scale(1.02);
+  filter: brightness(1.2);
+}
+.folder-3d-card:hover .folder-doc-paper-back {
+  top: -26px; /* Trang sau nhô cao xòe nhẹ ra */
+  transform: rotate(-3.5deg) scale(1.01);
+}
+
 /* Backward compatibility for bottom row tags */
 .sat-tag {
   position: relative;
@@ -908,6 +1076,254 @@ html.lenis, html.lenis body {
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
 }
+
+/* ========================================================================= */
+/* DUAL-ARM NEXUS ANIMATION (2 CÁNH TAY HỘI TỤ ĐƯA LOGO VÀO TÂM)            */
+/* ========================================================================= */
+@keyframes dualArmFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes nexusAuraPulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+.dual-arm-floating {
+  animation: dualArmFloat 4.2s ease-in-out infinite;
+}
+
+.nexus-aura-pulse {
+  animation: nexusAuraPulse 3.2s ease-in-out infinite;
+}
+
+#dual-hand-nexus-container:hover #hand-center-logo {
+  filter: drop-shadow(0 0 35px #22c55e) drop-shadow(0 0 65px #c8ff00) brightness(1.3);
+  transform: scale(1.06) !important;
+}
+
+#dual-hand-nexus-container:hover #hand-left-arm,
+#dual-hand-nexus-container:hover #hand-right-arm {
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 32px rgba(34, 197, 94, 0.7));
+}
+
+/* EXPLOSION & SHOCKWAVE KEYFRAMES */
+@keyframes shockwaveBlast1 {
+  0% {
+    transform: translate(-50%, -50%) scale(0.05);
+    opacity: 1;
+    border-width: 4px;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4.8);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+@keyframes shockwaveBlast2 {
+  0% {
+    transform: translate(-50%, -50%) scale(0.05);
+    opacity: 0.9;
+    border-width: 3px;
+  }
+  60% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(7.0);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+@keyframes explosionCoreFlare {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  30% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(5.0);
+    opacity: 0;
+  }
+}
+
+.animate-shockwave-1 {
+  animation: shockwaveBlast1 0.85s cubic-bezier(0.12, 0.9, 0.25, 1) forwards;
+}
+
+.animate-shockwave-2 {
+  animation: shockwaveBlast2 1.1s cubic-bezier(0.12, 0.9, 0.25, 1) forwards;
+}
+
+.animate-explosion-core {
+  animation: explosionCoreFlare 0.75s ease-out forwards;
+}
+
+/* ANAMORPHIC LENS FLARE RAYS & OUTER SHOCKWAVE */
+@keyframes starburstFlareH {
+  0% {
+    transform: translate(-50%, -50%) scaleX(0) scaleY(1);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(-50%, -50%) scaleX(1.4) scaleY(2.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleX(3.0) scaleY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes starburstFlareV {
+  0% {
+    transform: translate(-50%, -50%) scaleY(0) scaleX(1);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(-50%, -50%) scaleY(1.4) scaleX(2.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleY(2.8) scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes shockwaveBlast3 {
+  0% {
+    transform: translate(-50%, -50%) scale(0.05);
+    opacity: 0.8;
+    border-width: 2px;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(9.5);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+/* SPECULAR SHIMMER GLEAM ACROSS LOGO */
+@keyframes specularGleamSweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(150%) skewX(-25deg);
+    opacity: 0.9;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-shockwave-3 {
+  animation: shockwaveBlast3 1.3s cubic-bezier(0.12, 0.9, 0.25, 1) forwards;
+}
+
+.animate-flare-h {
+  animation: starburstFlareH 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-flare-v {
+  animation: starburstFlareV 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.logo-specular-shimmer {
+  animation: specularGleamSweep 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.2s;
+}
+
+/* GESTURE & BREATHING ANIMATIONS FOR THE TWO ARMS */
+@keyframes armLeftGesture {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+@keyframes armRightGesture {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1deg);
+  }
+}
+
+.animate-arm-left-gesture {
+  animation: armLeftGesture 4.4s ease-in-out infinite;
+}
+
+.animate-arm-right-gesture {
+  animation: armRightGesture 4.4s ease-in-out infinite;
+}
+
+/* INFINITY PATH LASER TRACING ANIMATION */
+@keyframes traceInfinityLoop {
+  0% {
+    stroke-dashoffset: 664;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.animate-trace-infinity {
+  stroke-dasharray: 664;
+  stroke-dashoffset: 664;
+  animation: traceInfinityLoop 0.72s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes infinityPulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px #22c55e) drop-shadow(0 0 20px #c8ff00);
+    opacity: 0.85;
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #22c55e) drop-shadow(0 0 35px #c8ff00) drop-shadow(0 0 50px #00f0ff);
+    opacity: 1;
+  }
+}
+
+.infinity-loop-glowing {
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+  animation: infinityPulseGlow 3s ease-in-out infinite;
+}
+
+
+
+
 
 
 
