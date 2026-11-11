@@ -1,0 +1,3033 @@
+<section
+    id="studio-auth"
+    class="studio-overlay"
+    aria-hidden="true"
+    aria-label="Studio authentication"
+>
+    <div class="auth-shell glass">
+        <div class="auth-art">
+            <div class="crest">
+                <span>A</span>
+                <i></i>
+            </div>
+            <div class="art-kicker">ADOLSOFT / PRIVATE NETWORK</div>
+            <div class="art-title">
+                Your work.
+                <br />
+                <em>Your space.</em>
+            </div>
+            <div class="trophy-stack">
+                <div>
+                    <b>◆</b>
+                    <span>STUDIO LEVEL</span>
+                    <strong>699</strong>
+                </div>
+                <div>
+                    <b>◇</b>
+                    <span>TEAM PROJECTS</span>
+                    <strong>24</strong>
+                </div>
+                <div>
+                    <b>◈</b>
+                    <span>ACTIVE MEMBERS</span>
+                    <strong>05</strong>
+                </div>
+            </div>
+            <div class="art-orbit orbit-one"></div>
+            <div class="art-orbit orbit-two"></div>
+            <p class="art-foot">
+                TACO SYSTEM <span>2026 / INTERNAL EDITION</span>
+            </p>
+        </div>
+        <form id="studio-login-form" class="auth-form">
+            <button
+                type="button"
+                class="icon-close"
+                data-close
+                aria-label="Đóng"
+            >
+                ×
+            </button>
+            <div class="eyebrow">
+                <i></i> SECURE MEMBER ACCESS
+            </div>
+            <h1>
+                Enter your
+                <br />
+                workspace<span>.</span>
+            </h1>
+            <p class="auth-copy">
+                Mỗi thành viên được chuyển đến không gian phù hợp với vai trò
+                của mình.
+            </p>
+            <label for="studio-passcode">MEMBER PASSCODE</label>
+            <input
+                id="studio-passcode"
+                name="passcode"
+                maxlength="16"
+                autocomplete="one-time-code"
+                placeholder="••••••••••"
+                required
+            />
+            <button class="unlock-button" type="submit">
+                <span>UNLOCK SPACE</span>
+                <b>↗</b>
+            </button>
+            <p id="studio-login-error" class="login-error" aria-live="polite">
+                Mã truy cập không hợp lệ.
+            </p>
+            <div class="attempt-row">
+                <span>ACCESS ATTEMPTS</span>
+                <b id="studio-attempt-count">0 / 3</b>
+            </div>
+            <div class="auth-bottom">
+                <span>ENCRYPTED SESSION</span>
+                <span>30 MIN AUTO-LOCK</span>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section
+    id="studio-workspace"
+    class="studio-overlay"
+    aria-hidden="true"
+    aria-label="TACO Studio Workspace"
+>
+    <div class="workspace glass" id="studio-shell">
+        <header class="topbar">
+            <a class="brand" href="#" data-home>
+                <span class="brand-mark">A</span>
+                <span>
+                    ADOLSOFT<small>STUDIO SPACE / 2026</small>
+                </span>
+            </a>
+            <nav class="module-nav" aria-label="TACO modules">
+                <button type="button" data-module="a">
+                    <b>A</b>
+                    <span>ASSETS</span>
+                </button>
+                <button type="button" data-module="c">
+                    <b>C</b>
+                    <span>CLIENTS</span>
+                </button>
+                <button type="button" data-module="o">
+                    <b>O</b>
+                    <span>OPERATIONS</span>
+                </button>
+            </nav>
+            <div class="top-actions">
+                <span class="network-state">
+                    <i></i> STUDIO ONLINE
+                </span>
+                <button
+                    type="button"
+                    class="close-workspace"
+                    data-close-workspace
+                    title="Đóng workspace"
+                >
+                    CLOSE DASHBOARD
+                </button>
+                <button type="button" class="out-button" data-logout>
+                    OUT ↗
+                </button>
+            </div>
+        </header>
+        <div class="workspace-layout">
+            <aside class="player-sidebar glass-panel">
+                <div class="player-topline">
+                    <span>MEMBER CARD</span>
+                    <span id="member-code">U01</span>
+                </div>
+                <div class="member-crest">
+                    <div class="crest-ring">
+                        <span id="member-initials">LD</span>
+                    </div>
+                    <i class="crest-spark spark-a"></i>
+                    <i class="crest-spark spark-b"></i>
+                </div>
+                <h2 id="member-name">Lê Trường Duy</h2>
+                <p id="member-role" class="member-role">
+                    FOUNDER / ADMIN
+                </p>
+                <div class="player-score">
+                    <strong>480</strong>
+                    <span>
+                        STUDIO
+                        <br />
+                        POINTS
+                    </span>
+                    <b>◆</b>
+                </div>
+                <div class="medal-row">
+                    <span>◆</span>
+                    <b>3,276</b>
+                    <span>◇</span>
+                    <b>3,996</b>
+                    <span>◈</span>
+                    <b>8,650</b>
+                </div>
+                <div class="level-row">
+                    <div>
+                        <span>LEVEL</span>
+                        <b>699</b>
+                    </div>
+                    <div>
+                        <span>TOTAL BADGES</span>
+                        <b>16,402</b>
+                    </div>
+                </div>
+                <div class="profile-divider"></div>
+                <div class="member-profile">
+                    <div class="avatar" id="member-avatar">
+                        LD
+                    </div>
+                    <div>
+                        <b id="member-display">Lê Trường Duy</b>
+                        <small>
+                            <i></i> VERIFIED MEMBER
+                        </small>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <span>ROOM</span>
+                    <b id="member-room-short">THE BRIDGE</b>
+                    <span>ACCESS</span>
+                    <b id="member-access-short">A · C · O</b>
+                </div>
+                <button type="button" class="logout-button" data-logout>
+                    LOGOUT <span>↗</span>
+                </button>
+                <p class="sidebar-foot">ADOLSOFT / MEMBER SYSTEM</p>
+            </aside>
+
+            <main class="room-main">
+                <div class="room-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <i></i>
+                            <span id="room-kicker">PRIVATE SPACE / U01</span>
+                        </div>
+                        <h1 id="room-title">
+                            THE BRIDGE<span>.</span>
+                        </h1>
+                        <p id="room-subtitle">
+                            Đài Chỉ Huy · Studio-wide control
+                        </p>
+                    </div>
+                    <div class="room-clock">
+                        <span>LOCAL SESSION</span>
+                        <b id="session-clock">30:00</b>
+                    </div>
+                </div>
+                <section
+                    class="collection-stage glass-panel"
+                    aria-label="Studio project collection"
+                >
+                    <div class="collection-meta">
+                        <span>STUDIO COLLECTION / ACTIVE PROJECTS</span>
+                        <span id="collection-year">2026 / 05 SPACES</span>
+                    </div>
+                    <div class="project-rail" id="project-rail"></div>
+                    <div class="timeline">
+                        <i></i>
+                        <span>JAN</span>
+                        <i></i>
+                        <span>MAR</span>
+                        <i></i>
+                        <span>JUN</span>
+                        <i></i>
+                        <span>SEP</span>
+                        <i></i>
+                        <span>NOV 2026</span>
+                    </div>
+                </section>
+                <div class="room-content-host" id="room-content"></div>
+                <section
+                    id="module-content"
+                    class="module-content"
+                    hidden
+                ></section>
+                <p
+                    id="studio-toast"
+                    class="studio-toast"
+                    aria-live="polite"
+                ></p>
+                <footer class="room-footer">
+                    <span>
+                        ADOLSOFT INTERNAL / <b id="footer-role">FOUNDER</b>
+                    </span>
+                    <span>
+                        DATA MODE <b>LOCAL DEMO</b>
+                    </span>
+                </footer>
+            </main>
+        </div>
+    </div>
+</section>
+
+<style>
+    .studio-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(10px, 2vw, 28px);
+        overflow: auto;
+        color: #f4f8fc;
+        background:
+            radial-gradient(ellipse at 68% 42%, #18314a70 0, transparent 42%),
+            radial-gradient(ellipse at 18% 82%, #123d5160 0, transparent 38%),
+            rgba(1, 5, 11, 0.82);
+        backdrop-filter: blur(20px) saturate(135%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+    }
+    .studio-overlay.visible {
+        display: flex;
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .glass {
+        background: linear-gradient(
+            140deg,
+            rgba(26, 42, 58, 0.68),
+            rgba(7, 15, 24, 0.76)
+        );
+        border: 1px solid rgba(168, 221, 255, 0.2);
+        box-shadow:
+            inset 0 1px rgba(255, 255, 255, 0.13),
+            0 28px 100px #0009;
+        backdrop-filter: blur(26px) saturate(145%);
+    }
+    .auth-shell {
+        display: grid;
+        grid-template-columns: 1.04fr 0.96fr;
+        width: min(940px, 100%);
+        min-height: 570px;
+        overflow: hidden;
+        border-radius: 16px;
+        animation: glass-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    .auth-art {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        padding: clamp(28px, 5vw, 62px);
+        background:
+            linear-gradient(
+                135deg,
+                rgba(5, 16, 30, 0.56),
+                rgba(5, 12, 22, 0.86)
+            ),
+            repeating-linear-gradient(0deg, transparent 0 41px, #9dd8ff08 42px),
+            repeating-linear-gradient(90deg, transparent 0 41px, #9dd8ff08 42px);
+    }
+    .auth-art::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 12% -25% 7% 25%;
+        transform: rotate(-18deg);
+        border: 1px solid #74d9ff55;
+        border-radius: 45%;
+        box-shadow:
+            0 0 25px #49baff30,
+            inset 0 0 45px #45c8ff18;
+    }
+    .crest {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 86px;
+        aspect-ratio: 1;
+        margin: 0 0 28px;
+        border: 1px solid #b5ebffbd;
+        border-radius: 50%;
+        color: #e7fbff;
+        background: radial-gradient(
+            circle,
+            #4ab9fc99 0,
+            #15528644 42%,
+            #0a1a2e66 70%
+        );
+        box-shadow:
+            0 0 32px #60d3ff80,
+            inset 0 0 20px #9eeaff55;
+        transform: rotate(-12deg);
+    }
+    .crest span {
+        font:
+            800 44px "Space Grotesk",
+            sans-serif;
+        text-shadow: 0 0 20px #8ce6ff;
+    }
+    .crest i {
+        position: absolute;
+        inset: -9px;
+        border: 1px solid #81dbff55;
+        border-radius: 50%;
+        transform: rotate(45deg) scaleY(0.55);
+    }
+    .art-kicker,
+    .collection-meta,
+    .player-topline,
+    .room-footer,
+    .auth-bottom {
+        color: #8ba4ba;
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.13em;
+    }
+    .art-title {
+        margin: 16px 0 30px;
+        font:
+            700 clamp(38px, 5vw, 62px)/0.98 "Space Grotesk",
+            sans-serif;
+        letter-spacing: 0;
+    }
+    .art-title em {
+        color: #9fe9ff;
+        font-style: normal;
+        text-shadow: 0 0 25px #47c9ff55;
+    }
+    .trophy-stack {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        max-width: 410px;
+    }
+    .trophy-stack > div {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        align-items: center;
+        gap: 2px 6px;
+        padding: 10px 8px;
+        border: 1px solid #b4e8ff20;
+        background: #b4e8ff0a;
+        backdrop-filter: blur(12px);
+    }
+    .trophy-stack b {
+        grid-row: span 2;
+        color: #b6edff;
+        font-size: 17px;
+    }
+    .trophy-stack span {
+        color: #7891a4;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .trophy-stack strong {
+        color: #eafaff;
+        font:
+            700 13px "Space Grotesk",
+            sans-serif;
+    }
+    .art-orbit {
+        position: absolute;
+        z-index: -1;
+        width: 210px;
+        height: 340px;
+        border: 1px solid #50d1ff38;
+        border-radius: 50%;
+        filter: drop-shadow(0 0 12px #2fc8ff32);
+        transform: rotate(38deg);
+    }
+    .orbit-one {
+        right: -88px;
+        top: 4%;
+    }
+    .orbit-two {
+        right: 0;
+        bottom: -62%;
+        transform: rotate(-52deg);
+    }
+    .art-foot {
+        display: flex;
+        justify-content: space-between;
+        margin: 36px 0 0;
+        color: #7e9ab0;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.12em;
+    }
+    .art-foot span {
+        color: #52697d;
+    }
+    .auth-form {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: clamp(28px, 5vw, 58px);
+        background: linear-gradient(155deg, #111e2be8, #08111beb);
+    }
+    .icon-close {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        color: #91a9bc;
+        font-size: 25px;
+    }
+    .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #91b7ce;
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.14em;
+    }
+    .eyebrow i,
+    .network-state i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--studio-accent, #7fe6ff);
+        box-shadow: 0 0 11px var(--studio-accent, #7fe6ff);
+    }
+    .auth-form h1 {
+        margin: 25px 0 12px;
+        font:
+            700 clamp(32px, 4vw, 47px)/1.02 "Space Grotesk",
+            sans-serif;
+        letter-spacing: 0;
+    }
+    .auth-form h1 span {
+        color: #80e7ff;
+    }
+    .auth-copy {
+        max-width: 300px;
+        margin: 0 0 30px;
+        color: #91a6b8;
+        font:
+            11px/1.7 "IBM Plex Mono",
+            monospace;
+    }
+    .auth-form label {
+        margin-bottom: 9px;
+        color: #7e9bb0;
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.12em;
+    }
+    #studio-passcode {
+        width: 100%;
+        padding: 15px 14px;
+        outline: 0;
+        border: 1px solid #b5dcf52c;
+        border-radius: 7px;
+        color: #e9fbff;
+        background: #07111bc9;
+        font:
+            700 18px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.12em;
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s;
+    }
+    #studio-passcode:focus {
+        border-color: var(--studio-accent, #80e7ff);
+        box-shadow:
+            0 0 0 3px
+                color-mix(
+                    in srgb,
+                    var(--studio-accent, #80e7ff) 15%,
+                    transparent
+                ),
+            0 0 22px
+                color-mix(
+                    in srgb,
+                    var(--studio-accent, #80e7ff) 18%,
+                    transparent
+                );
+    }
+    .unlock-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        padding: 14px 15px;
+        border: 1px solid #a7eaff66;
+        border-radius: 7px;
+        color: #e9fbff;
+        background: linear-gradient(100deg, #67cfff26, #c6f5ff10);
+        font:
+            700 9px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.12em;
+        transition:
+            background 0.2s,
+            box-shadow 0.2s;
+    }
+    .unlock-button:hover {
+        background: #80ddff25;
+        box-shadow: 0 0 24px #48c8ff35;
+    }
+    .unlock-button b {
+        font-size: 17px;
+    }
+    .login-error {
+        min-height: 18px;
+        margin: 10px 0 0;
+        color: #ff858e;
+        font:
+            9px "IBM Plex Mono",
+            monospace;
+        opacity: 0;
+    }
+    .login-error.visible-error {
+        opacity: 1;
+    }
+    .attempt-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 13px 0;
+        border-top: 1px solid #ffffff16;
+        color: #61788b;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.1em;
+    }
+    .attempt-row b {
+        color: #a5bdd0;
+    }
+    .auth-bottom {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid #ffffff11;
+        color: #526a7e;
+        font-size: 7px;
+    }
+    .workspace {
+        --studio-accent: #7fe6ff;
+        position: relative;
+        width: min(1540px, 100%);
+        min-height: min(930px, calc(100vh - 40px));
+        max-height: calc(100vh - 40px);
+        overflow: auto;
+        border-radius: 14px;
+        background: linear-gradient(
+            145deg,
+            rgba(9, 18, 29, 0.83),
+            rgba(5, 10, 17, 0.88)
+        );
+        animation: glass-rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    .workspace::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.34;
+        background:
+            radial-gradient(
+                ellipse at 64% 20%,
+                color-mix(in srgb, var(--studio-accent) 20%, transparent),
+                transparent 40%
+            ),
+            repeating-linear-gradient(0deg, transparent 0 55px, #c3eaff08 56px),
+            repeating-linear-gradient(90deg, transparent 0 55px, #c3eaff07 56px);
+    }
+    .topbar {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 68px;
+        padding: 10px 22px;
+        border-bottom: 1px solid #d5f1ff1c;
+        background: #07111bb0;
+        backdrop-filter: blur(18px);
+    }
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #eaf7ff;
+        font:
+            700 11px "Space Grotesk",
+            sans-serif;
+        letter-spacing: 0.1em;
+    }
+    .brand > span:last-child {
+        display: grid;
+        gap: 3px;
+    }
+    .brand small {
+        color: #6f879a;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 31px;
+        aspect-ratio: 1;
+        border: 1px solid var(--studio-accent);
+        color: var(--studio-accent);
+        background: #c9f5ff0b;
+        box-shadow: 0 0 17px
+            color-mix(in srgb, var(--studio-accent) 22%, transparent);
+    }
+    .module-nav {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .module-nav button {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 11px;
+        border: 1px solid #bce7ff19;
+        border-radius: 6px;
+        color: #a4b8c8;
+        background: #8cc9ed08;
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+        transition: 0.2s;
+    }
+    .module-nav button b {
+        color: var(--studio-accent);
+        font:
+            700 12px "Space Grotesk",
+            sans-serif;
+    }
+    .module-nav button:hover:not(:disabled),
+    .module-nav button.active {
+        border-color: color-mix(in srgb, var(--studio-accent) 45%, transparent);
+        color: #f1fbff;
+        background: color-mix(in srgb, var(--studio-accent) 10%, transparent);
+    }
+    .module-nav button:disabled {
+        opacity: 0.25;
+        cursor: not-allowed;
+    }
+    .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+    .network-state {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #88a1b4;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.08em;
+    }
+    .close-workspace {
+        padding: 8px 10px;
+        border: 1px solid #bddded25;
+        border-radius: 5px;
+        color: #b6c8d4;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.06em;
+    }
+    .close-workspace:hover {
+        border-color: #9edbff70;
+        background: #9edbff10;
+    }
+    .out-button {
+        padding: 8px 10px;
+        border: 1px solid #f7768752;
+        border-radius: 5px;
+        color: #ff98a1;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.08em;
+    }
+    .out-button:hover {
+        background: #e95a6917;
+    }
+    .workspace-layout {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 244px minmax(0, 1fr);
+        gap: 16px;
+        padding: 16px;
+    }
+    .glass-panel {
+        border: 1px solid #d4efff1d;
+        border-radius: 9px;
+        background: linear-gradient(145deg, #b9e8ff0c, #6da4c008);
+        box-shadow:
+            inset 0 1px #ffffff0c,
+            0 16px 36px #0003;
+        backdrop-filter: blur(18px) saturate(130%);
+    }
+    .player-sidebar {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 650px;
+        padding: 17px 16px 14px;
+        overflow: hidden;
+    }
+    .player-sidebar::before {
+        content: "";
+        position: absolute;
+        top: 60px;
+        width: 195px;
+        height: 195px;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 26%, transparent);
+        border-radius: 50%;
+        box-shadow:
+            0 0 44px color-mix(in srgb, var(--studio-accent) 13%, transparent),
+            inset 0 0 40px
+                color-mix(in srgb, var(--studio-accent) 8%, transparent);
+    }
+    .player-topline {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        color: #778fa2;
+        font-size: 7px;
+    }
+    .player-topline span:last-child {
+        color: var(--studio-accent);
+    }
+    .member-crest {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 135px;
+        height: 150px;
+        margin-top: 22px;
+    }
+    .crest-ring {
+        display: grid;
+        place-items: center;
+        width: 95px;
+        aspect-ratio: 1;
+        border: 2px solid color-mix(in srgb, var(--studio-accent) 78%, white);
+        border-radius: 50%;
+        color: var(--studio-accent);
+        background: radial-gradient(
+            circle,
+            color-mix(in srgb, var(--studio-accent) 30%, transparent),
+            #071320 70%
+        );
+        box-shadow:
+            0 0 26px color-mix(in srgb, var(--studio-accent) 45%, transparent),
+            inset 0 0 24px
+                color-mix(in srgb, var(--studio-accent) 24%, transparent);
+        transform: rotate(-8deg);
+    }
+    .crest-ring::before {
+        content: "";
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        border: 1px solid #d6f4ff72;
+        border-radius: 50%;
+        transform: rotate(45deg) scaleY(0.57);
+    }
+    .crest-ring span {
+        font:
+            800 32px "Space Grotesk",
+            sans-serif;
+        text-shadow: 0 0 17px currentColor;
+    }
+    .crest-spark {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #dbf8ff;
+        box-shadow: 0 0 14px #9be8ff;
+    }
+    .spark-a {
+        top: 15px;
+        right: 15px;
+    }
+    .spark-b {
+        bottom: 16px;
+        left: 14px;
+    }
+    .player-sidebar h2 {
+        position: relative;
+        margin: 2px 0 4px;
+        color: #effaff;
+        font:
+            700 17px "Space Grotesk",
+            sans-serif;
+    }
+    .member-role {
+        position: relative;
+        margin: 0;
+        color: var(--studio-accent);
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.12em;
+        text-align: center;
+    }
+    .player-score {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        margin-top: 23px;
+        padding: 8px 4px;
+        border-bottom: 1px solid #cceeff20;
+    }
+    .player-score strong {
+        color: #f4fbff;
+        font:
+            700 29px "Space Grotesk",
+            sans-serif;
+    }
+    .player-score span {
+        color: #70899c;
+        font:
+            7px/1.5 "IBM Plex Mono",
+            monospace;
+    }
+    .player-score b {
+        margin-left: auto;
+        color: var(--studio-accent);
+        font-size: 19px;
+    }
+    .medal-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 12px 0;
+        color: #9ab1c0;
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+    }
+    .medal-row span:nth-of-type(1) {
+        color: #ffd27c;
+    }
+    .medal-row span:nth-of-type(2) {
+        color: #b8c5d1;
+    }
+    .medal-row span:nth-of-type(3) {
+        color: #dfa28e;
+    }
+    .level-row {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        width: 100%;
+        padding: 9px 0;
+    }
+    .level-row div {
+        display: grid;
+        gap: 4px;
+    }
+    .level-row span {
+        color: #698196;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    .level-row b {
+        color: #e9f4f9;
+        font:
+            700 15px "Space Grotesk",
+            sans-serif;
+    }
+    .profile-divider {
+        width: 100%;
+        height: 1px;
+        margin: 7px 0 14px;
+        background: linear-gradient(90deg, transparent, #a4d8f551, transparent);
+    }
+    .member-profile {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        width: 100%;
+    }
+    .avatar {
+        display: grid;
+        place-items: center;
+        width: 35px;
+        aspect-ratio: 1;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 60%, transparent);
+        border-radius: 50%;
+        color: var(--studio-accent);
+        background: color-mix(in srgb, var(--studio-accent) 12%, #08121c);
+        font:
+            700 9px "IBM Plex Mono",
+            monospace;
+    }
+    .member-profile > div:last-child {
+        display: grid;
+        gap: 5px;
+    }
+    .member-profile b {
+        color: #dcebf2;
+        font:
+            700 9px "Space Grotesk",
+            sans-serif;
+    }
+    .member-profile small {
+        color: #71899a;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .member-profile small i {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #5de7a3;
+    }
+    .profile-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        gap: 8px 3px;
+        margin-top: 16px;
+        padding: 12px 0;
+        border-top: 1px solid #ffffff13;
+        border-bottom: 1px solid #ffffff13;
+    }
+    .profile-stats span {
+        color: #698196;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .profile-stats b {
+        color: #b9ccd8;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    .logout-button {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: auto;
+        padding: 10px 11px;
+        border: 1px solid #f7768752;
+        border-radius: 5px;
+        color: #ff98a1;
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+    }
+    .logout-button:hover {
+        background: #e95a6917;
+    }
+    .sidebar-foot {
+        margin: 12px 0 0;
+        color: #526b7e;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.1em;
+    }
+    .room-main {
+        min-width: 0;
+    }
+    .room-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 15px;
+        min-height: 82px;
+        margin: 0 2px 13px;
+    }
+    .room-heading .eyebrow {
+        margin: 0 0 7px;
+    }
+    .room-heading h1 {
+        margin: 0;
+        color: #f0f8fc;
+        font:
+            700 clamp(25px, 3vw, 37px)/1 "Space Grotesk",
+            sans-serif;
+        letter-spacing: 0;
+    }
+    .room-heading h1 span {
+        color: var(--studio-accent);
+    }
+    .room-heading p {
+        margin: 7px 0 0;
+        color: #7d95a8;
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+    }
+    .room-clock {
+        display: grid;
+        gap: 5px;
+        min-width: 90px;
+        text-align: right;
+    }
+    .room-clock span {
+        color: #657e91;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .room-clock b {
+        color: var(--studio-accent);
+        font:
+            700 14px "IBM Plex Mono",
+            monospace;
+    }
+    .collection-stage {
+        position: relative;
+        min-height: 213px;
+        padding: 13px 15px 10px;
+        overflow: hidden;
+    }
+    .collection-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        color: #7390a4;
+        font-size: 7px;
+    }
+    .project-rail {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: clamp(6px, 1.3vw, 17px);
+        height: 147px;
+        padding: 8px 10px 3px;
+        overflow: hidden;
+        perspective: 900px;
+    }
+    .project-card {
+        position: relative;
+        flex: 1 1 0;
+        min-width: 95px;
+        max-width: 170px;
+        height: 119px;
+        padding: 9px;
+        overflow: hidden;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 55%, #b5e5ff55);
+        border-radius: 8px;
+        background: linear-gradient(
+            150deg,
+            color-mix(in srgb, var(--card-color) 45%, #102136),
+            #07111d 75%
+        );
+        box-shadow:
+            0 8px 16px #0008,
+            0 0 16px color-mix(in srgb, var(--card-color) 35%, transparent),
+            inset 0 1px #ffffff50;
+        transform: rotateY(-13deg) rotateX(4deg);
+        transition:
+            transform 0.28s,
+            box-shadow 0.28s;
+    }
+    .project-card:nth-child(even) {
+        transform: translateY(-13px) rotateY(9deg) rotateX(-2deg);
+    }
+    .project-card:hover {
+        z-index: 2;
+        transform: translateY(-9px) scale(1.05);
+        box-shadow:
+            0 14px 24px #0009,
+            0 0 24px color-mix(in srgb, var(--card-color) 60%, transparent),
+            inset 0 1px #ffffff70;
+    }
+    .project-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+            115deg,
+            #ffffff24,
+            transparent 24% 72%,
+            #ffffff15
+        );
+    }
+    .project-card small {
+        position: relative;
+        z-index: 1;
+        color: #bad5e2;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.1em;
+    }
+    .project-card b {
+        position: absolute;
+        z-index: 1;
+        left: 9px;
+        right: 7px;
+        bottom: 11px;
+        color: #effaff;
+        font:
+            700 clamp(9px, 1vw, 12px) "Space Grotesk",
+            sans-serif;
+        text-shadow: 0 2px 8px #000;
+    }
+    .project-card span {
+        position: absolute;
+        right: 9px;
+        top: 30px;
+        color: var(--card-color);
+        font:
+            700 27px "Space Grotesk",
+            sans-serif;
+        text-shadow: 0 0 15px var(--card-color);
+        opacity: 0.92;
+    }
+    .timeline {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        height: 21px;
+        color: #59778e;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .timeline i {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, #6dbbdb55, #b9dbe255);
+    }
+    .timeline i::after {
+        content: "";
+        display: block;
+        width: 4px;
+        height: 4px;
+        margin-top: -2px;
+        border-radius: 50%;
+        background: #c8f3ff;
+        box-shadow: 0 0 7px #68d7ff;
+    }
+    .room-content {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 11px;
+    }
+    .data-panel {
+        min-width: 0;
+        padding: 13px;
+        overflow: hidden;
+        border: 1px solid #c7edff1c;
+        border-radius: 8px;
+        background: linear-gradient(145deg, #c2eaff10, #557e9908);
+        box-shadow:
+            inset 0 1px #ffffff09,
+            0 10px 22px #0002;
+        backdrop-filter: blur(18px);
+    }
+    .data-panel h3 {
+        margin: 5px 0 10px;
+        color: #e9f7fd;
+        font:
+            700 13px "Space Grotesk",
+            sans-serif;
+    }
+    .data-panel > small,
+    .panel-label {
+        color: var(--studio-accent);
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.13em;
+    }
+    .panel-span-4 {
+        grid-column: span 4;
+    }
+    .panel-span-5 {
+        grid-column: span 5;
+    }
+    .panel-span-6 {
+        grid-column: span 6;
+    }
+    .panel-span-7 {
+        grid-column: span 7;
+    }
+    .panel-span-8 {
+        grid-column: span 8;
+    }
+    .panel-span-12 {
+        grid-column: span 12;
+    }
+    .task-list {
+        display: grid;
+        gap: 7px;
+    }
+    .task-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        border: 1px solid #d9f4ff11;
+        border-radius: 5px;
+        background: #06111c91;
+    }
+    .task-item b {
+        display: block;
+        color: #d7e7ef;
+        font:
+            8px/1.4 "Space Grotesk",
+            sans-serif;
+    }
+    .task-item small {
+        display: block;
+        margin-top: 4px;
+        color: #698196;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .task-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .task-actions button,
+    .small-action {
+        padding: 5px 6px;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 32%, transparent);
+        border-radius: 4px;
+        color: var(--studio-accent);
+        background: #ffffff05;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+        white-space: nowrap;
+    }
+    .task-actions button:hover,
+    .small-action:hover {
+        background: color-mix(in srgb, var(--studio-accent) 15%, transparent);
+    }
+    .feed-form {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px;
+        margin-bottom: 9px;
+    }
+    .feed-form input,
+    .feed-form select {
+        min-width: 0;
+        padding: 8px;
+        border: 1px solid #e1f3ff24;
+        border-radius: 4px;
+        outline: 0;
+        color: #e3f5fd;
+        background: #07111c;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    .feed-form input:focus {
+        border-color: var(--studio-accent);
+    }
+    .feed-form button {
+        grid-row: span 2;
+        padding: 0 10px;
+        border-radius: 4px;
+        color: #07101a;
+        background: var(--studio-accent);
+        font:
+            700 7px "IBM Plex Mono",
+            monospace;
+    }
+    .feed-form select {
+        grid-column: 1;
+    }
+    .feed-item {
+        padding: 7px 0;
+        border-top: 1px solid #ffffff12;
+        color: #acc0ce;
+        font:
+            8px/1.5 "Space Grotesk",
+            sans-serif;
+    }
+    .feed-item b {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--studio-accent);
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .metric-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+    .metric {
+        display: grid;
+        gap: 5px;
+        padding: 8px 6px;
+        border: 1px solid #ffffff10;
+        border-radius: 4px;
+        background: #d1f1ff07;
+    }
+    .metric span {
+        color: #71899c;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .metric b {
+        color: var(--studio-accent);
+        font:
+            700 clamp(13px, 1.7vw, 21px) "Space Grotesk",
+            sans-serif;
+    }
+    .health-row,
+    .ledger-row,
+    .invoice-row,
+    .inventory-row,
+    .lead-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px 0;
+        border-top: 1px solid #ffffff12;
+        color: #a9bdc9;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    .health-row b {
+        color: #63e7ad;
+        font-size: 6px;
+    }
+    .health-row b.warn {
+        color: #f7c970;
+    }
+    .invoice-row b,
+    .ledger-row b,
+    .inventory-row b {
+        color: #e1edf2;
+    }
+    .pill {
+        padding: 3px 5px;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 35%, transparent);
+        border-radius: 3px;
+        color: var(--studio-accent);
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .bar-chart {
+        display: flex;
+        align-items: end;
+        gap: 6px;
+        height: 83px;
+        margin-top: 10px;
+        padding: 0 8px;
+        border-bottom: 1px solid #ffffff28;
+        background: repeating-linear-gradient(
+            to bottom,
+            transparent 0 20px,
+            #ffffff0a 21px
+        );
+    }
+    .bar-chart i {
+        flex: 1;
+        min-height: 6px;
+        border-radius: 3px 3px 0 0;
+        background: linear-gradient(
+            to top,
+            color-mix(in srgb, var(--studio-accent) 22%, transparent),
+            var(--studio-accent)
+        );
+        box-shadow: 0 0 12px
+            color-mix(in srgb, var(--studio-accent) 32%, transparent);
+    }
+    .bar-labels {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 4px 0;
+        color: #647d8e;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .text-entry {
+        margin: 7px 0;
+        padding: 7px 8px;
+        border-left: 2px solid var(--studio-accent);
+        color: #b4c7d2;
+        background: #c6efff08;
+        font:
+            8px/1.45 "Space Grotesk",
+            sans-serif;
+    }
+    .text-entry small {
+        display: block;
+        margin-top: 4px;
+        color: #70879a;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    .module-content {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 11px;
+    }
+    .module-card {
+        padding: 15px;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 28%, transparent);
+        border-radius: 8px;
+        background: linear-gradient(145deg, #c2eaff12, #557e9908);
+        backdrop-filter: blur(20px);
+    }
+    .module-card small {
+        color: var(--studio-accent);
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    .module-card h3 {
+        margin: 8px 0;
+        color: #edf8fc;
+        font:
+            700 14px "Space Grotesk",
+            sans-serif;
+    }
+    .module-card p {
+        color: #8ca1af;
+        font:
+            8px/1.6 "IBM Plex Mono",
+            monospace;
+    }
+    .module-card button {
+        margin-top: 8px;
+        color: var(--studio-accent);
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    .studio-toast {
+        min-height: 15px;
+        margin: 5px 2px;
+        color: var(--studio-accent);
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+    }
+    .room-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 5px 2px 0;
+        padding: 9px 0;
+        border-top: 1px solid #ffffff15;
+        font-size: 6px;
+    }
+    .room-footer b {
+        color: #b4cad8;
+    }
+    .room-content[data-role="admin"] .data-panel {
+        border-color: #c8ff0030;
+    }
+    .room-content[data-role="senior"] .data-panel {
+        border-color: #00f0ff2d;
+    }
+    .room-content[data-role="tech"] .data-panel {
+        border-color: #f59e0b35;
+    }
+    .room-content[data-role="data"] .data-panel {
+        border-color: #a855f735;
+    }
+    .room-content[data-role="finance"] .data-panel {
+        border-color: #10b98135;
+    }
+    @keyframes glass-rise {
+        from {
+            opacity: 0;
+            transform: translateY(12px) scale(0.985);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    @media (max-width: 1000px) {
+        .workspace-layout {
+            grid-template-columns: 205px minmax(0, 1fr);
+            padding: 11px;
+            gap: 11px;
+        }
+        .player-sidebar {
+            min-height: 620px;
+            padding-inline: 12px;
+        }
+        .panel-span-4,
+        .panel-span-5 {
+            grid-column: span 6;
+        }
+        .project-card {
+            min-width: 86px;
+        }
+    }
+    @media (max-width: 720px) {
+        .studio-overlay {
+            align-items: flex-start;
+            padding: 8px;
+        }
+        .auth-shell {
+            grid-template-columns: 1fr;
+            min-height: unset;
+        }
+        .auth-art {
+            min-height: 250px;
+            padding: 24px;
+        }
+        .auth-art .crest {
+            width: 58px;
+            margin-bottom: 14px;
+        }
+        .crest span {
+            font-size: 30px;
+        }
+        .art-title {
+            margin: 10px 0 14px;
+            font-size: 36px;
+        }
+        .trophy-stack {
+            max-width: 360px;
+        }
+        .trophy-stack > div {
+            padding: 6px;
+        }
+        .art-foot {
+            margin-top: 15px;
+        }
+        .auth-form {
+            min-height: 390px;
+            padding: 26px;
+        }
+        .workspace {
+            max-height: calc(100vh - 16px);
+        }
+        .topbar {
+            flex-wrap: wrap;
+            padding: 9px 12px;
+        }
+        .brand small {
+            display: none;
+        }
+        .module-nav {
+            order: 3;
+            width: 100%;
+            justify-content: center;
+            border-top: 1px solid #ffffff12;
+            padding-top: 7px;
+        }
+        .top-actions {
+            margin-left: auto;
+        }
+        .network-state {
+            font-size: 6px;
+        }
+        .workspace-layout {
+            grid-template-columns: 1fr;
+        }
+        .player-sidebar {
+            display: grid;
+            grid-template-columns: 58px 1fr auto;
+            align-items: center;
+            gap: 4px 10px;
+            min-height: unset;
+            padding: 10px;
+        }
+        .player-sidebar::before,
+        .player-topline,
+        .medal-row,
+        .level-row,
+        .profile-divider,
+        .profile-stats,
+        .sidebar-foot {
+            display: none;
+        }
+        .member-crest {
+            grid-row: span 2;
+            width: 52px;
+            height: 52px;
+            margin: 0;
+        }
+        .crest-ring {
+            width: 43px;
+        }
+        .crest-ring::before {
+            width: 51px;
+            height: 51px;
+        }
+        .crest-ring span {
+            font-size: 15px;
+        }
+        .crest-spark {
+            width: 4px;
+            height: 4px;
+        }
+        .player-sidebar h2 {
+            align-self: end;
+            margin: 0;
+            font-size: 12px;
+        }
+        .member-role {
+            align-self: start;
+            justify-self: start;
+            font-size: 6px;
+        }
+        .player-score {
+            display: none;
+        }
+        .member-profile {
+            grid-column: 3;
+            grid-row: 1 / span 2;
+            width: auto;
+        }
+        .member-profile .avatar {
+            width: 29px;
+        }
+        .member-profile > div:last-child {
+            display: none;
+        }
+        .logout-button {
+            grid-column: 1 / -1;
+            margin: 6px 0 0;
+            padding: 7px 9px;
+        }
+        .room-heading {
+            min-height: 65px;
+        }
+        .room-heading h1 {
+            font-size: 25px;
+        }
+        .collection-stage {
+            min-height: 180px;
+            padding: 11px;
+        }
+        .project-rail {
+            height: 122px;
+            overflow-x: auto;
+        }
+        .project-card {
+            flex: 0 0 105px;
+            height: 100px;
+        }
+        .panel-span-4,
+        .panel-span-5,
+        .panel-span-6,
+        .panel-span-7,
+        .panel-span-8 {
+            grid-column: span 12;
+        }
+        .module-content {
+            grid-template-columns: 1fr;
+        }
+    }
+    @media (max-width: 400px) {
+        .trophy-stack {
+            grid-template-columns: 1fr;
+        }
+        .trophy-stack > div {
+            grid-template-columns: 20px 1fr;
+        }
+        .trophy-stack > div:nth-child(n + 2) {
+            display: none;
+        }
+        .art-title {
+            font-size: 32px;
+        }
+        .room-heading {
+            align-items: start;
+        }
+        .room-clock {
+            min-width: 68px;
+        }
+        .metric-row {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        .metric {
+            padding-inline: 4px;
+        }
+        .metric b {
+            font-size: 12px;
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .auth-shell,
+        .workspace,
+        .project-card {
+            animation: none;
+            transition: none;
+        }
+    }
+</style>
+
+<style is:global>
+    @keyframes studio-glitch {
+        20% {
+            transform: translateX(-7px) skewX(-2deg);
+            filter: hue-rotate(70deg);
+        }
+        45% {
+            transform: translateX(7px) skewX(2deg);
+        }
+        72% {
+            transform: translateX(-3px);
+        }
+    }
+    #studio-auth .auth-shell.glitch {
+        animation: studio-glitch 0.4s steps(2, end);
+    }
+    #studio-workspace .project-card {
+        position: relative;
+        flex: 1 1 0;
+        min-width: 95px;
+        max-width: 170px;
+        height: 119px;
+        padding: 9px;
+        overflow: hidden;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 55%, #b5e5ff55);
+        border-radius: 8px;
+        background: linear-gradient(
+            150deg,
+            color-mix(in srgb, var(--card-color) 45%, #102136),
+            #07111d 75%
+        );
+        box-shadow:
+            0 8px 16px #0008,
+            0 0 16px color-mix(in srgb, var(--card-color) 35%, transparent),
+            inset 0 1px #ffffff50;
+        transform: rotateY(-13deg) rotateX(4deg);
+        transition:
+            transform 0.28s,
+            box-shadow 0.28s;
+    }
+    #studio-workspace .project-card:nth-child(even) {
+        transform: translateY(-13px) rotateY(9deg) rotateX(-2deg);
+    }
+    #studio-workspace .project-card:hover {
+        z-index: 2;
+        transform: translateY(-9px) scale(1.05);
+        box-shadow:
+            0 14px 24px #0009,
+            0 0 24px color-mix(in srgb, var(--card-color) 60%, transparent),
+            inset 0 1px #ffffff70;
+    }
+    #studio-workspace .project-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+            115deg,
+            #ffffff24,
+            transparent 24% 72%,
+            #ffffff15
+        );
+    }
+    #studio-workspace .project-card small {
+        position: relative;
+        z-index: 1;
+        color: #bad5e2;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.1em;
+    }
+    #studio-workspace .project-card b {
+        position: absolute;
+        z-index: 1;
+        left: 9px;
+        right: 7px;
+        bottom: 11px;
+        color: #effaff;
+        font:
+            700 clamp(9px, 1vw, 12px) "Space Grotesk",
+            sans-serif;
+        text-shadow: 0 2px 8px #000;
+    }
+    #studio-workspace .project-card > span {
+        position: absolute;
+        right: 9px;
+        top: 30px;
+        color: var(--card-color);
+        font:
+            700 27px "Space Grotesk",
+            sans-serif;
+        text-shadow: 0 0 15px var(--card-color);
+        opacity: 0.92;
+    }
+    #studio-workspace .room-content {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 11px;
+    }
+    #studio-workspace .data-panel {
+        min-width: 0;
+        padding: 13px;
+        overflow: hidden;
+        border: 1px solid #c7edff1c;
+        border-radius: 8px;
+        background: linear-gradient(145deg, #c2eaff10, #557e9908);
+        box-shadow:
+            inset 0 1px #ffffff09,
+            0 10px 22px #0002;
+        backdrop-filter: blur(18px);
+    }
+    #studio-workspace .data-panel h3 {
+        margin: 5px 0 10px;
+        color: #e9f7fd;
+        font:
+            700 13px "Space Grotesk",
+            sans-serif;
+    }
+    #studio-workspace .data-panel > small,
+    #studio-workspace .panel-label {
+        color: var(--studio-accent);
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+        letter-spacing: 0.13em;
+    }
+    #studio-workspace .panel-span-4 {
+        grid-column: span 4;
+    }
+    #studio-workspace .panel-span-5 {
+        grid-column: span 5;
+    }
+    #studio-workspace .panel-span-6 {
+        grid-column: span 6;
+    }
+    #studio-workspace .panel-span-7 {
+        grid-column: span 7;
+    }
+    #studio-workspace .panel-span-8 {
+        grid-column: span 8;
+    }
+    #studio-workspace .panel-span-12 {
+        grid-column: span 12;
+    }
+    #studio-workspace .room-kanban {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+    }
+    #studio-workspace .room-lane {
+        display: grid;
+        align-content: start;
+        gap: 7px;
+        min-width: 0;
+        min-height: 130px;
+        padding: 8px;
+        border: 1px solid #cceeff15;
+        border-radius: 5px;
+        background: #06111b70;
+    }
+    #studio-workspace .room-lane .panel-label {
+        margin-bottom: 2px;
+    }
+    #studio-workspace .room-lane.drag-over {
+        border-color: var(--studio-accent);
+        background: #c5edff13;
+    }
+    #studio-workspace .task-list {
+        display: grid;
+        gap: 7px;
+    }
+    #studio-workspace .task-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        padding: 8px;
+        border: 1px solid #d9f4ff11;
+        border-radius: 5px;
+        background: #06111c91;
+    }
+    #studio-workspace .task-item > div:first-child {
+        min-width: 0;
+        flex: 1;
+    }
+    #studio-workspace .task-item b {
+        display: block;
+        color: #d7e7ef;
+        font:
+            8px/1.4 "Space Grotesk",
+            sans-serif;
+    }
+    #studio-workspace .task-item small {
+        display: block;
+        margin-top: 4px;
+        color: #698196;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .task-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    #studio-workspace .task-actions button,
+    #studio-workspace .small-action {
+        padding: 5px 6px;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 32%, transparent);
+        border-radius: 4px;
+        color: var(--studio-accent);
+        background: #ffffff05;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+        white-space: nowrap;
+    }
+    #studio-workspace .task-actions button:hover,
+    #studio-workspace .small-action:hover {
+        background: color-mix(in srgb, var(--studio-accent) 15%, transparent);
+    }
+    #studio-workspace .feed-form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 6px;
+        margin-bottom: 9px;
+    }
+    #studio-workspace .feed-form input,
+    #studio-workspace .feed-form select {
+        min-width: 0;
+        padding: 8px;
+        border: 1px solid #e1f3ff24;
+        border-radius: 4px;
+        outline: 0;
+        color: #e3f5fd;
+        background: #07111c;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .feed-form input:focus {
+        border-color: var(--studio-accent);
+    }
+    #studio-workspace .feed-form button {
+        grid-row: span 2;
+        padding: 0 10px;
+        border-radius: 4px;
+        color: #07101a;
+        background: var(--studio-accent);
+        font:
+            700 7px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .feed-form select {
+        grid-column: 1;
+    }
+    #studio-workspace .feed-item {
+        padding: 7px 0;
+        border-top: 1px solid #ffffff12;
+        color: #acc0ce;
+        font:
+            8px/1.5 "Space Grotesk",
+            sans-serif;
+    }
+    #studio-workspace .feed-item b {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--studio-accent);
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .metric-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 5px;
+    }
+    #studio-workspace .metric {
+        display: grid;
+        gap: 5px;
+        min-width: 0;
+        padding: 8px 6px;
+        border: 1px solid #ffffff10;
+        border-radius: 4px;
+        background: #d1f1ff07;
+    }
+    #studio-workspace .metric span {
+        color: #71899c;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .metric b {
+        color: var(--studio-accent);
+        font:
+            700 clamp(13px, 1.7vw, 21px) "Space Grotesk",
+            sans-serif;
+    }
+    #studio-workspace .health-row,
+    #studio-workspace .ledger-row,
+    #studio-workspace .invoice-row,
+    #studio-workspace .inventory-row,
+    #studio-workspace .lead-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px 0;
+        border-top: 1px solid #ffffff12;
+        color: #a9bdc9;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .health-row b {
+        color: #63e7ad;
+        font-size: 6px;
+    }
+    #studio-workspace .health-row b.warn {
+        color: #f7c970;
+    }
+    #studio-workspace .invoice-row b,
+    #studio-workspace .ledger-row b,
+    #studio-workspace .inventory-row b {
+        color: #e1edf2;
+    }
+    #studio-workspace .pill {
+        padding: 3px 5px;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 35%, transparent);
+        border-radius: 3px;
+        color: var(--studio-accent);
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+        white-space: nowrap;
+    }
+    #studio-workspace .bar-chart {
+        display: flex;
+        align-items: end;
+        gap: 6px;
+        height: 83px;
+        margin-top: 10px;
+        padding: 0 8px;
+        border-bottom: 1px solid #ffffff28;
+        background: repeating-linear-gradient(
+            to bottom,
+            transparent 0 20px,
+            #ffffff0a 21px
+        );
+    }
+    #studio-workspace .bar-chart i {
+        flex: 1;
+        min-height: 6px;
+        border-radius: 3px 3px 0 0;
+        background: linear-gradient(
+            to top,
+            color-mix(in srgb, var(--studio-accent) 22%, transparent),
+            var(--studio-accent)
+        );
+        box-shadow: 0 0 12px
+            color-mix(in srgb, var(--studio-accent) 32%, transparent);
+    }
+    #studio-workspace .bar-labels {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 4px 0;
+        color: #647d8e;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .text-entry {
+        margin: 7px 0;
+        padding: 7px 8px;
+        border-left: 2px solid var(--studio-accent);
+        color: #b4c7d2;
+        background: #c6efff08;
+        font:
+            8px/1.45 "Space Grotesk",
+            sans-serif;
+    }
+    #studio-workspace .text-entry small {
+        display: block;
+        margin-top: 4px;
+        color: #70879a;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .ticket {
+        display: grid;
+        gap: 5px;
+        margin: 7px 0;
+        padding: 9px;
+        border: 1px solid #ffffff12;
+        border-radius: 5px;
+        background: #07111b99;
+    }
+    #studio-workspace .ticket b {
+        color: #d7e7ef;
+        font:
+            8px "Space Grotesk",
+            sans-serif;
+    }
+    #studio-workspace .ticket small {
+        color: #698196;
+        font:
+            6px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .doc-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 0;
+        border-top: 1px solid #ffffff12;
+        color: #bfced8;
+        text-align: left;
+        font:
+            8px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .doc-row span {
+        color: var(--studio-accent);
+    }
+    #studio-workspace .empty {
+        color: #60798c;
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .module-content[hidden] {
+        display: none;
+    }
+    #studio-workspace .module-card {
+        padding: 15px;
+        border: 1px solid
+            color-mix(in srgb, var(--studio-accent) 28%, transparent);
+        border-radius: 8px;
+        background: linear-gradient(145deg, #c2eaff12, #557e9908);
+        backdrop-filter: blur(20px);
+    }
+    #studio-workspace .module-card small {
+        color: var(--studio-accent);
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .module-card h3 {
+        margin: 8px 0;
+        color: #edf8fc;
+        font:
+            700 14px "Space Grotesk",
+            sans-serif;
+    }
+    #studio-workspace .module-card p {
+        color: #8ca1af;
+        font:
+            8px/1.6 "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .module-card button {
+        margin-top: 8px;
+        color: var(--studio-accent);
+        font:
+            7px "IBM Plex Mono",
+            monospace;
+    }
+    #studio-workspace .room-content[data-role="admin"] .data-panel {
+        border-color: #c8ff0030;
+    }
+    #studio-workspace .room-content[data-role="senior"] .data-panel {
+        border-color: #00f0ff2d;
+    }
+    #studio-workspace .room-content[data-role="tech"] .data-panel {
+        border-color: #f59e0b35;
+    }
+    #studio-workspace .room-content[data-role="data"] .data-panel {
+        border-color: #a855f735;
+    }
+    #studio-workspace .room-content[data-role="finance"] .data-panel {
+        border-color: #10b98135;
+    }
+    @media (max-width: 1000px) {
+        #studio-workspace .panel-span-4,
+        #studio-workspace .panel-span-5 {
+            grid-column: span 6;
+        }
+    }
+    @media (max-width: 720px) {
+        #studio-workspace .room-content {
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+        #studio-workspace .panel-span-4,
+        #studio-workspace .panel-span-5,
+        #studio-workspace .panel-span-6,
+        #studio-workspace .panel-span-7,
+        #studio-workspace .panel-span-8 {
+            grid-column: span 12;
+        }
+        #studio-workspace .room-kanban {
+            grid-template-columns: 1fr;
+        }
+        #studio-workspace .project-card {
+            flex: 0 0 105px;
+            height: 100px;
+        }
+        #studio-workspace .task-item {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+    }
+</style>
+
+<script>
+    type Role = "admin" | "senior" | "tech" | "data" | "finance";
+    type Member = {
+        id: string;
+        name: string;
+        role: Role;
+        label: string;
+        initials: string;
+        room: string;
+        subtitle: string;
+        color: string;
+        access: string[];
+    };
+    type Task = {
+        id: string;
+        title: string;
+        owner: string;
+        status: "todo" | "doing" | "done" | "support";
+        from: string;
+    };
+    type Notice = { text: string; author: string; time: string };
+    type StudioState = { tasks: Task[]; notices: Notice[] };
+    const members: Record<string, Member> = {
+        FOUNDER2026: {
+            id: "U01",
+            name: "Lê Trường Duy",
+            role: "admin",
+            label: "FOUNDER / ADMIN",
+            initials: "LD",
+            room: "THE BRIDGE",
+            subtitle: "Đài Chỉ Huy · Studio-wide command",
+            color: "#c8ff00",
+            access: ["a", "c", "o"],
+        },
+        DEV123: {
+            id: "U02",
+            name: "Khoi Ng",
+            role: "senior",
+            label: "SENIOR / TECH LEAD",
+            initials: "KN",
+            room: "THE SERVER ROOM",
+            subtitle: "Phòng Máy Chủ · Engineering & release",
+            color: "#00f0ff",
+            access: ["a", "o"],
+        },
+        TECH123: {
+            id: "U03",
+            name: "Phuc Ho",
+            role: "tech",
+            label: "TECH / DEPLOYMENT",
+            initials: "PH",
+            room: "FIELD OPS",
+            subtitle: "Trạm Triển Khai · Deployment & support",
+            color: "#f59e0b",
+            access: ["a", "c"],
+        },
+        DATA123: {
+            id: "U04",
+            name: "Jen",
+            role: "data",
+            label: "DATA / ADVISOR",
+            initials: "JE",
+            room: "THE OBSERVATORY",
+            subtitle: "Đài Dữ Liệu · Analytics & insights",
+            color: "#a855f7",
+            access: ["c", "o"],
+        },
+        MONEY123: {
+            id: "U05",
+            name: "YenN",
+            role: "finance",
+            label: "FINANCE / DEALS",
+            initials: "YN",
+            room: "THE VAULT",
+            subtitle: "Kho Bạc · Cash flow & token ledger",
+            color: "#10b981",
+            access: ["c", "o"],
+        },
+    };
+    const sharedStorageKey = "adolsoft.virtual-studio.v2";
+    const initialState: StudioState = {
+        tasks: [
+            {
+                id: "t-1",
+                title: "Review API integration",
+                owner: "Khoi Ng",
+                status: "todo",
+                from: "Lê Trường Duy",
+            },
+            {
+                id: "t-2",
+                title: "Deploy AI Local USB · Quán Cafe A",
+                owner: "Phuc Ho",
+                status: "doing",
+                from: "Lê Trường Duy",
+            },
+            {
+                id: "t-3",
+                title: "Analyze service-page conversion",
+                owner: "Jen",
+                status: "todo",
+                from: "Lê Trường Duy",
+            },
+            {
+                id: "t-4",
+                title: "Reconcile monthly Bank Token ledger",
+                owner: "YenN",
+                status: "todo",
+                from: "Lê Trường Duy",
+            },
+            {
+                id: "t-5",
+                title: "Build AdolOS v1.2",
+                owner: "Khoi Ng",
+                status: "doing",
+                from: "Lê Trường Duy",
+            },
+        ],
+        notices: [
+            {
+                text: "Team ơi, dự án AI Print-Cut cần duyệt xong trước 5h chiều nay. Ai xong task thì tick xanh nhé!",
+                author: "Lê Trường Duy",
+                time: "09:15",
+            },
+        ],
+    };
+    const modules: Record<
+        string,
+        { title: string; items: { title: string; detail: string }[] }
+    > = {
+        a: {
+            title: "ASSETS & ARCHITECTURE",
+            items: [
+                {
+                    title: "Design Resources",
+                    detail: "Font, template, logo and brand kit Sên Biển.",
+                },
+                {
+                    title: "Figma / PSD Library",
+                    detail: "Project source designs and templates.",
+                },
+                {
+                    title: "Tech Docs & API",
+                    detail: "AdolOS architecture, API and AI Local guides.",
+                },
+                {
+                    title: "Infra Status",
+                    detail: "Server and AI node health · demo status.",
+                },
+                {
+                    title: "SOP Quy trình",
+                    detail: "Web design and AI USB handoff workflow.",
+                },
+            ],
+        },
+        c: {
+            title: "CLIENTS & CRM",
+            items: [
+                {
+                    title: "Quán Cafe A",
+                    detail: "Website delivery · in progress · 70%.",
+                },
+                {
+                    title: "Xưởng in B",
+                    detail: "AI Print-Cut rollout · in progress · 42%.",
+                },
+                {
+                    title: "CRM & giao dịch",
+                    detail: "Contact profiles, transaction history, service plans.",
+                },
+                {
+                    title: "Hợp đồng & báo giá",
+                    detail: "Contracts, invoices and Auto-Quotation.",
+                },
+                {
+                    title: "Support Tickets",
+                    detail: "Customer maintenance requests awaiting action.",
+                },
+            ],
+        },
+        o: {
+            title: "OPERATIONS & OUTPUT",
+            items: [
+                {
+                    title: "Bank Token System",
+                    detail: "Team wallet and project AI spend.",
+                },
+                {
+                    title: "Kho sản phẩm hoàn thiện",
+                    detail: "Delivered video, web, PPT and AdolOS builds.",
+                },
+                {
+                    title: "Nhân sự & chấm công",
+                    detail: "Schedule, leave requests and team KPIs.",
+                },
+                {
+                    title: "System Health",
+                    detail: "Server, AI Local and security indicators.",
+                },
+            ],
+        },
+    };
+    const auth = document.getElementById("studio-auth");
+    const workspace = document.getElementById(
+        "studio-workspace",
+    ) as HTMLElement;
+    const loginForm = document.getElementById(
+        "studio-login-form",
+    ) as HTMLFormElement;
+    const passInput = document.getElementById(
+        "studio-passcode",
+    ) as HTMLInputElement;
+    const errorLine = document.getElementById("studio-login-error");
+    const roomContent = document.getElementById("room-content");
+    const moduleContent = document.getElementById("module-content");
+    const toast = document.getElementById("studio-toast");
+    let member: Member | null = null;
+    let pendingModule = "";
+    let badAttempts = 0;
+    let lockedUntil = 0;
+    let idleDeadline = 0;
+    let sessionTimer = 0;
+    let studioState = readStudioState();
+    let draggedTask: HTMLElement | null = null;
+    function readStudioState(): StudioState {
+        try {
+            const saved = localStorage.getItem(sharedStorageKey);
+            if (saved) {
+                const parsed = JSON.parse(saved) as StudioState;
+                if (
+                    Array.isArray(parsed.tasks) &&
+                    Array.isArray(parsed.notices)
+                )
+                    return parsed;
+            }
+        } catch {}
+        return JSON.parse(JSON.stringify(initialState)) as StudioState;
+    }
+    function escapeText(text: string) {
+        return text.replace(
+            /[&<>"']/g,
+            (c) =>
+                ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;",
+                })[c] || c,
+        );
+    }
+    function setVisible(node: HTMLElement | null, show: boolean) {
+        if (!node) return;
+        node.classList.toggle("visible", show);
+        node.setAttribute("aria-hidden", String(!show));
+    }
+    function tell(text: string) {
+        if (!toast) return;
+        toast.textContent = text;
+        window.setTimeout(() => {
+            if (toast.textContent === text) toast.textContent = "";
+        }, 3600);
+    }
+    function persist() {
+        try {
+            localStorage.setItem(sharedStorageKey, JSON.stringify(studioState));
+        } catch {}
+        renderRoom();
+    }
+    function projectCards() {
+        return [
+            ["ADOL OS", "A", "#58caff"],
+            ["AI PRINT-CUT", "C", "#f2a94b"],
+            ["STUDIO WEB", "W", "#8ce7fc"],
+            ["AI LOCAL", "L", "#b08aff"],
+            ["BANK TOKEN", "T", "#9fe8c4"],
+        ]
+            .map(
+                ([title, mark, color], i) =>
+                    `<article class="project-card" style="--card-color:${color}"><small>0${i + 1} / ACTIVE</small><span>${mark}</span><b>${title}</b></article>`,
+            )
+            .join("");
+    }
+    function noticeMarkup() {
+        return studioState.notices
+            .slice(0, 3)
+            .map(
+                (n) =>
+                    `<div class="feed-item"><b>${escapeText(n.author)} / ${escapeText(n.time)}</b>${escapeText(n.text)}</div>`,
+            )
+            .join("");
+    }
+    function taskMarkup(task: Task, actions = true) {
+        return `<article class="task-item" draggable="true" data-task-id="${escapeText(task.id)}"><div><b>${escapeText(task.title)}</b><small>${escapeText(task.owner)} · ${task.status.toUpperCase()} · FROM ${escapeText(task.from)}</small></div>${actions ? `<div class="task-actions"><button data-set-status="doing" data-task-id="${escapeText(task.id)}">IN PROGRESS</button><button data-set-status="done" data-task-id="${escapeText(task.id)}">DONE ✓</button><button data-set-status="support" data-task-id="${escapeText(task.id)}">HELP</button></div>` : ""}</article>`;
+    }
+    function tasksFor(owner: string) {
+        return studioState.tasks.filter(
+            (t) => t.owner === owner && t.status !== "done",
+        );
+    }
+    function metric(label: string, value: string) {
+        return `<div class="metric"><span>${label}</span><b>${value}</b></div>`;
+    }
+    function panel(
+        label: string,
+        title: string,
+        body: string,
+        size = "panel-span-4",
+    ) {
+        return `<article class="data-panel ${size}"><small>${label}</small><h3>${title}</h3>${body}</article>`;
+    }
+    function roomMarkup() {
+        if (!member) return "";
+        const notice = noticeMarkup();
+        if (member.role === "admin") {
+            const lanes = ["todo", "doing", "done"]
+                .map((status) => {
+                    const title =
+                        status === "todo"
+                            ? "TO DO"
+                            : status === "doing"
+                              ? "IN PROGRESS"
+                              : "COMPLETE";
+                    const tasks = studioState.tasks.filter(
+                        (t) =>
+                            t.status === status ||
+                            (status === "doing" && t.status === "support"),
+                    );
+                    return `<div class="room-lane" data-lane="${status}"><div class="panel-label">${title} / ${String(tasks.length).padStart(2, "0")}</div>${tasks.map((t) => taskMarkup(t, false)).join("") || '<p class="empty">Nothing in this lane</p>'}</div>`;
+                })
+                .join("");
+            return `<div class="room-content" data-role="admin">${panel("COMMAND / STUDIO-WIDE", "Studio Kanban", `<div class="room-kanban">${lanes}</div>`, "panel-span-8")}${panel("FOUNDER FEED / QUICK ASSIGN", "Send a brief", `<form class="feed-form" id="founder-feed-form"><input name="message" placeholder="Message or task for the team..." required maxlength="180"/><select name="owner" aria-label="Assign member"><option>Khoi Ng</option><option>Phuc Ho</option><option>Jen</option><option>YenN</option></select><button type="submit">SEND ↗</button></form><div class="feed-list">${notice}</div>`, "panel-span-4")}${panel("FINANCE / YENN", "Studio balance", `<div class="metric-row">${metric("MONTH REVENUE", "128.4M")}${metric("BANK TOKEN", "84,500")}${metric("NET FLOW", "85.6M")}</div><div class="bar-chart"><i style="height:42%"></i><i style="height:56%"></i><i style="height:49%"></i><i style="height:77%"></i><i style="height:68%"></i><i style="height:94%"></i></div><div class="bar-labels"><span>JUN</span><span>JUL</span><span>AUG</span><span>SEP</span><span>OCT</span><span>NOV</span></div>`, "panel-span-6")}${panel("SYSTEM HEALTH / KHOI + PHUC", "Live systems", `<div class="health-row"><span>AdolOS Server</span><b>● ONLINE</b></div><div class="health-row"><span>AI Local Nodes</span><b>● 4 / 5 ACTIVE</b></div><div class="health-row"><span>Security Monitor</span><b>● STABLE</b></div>`, "panel-span-6")}</div>`;
+        }
+        if (member.role === "senior") {
+            const queue =
+                tasksFor("Khoi Ng")
+                    .map(
+                        (t) =>
+                            `<article class="task-item"><div><b>${escapeText(t.title)}</b><small>${t.status.toUpperCase()} · REVIEW REQUIRED</small></div><button class="small-action" data-approve="${escapeText(t.id)}">APPROVE → PHUC</button></article>`,
+                    )
+                    .join("") || '<p class="empty">No pending reviews.</p>';
+            return `<div class="room-content" data-role="senior">${panel("ENGINEERING / PRIVATE DOCS", "Tech Library", `<button class="doc-row" data-toast="API Documentation">API Documentation <span>↗</span></button><button class="doc-row" data-toast="AdolOS Architecture">AdolOS Architecture <span>↗</span></button><button class="doc-row" data-toast="AI Agent Modules">AI Agent Modules <span>↗</span></button><button class="doc-row" data-toast="Deployment SOP">Deployment SOP <span>↗</span></button>`, "panel-span-4")}${panel("GIT / INFRA CONTROL", "Server room", `<div class="metric-row">${metric("OPEN PR", "03")}${metric("SERVER", "ONLINE")}${metric("WARNINGS", "02")}</div><div class="health-row"><span>AdolOS API</span><b>● HEALTHY</b></div><div class="health-row"><span>AI Local build</span><b class="warn">● REVIEW</b></div><div class="health-row"><span>Latest logs</span><b class="warn">02 WARNINGS</b></div>`, "panel-span-4")}${panel("DEPLOYMENT QUEUE / REVIEW", "Approve for field ops", queue, "panel-span-4")}${panel("TEAM FEED", "Founder updates", notice, "panel-span-12")}</div>`;
+        }
+        if (member.role === "tech") {
+            const tasks =
+                tasksFor("Phuc Ho")
+                    .map((t) => taskMarkup(t))
+                    .join("") ||
+                '<p class="empty">No assigned deployments.</p>';
+            return `<div class="room-content" data-role="tech">${panel("CLIENT CARE / TICKETS", "Support desk", `<div class="ticket"><b>USB không nhận AI Local</b><small>Quán Cafe A / 12 min ago</small><span class="pill">OPEN</span></div><div class="ticket"><b>Agent offline sau khi reboot</b><small>Xưởng in B / 34 min ago</small><span class="pill">PRIORITY</span></div><div class="ticket"><b>Request cài đặt từ xa</b><small>Studio Mộc / hôm nay</small><span class="pill">SCHEDULED</span></div>`, "panel-span-4")}${panel("FIELD OPS / YOUR ASSIGNMENTS", "Deployment queue", `<div class="task-list">${tasks}</div>`, "panel-span-5")}${panel("HARDWARE / INVENTORY", "Field kit", `<div class="inventory-row"><span>USB AI Local</span><b>28 left</b></div><div class="inventory-row"><span>SSD deployment</span><b>12 left</b></div><div class="inventory-row"><span>Install kits</span><b>04 ready</b></div><div class="inventory-row"><span>Pending assistance</span><b>${studioState.tasks.filter((t) => t.status === "support").length} tasks</b></div>`, "panel-span-3")}${panel("LIVE TEAM FEED", "New assignments", notice, "panel-span-12")}</div>`;
+        }
+        if (member.role === "data") {
+            return `<div class="room-content" data-role="data">${panel("MARKET SIGNAL / INSIGHTS", "Strategy notes", `<div class="text-entry">AI Local demand rising among small manufacturers.<small>MARKET WATCH / THIS WEEK</small></div><div class="text-entry">Prioritize vertical case studies to improve conversion.<small>FOUNDER BRIEF / SUGGESTED</small></div><div class="text-entry">Office workflow agents trending across SME segment.<small>TECH RADAR / 2026</small></div>`, "panel-span-4")}${panel("ANALYTICS / SAMPLE DATA", "Studio observatory", `<div class="metric-row">${metric("WEB TRAFFIC", "18.6K")}${metric("CONVERSION", "4.8%")}${metric("MOM", "+22%")}</div><div class="bar-chart"><i style="height:31%"></i><i style="height:52%"></i><i style="height:45%"></i><i style="height:70%"></i><i style="height:64%"></i><i style="height:94%"></i></div><div class="bar-labels"><span>JUN</span><span>JUL</span><span>AUG</span><span>SEP</span><span>OCT</span><span>NOV</span></div>`, "panel-span-5")}${panel("CRM / LEAD SEGMENTS", "Prospect radar", `<div class="lead-row"><b>Studio Mộc</b><span class="pill">VIP</span></div><div class="lead-row"><b>Print House 24</b><span class="pill">NEW</span></div><div class="lead-row"><b>Cafe Sông</b><span class="pill">CONSULT</span></div><div class="lead-row"><b>Minh Phát Decor</b><span class="pill">RETURNING</span></div>`, "panel-span-3")}${panel("LIVE TEAM FEED", "Founder updates", notice, "panel-span-12")}</div>`;
+        }
+        return `<div class="room-content" data-role="finance">${panel("INVOICES / AUTO-QUOTATION", "Receivables", `<div class="invoice-row"><b>INV-2026-041</b><span>Quán Cafe A / 24.0M ₫</span><span class="pill">DUE</span></div><div class="invoice-row"><b>INV-2026-038</b><span>Xưởng in B / 18.5M ₫</span><span class="pill">TODAY</span></div><div class="invoice-row"><b>QT-2026-019</b><span>AI Agent / 32.0M ₫</span><span class="pill">REVIEW</span></div>`, "panel-span-4")}${panel("CASH FLOW / MONTHLY", "The Vault", `<div class="metric-row">${metric("REVENUE", "128.4M")}${metric("EXPENSES", "42.8M")}${metric("NET", "85.6M")}</div><div class="bar-chart"><i style="height:80%"></i><i style="height:53%"></i><i style="height:65%"></i></div><div class="health-row"><span>Web / USB / AI Agent</span><b>52M / 36M / 40M</b></div>`, "panel-span-5")}${panel("TOKEN / OPERATIONS LEDGER", "Bank Token", `<div class="metric"> <span>STUDIO BALANCE</span><b>84,500 TK</b></div><div class="ledger-row"><span>AI API / month</span><b>- 8,240 TK</b></div><div class="ledger-row"><span>Server & infra</span><b>- 3,600 TK</b></div><div class="ledger-row"><span>Team allocation</span><b>- 2,100 TK</b></div><p class="panel-label">SAMPLE DATA / YENN REPORT</p>`, "panel-span-3")}${panel("LIVE TEAM FEED", "Founder updates", notice, "panel-span-12")}</div>`;
+    }
+    function renderRoom() {
+        if (!member) return;
+        if (roomContent) roomContent.innerHTML = roomMarkup();
+    }
+    function setMember(memberData: Member) {
+        member = memberData;
+        document
+            .getElementById("studio-shell")
+            ?.style.setProperty("--studio-accent", member.color);
+        const text = (id: string, value: string) => {
+            const node = document.getElementById(id);
+            if (node) node.textContent = value;
+        };
+        text("member-code", member.id);
+        text("member-name", member.name);
+        text("member-display", member.name);
+        text("member-role", member.label);
+        text("member-initials", member.initials);
+        text("member-avatar", member.initials);
+        text("member-room-short", member.room);
+        text(
+            "member-access-short",
+            member.access.map((x) => x.toUpperCase()).join(" · "),
+        );
+        text("room-kicker", `PRIVATE SPACE / ${member.id}`);
+        text("room-title", member.room);
+        text("room-subtitle", member.subtitle);
+        text("footer-role", member.label);
+        document
+            .querySelectorAll<HTMLButtonElement>("[data-module]")
+            .forEach((button) => {
+                const allowed =
+                    member?.access.includes(button.dataset.module || "") ??
+                    false;
+                button.disabled = !allowed;
+                button.classList.remove("active");
+            });
+        const rail = document.getElementById("project-rail");
+        if (rail) rail.innerHTML = projectCards();
+        const date = document.getElementById("collection-year");
+        if (date) date.textContent = `2026 / ${member.access.length} MODULES`;
+        if (roomContent) roomContent.hidden = false;
+        if (moduleContent) moduleContent.hidden = true;
+        renderRoom();
+        setVisible(auth, false);
+        setVisible(workspace, true);
+        document.body.style.overflow = "hidden";
+        idleDeadline = Date.now() + 30 * 60_000;
+        window.clearInterval(sessionTimer);
+        sessionTimer = window.setInterval(() => {
+            if (!member) return;
+            const left = Math.max(
+                0,
+                Math.ceil((idleDeadline - Date.now()) / 1000),
+            );
+            const clock = document.getElementById("session-clock");
+            if (clock)
+                clock.textContent = `${String(Math.floor(left / 60)).padStart(2, "0")}:${String(left % 60).padStart(2, "0")}`;
+            if (!left) logout("Session expired. Sign in again.");
+        }, 1000);
+    }
+    function openLogin() {
+        setVisible(auth, true);
+        if (errorLine) {
+            errorLine.textContent = pendingModule
+                ? "Authenticate to open the requested TACO module."
+                : "Mã truy cập không hợp lệ.";
+            errorLine.classList.remove("visible-error");
+        }
+        window.setTimeout(() => passInput.focus(), 100);
+    }
+    function openModule(key: string) {
+        if (!member) return;
+        if (!member.access.includes(key)) {
+            tell("Module locked for this member role.");
+            return;
+        }
+        const mod = modules[key];
+        if (!mod || !moduleContent) return;
+        moduleContent.innerHTML = mod.items
+            .map(
+                (item, index) =>
+                    `<article class="module-card"><small>0${index + 1} / ${key.toUpperCase()} MODULE</small><h3>${item.title}</h3><p>${item.detail}</p><button type="button" data-toast="${item.title}">OPEN RESOURCE ↗</button></article>`,
+            )
+            .join("");
+        if (roomContent) roomContent.hidden = true;
+        moduleContent.hidden = false;
+        const title = document.getElementById("room-title");
+        if (title) title.innerHTML = `${mod.title}<span>.</span>`;
+        document
+            .querySelectorAll<HTMLButtonElement>("[data-module]")
+            .forEach((button) =>
+                button.classList.toggle(
+                    "active",
+                    button.dataset.module === key,
+                ),
+            );
+    }
+    function logout(reason = "") {
+        member = null;
+        window.clearInterval(sessionTimer);
+        setVisible(workspace, false);
+        document.body.style.overflow = "";
+        if (reason) {
+            openLogin();
+            if (errorLine) {
+                errorLine.textContent = reason;
+                errorLine.classList.add("visible-error");
+            }
+        }
+    }
+    window.addEventListener("studio:open", ((
+        event: CustomEvent<{ key: string }>,
+    ) => {
+        const key = event.detail.key;
+        if (member) {
+            setVisible(workspace, true);
+            document.body.style.overflow = "hidden";
+            idleDeadline = Date.now() + 30 * 60_000;
+            if (["a", "c", "o"].includes(key)) openModule(key);
+            else {
+                if (roomContent) roomContent.hidden = false;
+                if (moduleContent) moduleContent.hidden = true;
+                const title = document.getElementById("room-title");
+                if (title && member)
+                    title.innerHTML = `${member.room}<span>.</span>`;
+            }
+            return;
+        }
+        pendingModule = ["a", "c", "o"].includes(key) ? key : "";
+        openLogin();
+    }) as EventListener);
+    loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (Date.now() < lockedUntil) {
+            if (errorLine) {
+                errorLine.textContent = "Gateway locked for 30 seconds.";
+                errorLine.classList.add("visible-error");
+            }
+            return;
+        }
+        const found = members[passInput.value.trim().toUpperCase()];
+        if (!found) {
+            badAttempts++;
+            const count = document.getElementById("studio-attempt-count");
+            if (count) count.textContent = `${badAttempts} / 3`;
+            if (errorLine) {
+                errorLine.textContent =
+                    badAttempts >= 3
+                        ? "Three failed attempts. Gateway locked for 30 seconds."
+                        : "Mã truy cập không hợp lệ.";
+                errorLine.classList.add("visible-error");
+            }
+            document.querySelector(".auth-shell")?.classList.remove("glitch");
+            void (document.querySelector(".auth-shell") as HTMLElement | null)
+                ?.offsetWidth;
+            document.querySelector(".auth-shell")?.classList.add("glitch");
+            if (badAttempts >= 3) {
+                badAttempts = 0;
+                lockedUntil = Date.now() + 30_000;
+            }
+            passInput.select();
+            return;
+        }
+        badAttempts = 0;
+        const count = document.getElementById("studio-attempt-count");
+        if (count) count.textContent = "0 / 3";
+        const requested = pendingModule;
+        pendingModule = "";
+        setMember(found);
+        if (requested && found.access.includes(requested))
+            openModule(requested);
+    });
+    document.querySelector("[data-close]")?.addEventListener("click", () => {
+        setVisible(auth, false);
+        pendingModule = "";
+        document
+            .getElementById("signpost-menu-totem")
+            ?.classList.remove("is-auth-opening");
+    });
+    document
+        .querySelector("[data-close-workspace]")
+        ?.addEventListener("click", () => {
+            setVisible(workspace, false);
+            document.body.style.overflow = "";
+        });
+    document
+        .querySelector("[data-logout]")
+        ?.addEventListener("click", () => logout());
+    document
+        .querySelector("[data-home]")
+        ?.addEventListener("click", (event) => {
+            event.preventDefault();
+            if (member) {
+                if (roomContent) roomContent.hidden = false;
+                if (moduleContent) moduleContent.hidden = true;
+                const title = document.getElementById("room-title");
+                if (title) title.innerHTML = `${member.room}<span>.</span>`;
+            }
+        });
+    document
+        .querySelectorAll<HTMLButtonElement>("[data-module]")
+        .forEach((button) =>
+            button.addEventListener("click", () =>
+                openModule(button.dataset.module || ""),
+            ),
+        );
+    roomContent?.addEventListener("submit", (event) => {
+        const form = event.target as HTMLFormElement;
+        if (form.id !== "founder-feed-form" || member?.role !== "admin") return;
+        event.preventDefault();
+        const data = new FormData(form);
+        const text = String(data.get("message") || "").trim();
+        const owner = String(data.get("owner") || "");
+        if (!text || !owner) return;
+        const time = new Intl.DateTimeFormat("vi-VN", {
+            hour: "2-digit",
+            minute: "2-digit",
+        }).format(new Date());
+        studioState.tasks.unshift({
+            id: crypto.randomUUID(),
+            title: text,
+            owner,
+            status: "todo",
+            from: member.name,
+        });
+        studioState.notices.unshift({
+            text: `${text} · giao cho ${owner}`,
+            author: member.name,
+            time,
+        });
+        studioState.notices = studioState.notices.slice(0, 20);
+        persist();
+        form.reset();
+        tell(`Task assigned to ${owner}.`);
+    });
+    function updateTask(taskId: string, status: Task["status"]) {
+        const task = studioState.tasks.find((item) => item.id === taskId);
+        if (!task || !member) return;
+        if (task.owner !== member.name && member.role !== "admin") return;
+        task.status = status;
+        persist();
+        tell(`Task updated: ${status.toUpperCase()}`);
+    }
+    roomContent?.addEventListener("click", (event) => {
+        const target = (event.target as HTMLElement).closest<HTMLButtonElement>(
+            "button",
+        );
+        if (!target) return;
+        if (target.dataset.setStatus && target.dataset.taskId) {
+            updateTask(
+                target.dataset.taskId,
+                target.dataset.setStatus as Task["status"],
+            );
+            return;
+        }
+        if (target.dataset.approve && member?.role === "senior") {
+            const task = studioState.tasks.find(
+                (item) => item.id === target.dataset.approve,
+            );
+            if (task) {
+                task.owner = "Phuc Ho";
+                task.status = "todo";
+                task.from = `${member.name} / APPROVED`;
+                studioState.notices.unshift({
+                    text: `${task.title} approved and assigned to Phuc Ho.`,
+                    author: member.name,
+                    time: new Intl.DateTimeFormat("vi-VN", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    }).format(new Date()),
+                });
+                persist();
+                tell("Deployment handed to Phuc Ho.");
+            }
+            return;
+        }
+        if (target.dataset.toast)
+            tell(`${target.dataset.toast} · Demo resource not connected.`);
+    });
+    moduleContent?.addEventListener("click", (event) => {
+        const target = (event.target as HTMLElement).closest<HTMLButtonElement>(
+            "[data-toast]",
+        );
+        if (target)
+            tell(`${target.dataset.toast} · Demo resource not connected.`);
+    });
+    document.addEventListener("dragstart", (event) => {
+        draggedTask = (event.target as HTMLElement).closest<HTMLElement>(
+            ".task-item",
+        );
+        if (draggedTask) draggedTask.style.opacity = ".45";
+    });
+    document.addEventListener("dragend", () => {
+        if (draggedTask) draggedTask.style.opacity = "";
+        draggedTask = null;
+    });
+    document.addEventListener("dragover", (event) => {
+        if ((event.target as HTMLElement).closest(".room-lane"))
+            event.preventDefault();
+    });
+    document.addEventListener("drop", (event) => {
+        const lane = (event.target as HTMLElement).closest<HTMLElement>(
+            ".room-lane",
+        );
+        const id = draggedTask?.dataset.taskId;
+        if (!lane || !id || !member) return;
+        const task = studioState.tasks.find((item) => item.id === id);
+        if (task && (task.owner === member.name || member.role === "admin")) {
+            task.status = lane.dataset.lane as Task["status"];
+            persist();
+        }
+    });
+    window.addEventListener("storage", (event) => {
+        if (event.key !== sharedStorageKey || !event.newValue) return;
+        try {
+            const next = JSON.parse(event.newValue) as StudioState;
+            if (!Array.isArray(next.tasks) || !Array.isArray(next.notices))
+                return;
+            const oldIds = new Set(studioState.tasks.map((task) => task.id));
+            studioState = next;
+            renderRoom();
+            const newAssignment =
+                member &&
+                next.tasks.find(
+                    (task) =>
+                        task.owner === member?.name && !oldIds.has(task.id),
+                );
+            if (newAssignment) tell(`New assignment: ${newAssignment.title}`);
+        } catch {}
+    });
+    ["pointerdown", "keydown", "touchstart"].forEach((name) =>
+        document.addEventListener(
+            name,
+            () => {
+                if (member) idleDeadline = Date.now() + 30 * 60_000;
+            },
+            { passive: true },
+        ),
+    );
+    document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        if (auth?.classList.contains("visible")) {
+            setVisible(auth, false);
+            pendingModule = "";
+            document
+                .getElementById("signpost-menu-totem")
+                ?.classList.remove("is-auth-opening");
+        } else if (workspace.classList.contains("visible")) {
+            setVisible(workspace, false);
+            document.body.style.overflow = "";
+        }
+    });
+</script>
