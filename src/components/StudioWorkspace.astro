@@ -4,6 +4,9 @@
     aria-hidden="true"
     aria-label="Studio authentication"
 >
+    <!-- Background wallpaper for whole auth overlay (editable via Studio) -->
+    <img id="auth-backdrop-bg-img" class="neo-auth-backdrop-cover" src="" alt="" aria-hidden="true" style="display: none;" />
+
     <!-- Master Thick Black Rounded Bezel (Neo-Brutalist Frame) -->
     <div class="auth-shell neo-auth-bezel">
         <!-- TOP WHITE CAPSULE HEADER BAR -->
@@ -144,7 +147,8 @@
                 </div>
 
                 <!-- MAIN WARM PEACH / CREAM CARD HOSTING INTERACTIVE LOGIN -->
-                <div class="neo-card neo-peach-card">
+                <div class="neo-card neo-peach-card" id="auth-frame-peach" data-auth-frame="peach">
+                    <img id="auth-peach-bg-img" class="neo-peach-bg-cover" src="" alt="" aria-hidden="true" style="display: none;" />
                     <!-- Top Title Section -->
                     <div class="peach-card-header">
                         <div class="peach-title-group">
@@ -154,7 +158,7 @@
                         <div class="peach-top-circle" title="AdolSoft Workspace Access">↗</div>
                     </div>
 
-                    <!-- Middle Content: Login Form & 3D Tactile Sculpture -->
+                    <!-- Middle Content: Login Form -->
                     <div class="peach-card-main">
                         <!-- Interactive Login Form -->
                         <form id="studio-login-form" class="peach-login-form">
@@ -202,15 +206,6 @@
                                 Không thể đăng nhập. Vui lòng kiểm tra thông tin.
                             </p>
                         </form>
-
-                        <!-- 3D Tactile Sculpture (Plush Velvet, Origami Star, Discs & Spheres) -->
-                        <div class="peach-sculpture-wrap">
-                            <img
-                                src="/assets/neo_design/sculpture_clean.png"
-                                alt="3D Velvet & Geometric Sculpture Composition"
-                                class="peach-sculpture-img"
-                            />
-                        </div>
                     </div>
 
                     <!-- Bottom Awwwards & Community Count -->
@@ -756,6 +751,54 @@
                             <span class="slot-desc">Khung ảnh chân trang điện thoại và tia nước lỏng 3D</span>
                         </div>
                     </div>
+
+                    <!-- Slot 7: Center Peach Main Card Background (Khung màu vàng giữa) -->
+                    <div class="studio-slot-card slot-wide" data-slot="peach">
+                        <div class="slot-card-header">
+                            <div class="slot-badge-group">
+                                <span class="slot-badge-num">07</span>
+                                <b class="slot-name">NỀN THẺ GIỮA (ONLINE PEACH)</b>
+                            </div>
+                            <span class="slot-size-tip">Large Card Landscape</span>
+                        </div>
+                        <div class="slot-img-preview-box">
+                            <img id="slot-preview-peach" src="" alt="Center Card Background Preview" class="slot-preview-img" style="background: linear-gradient(135deg, #fae2b8 0%, #fad89e 100%);" />
+                            <div class="slot-hover-overlay">
+                                <button type="button" class="slot-action-btn btn-upload-slot" data-upload="peach">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                    <span>Tải ảnh lên</span>
+                                </button>
+                                <button type="button" class="slot-action-btn btn-clear-slot" data-clear="peach" title="Khôi phục nền mặc định">✕</button>
+                            </div>
+                        </div>
+                        <div class="slot-card-footer">
+                            <span class="slot-desc">Ảnh nền cho thẻ giữa đăng nhập ONLINE</span>
+                        </div>
+                    </div>
+
+                    <!-- Slot 8: Entire Login Screen Outer Backdrop (Nền toàn bảng đăng nhập) -->
+                    <div class="studio-slot-card slot-wide" data-slot="backdrop">
+                        <div class="slot-card-header">
+                            <div class="slot-badge-group">
+                                <span class="slot-badge-num">08</span>
+                                <b class="slot-name">NỀN TOÀN BẢNG ĐĂNG NHẬP</b>
+                            </div>
+                            <span class="slot-size-tip">Full Screen Backdrop</span>
+                        </div>
+                        <div class="slot-img-preview-box">
+                            <img id="slot-preview-backdrop" src="" alt="Backdrop Preview" class="slot-preview-img" style="background: radial-gradient(circle at 50% 45%, #ede9f6 0%, #d8d2ea 60%, #c8c0df 100%);" />
+                            <div class="slot-hover-overlay">
+                                <button type="button" class="slot-action-btn btn-upload-slot" data-upload="backdrop">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                    <span>Tải ảnh lên</span>
+                                </button>
+                                <button type="button" class="slot-action-btn btn-clear-slot" data-clear="backdrop" title="Khôi phục nền mặc định">✕</button>
+                            </div>
+                        </div>
+                        <div class="slot-card-footer">
+                            <span class="slot-desc">Ảnh nền toàn màn hình phía sau khung đăng nhập</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -861,6 +904,17 @@
         display: flex;
         opacity: 1;
         pointer-events: auto;
+    }
+
+    .neo-auth-backdrop-cover {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        object-position: center;
+        z-index: 1;
+        pointer-events: none;
     }
 
     /* -------------------------------------------------------------------------
@@ -1330,6 +1384,20 @@
         overflow: hidden;
         flex-grow: 1;
     }
+    .neo-peach-bg-cover {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .neo-peach-card > *:not(.neo-peach-bg-cover) {
+        position: relative;
+        z-index: 1;
+    }
 
     .peach-card-header {
         display: flex;
@@ -1365,12 +1433,13 @@
         cursor: pointer;
     }
 
-    /* Peach Card Main: Dual Column (Interactive Form + 3D Sculpture Art) */
+    /* Peach Card Main: Interactive Form */
     .peach-card-main {
-        display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 12px;
-        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        max-width: 320px;
         min-height: 180px;
     }
 
@@ -7959,7 +8028,9 @@
         af02: "/assets/neo_design/r_af02_clean.png",
         stamp: "/assets/neo_design/r_ts24_clean.png",
         cyber: "/assets/neo_design/r_cyber_clean.png",
-        phone: "/assets/neo_design/r_phone_clean.png"
+        phone: "/assets/neo_design/r_phone_clean.png",
+        peach: "",
+        backdrop: "",
     };
 
     const AUTH_FRAMES_STORAGE_KEY = "adolsoft_auth_custom_frames_v1";
@@ -7972,6 +8043,8 @@
         "stamp",
         "cyber",
         "phone",
+        "peach",
+        "backdrop",
     ] as const;
     type AuthFrameSlot = (typeof AUTH_FRAME_KEYS)[number];
     const AUTH_FRAME_MIME_TYPES = new Set([
@@ -8022,22 +8095,52 @@
     ) {
         AUTH_FRAME_KEYS.forEach((key) => {
             const imgSrc = customFrames[key] || DEFAULT_AUTH_FRAMES[key];
-            if (!imgSrc) return;
+
+            if (key === "backdrop") {
+                const backdropImg = document.getElementById("auth-backdrop-bg-img") as HTMLImageElement | null;
+                if (backdropImg) {
+                    if (imgSrc) {
+                        backdropImg.src = imgSrc;
+                        backdropImg.style.display = "block";
+                    } else {
+                        backdropImg.removeAttribute("src");
+                        backdropImg.style.display = "none";
+                    }
+                }
+            }
 
             const frameEl = document.getElementById(`auth-frame-${key}`);
             if (frameEl) {
-                if (frameEl.tagName.toLowerCase() === "img") {
-                    (frameEl as HTMLImageElement).src = imgSrc;
+                if (key === "peach") {
+                    // Peach main card background image
+                    const bgImg = document.getElementById("auth-peach-bg-img") as HTMLImageElement | null;
+                    if (bgImg) {
+                        if (imgSrc) {
+                            bgImg.src = imgSrc;
+                            bgImg.style.display = "block";
+                        } else {
+                            bgImg.removeAttribute("src");
+                            bgImg.style.display = "none";
+                        }
+                    }
+                } else if (frameEl.tagName.toLowerCase() === "img") {
+                    if (imgSrc) (frameEl as HTMLImageElement).src = imgSrc;
                 } else {
                     const img = frameEl.querySelector("img");
-                    if (img) img.src = imgSrc;
+                    if (img && imgSrc) img.src = imgSrc;
                 }
             }
 
             const previewEl = document.getElementById(
                 `slot-preview-${key}`,
             ) as HTMLImageElement | null;
-            if (previewEl) previewEl.src = imgSrc;
+            if (previewEl) {
+                if ((key === "peach" || key === "backdrop") && !imgSrc) {
+                    previewEl.src = "";
+                } else if (imgSrc) {
+                    previewEl.src = imgSrc;
+                }
+            }
 
             const statusEl = document.getElementById(`slot-status-${key}`);
             if (statusEl) {
