@@ -4,8 +4,9 @@
     aria-hidden="true"
     aria-label="Studio authentication"
 >
-    <!-- Background wallpaper for whole auth overlay (editable via Studio) -->
+    <!-- Background wallpaper for whole auth overlay (editable via Studio: image or video) -->
     <img id="auth-backdrop-bg-img" class="neo-auth-backdrop-cover" src="" alt="" aria-hidden="true" style="display: none;" />
+    <video id="auth-backdrop-bg-video" class="neo-auth-backdrop-cover" autoplay loop muted playsinline aria-hidden="true" style="display: none;"></video>
 
     <!-- Master Thick Black Rounded Bezel (Neo-Brutalist Frame) -->
     <div class="auth-shell neo-auth-bezel">
@@ -313,8 +314,9 @@
     aria-hidden="true"
     aria-label="OSOM Studio Workspace"
 >
-    <!-- Background wallpaper for workspace overlay (shared with auth backdrop) -->
+    <!-- Background wallpaper for workspace overlay (shared with auth backdrop: image or video) -->
     <img id="workspace-backdrop-bg-img" class="neo-auth-backdrop-cover" src="" alt="" aria-hidden="true" style="display: none;" />
+    <video id="workspace-backdrop-bg-video" class="neo-auth-backdrop-cover" autoplay loop muted playsinline aria-hidden="true" style="display: none;"></video>
 
     <!-- Master Cockpit Shell with thick black rounded bezel -->
     <div class="osom-cockpit" id="studio-shell">
@@ -595,8 +597,8 @@
                     </div>
                 </div>
 
-                <!-- Hidden file input for uploading images -->
-                <input type="file" id="admin-studio-file-input" accept="image/*" style="display: none;" />
+                <!-- Hidden file input for uploading images & videos -->
+                <input type="file" id="admin-studio-file-input" accept="image/*,video/mp4,video/webm,video/ogg,video/quicktime" style="display: none;" />
 
                 <!-- Studio Slots Bento Grid -->
                 <div class="studio-slots-grid">
@@ -779,16 +781,17 @@
                         </div>
                         <div class="slot-img-preview-box">
                             <img id="slot-preview-backdrop" src="" alt="Backdrop Preview" class="slot-preview-img" style="background: radial-gradient(circle at 50% 45%, #ede9f6 0%, #d8d2ea 60%, #c8c0df 100%);" />
+                            <video id="slot-preview-backdrop-video" class="slot-preview-img" autoplay loop muted playsinline style="display: none;"></video>
                             <div class="slot-hover-overlay">
                                 <button type="button" class="slot-action-btn btn-upload-slot" data-upload="backdrop">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                                    <span>Tải ảnh lên</span>
+                                    <span>Tải ảnh / Video</span>
                                 </button>
                                 <button type="button" class="slot-action-btn btn-clear-slot" data-clear="backdrop" title="Khôi phục nền mặc định">✕</button>
                             </div>
                         </div>
                         <div class="slot-card-footer">
-                            <span class="slot-desc">Ảnh nền toàn màn hình phía sau bảng đăng nhập và không gian làm việc của các thành viên</span>
+                            <span class="slot-desc">Ảnh hoặc Video (MP4/WebM) toàn màn hình phía sau bảng đăng nhập và không gian làm việc</span>
                         </div>
                     </div>
                 </div>
@@ -8057,7 +8060,7 @@
 
     const AUTH_FRAMES_STORAGE_KEY = "adolsoft_auth_custom_frames_v1";
     const AUTH_FRAMES_BUCKET = "studio-auth-frames";
-    const AUTH_FRAMES_MAX_BYTES = 5 * 1024 * 1024;
+    const AUTH_FRAMES_MAX_BYTES = 25 * 1024 * 1024; // 25 MB support for HD video background
     const AUTH_FRAME_KEYS = [
         "portrait",
         "avatar",
@@ -8075,7 +8078,18 @@
         "image/webp",
         "image/gif",
         "image/avif",
+        "video/mp4",
+        "video/webm",
+        "video/ogg",
+        "video/quicktime",
     ]);
+
+    function isVideoSrc(src: string): boolean {
+        if (!src) return false;
+        if (src.startsWith("data:video/")) return true;
+        const clean = src.split("?")[0].toLowerCase();
+        return clean.endsWith(".mp4") || clean.endsWith(".webm") || clean.endsWith(".ogg") || clean.endsWith(".mov");
+    }
     let authFramesSyncGeneration = 0;
 
     function isAuthFrameSlot(value: string): value is AuthFrameSlot {
@@ -8120,17 +8134,66 @@
 
             if (key === "backdrop") {
                 const backdropImg = document.getElementById("auth-backdrop-bg-img") as HTMLImageElement | null;
+                const backdropVideo = document.getElementById("auth-backdrop-bg-video") as HTMLVideoElement | null;
                 const wsBackdropImg = document.getElementById("workspace-backdrop-bg-img") as HTMLImageElement | null;
-                [backdropImg, wsBackdropImg].forEach((el) => {
-                    if (!el) return;
-                    if (imgSrc) {
-                        el.src = imgSrc;
-                        el.style.display = "block";
-                    } else {
-                        el.removeAttribute("src");
-                        el.style.display = "none";
+                const wsBackdropVideo = document.getElementById("workspace-backdrop-bg-video") as HTMLVideoElement | null;
+                const previewImg = document.getElementById("slot-preview-backdrop") as HTMLImageElement | null;
+                const previewVideo = document.getElementById("slot-preview-backdrop-video") as HTMLVideoElement | null;
+
+                const isVid = isVideoSrc(imgSrc);
+
+                if (isVid) {
+                    // Show video, hide img
+                    [backdropImg, wsBackdropImg].forEach((el) => {
+                        if (el) {
+                            el.removeAttribute("src");
+                            el.style.display = "none";
+                        }
+                    });
+                    [backdropVideo, wsBackdropVideo].forEach((v) => {
+                        if (v) {
+                            if (v.src !== imgSrc) v.src = imgSrc;
+                            v.style.display = "block";
+                            v.play().catch(() => {});
+                        }
+                    });
+                    if (previewImg) previewImg.style.display = "none";
+                    if (previewVideo) {
+                        if (previewVideo.src !== imgSrc) previewVideo.src = imgSrc;
+                        previewVideo.style.display = "block";
+                        previewVideo.play().catch(() => {});
                     }
-                });
+                } else {
+                    // Show img or default gradient, hide video
+                    [backdropVideo, wsBackdropVideo].forEach((v) => {
+                        if (v) {
+                            v.pause();
+                            v.removeAttribute("src");
+                            v.style.display = "none";
+                        }
+                    });
+                    if (previewVideo) {
+                        previewVideo.pause();
+                        previewVideo.removeAttribute("src");
+                        previewVideo.style.display = "none";
+                    }
+
+                    [backdropImg, wsBackdropImg].forEach((el) => {
+                        if (!el) return;
+                        if (imgSrc) {
+                            el.src = imgSrc;
+                            el.style.display = "block";
+                        } else {
+                            el.removeAttribute("src");
+                            el.style.display = "none";
+                        }
+                    });
+
+                    if (previewImg) {
+                        previewImg.src = imgSrc || "";
+                        previewImg.style.display = "block";
+                    }
+                }
             }
 
             const frameEl = document.getElementById(`auth-frame-${key}`);
@@ -8158,8 +8221,8 @@
             const previewEl = document.getElementById(
                 `slot-preview-${key}`,
             ) as HTMLImageElement | null;
-            if (previewEl) {
-                if ((key === "peach" || key === "backdrop") && !imgSrc) {
+            if (previewEl && key !== "backdrop") {
+                if (key === "peach" && !imgSrc) {
                     previewEl.src = "";
                 } else if (imgSrc) {
                     previewEl.src = imgSrc;
@@ -8320,11 +8383,11 @@
             return;
         }
         if (!AUTH_FRAME_MIME_TYPES.has(file.type)) {
-            tell("Ảnh chỉ hỗ trợ JPG, PNG, WebP, GIF hoặc AVIF.");
+            tell("Định dạng không được hỗ trợ. Vui lòng chọn ảnh (JPG, PNG, WebP...) hoặc video (MP4, WebM).");
             return;
         }
         if (file.size > AUTH_FRAMES_MAX_BYTES) {
-            tell("Ảnh vượt quá 5 MB. Vui lòng nén ảnh rồi thử lại.");
+            tell("Tệp vượt quá 25 MB. Vui lòng giảm dung lượng tệp rồi thử lại.");
             return;
         }
 
