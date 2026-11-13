@@ -4582,16 +4582,42 @@
         display: none;
         flex-direction: column;
         gap: 14px;
-        overflow-y: auto;
+        overflow-y: auto !important;
+        overscroll-behavior: contain;
+        touch-action: pan-y;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(234, 88, 12, 0.5) rgba(255, 255, 255, 0.05);
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .admin-studio-overlay::-webkit-scrollbar {
+        width: 8px;
+    }
+    .admin-studio-overlay::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 9999px;
+    }
+    .admin-studio-overlay::-webkit-scrollbar-thumb {
+        background: rgba(234, 88, 12, 0.5);
+        border-radius: 9999px;
+    }
+    .admin-studio-overlay::-webkit-scrollbar-thumb:hover {
+        background: #ea580c;
     }
     .admin-studio-overlay.is-open,
     .admin-studio-overlay.visible {
         display: flex !important;
         opacity: 1 !important;
         pointer-events: auto !important;
+    }
+
+    /* Vô hiệu hóa pointer-events của canvas và controls khi Studio mở để cuộn chuột 100% trơn tru */
+    .osom-card-center.is-studio-open .interactive-canvas,
+    .osom-card-center.is-studio-open .osom-center-top-controls,
+    .osom-card-center.is-studio-open .osom-bottom-controls {
+        pointer-events: none !important;
+        visibility: hidden !important;
     }
 
     .studio-editor-banner {
@@ -8420,11 +8446,15 @@
         }
         applyAuthFrameImages();
         void syncAuthFramesFromSupabase();
+        const centerStage = document.getElementById("osom-center-stage");
+        centerStage?.classList.add("is-studio-open");
         adminStudioOverlay?.classList.add("visible");
         adminStudioOverlay?.classList.add("is-open");
     }
 
     function closeAdminStudio() {
+        const centerStage = document.getElementById("osom-center-stage");
+        centerStage?.classList.remove("is-studio-open");
         adminStudioOverlay?.classList.remove("visible");
         adminStudioOverlay?.classList.remove("is-open");
     }
