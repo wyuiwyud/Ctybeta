@@ -313,6 +313,9 @@
     aria-hidden="true"
     aria-label="OSOM Studio Workspace"
 >
+    <!-- Background wallpaper for workspace overlay (shared with auth backdrop) -->
+    <img id="workspace-backdrop-bg-img" class="neo-auth-backdrop-cover" src="" alt="" aria-hidden="true" style="display: none;" />
+
     <!-- Master Cockpit Shell with thick black rounded bezel -->
     <div class="osom-cockpit" id="studio-shell">
         <!-- Top Right Actions: Nút Out (Đăng xuất) đặt bên cạnh Nút Đóng bảng điều khiển -->
@@ -765,12 +768,12 @@
                         </div>
                     </div>
 
-                    <!-- Slot 8: Entire Login Screen Outer Backdrop (Nền toàn bảng đăng nhập) -->
+                    <!-- Slot 8: Entire Login & Workspace Outer Backdrop (Nền toàn màn hình) -->
                     <div class="studio-slot-card slot-wide" data-slot="backdrop">
                         <div class="slot-card-header">
                             <div class="slot-badge-group">
                                 <span class="slot-badge-num">08</span>
-                                <b class="slot-name">NỀN TOÀN BẢNG ĐĂNG NHẬP</b>
+                                <b class="slot-name">NỀN TOÀN MÀN HÌNH (ĐĂNG NHẬP & BẢNG THÀNH VIÊN)</b>
                             </div>
                             <span class="slot-size-tip">Full Screen Backdrop</span>
                         </div>
@@ -785,7 +788,7 @@
                             </div>
                         </div>
                         <div class="slot-card-footer">
-                            <span class="slot-desc">Ảnh nền toàn màn hình phía sau khung đăng nhập</span>
+                            <span class="slot-desc">Ảnh nền toàn màn hình phía sau bảng đăng nhập và không gian làm việc của các thành viên</span>
                         </div>
                     </div>
                 </div>
@@ -8116,15 +8119,17 @@
 
             if (key === "backdrop") {
                 const backdropImg = document.getElementById("auth-backdrop-bg-img") as HTMLImageElement | null;
-                if (backdropImg) {
+                const wsBackdropImg = document.getElementById("workspace-backdrop-bg-img") as HTMLImageElement | null;
+                [backdropImg, wsBackdropImg].forEach((el) => {
+                    if (!el) return;
                     if (imgSrc) {
-                        backdropImg.src = imgSrc;
-                        backdropImg.style.display = "block";
+                        el.src = imgSrc;
+                        el.style.display = "block";
                     } else {
-                        backdropImg.removeAttribute("src");
-                        backdropImg.style.display = "none";
+                        el.removeAttribute("src");
+                        el.style.display = "none";
                     }
-                }
+                });
             }
 
             const frameEl = document.getElementById(`auth-frame-${key}`);
