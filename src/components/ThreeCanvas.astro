@@ -624,7 +624,7 @@
         {
             id: "tang-1-nen-tang",
             index: "01",
-            title: "TẦNG 1 // NỀN TẢNG",
+            title: "NỀN TẢNG (OS/Infra)",
             subtitle: "Hệ điều hành, AI Local & Hạ tầng bảo mật",
             category: "FOUNDATION LAYER — OS & INFRASTRUCTURE",
             metric: "ARCH LINUX | 100% OFFLINE | RUST CORE",
@@ -723,7 +723,7 @@
         {
             id: "tang-2-cong-cu",
             index: "02",
-            title: "TẦNG 2 // CÔNG CỤ",
+            title: "CÔNG CỤ (Tools)",
             subtitle: "Bộ công cụ làm việc hằng ngày & tài chính số",
             category: "TOOL LAYER — PRODUCTIVITY & FINANCE",
             metric: "AI-INTEGRATED | BANK TOKEN | NO LICENSE",
@@ -822,7 +822,7 @@
         {
             id: "tang-3-ung-dung",
             index: "03",
-            title: "TẦNG 3 // ỨNG DỤNG",
+            title: "ỨNG DỤNG (Apps)",
             subtitle: "Giải pháp nghiệp vụ & AI hành động thật",
             category: "APPLICATION LAYER — BUSINESS SOLUTIONS",
             metric: "AI AGENT | 24/7 OPS | END-USER READY",
@@ -922,7 +922,7 @@
         {
             id: "tang-4-tri-thuc",
             index: "04",
-            title: "TẦNG 4 // TRI THỨC",
+            title: "TRI THỨC (Academy)",
             subtitle: "Đào tạo kỹ năng số & chuyển giao tri thức",
             category: "KNOWLEDGE LAYER — ACADEMY & SOP",
             metric: "PROMPT SKILL | PPT MASTERY | 15,000+ TARGET",
@@ -2328,21 +2328,34 @@
             155,
         );
 
-        // Title (Solid, Crisp, Architectural Typography)
-        ctx.font = '800 132px "Syne", sans-serif';
-        const titleMaxWidth = canvas.width - 280;
-        const titleWidth = ctx.measureText(domain.title).width;
-        if (titleWidth > titleMaxWidth) {
-            const titleFontSize = 132 * (titleMaxWidth / titleWidth);
-            ctx.font = `800 ${titleFontSize}px "Syne", sans-serif`;
-        }
-        ctx.fillStyle = "#ffffff";
-        ctx.fillText(domain.title, 120, 375);
+        if (idx < 4) {
+            // 4 thẻ đầu: Tên chủ đề đã có ở Header HUD phía trên nên không để tên chủ đề trong thẻ
+            ctx.font = '600 52px "Inter", sans-serif';
+            ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+            const subMaxWidth = canvas.width - 280;
+            const subWidth = ctx.measureText(domain.subtitle).width;
+            if (subWidth > subMaxWidth) {
+                const subFontSize = 52 * (subMaxWidth / subWidth);
+                ctx.font = `600 ${subFontSize}px "Inter", sans-serif`;
+            }
+            ctx.fillText(domain.subtitle, 120, 310);
+        } else {
+            // Title (Solid, Crisp, Architectural Typography)
+            ctx.font = '800 132px "Syne", sans-serif';
+            const titleMaxWidth = canvas.width - 280;
+            const titleWidth = ctx.measureText(domain.title).width;
+            if (titleWidth > titleMaxWidth) {
+                const titleFontSize = 132 * (titleMaxWidth / titleWidth);
+                ctx.font = `800 ${titleFontSize}px "Syne", sans-serif`;
+            }
+            ctx.fillStyle = "#ffffff";
+            ctx.fillText(domain.title, 120, 375);
 
-        // Subtitle
-        ctx.font = '500 40px "Inter", sans-serif';
-        ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
-        ctx.fillText(domain.subtitle, 120, 465);
+            // Subtitle
+            ctx.font = '500 40px "Inter", sans-serif';
+            ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+            ctx.fillText(domain.subtitle, 120, 465);
+        }
 
         ctx.shadowBlur = 0; // reset shadow for buttons & pills
 
@@ -4935,8 +4948,33 @@
         };
         document.addEventListener("visibilitychange", onVisibilityChange);
 
+        // Studio Workspace Performance Boost: Freeze/Thaw WebGL Render Loop & Lenis
+        let isStudioBoostPaused = false;
+        const onBackgroundPause = () => {
+            if (isStudioBoostPaused) return;
+            isStudioBoostPaused = true;
+            isRunning = false;
+            try { lenis.stop(); } catch (_) {}
+            hiddenAt ??= performance.now();
+        };
+        const onBackgroundResume = () => {
+            if (!isStudioBoostPaused) return;
+            isStudioBoostPaused = false;
+            isRunning = true;
+            try { lenis.start(); } catch (_) {}
+            if (hiddenAt !== null) {
+                hiddenDuration += performance.now() - hiddenAt;
+                hiddenAt = null;
+            }
+            requestAnimationFrame(animate);
+        };
+        window.addEventListener("app:background-pause", onBackgroundPause);
+        window.addEventListener("app:background-resume", onBackgroundResume);
+
         document.addEventListener("astro:before-swap", () => {
             isRunning = false;
+            window.removeEventListener("app:background-pause", onBackgroundPause);
+            window.removeEventListener("app:background-resume", onBackgroundResume);
             window.removeEventListener("resize", onResize);
             document.removeEventListener(
                 "visibilitychange",

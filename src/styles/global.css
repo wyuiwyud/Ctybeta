@@ -1689,3 +1689,16 @@ html.lenis body {
         gap: 6px;
     }
 }
+
+/* ========================================================================= */
+/* 14. STUDIO WORKSPACE BOOST MODE (ZERO-COST BACKGROUND DORMANT STATE)      */
+/* ========================================================================= */
+body.studio-boost-mode #canvas-container,
+body.studio-boost-mode #hero-brand-layer,
+body.studio-boost-mode #scroll-story-track,
+body.studio-boost-mode #signpost-menu-totem,
+body.studio-boost-mode #taco-menu-system {
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+

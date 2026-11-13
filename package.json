@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
     "@tailwindcss/vite": "^4.3.3",
     "@tweakpane/core": "^2.0.5",
     "astro": "^7.4.2",
