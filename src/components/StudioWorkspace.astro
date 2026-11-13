@@ -356,17 +356,6 @@
         <!-- COLUMN 1: LEFT WHITE CARD -->
         <aside class="osom-card osom-card-left">
             <div class="osom-card-top">
-                <!-- Brand logo + OSOM -->
-                <div class="osom-brand">
-                    <svg class="osom-cube-icon" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
-                        <path d="M16 3L28 9.5V22.5L16 29L4 22.5V9.5L16 3Z"/>
-                        <path d="M16 3V29"/>
-                        <path d="M4 9.5L16 16L28 9.5"/>
-                    </svg>
-                    <span class="osom-brand-title">OSOM</span>
-                    <span class="osom-brand-reg">®</span>
-                </div>
-
                 <!-- Navigation Bar (Nút T A C O & Menu 3 gạch chuyển sang Cột Trái) -->
                 <nav class="osom-floating-nav osom-taco-left" aria-label="Dashboard navigation">
                     <button type="button" class="osom-nav-circle-btn" aria-label="Menu" title="Menu bảng làm việc">
@@ -8060,7 +8049,7 @@
 
     const AUTH_FRAMES_STORAGE_KEY = "adolsoft_auth_custom_frames_v1";
     const AUTH_FRAMES_BUCKET = "studio-auth-frames";
-    const AUTH_FRAMES_MAX_BYTES = 25 * 1024 * 1024; // 25 MB support for HD video background
+    const AUTH_FRAMES_MAX_BYTES = 50 * 1024 * 1024; // 50 MB support for HD video background
     const AUTH_FRAME_KEYS = [
         "portrait",
         "avatar",
@@ -8086,7 +8075,7 @@
 
     function isVideoSrc(src: string): boolean {
         if (!src) return false;
-        if (src.startsWith("data:video/")) return true;
+        if (src.startsWith("data:video/") || src.startsWith("blob:")) return true;
         const clean = src.split("?")[0].toLowerCase();
         return clean.endsWith(".mp4") || clean.endsWith(".webm") || clean.endsWith(".ogg") || clean.endsWith(".mov");
     }
@@ -8094,6 +8083,52 @@
 
     function isAuthFrameSlot(value: string): value is AuthFrameSlot {
         return AUTH_FRAME_KEYS.includes(value as AuthFrameSlot);
+    }
+
+    // IndexedDB for large media (video / high-res background)
+    const AUTH_IDB_NAME = "adolsoft_media_db";
+    const AUTH_IDB_STORE = "custom_frames";
+    function openMediaDB(): Promise<IDBDatabase> {
+        return new Promise((resolve, reject) => {
+            const req = indexedDB.open(AUTH_IDB_NAME, 1);
+            req.onupgradeneeded = () => {
+                req.result.createObjectStore(AUTH_IDB_STORE);
+            };
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => reject(req.error);
+        });
+    }
+
+    async function saveLargeMediaLocal(key: string, dataUrl: string) {
+        try {
+            const db = await openMediaDB();
+            const tx = db.transaction(AUTH_IDB_STORE, "readwrite");
+            tx.objectStore(AUTH_IDB_STORE).put(dataUrl, key);
+        } catch (e) {
+            console.warn("Could not save to IndexedDB:", e);
+        }
+    }
+
+    async function getLargeMediaLocal(key: string): Promise<string | null> {
+        try {
+            const db = await openMediaDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction(AUTH_IDB_STORE, "readonly");
+                const req = tx.objectStore(AUTH_IDB_STORE).get(key);
+                req.onsuccess = () => resolve(req.result || null);
+                req.onerror = () => resolve(null);
+            });
+        } catch {
+            return null;
+        }
+    }
+
+    async function removeLargeMediaLocal(key: string) {
+        try {
+            const db = await openMediaDB();
+            const tx = db.transaction(AUTH_IDB_STORE, "readwrite");
+            tx.objectStore(AUTH_IDB_STORE).delete(key);
+        } catch {}
     }
 
     function getCustomAuthFrames(): Record<string, string> {
@@ -8387,34 +8422,40 @@
             return;
         }
         if (file.size > AUTH_FRAMES_MAX_BYTES) {
-            tell("Tệp vượt quá 25 MB. Vui lòng giảm dung lượng tệp rồi thử lại.");
+            tell("Tệp vượt quá 50 MB. Vui lòng giảm dung lượng tệp rồi thử lại.");
             return;
         }
 
         let fallbackDataUrl = "";
         try {
             fallbackDataUrl = await readImageFileAsDataUrl(file);
-            const publicUrl = await uploadAuthFrameObject(
-                slot,
-                file,
-                file.type,
-            );
+            // Save to IndexedDB locally immediately so it works even if offline or cloud upload fails
+            await saveLargeMediaLocal(slot, fallbackDataUrl);
+            
+            // Also update in-memory and UI immediately
             const frames = getCustomAuthFrames();
-            frames[slot] = publicUrl;
+            frames[slot] = fallbackDataUrl;
             saveCustomAuthFrames(frames);
             applyAuthFrameImages(frames);
-            tell("Ảnh Studio đã được đồng bộ cho toàn bộ thiết bị.");
-        } catch (error) {
-            console.error("Could not upload Studio image:", error);
-            if (fallbackDataUrl) {
-                const frames = getCustomAuthFrames();
-                frames[slot] = fallbackDataUrl;
+
+            // Attempt cloud sync in background
+            try {
+                const publicUrl = await uploadAuthFrameObject(
+                    slot,
+                    file,
+                    file.type,
+                );
+                frames[slot] = publicUrl;
                 saveCustomAuthFrames(frames);
                 applyAuthFrameImages(frames);
+                tell("Đã cập nhật và đồng bộ ảnh/video cho toàn bộ thiết bị.");
+            } catch (cloudErr) {
+                console.warn("Could not sync media to Supabase:", cloudErr);
+                tell("Đã cập nhật trên thiết bị này. (Đồng bộ Cloud đang tạm dừng do giới hạn tài khoản)");
             }
-            tell(
-                "Không thể đồng bộ ảnh Studio lên Cloud. Ảnh chỉ được giữ cục bộ trên thiết bị này.",
-            );
+        } catch (error) {
+            console.error("Could not process Studio media:", error);
+            tell("Không thể đọc tệp vừa chọn. Vui lòng thử lại với tệp khác.");
         }
     }
 
@@ -8425,6 +8466,7 @@
         }
         const adminId = member.id;
         try {
+            await removeLargeMediaLocal(slot);
             const objectPath = `frames/${slot}`;
             const { error: metadataError } = await supabase
                 .from("studio_auth_frames")
@@ -8437,19 +8479,22 @@
                     },
                     { onConflict: "slot" },
                 );
-            if (metadataError) throw metadataError;
-            const { error: storageError } = await supabase.storage
-                .from(AUTH_FRAMES_BUCKET)
-                .remove([objectPath]);
-            if (storageError) throw storageError;
+            if (metadataError) console.warn("Supabase clear metadata warn:", metadataError);
+            try {
+                await supabase.storage.from(AUTH_FRAMES_BUCKET).remove([objectPath]);
+            } catch {}
             const frames = getCustomAuthFrames();
             delete frames[slot];
             saveCustomAuthFrames(frames);
             applyAuthFrameImages(frames);
-            tell("Đã khôi phục ảnh mặc định và đồng bộ cho toàn bộ thiết bị.");
+            tell("Đã khôi phục nền mặc định.");
         } catch (error) {
             console.error("Could not clear Studio image:", error);
-            tell("Không thể khôi phục ảnh mặc định trên Cloud.");
+            const frames = getCustomAuthFrames();
+            delete frames[slot];
+            saveCustomAuthFrames(frames);
+            applyAuthFrameImages(frames);
+            tell("Đã khôi phục nền mặc định trên thiết bị.");
         }
     }
 
@@ -8598,6 +8643,19 @@
 
     // Initial frame hydration
     applyAuthFrameImages();
+    // Load any large media from IndexedDB first (e.g. video / high-res background)
+    void Promise.all(
+        AUTH_FRAME_KEYS.map(async (slot) => {
+            const largeData = await getLargeMediaLocal(slot);
+            if (largeData) {
+                const current = getCustomAuthFrames();
+                if (!current[slot] || current[slot].startsWith("data:")) {
+                    current[slot] = largeData;
+                    applyAuthFrameImages(current);
+                }
+            }
+        })
+    );
     void syncAuthFramesFromSupabase();
     window.addEventListener("online", () => {
         void syncAuthFramesFromSupabase();
