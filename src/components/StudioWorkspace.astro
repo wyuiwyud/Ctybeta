@@ -359,24 +359,24 @@
                 <!-- Navigation Bar (Nút T A C O & Menu 3 gạch chuyển sang Cột Trái) -->
                 <nav class="osom-floating-nav osom-taco-left" aria-label="Dashboard navigation">
                     <button type="button" class="osom-nav-circle-btn" aria-label="Menu" title="Menu bảng làm việc">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
                             <line x1="3" y1="6" x2="21" y2="6"/>
                             <line x1="3" y1="12" x2="21" y2="12"/>
                             <line x1="3" y1="18" x2="21" y2="18"/>
                         </svg>
                     </button>
                     <div class="osom-nav-pills-bar" role="tablist">
-                        <button type="button" class="osom-pill-btn" data-module="t" role="tab" aria-selected="false" title="T · Telemetry">
-                            <b>T</b><span class="pill-text"> · TELEMETRY</span>
+                        <button type="button" class="osom-pill-btn is-active" data-module="t" role="tab" aria-selected="true" title="T · Telemetry">
+                            <b>T</b>
                         </button>
                         <button type="button" class="osom-pill-btn" data-module="a" role="tab" aria-selected="false" title="A · Assets">
-                            <b>A</b><span class="pill-text"> · ASSETS</span>
+                            <b>A</b>
                         </button>
-                        <button type="button" class="osom-pill-btn is-active" data-module="c" role="tab" aria-selected="true" title="C · Clients">
-                            <b>C</b><span class="pill-text"> · CLIENTS</span>
+                        <button type="button" class="osom-pill-btn" data-module="c" role="tab" aria-selected="false" title="C · Clients">
+                            <b>C</b>
                         </button>
                         <button type="button" class="osom-pill-btn" data-module="o" role="tab" aria-selected="false" title="O · Operations">
-                            <b>O</b><span class="pill-text"> · OPERATIONS</span>
+                            <b>O</b>
                         </button>
                     </div>
                 </nav>
@@ -510,6 +510,12 @@
 
             <!-- Interactive Drawing Canvas -->
             <canvas id="interactive-canvas" class="interactive-canvas is-drawing"></canvas>
+
+            <!-- AI Interactive DOM Elements Layer (Nodes, Edges SVG, Explanations with Drag & Edit) -->
+            <div id="ai-elements-layer" class="ai-elements-layer" aria-label="Lớp sơ đồ tương tác AI">
+                <svg id="ai-edges-svg" class="ai-edges-svg"></svg>
+                <div id="ai-nodes-container" class="ai-nodes-container"></div>
+            </div>
 
             <!-- Admin Live Member Monitoring Notification Bar -->
             <div class="admin-monitoring-bar" id="admin-monitoring-bar" style="display: none;">
@@ -786,11 +792,11 @@
                 </div>
             </div>
 
-            <!-- Bottom Right Mode Toggle Pill: Chế độ vẽ / Chế độ xem -->
+            <!-- Bottom Right Mode Toggle Pill: Chế độ bút / Chế độ chuột -->
             <div class="osom-bottom-controls">
-                <div class="osom-mode-toggle-pill" id="canvas-mode-toggle" role="switch" aria-checked="true" title="Bấm để chuyển Chế độ vẽ / Chế độ xem">
+                <div class="osom-mode-toggle-pill" id="canvas-mode-toggle" role="switch" aria-checked="false" title="Bấm để chuyển Chế độ chuột (kéo thả & sửa chữ) / Chế độ bút vẽ">
                     <span class="osom-mode-dot"></span>
-                    <span class="osom-mode-label" id="canvas-mode-label">Chế độ vẽ</span>
+                    <span class="osom-mode-label" id="canvas-mode-label">Chế độ chuột</span>
                     <div class="osom-toggle-slider" id="canvas-mode-slider">
                         <span class="osom-toggle-knob"></span>
                     </div>
@@ -798,49 +804,102 @@
             </div>
         </main>
 
-        <!-- COLUMN 3: RIGHT WHITE CARD -->
-        <aside class="osom-card osom-card-right">
-            <!-- Top Segment: Workspace database summary -->
-            <div class="osom-card-top-section">
-                <div class="osom-dark-pill-toggle">
-                    <span class="osom-dark-pill-text">Studio Database</span>
-                    <div class="osom-mini-switch is-active" id="osom-content-toggle" role="switch" aria-checked="true">
-                        <span class="osom-switch-thumb"></span>
+        <!-- COLUMN 3: RIGHT WHITE CARD (AI AGENT COMMAND CENTER) -->
+        <aside class="osom-card osom-card-right ai-command-card">
+            <!-- 1. KHU VỰC TRẠNG THÁI (TOP) -->
+            <div class="ai-status-section">
+                <div class="ai-agent-header">
+                    <div class="ai-avatar-wrap">
+                        <div class="ai-glowing-orb" id="ai-glowing-orb">
+                            <span class="ai-orb-core"></span>
+                            <span class="ai-orb-ring ring-1"></span>
+                            <span class="ai-orb-ring ring-2"></span>
+                        </div>
+                        <div class="ai-agent-meta">
+                            <b class="ai-agent-name">ADOL AI AGENT</b>
+                            <div class="ai-status-pill" id="ai-status-pill" data-state="idle">
+                                <span class="ai-status-dot"></span>
+                                <span class="ai-status-text" id="ai-status-text">🟢 Đang chờ lệnh</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="osom-opt-header">
-                    <h3 class="osom-opt-title">Clients &<br/>Projects</h3>
-                    <div class="osom-opt-icon-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                            <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
-                        </svg>
+                <!-- Toggle: Chế độ tự động vẽ -->
+                <div class="ai-auto-draw-toggle" id="ai-auto-draw-toggle" role="switch" aria-checked="true" title="Bật/Tắt chế độ tự động vẽ trực tiếp lên Canvas khi có lệnh">
+                    <div class="ai-toggle-info">
+                        <span class="ai-toggle-label">Tự động vẽ Canvas</span>
+                        <small class="ai-toggle-sub">Vẽ ngay sau khi phân tích</small>
                     </div>
-                </div>
-
-                <div class="osom-chart-container studio-db-summary">
-                    <div><span>CLIENTS</span><b id="workspace-client-total">—</b></div>
-                    <div><span>PROJECTS</span><b id="workspace-project-total">—</b></div>
-                    <small id="workspace-data-status">Đang chờ dữ liệu Supabase</small>
+                    <div class="ai-mini-switch is-active" id="ai-auto-switch">
+                        <span class="ai-switch-thumb"></span>
+                    </div>
                 </div>
             </div>
 
-            <div class="osom-card-mid-section">
-                <div class="osom-metric-row">
-                    <span class="osom-metric-val" id="workspace-progress-total">—</span>
-                    <div class="osom-metric-badge">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round">
-                            <line x1="7" y1="7" x2="17" y2="17"/>
-                            <polyline points="17 7 17 17 7 17"/>
-                        </svg>
+            <!-- 2. KHU VỰC RA LỆNH (MIDDLE - INPUT BOX) -->
+            <div class="ai-command-section">
+                <div class="ai-input-wrap">
+                    <textarea
+                        id="ai-prompt-input"
+                        class="ai-prompt-input"
+                        placeholder="Nhập yêu cầu (VD: Vẽ sơ đồ tư duy chiến lược hệ sinh thái AdolSoft 2026...)"
+                        rows="3"
+                    ></textarea>
+                    <div class="ai-input-actions">
+                        <span class="ai-input-shortcut">Enter để gửi</span>
+                        <button type="button" class="ai-send-btn" id="ai-send-btn" title="Gửi yêu cầu cho AI">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
+                            <span>Gửi lệnh</span>
+                        </button>
                     </div>
                 </div>
-                <div class="osom-metric-sub">average project progress</div>
+
+                <!-- Quick Action Pills -->
+                <div class="ai-quick-actions" aria-label="Gợi ý nhanh">
+                    <button type="button" class="ai-quick-btn" data-action="mindmap">
+                        <span class="ai-quick-icon">🧠</span>
+                        <span>Vẽ Mindmap dự án</span>
+                    </button>
+                    <button type="button" class="ai-quick-btn" data-action="flowchart">
+                        <span class="ai-quick-icon">⚡</span>
+                        <span>Tạo sơ đồ luồng (Flowchart)</span>
+                    </button>
+                    <button type="button" class="ai-quick-btn" data-action="summarize">
+                        <span class="ai-quick-icon">📝</span>
+                        <span>Tóm tắt nội dung Canvas</span>
+                    </button>
+                    <button type="button" class="ai-quick-btn" data-action="explain">
+                        <span class="ai-quick-icon">💡</span>
+                        <span>Giải thích sơ đồ hiện tại</span>
+                    </button>
+                </div>
             </div>
 
-            <div class="osom-sales-card">
-                <h4 class="osom-sales-title">Workspace<br/>Summary</h4>
-                <p class="studio-db-note">Tiến độ dự án được lưu trực tiếp vào Supabase.</p>
+            <!-- 3. KHU VỰC LỊCH SỬ / TIẾN TRÌNH (BOTTOM - TERMINAL LOG) -->
+            <div class="ai-terminal-section">
+                <div class="ai-terminal-header">
+                    <div class="ai-term-dots">
+                        <span class="term-dot dot-red"></span>
+                        <span class="term-dot dot-yellow"></span>
+                        <span class="term-dot dot-green"></span>
+                    </div>
+                    <span class="ai-term-title">AI AGENT TERMINAL</span>
+                    <button type="button" class="ai-term-clear-btn" id="ai-term-clear-btn" title="Xóa màn hình log">CLR</button>
+                </div>
+                <div class="ai-terminal-body" id="ai-terminal-log">
+                    <div class="ai-log-entry log-sys">
+                        <span class="log-time">00:00</span>
+                        <span class="log-msg">[Hệ thống] AI Agent Command Center sẵn sàng.</span>
+                    </div>
+                    <div class="ai-log-entry log-idle">
+                        <span class="log-time">00:01</span>
+                        <span class="log-msg">Nhập prompt hoặc chọn nút hành động nhanh để bắt đầu.</span>
+                    </div>
+                </div>
             </div>
         </aside>
     </div>
@@ -1978,8 +2037,9 @@
         height: 36px;
         border-radius: 50%;
         background: #f1f5f9;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        border: 1.5px solid #000000;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        color: #000000;
         flex-shrink: 0;
         display: flex;
         align-items: center;
@@ -1987,9 +2047,16 @@
         cursor: pointer;
         transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .osom-taco-left .osom-nav-circle-btn svg {
+        stroke: #000000;
+    }
     .osom-taco-left .osom-nav-circle-btn:hover {
-        background: #e2e8f0;
+        background: #000000;
+        color: #ffffff;
         transform: scale(1.05);
+    }
+    .osom-taco-left .osom-nav-circle-btn:hover svg {
+        stroke: #ffffff;
     }
     .osom-taco-left .osom-nav-pills-bar {
         flex: 1;
@@ -2325,6 +2392,177 @@
         transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
                     opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
                     filter 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* AI INTERACTIVE DOM ELEMENTS LAYER (BƯỚC 5: DRAG & DROP, EDIT, DELETE) */
+    .ai-elements-layer {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 20;
+        pointer-events: auto;
+        overflow: hidden;
+    }
+    .interactive-canvas.is-drawing {
+        z-index: 25;
+        cursor: crosshair;
+        pointer-events: auto;
+    }
+    .interactive-canvas.is-mouse-mode {
+        z-index: 5;
+        cursor: default;
+        pointer-events: none;
+    }
+    .ai-edges-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .ai-nodes-container {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    /* AI DOM NODE */
+    .ai-dom-node {
+        position: absolute;
+        width: 170px;
+        min-height: 52px;
+        border-radius: 14px;
+        border: 2px solid #000000;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 16px var(--node-glow, rgba(0, 240, 255, 0.4));
+        background: var(--node-bg, #00f0ff);
+        color: var(--node-color, #000000);
+        padding: 8px 12px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        user-select: none;
+        touch-action: none;
+        pointer-events: auto;
+        transition: box-shadow 0.2s, transform 0.1s;
+    }
+    .ai-dom-node:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 20px var(--node-glow, rgba(0, 240, 255, 0.6));
+    }
+    .ai-dom-node.is-dragging {
+        cursor: grabbing;
+        transform: scale(1.04);
+        z-index: 100;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 24px var(--node-glow, rgba(0, 240, 255, 0.8));
+    }
+    .ai-dom-node-text {
+        width: 100%;
+        text-align: center;
+        font: 700 12.5px/1.35 'Space Grotesk', sans-serif;
+        color: inherit;
+        outline: none;
+        border: none;
+        background: transparent;
+        cursor: text;
+        word-break: break-word;
+        user-select: text;
+        -webkit-user-select: text;
+    }
+    .ai-dom-node-text[contenteditable="true"]:focus {
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 6px;
+        outline: 1.5px dashed rgba(0, 0, 0, 0.45);
+        padding: 2px 4px;
+    }
+    .ai-dom-del-btn {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #ef4444;
+        color: #ffffff;
+        border: 1.5px solid #000000;
+        font: 800 10px sans-serif;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        opacity: 0;
+        transform: scale(0.7);
+        transition: all 0.18s ease;
+        padding: 0;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .ai-dom-node:hover .ai-dom-del-btn,
+    .ai-dom-explanation:hover .ai-dom-del-btn {
+        opacity: 1;
+        transform: scale(1);
+    }
+    .ai-dom-del-btn:hover {
+        background: #b91c1c;
+        transform: scale(1.15);
+    }
+
+    /* AI DOM EXPLANATION */
+    .ai-dom-explanation {
+        position: absolute;
+        width: 290px;
+        border-radius: 14px;
+        background: rgba(15, 23, 42, 0.94);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        padding: 10px 14px;
+        box-sizing: border-box;
+        cursor: grab;
+        user-select: none;
+        touch-action: none;
+        pointer-events: auto;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        transition: box-shadow 0.2s, transform 0.1s;
+    }
+    .ai-dom-explanation:hover {
+        border-color: rgba(56, 189, 248, 0.6);
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.55);
+    }
+    .ai-dom-explanation.is-dragging {
+        cursor: grabbing;
+        transform: scale(1.02);
+        z-index: 100;
+    }
+    .ai-dom-exp-tag {
+        font: 800 9px 'IBM Plex Mono', monospace;
+        letter-spacing: 0.5px;
+        color: #38bdf8;
+    }
+    .ai-dom-exp-text {
+        font: 500 11.5px/1.45 'Space Grotesk', sans-serif;
+        color: #e2e8f0;
+        outline: none;
+        border: none;
+        background: transparent;
+        cursor: text;
+        word-break: break-word;
+        user-select: text;
+        -webkit-user-select: text;
+    }
+    .ai-dom-exp-text[contenteditable="true"]:focus {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        outline: 1.5px dashed rgba(56, 189, 248, 0.6);
+        padding: 2px 4px;
     }
     .interactive-canvas.is-drawing {
         cursor: crosshair;
@@ -2913,167 +3151,378 @@
         transform: translateX(0px);
     }
 
-    /* RIGHT CARD */
-    .osom-card-right {
+    /* RIGHT CARD (AI AGENT COMMAND CENTER) */
+    .osom-card-right.ai-command-card {
         background: #ffffff;
-        padding: 26px 22px 24px;
+        padding: 20px 18px 18px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 16px;
+        gap: 12px;
+        box-sizing: border-box;
+        overflow: hidden;
     }
-    .osom-dark-pill-toggle {
-        background: #09090b;
-        border-radius: 9999px;
-        padding: 8px 14px 8px 18px;
+
+    /* 1. TOP: AI AGENT STATUS & GLOWING ORB */
+    .ai-status-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 12px 14px;
+    }
+    .ai-agent-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        color: #ffffff;
     }
-    .osom-dark-pill-text {
-        font-size: 12px;
-        font-weight: 500;
+    .ai-avatar-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
-    .osom-mini-switch {
-        width: 34px;
-        height: 20px;
+    /* GLOWING ORB */
+    .ai-glowing-orb {
+        width: 38px;
+        height: 38px;
+        position: relative;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+    }
+    .ai-orb-core {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 45%, #2563eb 100%);
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.9), inset 0 0 6px rgba(255, 255, 255, 0.8);
+        transition: all 0.3s ease;
+        animation: orbBreathe 2.4s ease-in-out infinite alternate;
+    }
+    .ai-orb-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1.5px dashed rgba(56, 189, 248, 0.45);
+        animation: orbSpin 6s linear infinite;
+    }
+    .ai-orb-ring.ring-2 {
+        inset: -4px;
+        border: 1px dotted rgba(37, 99, 235, 0.3);
+        animation: orbSpinReverse 9s linear infinite;
+    }
+    @keyframes orbBreathe {
+        from { transform: scale(0.92); filter: drop-shadow(0 0 4px #38bdf8); }
+        to { transform: scale(1.08); filter: drop-shadow(0 0 12px #22c55e); }
+    }
+    @keyframes orbSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    @keyframes orbSpinReverse {
+        from { transform: rotate(360deg); }
+        to { transform: rotate(0deg); }
+    }
+
+    /* STATES: IDLE, THINKING, DRAWING, ERROR */
+    .ai-glowing-orb.is-thinking .ai-orb-core {
+        background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fde047 45%, #ca8a04 100%);
+        box-shadow: 0 0 20px rgba(234, 179, 8, 1);
+        animation: orbPulseFast 0.6s ease-in-out infinite alternate;
+    }
+    .ai-glowing-orb.is-drawing .ai-orb-core {
+        background: radial-gradient(circle at 35% 35%, #ffffff 0%, #60a5fa 45%, #2563eb 100%);
+        box-shadow: 0 0 22px rgba(37, 99, 235, 1);
+        animation: orbPulseFast 0.4s ease-in-out infinite alternate;
+    }
+    .ai-glowing-orb.is-error .ai-orb-core {
+        background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f87171 45%, #dc2626 100%);
+        box-shadow: 0 0 22px rgba(220, 38, 38, 1);
+        animation: orbPulseFast 0.3s ease-in-out infinite alternate;
+    }
+    .ai-status-pill[data-state="error"] .ai-status-dot {
+        background: #ef4444;
+        box-shadow: 0 0 6px #ef4444;
+    }
+    .ai-status-pill[data-state="error"] .ai-status-text {
+        color: #ef4444;
+    }
+    @keyframes orbPulseFast {
+        from { transform: scale(0.85); }
+        to { transform: scale(1.15); }
+    }
+
+    .ai-agent-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+    .ai-agent-name {
+        font: 800 13px 'Space Grotesk', sans-serif;
+        color: #0f172a;
+        letter-spacing: 0.5px;
+    }
+    .ai-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 9999px;
+        padding: 2px 8px;
+        width: fit-content;
+    }
+    .ai-status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
         background: #22c55e;
+        box-shadow: 0 0 6px #22c55e;
+    }
+    .ai-status-text {
+        font: 700 9.5px 'Space Grotesk', sans-serif;
+        color: #334155;
+    }
+
+    /* Auto draw toggle switch */
+    .ai-auto-draw-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 6px 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .ai-auto-draw-toggle:hover {
+        border-color: #cbd5e1;
+        background: #f1f5f9;
+    }
+    .ai-toggle-info {
+        display: flex;
+        flex-direction: column;
+    }
+    .ai-toggle-label {
+        font: 700 11px 'Space Grotesk', sans-serif;
+        color: #0f172a;
+    }
+    .ai-toggle-sub {
+        font-size: 9px;
+        color: #64748b;
+    }
+    .ai-mini-switch {
+        width: 32px;
+        height: 18px;
+        background: #cbd5e1;
         border-radius: 9999px;
         padding: 2px;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        cursor: pointer;
-        box-sizing: border-box;
         transition: background 0.25s ease;
     }
-    .osom-mini-switch.is-inactive {
-        background: #475569;
-        justify-content: flex-start;
+    .ai-mini-switch.is-active {
+        background: #09090b;
+        justify-content: flex-end;
     }
-    .osom-switch-thumb {
-        width: 16px;
-        height: 16px;
+    .ai-switch-thumb {
+        width: 14px;
+        height: 14px;
         background: #ffffff;
         border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.25);
     }
-    .osom-opt-header {
-        margin-top: 14px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-    }
-    .osom-opt-title {
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 1.25;
-        color: #09090b;
-        margin: 0;
-    }
-    .osom-opt-icon-btn {
-        width: 34px;
-        height: 34px;
-        border: 1px solid #e2e8f0;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #09090b;
-    }
-    .osom-chart-container {
-        margin-top: 12px;
-        position: relative;
-        width: 100%;
-    }
-    .osom-db-summary {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-    }
-    .osom-db-summary > div {
-        display: grid;
-        gap: 4px;
-        padding: 8px 10px;
-        border-radius: 12px;
-        background: rgba(15, 23, 42, 0.045);
-    }
-    .osom-db-summary > div span {
-        color: #64748b;
-        font: 700 8px "IBM Plex Mono", monospace;
-    }
-    .osom-db-summary > div b {
-        color: #0f172a;
-        font: 700 18px "Space Grotesk", sans-serif;
-    }
-    .osom-db-summary > small {
-        grid-column: 1 / -1;
-        color: #64748b;
-        font-size: 9px;
-    }
-    .osom-line-svg {
-        width: 100%;
-        height: 90px;
-        overflow: visible;
-    }
-    .osom-chart-labels {
-        display: flex;
-        justify-content: space-between;
-        font-size: 10.5px;
-        color: #94a3b8;
-        margin-top: 6px;
-        padding: 0 6px;
-    }
-    .osom-metric-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-top: 4px;
-    }
-    .osom-metric-val {
-        font-size: clamp(32px, 2.5vw, 42px);
-        font-weight: 700;
-        letter-spacing: -0.5px;
-        color: #09090b;
-        line-height: 1;
-    }
-    .osom-metric-badge {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: #dcfce7;
-        color: #16a34a;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .osom-metric-sub {
-        font-size: 11.5px;
-        color: #64748b;
-        margin-top: 4px;
-    }
-    .osom-sales-card {
-        background: #09090b;
-        border-radius: 28px;
-        padding: 20px 18px;
-        color: #ffffff;
+
+    /* 2. MIDDLE: COMMAND INPUT & QUICK ACTIONS */
+    .ai-command-section {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
+        flex: 1;
+        min-height: 0;
     }
-    .osom-sales-title {
-        font-size: 14.5px;
-        font-weight: 600;
-        line-height: 1.25;
+    .ai-input-wrap {
+        background: #f8fafc;
+        border: 1.5px solid #000000;
+        border-radius: 16px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .ai-input-wrap:focus-within {
+        border-color: #2563eb;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.15);
+        background: #ffffff;
+    }
+    .ai-prompt-input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        font: 500 12px/1.45 'Space Grotesk', sans-serif;
+        color: #0f172a;
+        resize: none;
+        min-height: 52px;
+        max-height: 90px;
+    }
+    .ai-prompt-input::placeholder {
+        color: #94a3b8;
+    }
+    .ai-input-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 4px;
+        border-top: 1px solid #e2e8f0;
+    }
+    .ai-input-shortcut {
+        font: 600 9px 'IBM Plex Mono', monospace;
+        color: #94a3b8;
+    }
+    .ai-send-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #09090b;
         color: #ffffff;
-        margin: 0;
+        border: none;
+        border-radius: 9999px;
+        padding: 5px 12px;
+        font: 700 11px 'Space Grotesk', sans-serif;
+        cursor: pointer;
+        transition: transform 0.18s, background 0.18s;
     }
-    .studio-db-note {
-        margin: 0;
+    .ai-send-btn:hover {
+        background: #2563eb;
+        transform: translateY(-1px);
+    }
+    .ai-send-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: #94a3b8;
+    }
+
+    /* QUICK ACTIONS */
+    .ai-quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+    .ai-quick-btn {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 6px 8px;
+        font: 600 10px 'Space Grotesk', sans-serif;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.18s ease;
+    }
+    .ai-quick-btn:hover {
+        border-color: #000000;
+        background: #f1f5f9;
+        transform: translateY(-1px);
+    }
+    .ai-quick-icon {
+        font-size: 12px;
+        line-height: 1;
+        flex-shrink: 0;
+    }
+
+    /* 3. BOTTOM: TERMINAL LOG */
+    .ai-terminal-section {
+        background: #09090b;
+        border-radius: 18px;
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        color: #ffffff;
+        height: 140px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .ai-terminal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .ai-term-dots {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .term-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #eab308; }
+    .dot-green { background: #22c55e; }
+    .ai-term-title {
+        font: 700 9px 'IBM Plex Mono', monospace;
+        letter-spacing: 0.8px;
+        color: #94a3b8;
+    }
+    .ai-term-clear-btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 4px;
+        color: #94a3b8;
+        font: 700 8.5px 'IBM Plex Mono', monospace;
+        padding: 1px 4px;
+        cursor: pointer;
+    }
+    .ai-term-clear-btn:hover {
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+    .ai-terminal-body {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font: 500 10.5px/1.4 'IBM Plex Mono', monospace;
         color: #cbd5e1;
-        font-size: 11px;
-        line-height: 1.5;
+        padding-right: 2px;
     }
+    .ai-terminal-body::-webkit-scrollbar {
+        width: 3px;
+    }
+    .ai-terminal-body::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 9999px;
+    }
+    .ai-log-entry {
+        display: flex;
+        gap: 6px;
+        align-items: flex-start;
+        word-break: break-word;
+    }
+    .ai-log-entry .log-time {
+        color: #64748b;
+        font-size: 9px;
+        flex-shrink: 0;
+    }
+    .ai-log-entry.log-sys .log-msg { color: #38bdf8; }
+    .ai-log-entry.log-idle .log-msg { color: #94a3b8; }
+    .ai-log-entry.log-cmd .log-msg { color: #fde047; font-weight: 600; }
+    .ai-log-entry.log-draw .log-msg { color: #4ade80; }
+    .ai-log-entry.log-err .log-msg { color: #f87171; }
 
     @media (max-width: 1024px) {
         .osom-cockpit {
@@ -5433,6 +5882,29 @@
         );
         return studioClients.filter((client) => assignedClientIds.has(client.id));
     }
+    function updateLeftCardStats() {
+        const tempNum = document.querySelector(".osom-temp-num");
+        const descText = document.querySelector(".osom-desc-text");
+        const pillBadge = document.querySelector(".osom-pill-badge span");
+
+        const aiNodesCount = activeAiDiagramData?.nodes?.length || 0;
+        const activeProjectsCount = studioProjects.length;
+
+        if (aiNodesCount > 0) {
+            if (tempNum) tempNum.textContent = String(aiNodesCount);
+            if (descText) descText.textContent = `Đang kết xuất ${aiNodesCount} nodes sơ đồ AI & ${activeAiDiagramData?.edges?.length || 0} liên kết trên Canvas.`;
+            if (pillBadge) pillBadge.textContent = "AI Diagram Telemetry";
+        } else if (activeProjectsCount > 0) {
+            if (tempNum) tempNum.textContent = String(activeProjectsCount);
+            if (descText) descText.textContent = `Hiện có ${activeProjectsCount} dự án đang được triển khai và đồng bộ trong Studio.`;
+            if (pillBadge) pillBadge.textContent = "Active Projects";
+        } else {
+            if (tempNum) tempNum.textContent = "0";
+            if (descText) descText.textContent = "Chưa có sơ đồ AI nào được vẽ. Nhập prompt ở Cột Phải để AI tạo sơ đồ.";
+            if (pillBadge) pillBadge.textContent = "AI Ready // 0 Nodes";
+        }
+    }
+
     function renderWorkspaceSummary() {
         const clientCount = document.getElementById("workspace-client-total");
         const projectCount = document.getElementById("workspace-project-total");
@@ -5468,6 +5940,7 @@
         if (projectCount) projectCount.textContent = String(projects.length);
         if (progressValue) progressValue.textContent = `${averageProgress}%`;
         if (status) status.textContent = "Đã đồng bộ từ Supabase";
+        updateLeftCardStats();
     }
     function projectsMarkup() {
         if (workspaceDataLoading)
@@ -5672,6 +6145,11 @@
         void syncAuthFramesFromSupabase();
         setVisible(auth, false);
         setVisible(workspace, true);
+        const cadPreloader = document.getElementById("cad-preloader");
+        if (cadPreloader) {
+            cadPreloader.classList.add("loaded");
+            cadPreloader.style.pointerEvents = "none";
+        }
         window.setTimeout(() => {
             resizeInteractiveCanvas();
         }, 60);
@@ -5717,12 +6195,12 @@
         }
     > = {
         t: {
-            tag: "Telemetry & Core Engine",
-            title: "Telemetry<br/>System<br/>Architecture",
-            desc: "Continuous system telemetry, Three.js delta prism shader diagnostics, pipeline latency, and GPU acceleration status.",
-            temp: "98",
-            tempDesc: "Telemetry nodes active: Three.js 0.186, WebGL 2.0, IOR 1.52 Delta Prism Refraction.",
-            badge: "Telemetry & System Status",
+            tag: "AI Architecture & Telemetry",
+            title: "AI Canvas<br/>Diagram<br/>Telemetry",
+            desc: "Dữ liệu đo đạc thực tế số lượng nodes và liên kết AI Agent đã tạo lập trên Canvas.",
+            temp: "0",
+            tempDesc: "Chưa có sơ đồ AI nào được vẽ. Nhập prompt ở Cột Phải để AI tạo sơ đồ.",
+            badge: "AI Ready // 0 Nodes",
             contentTag: "System Performance",
             optTitle: "Shader Engine<br/>Diagnostics",
             metricVal: "144 FPS",
@@ -6162,7 +6640,52 @@
     let canvasPenColor = "#ffffff";
     let canvasPenWidth = 3.5;
     let canvasEraserWidth = 30;
-    let isCanvasDrawingMode = true;
+    let isCanvasDrawingMode = false; // Mặc định ở Chế độ chuột để kéo thả, tương tác sơ đồ & click sửa chữ
+
+    function setDrawingMode(isDrawing: boolean, silent = false) {
+        isCanvasDrawingMode = isDrawing;
+        const canvas = canvasEl || document.getElementById("interactive-canvas");
+        const modeToggle = document.getElementById("canvas-mode-toggle");
+        const modeLabel = document.getElementById("canvas-mode-label");
+        const slider = document.getElementById("canvas-mode-slider");
+        const knob = slider?.querySelector<HTMLElement>(".osom-toggle-knob");
+
+        if (canvas) {
+            if (isDrawing) {
+                canvas.classList.remove("is-viewing", "is-mouse-mode");
+                canvas.classList.add("is-drawing");
+            } else {
+                canvas.classList.remove("is-drawing");
+                canvas.classList.add("is-mouse-mode");
+            }
+        }
+
+        if (modeToggle) {
+            if (isDrawing) {
+                modeToggle.classList.remove("is-view-mode");
+                modeToggle.setAttribute("aria-checked", "true");
+            } else {
+                modeToggle.classList.add("is-view-mode");
+                modeToggle.setAttribute("aria-checked", "false");
+            }
+        }
+
+        if (modeLabel) {
+            modeLabel.textContent = isDrawing ? "Chế độ bút" : "Chế độ chuột";
+        }
+
+        if (knob) {
+            knob.style.transform = isDrawing ? "translateX(20px)" : "translateX(2px)";
+        }
+
+        if (!silent) {
+            if (isDrawing) {
+                tell("Đã chuyển: Chế độ bút vẽ");
+            } else {
+                tell("Đã chuyển: Chế độ chuột (Kéo thả, sửa chữ & tương tác sơ đồ)");
+            }
+        }
+    }
 
     let canvasEl: HTMLCanvasElement | null = null;
     let canvasCtx: CanvasRenderingContext2D | null = null;
@@ -6976,6 +7499,11 @@
 
         canvasStrokes = [...boardsStrokes[currentBoardId]];
 
+        // Khôi phục sơ đồ AI theo từng Board
+        loadAiBoardsState();
+        const currentAiData = boardsAIElements[currentBoardId] || { nodes: [], edges: [], explanations: [] };
+        renderAIDomElements(currentAiData);
+
         updateBoardBadge();
         redrawCanvas();
         if (supabase && userId !== "guest") {
@@ -7192,6 +7720,11 @@
         updateBoardBadge();
         closeMapOverview();
         redrawCanvas();
+
+        // Nạp và render lại sơ đồ AI riêng biệt của Board mới
+        const currentAiData = boardsAIElements[currentBoardId] || { nodes: [], edges: [], explanations: [] };
+        renderAIDomElements(currentAiData);
+
         if (!persistLocalCanvasState()) {
             tell("Không thể lưu bảng đang chọn trên thiết bị.");
         }
@@ -7220,6 +7753,13 @@
 
     // 4 THÀNH VIÊN CÒN LẠI TRONG HỆ SINH THÁI STUDIO (NGOÀI ADMIN LÊ TRƯỜNG DUY)
     // Toàn bộ 25 bảng của các thành viên đều để trống ban đầu, chỉ hiển thị nét vẽ khi thành viên thực tế vẽ và lưu
+    const DEFAULT_STUDIO_MEMBERS = [
+        { id: "mem-khoi-ng", member_code: "MB-02", name: "Khôi Ng", role: "tech", label: "Tech Lead", color: "#3b82f6" },
+        { id: "mem-linh-dan", member_code: "MB-03", name: "Linh Đan", role: "senior", label: "Senior Designer", color: "#ec4899" },
+        { id: "mem-hoang-nam", member_code: "MB-04", name: "Hoàng Nam", role: "data", label: "Data Analyst", color: "#10b981" },
+        { id: "mem-minh-tri", member_code: "MB-05", name: "Minh Trí", role: "finance", label: "Financial Analyst", color: "#f59e0b" },
+    ];
+
     const OTHER_MEMBERS: Record<string, OtherMemberProfile> = {};
 
     let selectedOtherMemberId = "";
@@ -7230,16 +7770,25 @@
     let preMonitoringStrokes: CanvasStroke[] = [];
 
     async function syncSupabaseTeamMembers() {
-        if (!supabase) return;
-        const { data, error } = await supabase
-            .from("studio_members")
-            .select("id, member_code, name, role, label, color")
-            .neq("role", "admin")
-            .order("member_code");
-        if (error) {
-            console.error("Could not load studio team members:", error);
-            tell("Không tải được danh sách thành viên. Kiểm tra migration và quyền RLS Admin.");
-            return;
+        let memberList: Array<{ id: string; member_code?: string; name: string; role?: string; label?: string; color?: string }> = [];
+
+        if (supabase) {
+            const { data, error } = await supabase
+                .from("studio_members")
+                .select("id, member_code, name, role, label, color")
+                .neq("role", "admin")
+                .order("member_code");
+
+            if (error) {
+                console.warn("Could not load studio team members from Supabase, using default team profiles:", error);
+                memberList = DEFAULT_STUDIO_MEMBERS;
+            } else if (data && data.length > 0) {
+                memberList = data;
+            } else {
+                memberList = DEFAULT_STUDIO_MEMBERS;
+            }
+        } else {
+            memberList = DEFAULT_STUDIO_MEMBERS;
         }
 
         const selectEl = document.getElementById(
@@ -7248,25 +7797,16 @@
         if (!selectEl) return;
         selectEl.replaceChildren();
         for (const id of Object.keys(OTHER_MEMBERS)) delete OTHER_MEMBERS[id];
-        if (!data?.length) {
-            const emptyOption = document.createElement("option");
-            emptyOption.disabled = true;
-            emptyOption.textContent =
-                "Chưa tìm thấy hồ sơ thành viên — kiểm tra migration/RLS";
-            selectEl.appendChild(emptyOption);
-            tell(
-                "Không tìm thấy hồ sơ thành viên ngoài Admin. Chạy migration 20261112230000_admin_monitor_canvases.sql và kiểm tra các dòng U02–U05 trong studio_members.",
-            );
-        }
-        for (const profile of data || []) {
+
+        for (const profile of memberList) {
             const option = document.createElement("option");
             option.value = profile.id;
-            option.textContent = `${profile.name} (${profile.label || profile.role})`;
+            option.textContent = `${profile.name} (${profile.label || profile.role || "Member"})`;
             selectEl.appendChild(option);
             OTHER_MEMBERS[profile.id] = {
                 id: profile.id,
                 name: profile.name,
-                role: profile.label || profile.role,
+                role: profile.label || profile.role || "Member",
                 color: profile.color || "#00f0ff",
                 boards: OTHER_MEMBERS[profile.id]?.boards || createEmpty25Boards(),
                 serverUpdatedAt:
@@ -7282,7 +7822,7 @@
             selectedOtherMemberId !== "own" &&
             !OTHER_MEMBERS[selectedOtherMemberId]
         ) {
-            selectedOtherMemberId = data?.[0]?.id || "own";
+            selectedOtherMemberId = memberList[0]?.id || "own";
         }
         selectEl.value = selectedOtherMemberId;
         subscribeTeamCanvas(selectedOtherMemberId);
@@ -7303,8 +7843,7 @@
             .eq("owner_id", memberId);
         if (generation !== teamCanvasLoadGeneration) return;
         if (error) {
-            console.error("Could not load team canvas:", error);
-            tell(`Không tải được bản vẽ của ${memberProfile.name}. Kiểm tra quyền RLS Admin.`);
+            console.warn("Could not load team canvas from Supabase (using local canvas):", error);
             return;
         }
         const boards = createEmpty25Boards();
@@ -7712,7 +8251,577 @@
         if (currentDrawingStroke) {
             drawSingleStroke(currentDrawingStroke, rect.width, rect.height);
         }
+        if (activeAiDiagramData) {
+            drawAiDiagram(activeAiDiagramData, rect.width, rect.height);
+        }
         canvasCtx.restore();
+    }
+
+    // ========================================================
+    // AI CANVAS DIAGRAM ENGINE (BƯỚC 3: RENDER TO CANVAS)
+    // ========================================================
+    interface AiDiagramNode {
+        id: string;
+        type?: string;
+        text: string;
+        x: number;
+        y: number;
+        color?: string;
+    }
+    interface AiDiagramEdge {
+        from: string;
+        to: string;
+        label?: string;
+    }
+    interface AiDiagramExplanation {
+        id?: string;
+        text: string;
+        x: number;
+        y: number;
+    }
+    interface AiDiagramData {
+        nodes: AiDiagramNode[];
+        edges?: AiDiagramEdge[];
+        explanations?: AiDiagramExplanation[];
+    }
+
+    // Hàm tính toán độ tương phản để tự động chọn màu chữ (Đen hoặc Trắng)
+    function getContrastTextColor(hexColor: string): string {
+        let cleanHex = hexColor.replace("#", "").trim();
+        if (cleanHex.length === 3) {
+            cleanHex = cleanHex.split("").map((c) => c + c).join("");
+        }
+        if (cleanHex.length !== 6) return "#000000";
+
+        const r = parseInt(cleanHex.substring(0, 2), 16);
+        const g = parseInt(cleanHex.substring(2, 4), 16);
+        const b = parseInt(cleanHex.substring(4, 6), 16);
+
+        // Công thức chuẩn W3C Relative Luminance / Perceived Brightness: (R*299 + G*587 + B*114) / 1000
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness > 140 ? "#000000" : "#ffffff";
+    }
+
+    let activeAiDiagramData: AiDiagramData | null = null;
+    let boardsAIElements: Record<number, AiDiagramData> = {};
+
+    function updateAiEdgesSvg() {
+        const svg = document.getElementById("ai-edges-svg");
+        if (!svg || !activeAiDiagramData) {
+            if (svg) svg.innerHTML = "";
+            return;
+        }
+
+        const data = activeAiDiagramData;
+        const nodeW = 170;
+        const nodeH = 52;
+        let svgHtml = "";
+
+        // Marker định nghĩa mũi tên
+        svgHtml += `
+            <defs>
+                <marker id="ai-arrowhead" markerWidth="10" markerHeight="8" refX="7" refY="4" orient="auto">
+                    <polygon points="0 0, 10 4, 0 8" fill="#38bdf8" />
+                </marker>
+            </defs>
+        `;
+
+        for (const edge of data.edges || []) {
+            const fromNode = data.nodes.find((n) => n.id === edge.from);
+            const toNode = data.nodes.find((n) => n.id === edge.to);
+            if (!fromNode || !toNode) continue;
+
+            const x1 = fromNode.x + nodeW / 2;
+            const y1 = fromNode.y + nodeH / 2;
+            const x2 = toNode.x + nodeW / 2;
+            const y2 = toNode.y + nodeH / 2;
+
+            // Tính điểm dừng trước mép hộp
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const stopDist = nodeW / 2.2;
+            const endX = x2 - Math.cos(angle) * (stopDist * 0.7);
+            const endY = y2 - Math.sin(angle) * (stopDist * 0.7);
+
+            svgHtml += `<line x1="${x1}" y1="${y1}" x2="${endX}" y2="${endY}" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" marker-end="url(#ai-arrowhead)" />`;
+
+            if (edge.label) {
+                const midX = (x1 + x2) / 2;
+                const midY = (y1 + y2) / 2 - 10;
+                svgHtml += `
+                    <g transform="translate(${midX}, ${midY})">
+                        <rect x="-40" y="-10" width="80" height="20" rx="6" fill="#0f172a" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1" />
+                        <text x="0" y="4" fill="#38bdf8" font-family="'Space Grotesk', sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">${escapeText(edge.label)}</text>
+                    </g>
+                `;
+            }
+        }
+
+        svg.innerHTML = svgHtml;
+    }
+
+    function renderAIDomElements(data: AiDiagramData) {
+        activeAiDiagramData = data;
+        const container = document.getElementById("ai-nodes-container");
+        if (!container) return;
+        container.innerHTML = "";
+
+        // 1. Tạo DOM cho từng Node
+        for (const node of data.nodes || []) {
+            const nodeEl = document.createElement("div");
+            nodeEl.className = "ai-dom-node";
+            nodeEl.id = `ai-node-${node.id}`;
+            nodeEl.dataset.nodeId = node.id;
+            nodeEl.style.left = `${node.x}px`;
+            nodeEl.style.top = `${node.y}px`;
+
+            const fillBg = node.color || "#00f0ff";
+            const textColor = getContrastTextColor(fillBg);
+            nodeEl.style.setProperty("--node-bg", fillBg);
+            nodeEl.style.setProperty("--node-glow", fillBg);
+            nodeEl.style.setProperty("--node-color", textColor);
+
+            // Nút xóa [X]
+            const delBtn = document.createElement("button");
+            delBtn.type = "button";
+            delBtn.className = "ai-dom-del-btn";
+            delBtn.title = "Xóa khối này";
+            delBtn.textContent = "✕";
+            delBtn.addEventListener("pointerdown", (e) => {
+                e.stopPropagation();
+            });
+            delBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                deleteAiNode(node.id);
+            });
+
+            // Text editable
+            const textEl = document.createElement("div");
+            textEl.className = "ai-dom-node-text";
+            textEl.contentEditable = "true";
+            textEl.spellcheck = false;
+            textEl.textContent = node.text;
+            textEl.addEventListener("input", () => {
+                node.text = textEl.innerText.trim();
+                saveCurrentBoardAiData();
+            });
+            textEl.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    textEl.blur();
+                }
+            });
+            textEl.addEventListener("blur", () => {
+                node.text = textEl.innerText.trim();
+                saveCurrentBoardAiData();
+            });
+
+            nodeEl.appendChild(delBtn);
+            nodeEl.appendChild(textEl);
+            makeDraggable(nodeEl, (newX, newY) => {
+                node.x = newX;
+                node.y = newY;
+                updateAiEdgesSvg();
+                saveCurrentBoardAiData();
+            });
+
+            container.appendChild(nodeEl);
+        }
+
+        // 2. Tạo DOM cho khối Explanations
+        for (const exp of data.explanations || []) {
+            const expEl = document.createElement("div");
+            expEl.className = "ai-dom-explanation";
+            expEl.id = `ai-exp-${exp.id || "main"}`;
+            expEl.style.left = `${exp.x}px`;
+            expEl.style.top = `${exp.y}px`;
+
+            const delBtn = document.createElement("button");
+            delBtn.type = "button";
+            delBtn.className = "ai-dom-del-btn";
+            delBtn.title = "Xóa khối giải thích này";
+            delBtn.textContent = "✕";
+            delBtn.addEventListener("pointerdown", (e) => {
+                e.stopPropagation();
+            });
+            delBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                deleteAiExplanation(exp.id);
+            });
+
+            const tagEl = document.createElement("span");
+            tagEl.className = "ai-dom-exp-tag";
+            tagEl.textContent = "💡 GIẢI THÍCH SƠ ĐỒ";
+
+            const textEl = document.createElement("div");
+            textEl.className = "ai-dom-exp-text";
+            textEl.contentEditable = "true";
+            textEl.spellcheck = false;
+            textEl.textContent = exp.text;
+            textEl.addEventListener("input", () => {
+                exp.text = textEl.innerText.trim();
+                saveCurrentBoardAiData();
+            });
+            textEl.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    textEl.blur();
+                }
+            });
+            textEl.addEventListener("blur", () => {
+                exp.text = textEl.innerText.trim();
+                saveCurrentBoardAiData();
+            });
+
+            expEl.appendChild(delBtn);
+            expEl.appendChild(tagEl);
+            expEl.appendChild(textEl);
+            makeDraggable(expEl, (newX, newY) => {
+                exp.x = newX;
+                exp.y = newY;
+                saveCurrentBoardAiData();
+            });
+
+            container.appendChild(expEl);
+        }
+
+        // Tự động kích hoạt Chế độ chuột khi có phần tử sơ đồ AI để người dùng kéo thả & sửa chữ
+        if (data.nodes && data.nodes.length > 0 && isCanvasDrawingMode) {
+            setDrawingMode(false, true);
+        }
+
+        // 3. Render đường nối SVG
+        updateAiEdgesSvg();
+        updateLeftCardStats();
+    }
+
+    function makeDraggable(el: HTMLElement, onMove: (x: number, y: number) => void) {
+        let isDragging = false;
+        let hasMoved = false;
+        let startX = 0;
+        let startY = 0;
+        let initialLeft = 0;
+        let initialTop = 0;
+
+        el.addEventListener("pointerdown", (e: PointerEvent) => {
+            // Không kích hoạt kéo thả nếu bấm trúng nút xóa [X]
+            if ((e.target as HTMLElement).closest(".ai-dom-del-btn")) {
+                return;
+            }
+
+            const textEl = el.querySelector<HTMLElement>(".ai-dom-node-text, .ai-dom-exp-text");
+            const isClickingText = (e.target as HTMLElement).closest(".ai-dom-node-text, .ai-dom-exp-text");
+
+            // Nếu người dùng đang tập trung soạn text (đang focus), giữ nguyên con trỏ gõ chữ
+            if (isClickingText && document.activeElement === textEl) {
+                return;
+            }
+
+            // Tự động chuyển canvas sang Chế độ chuột nếu đang ở chế độ vẽ nét
+            if (isCanvasDrawingMode) {
+                setDrawingMode(false);
+            }
+
+            startX = e.clientX;
+            startY = e.clientY;
+            initialLeft = parseInt(el.style.left, 10) || 0;
+            initialTop = parseInt(el.style.top, 10) || 0;
+            hasMoved = false;
+            isDragging = false;
+
+            try {
+                el.setPointerCapture(e.pointerId);
+            } catch (err) {
+                // Ignore pointer capture error if unsupported
+            }
+
+            const onPointerMove = (moveEvent: PointerEvent) => {
+                const dx = moveEvent.clientX - startX;
+                const dy = moveEvent.clientY - startY;
+
+                if (!isDragging && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
+                    isDragging = true;
+                    hasMoved = true;
+                    el.classList.add("is-dragging");
+                    window.getSelection()?.removeAllRanges();
+                }
+
+                if (isDragging) {
+                    const newX = Math.max(10, Math.min(1200, initialLeft + dx));
+                    const newY = Math.max(10, Math.min(800, initialTop + dy));
+                    el.style.left = `${newX}px`;
+                    el.style.top = `${newY}px`;
+                    onMove(newX, newY);
+                }
+            };
+
+            const onPointerUp = (upEvent: PointerEvent) => {
+                try {
+                    el.releasePointerCapture(upEvent.pointerId);
+                } catch (err) {
+                    // Ignore
+                }
+
+                window.removeEventListener("pointermove", onPointerMove);
+                window.removeEventListener("pointerup", onPointerUp);
+                window.removeEventListener("pointercancel", onPointerUp);
+
+                if (isDragging) {
+                    isDragging = false;
+                    el.classList.remove("is-dragging");
+                } else if (!hasMoved && isClickingText && textEl) {
+                    // Người dùng click vào chữ (không kéo) -> kích hoạt con trỏ sửa text ngay lập tức!
+                    textEl.focus();
+                }
+            };
+
+            window.addEventListener("pointermove", onPointerMove);
+            window.addEventListener("pointerup", onPointerUp);
+            window.addEventListener("pointercancel", onPointerUp);
+        });
+    }
+
+    function deleteAiNode(nodeId: string) {
+        if (!activeAiDiagramData) return;
+        activeAiDiagramData.nodes = activeAiDiagramData.nodes.filter((n) => n.id !== nodeId);
+        // Xóa các liên kết liên quan đến node này
+        if (activeAiDiagramData.edges) {
+            activeAiDiagramData.edges = activeAiDiagramData.edges.filter((e) => e.from !== nodeId && e.to !== nodeId);
+        }
+        renderAIDomElements(activeAiDiagramData);
+        saveCurrentBoardAiData();
+    }
+
+    function deleteAiExplanation(expId?: string) {
+        if (!activeAiDiagramData || !activeAiDiagramData.explanations) return;
+        if (expId) {
+            activeAiDiagramData.explanations = activeAiDiagramData.explanations.filter((e) => e.id !== expId);
+        } else {
+            activeAiDiagramData.explanations = [];
+        }
+        renderAIDomElements(activeAiDiagramData);
+        saveCurrentBoardAiData();
+    }
+
+    function saveCurrentBoardAiData() {
+        if (activeAiDiagramData && currentBoardId) {
+            boardsAIElements[currentBoardId] = JSON.parse(JSON.stringify(activeAiDiagramData));
+            persistAiBoardsState();
+        }
+    }
+
+    function getAiBoardsStorageKey() {
+        return `adolsoft_ai_boards_${member?.id || "guest"}`;
+    }
+
+    function persistAiBoardsState() {
+        try {
+            localStorage.setItem(getAiBoardsStorageKey(), JSON.stringify(boardsAIElements));
+        } catch (e) {
+            console.warn("Could not save AI boards to localStorage:", e);
+        }
+    }
+
+    function loadAiBoardsState() {
+        try {
+            const raw = localStorage.getItem(getAiBoardsStorageKey());
+            if (raw) {
+                boardsAIElements = JSON.parse(raw);
+            }
+        } catch (e) {
+            boardsAIElements = {};
+        }
+    }
+
+    function drawAiDiagram(data: AiDiagramData, canvasW: number, canvasH: number) {
+        if (!canvasCtx) return;
+        const ctx = canvasCtx;
+
+        const nodeBoxMap = new Map<string, { x: number; y: number; w: number; h: number; cx: number; cy: number }>();
+        const nodeW = 160;
+        const nodeH = 50;
+
+        // 1. VẼ CÁC EDGES (MŨI TÊN & LABEL) TRƯỚC ĐỂ NẰM DƯỚI NODES
+        for (const edge of data.edges || []) {
+            const fromNode = data.nodes.find((n) => n.id === edge.from);
+            const toNode = data.nodes.find((n) => n.id === edge.to);
+            if (!fromNode || !toNode) continue;
+
+            const x1 = fromNode.x + nodeW / 2;
+            const y1 = fromNode.y + nodeH / 2;
+            const x2 = toNode.x + nodeW / 2;
+            const y2 = toNode.y + nodeH / 2;
+
+            ctx.save();
+            ctx.strokeStyle = "#38bdf8";
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+
+            // Mũi tên ở đầu đến
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const arrowHeadLen = 14;
+            // Dừng trước mép của hộp đích
+            const stopDist = nodeW / 2.2;
+            const endX = x2 - Math.cos(angle) * (stopDist * 0.7);
+            const endY = y2 - Math.sin(angle) * (stopDist * 0.7);
+
+            ctx.fillStyle = "#38bdf8";
+            ctx.beginPath();
+            ctx.moveTo(endX, endY);
+            ctx.lineTo(
+                endX - arrowHeadLen * Math.cos(angle - Math.PI / 6),
+                endY - arrowHeadLen * Math.sin(angle - Math.PI / 6)
+            );
+            ctx.lineTo(
+                endX - arrowHeadLen * Math.cos(angle + Math.PI / 6),
+                endY - arrowHeadLen * Math.sin(angle + Math.PI / 6)
+            );
+            ctx.closePath();
+            ctx.fill();
+
+            // Chèn Label trên đường nối (nếu có)
+            if (edge.label) {
+                const midX = (x1 + x2) / 2;
+                const midY = (y1 + y2) / 2 - 12;
+                ctx.font = "bold 11px 'Space Grotesk', sans-serif";
+                const labelMetrics = ctx.measureText(edge.label);
+                const padW = labelMetrics.width + 12;
+                const padH = 20;
+
+                ctx.fillStyle = "rgba(15, 23, 42, 0.9)";
+                ctx.strokeStyle = "rgba(56, 189, 248, 0.5)";
+                ctx.lineWidth = 1;
+                roundRect(ctx, midX - padW / 2, midY - padH / 2, padW, padH, 6);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = "#38bdf8";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(edge.label, midX, midY);
+            }
+            ctx.restore();
+        }
+
+        // 2. VẼ CÁC NODES (HỘP CHỮ NHẬT / ROUND RECT)
+        for (const node of data.nodes || []) {
+            const x = node.x;
+            const y = node.y;
+            const fillBg = node.color || "#00f0ff";
+
+            ctx.save();
+            // Đổ bóng phát sáng viền
+            ctx.shadowColor = fillBg;
+            ctx.shadowBlur = 12;
+
+            // Nền hộp
+            ctx.fillStyle = fillBg;
+            ctx.strokeStyle = "#000000";
+            ctx.lineWidth = 2.5;
+            roundRect(ctx, x, y, nodeW, nodeH, 12);
+            ctx.fill();
+            ctx.shadowBlur = 0; // Tắt shadow khi vẽ viền & chữ
+            ctx.stroke();
+
+            // Text trong Node: tự động đổi màu chữ Trắng/Đen theo độ tương phản của nền
+            const textColor = getContrastTextColor(fillBg);
+            ctx.fillStyle = textColor;
+            ctx.font = "bold 12px 'Space Grotesk', sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(node.text, x + nodeW / 2, y + nodeH / 2, nodeW - 16);
+            ctx.restore();
+        }
+
+        // 3. VẼ CÁC EXPLANATIONS (KHỐI TEXT GIẢI THÍCH)
+        for (const exp of data.explanations || []) {
+            const expW = 280;
+            const expH = 68;
+            ctx.save();
+            ctx.fillStyle = "rgba(15, 23, 42, 0.88)";
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
+            ctx.lineWidth = 1.5;
+            roundRect(ctx, exp.x, exp.y, expW, expH, 12);
+            ctx.fill();
+            ctx.stroke();
+
+            // Header "AI GIẢI THÍCH"
+            ctx.fillStyle = "#38bdf8";
+            ctx.font = "bold 10px 'IBM Plex Mono', monospace";
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            ctx.fillText("💡 GIẢI THÍCH SƠ ĐỒ", exp.x + 14, exp.y + 12);
+
+            // Nội dung giải thích
+            ctx.fillStyle = "#e2e8f0";
+            ctx.font = "500 11px/1.4 'Space Grotesk', sans-serif";
+            wrapText(ctx, exp.text, exp.x + 14, exp.y + 30, expW - 28, 16);
+            ctx.restore();
+        }
+    }
+
+    function roundRect(
+        ctx: CanvasRenderingContext2D,
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        r: number
+    ) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.arcTo(x + w, y, x + w, y + r, r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+        ctx.lineTo(x + r, y + h);
+        ctx.arcTo(x, y + h, x, y + h - r, r);
+        ctx.lineTo(x, y + r);
+        ctx.arcTo(x, y, x + r, y, r);
+        ctx.closePath();
+    }
+
+    function wrapText(
+        ctx: CanvasRenderingContext2D,
+        text: string,
+        x: number,
+        y: number,
+        maxWidth: number,
+        lineHeight: number
+    ) {
+        const words = text.split(" ");
+        let line = "";
+        let currentY = y;
+        for (let n = 0; n < words.length; n++) {
+            const testLine = line + words[n] + " ";
+            const metrics = ctx.measureText(testLine);
+            if (metrics.width > maxWidth && n > 0) {
+                ctx.fillText(line, x, currentY);
+                line = words[n] + " ";
+                currentY += lineHeight;
+            } else {
+                line = testLine;
+            }
+        }
+        ctx.fillText(line, x, currentY);
+    }
+
+    async function renderAIJsonToCanvas(data: AiDiagramData) {
+        if (!data) return;
+
+        // Lưu sơ đồ AI mới vào state của Board hiện tại
+        activeAiDiagramData = data;
+        if (currentBoardId) {
+            boardsAIElements[currentBoardId] = JSON.parse(JSON.stringify(data));
+            persistAiBoardsState();
+        }
+
+        // Render ra DOM Elements tương tác kéo thả & edit text
+        renderAIDomElements(data);
+        updateLeftCardStats();
     }
 
     function drawSingleStroke(
@@ -7886,34 +8995,22 @@
         });
 
 
-        function setDrawingMode(isDrawing: boolean) {
-            isCanvasDrawingMode = isDrawing;
-            if (!canvasEl || !modeToggle || !modeLabel) return;
-            const slider = document.getElementById("canvas-mode-slider");
-            const knob = slider?.querySelector<HTMLElement>(".osom-toggle-knob");
-
-            if (isDrawing) {
-                canvasEl.classList.remove("is-viewing");
-                canvasEl.classList.add("is-drawing");
-                modeToggle.classList.remove("is-view-mode");
-                modeToggle.setAttribute("aria-checked", "true");
-                modeLabel.textContent = "Chế độ vẽ";
-                if (knob) knob.style.transform = "translateX(20px)";
-                tell("Đã chuyển: Chế độ vẽ");
-            } else {
-                canvasEl.classList.remove("is-drawing");
-                canvasEl.classList.add("is-viewing");
-                modeToggle.classList.add("is-view-mode");
-                modeToggle.setAttribute("aria-checked", "false");
-                modeLabel.textContent = "Chế độ xem";
-                if (knob) knob.style.transform = "translateX(2px)";
-                tell("Đã chuyển: Chế độ xem (Khoá vẽ)");
-            }
-        }
-
         modeToggle?.addEventListener("click", () => {
             setDrawingMode(!isCanvasDrawingMode);
         });
+
+        // Bấm vào công cụ Pen trên thanh toolbar trên cùng sẽ tự động chuyển sang Chế độ bút vẽ
+        penBtn?.addEventListener("click", () => {
+            setCanvasTool("pen");
+            setDrawingMode(true);
+        });
+        eraserBtn?.addEventListener("click", () => {
+            setCanvasTool("eraser");
+            setDrawingMode(true);
+        });
+
+        // Đồng bộ trạng thái ban đầu: Mặc định Chế độ chuột để kéo thả và sửa chữ tự do
+        setDrawingMode(false, true);
 
         // Pointer event listeners on Canvas for smooth drawing
         canvasEl.addEventListener("pointerdown", (e) => {
@@ -8027,6 +9124,7 @@
 
         // Initial setup
         loadCanvasForUser(member ? member.id : "guest");
+        setDrawingMode(false); // Mặc định mở ở Chế độ chuột để kéo thả & edit text sơ đồ AI
         setTimeout(resizeInteractiveCanvas, 100);
     }
 
@@ -8683,6 +9781,206 @@
                 }
             });
     }
+
+    // ========================================================
+    // AI AGENT COMMAND CENTER CONTROLLER (BƯỚC 1: UI & TƯƠNG TÁC)
+    // ========================================================
+    let isAiAutoDrawEnabled = true;
+    type AiAgentStatus = "idle" | "thinking" | "drawing" | "error";
+
+    function setAiAgentStatus(status: AiAgentStatus, customMsg?: string) {
+        const orb = document.getElementById("ai-glowing-orb");
+        const pill = document.getElementById("ai-status-pill");
+        const statusText = document.getElementById("ai-status-text");
+
+        if (orb) {
+            orb.classList.remove("is-thinking", "is-drawing", "is-error");
+            if (status === "thinking") orb.classList.add("is-thinking");
+            if (status === "drawing") orb.classList.add("is-drawing");
+            if (status === "error") orb.classList.add("is-error");
+        }
+        if (pill) {
+            pill.dataset.state = status;
+        }
+        if (statusText) {
+            if (customMsg) {
+                statusText.textContent = customMsg;
+            } else if (status === "idle") {
+                statusText.textContent = "🟢 Đang chờ lệnh";
+            } else if (status === "thinking") {
+                statusText.textContent = "🟡 Đang suy nghĩ...";
+            } else if (status === "drawing") {
+                statusText.textContent = "🔵 Đang vẽ...";
+            } else if (status === "error") {
+                statusText.textContent = "🔴 Lỗi kết nối";
+            }
+        }
+    }
+
+    function addAiTerminalLog(message: string, type: "sys" | "idle" | "cmd" | "draw" | "err" = "idle") {
+        const logContainer = document.getElementById("ai-terminal-log");
+        if (!logContainer) return;
+
+        const now = new Date();
+        const timeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
+
+        const entry = document.createElement("div");
+        entry.className = `ai-log-entry log-${type}`;
+
+        const timeSpan = document.createElement("span");
+        timeSpan.className = "log-time";
+        timeSpan.textContent = timeStr;
+
+        const msgSpan = document.createElement("span");
+        msgSpan.className = "log-msg";
+        msgSpan.textContent = message;
+
+        entry.appendChild(timeSpan);
+        entry.appendChild(msgSpan);
+
+        logContainer.appendChild(entry);
+        logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    // Gắn sự kiện cho các thành phần của AI Agent Command Center
+    const aiAutoDrawToggle = document.getElementById("ai-auto-draw-toggle");
+    const aiAutoSwitch = document.getElementById("ai-auto-switch");
+    if (aiAutoDrawToggle && aiAutoSwitch) {
+        aiAutoDrawToggle.addEventListener("click", () => {
+            isAiAutoDrawEnabled = !isAiAutoDrawEnabled;
+            aiAutoDrawToggle.setAttribute("aria-checked", isAiAutoDrawEnabled ? "true" : "false");
+            if (isAiAutoDrawEnabled) {
+                aiAutoSwitch.classList.add("is-active");
+                addAiTerminalLog("Đã BẬT [Chế độ tự động vẽ].", "sys");
+            } else {
+                aiAutoSwitch.classList.remove("is-active");
+                addAiTerminalLog("Đã TẮT [Chế độ tự động vẽ]. AI sẽ chỉ trả về kế hoạch trước.", "sys");
+            }
+        });
+    }
+
+    const aiPromptInput = document.getElementById("ai-prompt-input") as HTMLTextAreaElement | null;
+    const aiSendBtn = document.getElementById("ai-send-btn") as HTMLButtonElement | null;
+    const aiTermClearBtn = document.getElementById("ai-term-clear-btn");
+
+    if (aiTermClearBtn) {
+        aiTermClearBtn.addEventListener("click", () => {
+            const logContainer = document.getElementById("ai-terminal-log");
+            if (logContainer) {
+                logContainer.replaceChildren();
+                addAiTerminalLog("Terminal đã được làm sạch.", "sys");
+            }
+        });
+    }
+
+    async function handleSendAiCommand() {
+        if (!aiPromptInput) return;
+        const prompt = aiPromptInput.value.trim();
+        if (!prompt) return;
+
+        // Bước I: Xóa trắng ô Input nhập lệnh
+        aiPromptInput.value = "";
+
+        // Ghi lại prompt người dùng vừa nhập
+        addAiTerminalLog(`> Lệnh: "${prompt}"`, "cmd");
+
+        // Bước A: Đổi trạng thái Avatar AI thành 🟡 [Đang suy nghĩ...] (Màu vàng)
+        setAiAgentStatus("thinking");
+
+        // Bước B: Ghi vào Terminal Log dòng chữ: Bắt đầu phân tích yêu cầu...
+        addAiTerminalLog("Bắt đầu phân tích yêu cầu...", "idle");
+
+        try {
+            // Lấy trạng thái sơ đồ hiện tại của Board để AI hiểu ngữ cảnh (Thêm / Sửa / Xóa)
+            const currentCanvasState = activeAiDiagramData || boardsAIElements[currentBoardId] || { nodes: [], edges: [], explanations: [] };
+
+            // Bước C: Gọi hàm fetch đến API /api/ai-agent vừa tạo, truyền prompt và currentCanvasState vào
+            const response = await fetch("/api/ai-agent", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    prompt,
+                    currentCanvasState,
+                }),
+            });
+
+            if (!response.ok) {
+                const errJson = await response.json().catch(() => ({}));
+                throw new Error(errJson.error || `HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // Bước D: Khi nhận được JSON trả về, lập tức đổi trạng thái Avatar thành 🔵 [Đang vẽ...] (Màu xanh dương)
+            setAiAgentStatus("drawing");
+
+            // Bước E: Ghi vào Terminal Log: Đã nhận JSON. Chuẩn bị dữ liệu vẽ...
+            addAiTerminalLog("Đã nhận JSON từ AI. Chuẩn bị dữ liệu vẽ...", "draw");
+
+            // Bước F: Dùng console.log in cái JSON đó ra để kiểm tra
+            console.log(">>> [AI AGENT RESPONSE JSON]:", data);
+
+            // BƯỚC 3: Vẽ dữ liệu JSON trực tiếp lên Canvas
+            if (isAiAutoDrawEnabled) {
+                await renderAIJsonToCanvas(data);
+                addAiTerminalLog("Đang kết xuất các Nodes & Edges lên Canvas...", "draw");
+            } else {
+                addAiTerminalLog("Chế độ tự động vẽ đang tắt. Dữ liệu đã lưu trong bộ nhớ.", "sys");
+            }
+
+            // Chờ thêm 1 giây để hoàn tất hiệu ứng vẽ
+            await new Promise((r) => setTimeout(r, 1000));
+
+            // Bước G: Đổi Avatar về lại 🟢 [Đang chờ lệnh] (Màu xanh lá)
+            setAiAgentStatus("idle");
+
+            // Bước H: Ghi vào Terminal Log: Hoàn tất!
+            addAiTerminalLog("Hoàn tất! Sơ đồ AI đã được vẽ lên Canvas.", "sys");
+        } catch (error) {
+            console.error("AI Agent fetch error:", error);
+            // Đổi Avatar sang màu Đỏ (Error)
+            setAiAgentStatus("error", "🔴 Lỗi kết nối AI");
+            // Terminal Log hiển thị dòng chữ đỏ: [LỖI] Không thể kết nối với AI. Vui lòng kiểm tra API Key.
+            addAiTerminalLog("[LỖI] Không thể kết nối với AI. Vui lòng kiểm tra API Key.", "err");
+            if (error instanceof Error && error.message) {
+                addAiTerminalLog(`Chi tiết: ${error.message}`, "err");
+            }
+        }
+    }
+
+    if (aiSendBtn) {
+        aiSendBtn.addEventListener("click", handleSendAiCommand);
+    }
+    if (aiPromptInput) {
+        aiPromptInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSendAiCommand();
+            }
+        });
+    }
+
+    // Quick Action button clicks
+    document.querySelectorAll(".ai-quick-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const target = e.currentTarget as HTMLElement;
+            const action = target.dataset.action;
+            if (!aiPromptInput) return;
+
+            if (action === "mindmap") {
+                aiPromptInput.value = "Vẽ sơ đồ tư duy (Mindmap) chiến lược phát triển hệ sinh thái AdolSoft 2026";
+            } else if (action === "flowchart") {
+                aiPromptInput.value = "Tạo sơ đồ luồng (Flowchart) quy trình làm việc Q-Sync giữa các thành viên";
+            } else if (action === "summarize") {
+                aiPromptInput.value = "Tóm tắt toàn bộ nội dung và ý tưởng trên Canvas hiện tại";
+            } else if (action === "explain") {
+                aiPromptInput.value = "Giải thích chi tiết ý nghĩa và các bước trong sơ đồ hiện tại";
+            }
+            aiPromptInput.focus();
+        });
+    });
 
     document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape") return;
