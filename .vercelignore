@@ -1,0 +1,13 @@
+# Large local browser binary (not needed for deploy)
+chrome/
+
+# Local/dev folders not needed on Vercel
+CDnote/
+Ctyhub/
+
+# Local Vercel build output/cache (avoid re-uploading)
+.vercel/
+
+# Env/config backups
+.data-config.json
+.data-config.json.bak
