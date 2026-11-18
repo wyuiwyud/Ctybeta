@@ -5333,6 +5333,172 @@
         padding: 2px 4px;
     }
 
+    /* ========================================================
+       25 BOARDS TOPIC TITLE & AI SMART SUGGESTIONS (GLOBAL CSS)
+       ======================================================== */
+    .board-card-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 3px 6px;
+        z-index: 3;
+        pointer-events: none;
+    }
+    .board-active-dot.has-strokes {
+        background: #38bdf8;
+        box-shadow: 0 0 6px #38bdf8;
+    }
+    .board-card-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 4;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.88) 35%, rgba(15, 23, 42, 0.98) 100%);
+        padding: 8px 4px 4px;
+        box-sizing: border-box;
+    }
+    .board-title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        padding: 2px 4px;
+        transition: all 0.15s ease;
+    }
+    .board-title-wrap:hover,
+    .board-title-wrap:focus-within {
+        background: rgba(15, 23, 42, 0.95);
+        border-color: #38bdf8;
+        box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    .board-title-input {
+        flex: 1;
+        min-width: 0;
+        background: transparent;
+        border: none;
+        outline: none;
+        font: 700 9.5px/1.2 'Space Grotesk', sans-serif;
+        color: #f8fafc;
+        padding: 1px 2px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .board-title-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 500;
+        font-size: 8.5px;
+    }
+    .board-ai-btn {
+        flex-shrink: 0;
+        background: rgba(56, 189, 248, 0.16);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        color: #38bdf8;
+        font-size: 9px;
+        line-height: 1;
+        border-radius: 4px;
+        padding: 2px 4px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+    .board-ai-btn:hover {
+        background: #38bdf8;
+        color: #0f172a;
+        transform: scale(1.12);
+        box-shadow: 0 0 8px #38bdf8;
+    }
+
+    /* AI SUGGESTIONS FLOATING DROPDOWN */
+    .board-ai-dropdown {
+        position: absolute;
+        z-index: 1000;
+        width: 250px;
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1.5px solid rgba(56, 189, 248, 0.5);
+        border-radius: 14px;
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 24px rgba(56, 189, 248, 0.25);
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        animation: aiDropFadeIn 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: auto;
+    }
+    .board-ai-dropdown-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .board-ai-dropdown-title {
+        font: 800 10px 'IBM Plex Mono', monospace;
+        color: #38bdf8;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .board-ai-refresh-btn {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font: 600 10px 'Space Grotesk', sans-serif;
+        cursor: pointer;
+        padding: 2px 5px;
+        border-radius: 5px;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        transition: all 0.15s;
+    }
+    .board-ai-refresh-btn:hover {
+        color: #38bdf8;
+        background: rgba(56, 189, 248, 0.12);
+    }
+    .board-ai-chips-list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    .board-ai-chip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 9px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #f1f5f9;
+        font: 600 11.5px/1.3 'Space Grotesk', sans-serif;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.15s ease;
+    }
+    .board-ai-chip:hover {
+        background: rgba(56, 189, 248, 0.2);
+        border-color: rgba(56, 189, 248, 0.6);
+        color: #38bdf8;
+        transform: translateX(3px);
+    }
+    .board-ai-chip-tag {
+        font: 700 8.5px 'IBM Plex Mono', monospace;
+        color: #38bdf8;
+        opacity: 0.85;
+    }
+
 </style>
 
 <script>
@@ -6633,6 +6799,35 @@
     const TOTAL_BOARDS = 25;
     let currentBoardId = 1;
     let boardsStrokes: { [boardId: number]: CanvasStroke[] } = {};
+    let boardsTitles: Record<number, string> = {};
+
+    function getBoardsTitlesStorageKey(userId: string) {
+        return `adolsoft_boards_titles_${userId || "guest"}`;
+    }
+
+    function saveBoardsTitles() {
+        try {
+            localStorage.setItem(
+                getBoardsTitlesStorageKey(activeCanvasUser),
+                JSON.stringify(boardsTitles)
+            );
+        } catch (e) {
+            console.warn("Could not save boards titles to localStorage:", e);
+        }
+    }
+
+    function loadBoardsTitles() {
+        try {
+            const raw = localStorage.getItem(getBoardsTitlesStorageKey(activeCanvasUser));
+            if (raw) {
+                boardsTitles = JSON.parse(raw);
+            } else {
+                boardsTitles = {};
+            }
+        } catch (e) {
+            boardsTitles = {};
+        }
+    }
     let dirtyCanvasBoards = new Set<number>();
     let pendingCanvasBoards = new Set<number>();
     let isMapOverviewOpen = false;
