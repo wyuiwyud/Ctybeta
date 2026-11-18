@@ -5352,67 +5352,83 @@
         background: #38bdf8;
         box-shadow: 0 0 6px #38bdf8;
     }
-    .board-card-footer {
+    .board-card-center {
         position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        inset: 0;
         z-index: 4;
-        background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.88) 35%, rgba(15, 23, 42, 0.98) 100%);
-        padding: 8px 4px 4px;
-        box-sizing: border-box;
-    }
-    .board-title-wrap {
         display: flex;
         align-items: center;
-        gap: 3px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 6px;
-        padding: 2px 4px;
-        transition: all 0.15s ease;
+        justify-content: center;
+        padding: 6px;
+        box-sizing: border-box;
+        pointer-events: none;
+    }
+    .board-title-wrap {
+        pointer-events: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        background: rgba(10, 15, 29, 0.84);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1.2px solid rgba(255, 255, 255, 0.22);
+        border-radius: 8px;
+        padding: 4px 8px;
+        max-width: 94%;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .board-title-wrap:hover,
     .board-title-wrap:focus-within {
-        background: rgba(15, 23, 42, 0.95);
+        background: rgba(15, 23, 42, 0.96);
         border-color: #38bdf8;
-        box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        transform: scale(1.04);
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.42), inset 0 0 6px rgba(56, 189, 248, 0.2);
     }
     .board-title-input {
-        flex: 1;
-        min-width: 0;
+        width: 100%;
+        min-width: 75px;
+        max-width: 140px;
         background: transparent;
         border: none;
         outline: none;
-        font: 700 9.5px/1.2 'Space Grotesk', sans-serif;
-        color: #f8fafc;
+        font: 700 11px/1.3 'Space Grotesk', sans-serif;
+        color: #ffffff;
+        text-align: center;
         padding: 1px 2px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        letter-spacing: 0.2px;
     }
     .board-title-input::placeholder {
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.45);
         font-weight: 500;
-        font-size: 8.5px;
+        font-size: 9.5px;
+        text-align: center;
+    }
+    .board-title-input:focus {
+        color: #38bdf8;
     }
     .board-ai-btn {
         flex-shrink: 0;
-        background: rgba(56, 189, 248, 0.16);
-        border: 1px solid rgba(56, 189, 248, 0.4);
+        background: rgba(56, 189, 248, 0.2);
+        border: 1px solid rgba(56, 189, 248, 0.45);
         color: #38bdf8;
-        font-size: 9px;
+        font-size: 10px;
+        font-weight: 700;
         line-height: 1;
         border-radius: 4px;
-        padding: 2px 4px;
+        padding: 2.5px 5px;
         cursor: pointer;
         transition: all 0.15s ease;
     }
     .board-ai-btn:hover {
         background: #38bdf8;
-        color: #0f172a;
-        transform: scale(1.12);
-        box-shadow: 0 0 8px #38bdf8;
+        color: #0b1120;
+        transform: scale(1.15);
+        box-shadow: 0 0 10px #38bdf8;
     }
 
     /* AI SUGGESTIONS FLOATING DROPDOWN */
@@ -7721,6 +7737,7 @@
 
         // Khôi phục sơ đồ AI theo từng Board
         loadAiBoardsState();
+        loadBoardsTitles();
         const currentAiData = boardsAIElements[currentBoardId] || { nodes: [], edges: [], explanations: [] };
         renderAIDomElements(currentAiData);
 
@@ -7923,7 +7940,14 @@
 
     function updateBoardBadge() {
         if (currentBoardBadge) {
-            currentBoardBadge.textContent = `#${String(currentBoardId).padStart(2, "0")}`;
+            const currentTitle = boardsTitles[currentBoardId];
+            if (currentTitle && currentTitle.trim()) {
+                currentBoardBadge.textContent = `#${String(currentBoardId).padStart(2, "0")} · ${currentTitle.trim()}`;
+                currentBoardBadge.title = `Bảng hiện tại: #${String(currentBoardId).padStart(2, "0")} - ${currentTitle.trim()}`;
+            } else {
+                currentBoardBadge.textContent = `#${String(currentBoardId).padStart(2, "0")}`;
+                currentBoardBadge.title = `Bảng hiện tại: #${String(currentBoardId).padStart(2, "0")}`;
+            }
         }
     }
 
@@ -7948,7 +7972,9 @@
         if (!persistLocalCanvasState()) {
             tell("Không thể lưu bảng đang chọn trên thiết bị.");
         }
-        tell(`Đã chuyển sang Bảng làm việc #${String(currentBoardId).padStart(2, "0")} / 25`);
+        const currentTitle = boardsTitles[currentBoardId];
+        const titleSuffix = currentTitle && currentTitle.trim() ? ` · ${currentTitle.trim()}` : '';
+        tell(`Đã chuyển sang Bảng làm việc #${String(currentBoardId).padStart(2, "0")}${titleSuffix}`);
     }
 
     // ========================================================
@@ -7982,7 +8008,7 @@
 
     const OTHER_MEMBERS: Record<string, OtherMemberProfile> = {};
 
-    let selectedOtherMemberId = "";
+    let selectedOtherMemberId = "own";
     let isAdminMode = true; // Bật sẵn chế độ Admin để kiểm thử hoặc khi member.role === 'admin'
     let adminMapTab: "team" | "own" = "team";
     let isMonitoringMember = false;
@@ -8046,9 +8072,11 @@
         }
         selectEl.value = selectedOtherMemberId;
         subscribeTeamCanvas(selectedOtherMemberId);
-        renderMapGrid();
         if (selectedOtherMemberId !== "own") {
+            renderMapGrid();
             await fetchMemberCanvasesFromSupabase(selectedOtherMemberId);
+        } else if (mapGridEl && mapGridEl.children.length === 0) {
+            renderMapGrid();
         }
     }
 
@@ -8293,8 +8321,168 @@
         }
     }
 
+    const AI_TOPIC_CATEGORIES = [
+        {
+            category: "Kiến trúc & Hệ thống",
+            topics: [
+                "Kiến trúc hệ thống AdolSoft",
+                "Luồng xác thực & Q-Sync",
+                "Cơ sở dữ liệu & Caching",
+                "API Gateway & Microservices",
+                "Quy trình CI/CD & Cloud",
+            ],
+        },
+        {
+            category: "AI & Trí tuệ nhân tạo",
+            topics: [
+                "Chiến lược AI Agent 2026",
+                "Pipeline suy luận LLM & RAG",
+                "Engine phân tích dữ liệu",
+                "Automation Agent Workflow",
+                "Tối ưu Prompt & Token",
+            ],
+        },
+        {
+            category: "Sản phẩm & UI/UX",
+            topics: [
+                "Hành trình trải nghiệm người dùng",
+                "Design System Figma",
+                "Quy trình bán hàng & Checkout",
+                "Bản đồ tính năng lõi MVP",
+                "Tối ưu tỷ lệ chuyển đổi CRO",
+            ],
+        },
+        {
+            category: "Kinh doanh & Chiến lược",
+            topics: [
+                "Phân tích tài chính & ROI",
+                "Kế hoạch tăng trưởng Q4",
+                "Ma trận định vị thị trường",
+                "Quản trị rủi ro & An ninh mạng",
+                "Báo cáo hiệu suất đội ngũ",
+            ],
+        },
+    ];
+
+    let currentAiCategoryIndex = 0;
+    let activeAiDropdownEl: HTMLElement | null = null;
+
+    function closeActiveAiDropdown() {
+        if (activeAiDropdownEl) {
+            activeAiDropdownEl.remove();
+            activeAiDropdownEl = null;
+        }
+    }
+
+    function getSmartAiSuggestionsForBoard(boardId: number, categoryIndex: number): string[] {
+        const cat = AI_TOPIC_CATEGORIES[categoryIndex % AI_TOPIC_CATEGORIES.length];
+        const results = [...cat.topics];
+
+        // Nếu board hiện tại đã có sơ đồ AI, trích xuất ngữ cảnh để đưa lên đầu
+        const aiData = boardsAIElements[boardId];
+        if (aiData && Array.isArray(aiData.nodes) && aiData.nodes.length > 0) {
+            const nodeTexts = aiData.nodes.map((n) => n.text).join(" ").toLowerCase();
+            if (nodeTexts.includes("bước") || nodeTexts.includes("quy trình") || nodeTexts.includes("luồng")) {
+                results.unshift(`Quy trình ${aiData.nodes.length} bước khép kín`);
+            } else if (nodeTexts.includes("dữ liệu") || nodeTexts.includes("database")) {
+                results.unshift("Sơ đồ luồng dữ liệu & ETL");
+            } else if (nodeTexts.includes("bảo mật") || nodeTexts.includes("auth")) {
+                results.unshift("Hạ tầng an ninh & xác thực");
+            } else {
+                results.unshift(`Sơ đồ ${aiData.nodes[0].text}`);
+            }
+        }
+        return results.slice(0, 5);
+    }
+
+    function showAiTopicSuggestions(inputEl: HTMLInputElement, boardId: number, anchorEl: HTMLElement) {
+        closeActiveAiDropdown();
+
+        const overview = document.getElementById("canvas-map-overview");
+        if (!overview) return;
+
+        const dropdown = document.createElement("div");
+        dropdown.className = "board-ai-dropdown";
+        activeAiDropdownEl = dropdown;
+
+        function renderDropdownContent() {
+            const cat = AI_TOPIC_CATEGORIES[currentAiCategoryIndex % AI_TOPIC_CATEGORIES.length];
+            const suggestions = getSmartAiSuggestionsForBoard(boardId, currentAiCategoryIndex);
+
+            dropdown.innerHTML = `
+                <div class="board-ai-dropdown-header">
+                    <span class="board-ai-dropdown-title">✦ GỢI Ý CHỦ ĐỀ AI</span>
+                    <button type="button" class="board-ai-refresh-btn" title="Bấm để đổi sang nhóm gợi ý khác">
+                        <span>🎲</span>
+                        <span>${cat.category}</span>
+                    </button>
+                </div>
+                <div class="board-ai-chips-list">
+                    ${suggestions
+                        .map(
+                            (s) => `
+                        <div class="board-ai-chip" data-title="${escapeText(s)}" role="button" tabindex="0">
+                            <span>${escapeText(s)}</span>
+                            <span class="board-ai-chip-tag">CHỌN ↵</span>
+                        </div>
+                    `
+                        )
+                        .join("")}
+                </div>
+            `;
+
+            dropdown.querySelector(".board-ai-refresh-btn")?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                currentAiCategoryIndex++;
+                renderDropdownContent();
+            });
+
+            dropdown.querySelectorAll<HTMLElement>(".board-ai-chip").forEach((chip) => {
+                chip.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const chosen = chip.dataset.title || "";
+                    if (chosen) {
+                        inputEl.value = chosen;
+                        boardsTitles[boardId] = chosen;
+                        saveBoardsTitles();
+                        if (boardId === currentBoardId) updateBoardBadge();
+                        closeActiveAiDropdown();
+                        tell(`Đã đặt chủ đề: "${chosen}" cho Bảng #${String(boardId).padStart(2, "0")}`);
+                    }
+                });
+            });
+        }
+
+        renderDropdownContent();
+
+        // Tính vị trí tọa độ so với overview
+        const anchorRect = anchorEl.getBoundingClientRect();
+        const overviewRect = overview.getBoundingClientRect();
+
+        let top = anchorRect.bottom - overviewRect.top + 6;
+        let left = anchorRect.left - overviewRect.left + (anchorRect.width / 2) - 120;
+
+        if (top + 220 > overviewRect.height) {
+            top = anchorRect.top - overviewRect.top - 215;
+        }
+        if (left + 250 > overviewRect.width) {
+            left = overviewRect.width - 260;
+        }
+        if (left < 10) left = 10;
+
+        dropdown.style.top = `${Math.max(10, Math.round(top))}px`;
+        dropdown.style.left = `${Math.max(10, Math.round(left))}px`;
+
+        dropdown.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+
+        overview.appendChild(dropdown);
+    }
+
     function renderMapGrid() {
         if (!mapGridEl) return;
+        closeActiveAiDropdown();
         // Sync current board strokes if drawing on own board
         if (!isMonitoringMember) {
             boardsStrokes[currentBoardId] = [...canvasStrokes];
@@ -8329,8 +8517,10 @@
                 card.setAttribute("title", `Bảng #${String(b).padStart(2, "0")} của ${otherMember.name} (${otherMember.role})`);
 
                 card.innerHTML = `
-                    <span class="board-mini-num">${String(b).padStart(2, "0")}</span>
-                    ${hasStrokes ? '<span class="board-active-dot" style="background:#22c55e; box-shadow:0 0 6px #22c55e;" title="Bảng có nét vẽ"></span>' : ''}
+                    <div class="board-card-header">
+                        <span class="board-mini-num">${String(b).padStart(2, "0")}</span>
+                        ${hasStrokes ? '<span class="board-active-dot" style="background:#22c55e; box-shadow:0 0 6px #22c55e;" title="Bảng có nét vẽ"></span>' : ''}
+                    </div>
                     <canvas class="board-card-canvas" width="160" height="100"></canvas>
                 `;
 
@@ -8362,11 +8552,28 @@
 
                 const strokeList = boardsStrokes[b] || [];
                 const hasStrokes = strokeList.length > 0;
+                const bTitle = boardsTitles[b] || "";
 
                 card.innerHTML = `
-                    <span class="board-mini-num">${String(b).padStart(2, "0")}</span>
-                    ${b === currentBoardId && !isMonitoringMember ? '<span class="board-active-dot" title="Bảng đang vẽ"></span>' : ''}
+                    <div class="board-card-header">
+                        <span class="board-mini-num">${String(b).padStart(2, "0")}</span>
+                        ${b === currentBoardId && !isMonitoringMember ? '<span class="board-active-dot" title="Bảng đang làm việc"></span>' : hasStrokes ? '<span class="board-active-dot has-strokes" title="Bảng có nét vẽ"></span>' : ''}
+                    </div>
                     <canvas class="board-card-canvas" width="160" height="100"></canvas>
+                    <div class="board-card-center">
+                        <div class="board-title-wrap">
+                            <input 
+                                type="text" 
+                                class="board-title-input" 
+                                value="${escapeText(bTitle)}" 
+                                placeholder="Chủ đề #${String(b).padStart(2, '0')}..." 
+                                data-board-id="${b}"
+                                maxlength="32"
+                                title="Click để đặt tên chủ đề (có gợi ý AI)"
+                            />
+                            <button type="button" class="board-ai-btn" data-board-id="${b}" title="Gợi ý tên chủ đề chuyên nghiệp từ AI">✦</button>
+                        </div>
+                    </div>
                 `;
 
                 const thumbCanvas = card.querySelector<HTMLCanvasElement>(".board-card-canvas");
@@ -8374,7 +8581,48 @@
                     renderMiniStrokes(thumbCanvas, strokeList);
                 }
 
+                // Gắn sự kiện cho ô đổi tên chủ đề và nút gợi ý AI ở giữa khung
+                const titleInput = card.querySelector<HTMLInputElement>(".board-title-input");
+                const aiBtn = card.querySelector<HTMLButtonElement>(".board-ai-btn");
+                const centerTitleWrap = card.querySelector<HTMLElement>(".board-title-wrap");
+
+                centerTitleWrap?.addEventListener("click", (e) => {
+                    e.stopPropagation(); // Không phóng to bảng khi bấm vào thanh nhập tên ở giữa
+                });
+
+                titleInput?.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                });
+
+                titleInput?.addEventListener("focus", () => {
+                    if (titleInput) {
+                        showAiTopicSuggestions(titleInput, b, titleInput);
+                    }
+                });
+
+                titleInput?.addEventListener("input", () => {
+                    boardsTitles[b] = titleInput.value.trim();
+                    saveBoardsTitles();
+                    if (b === currentBoardId) updateBoardBadge();
+                });
+
+                titleInput?.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter") {
+                        e.preventDefault();
+                        titleInput.blur();
+                        closeActiveAiDropdown();
+                    }
+                });
+
+                aiBtn?.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    if (titleInput) {
+                        showAiTopicSuggestions(titleInput, b, aiBtn);
+                    }
+                });
+
                 card.addEventListener("click", () => {
+                    closeActiveAiDropdown();
                     if (isMonitoringMember) {
                         exitAdminMonitoring();
                     }
@@ -8383,6 +8631,7 @@
                 card.addEventListener("keydown", (e) => {
                     if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
+                        closeActiveAiDropdown();
                         if (isMonitoringMember) {
                             exitAdminMonitoring();
                         }
@@ -8421,11 +8670,12 @@
             if (otherMember)
                 tell(`Đang hiển thị 25 bảng của ${otherMember.name}. Click bảng để xem.`);
         } else {
-            tell("Bản đồ 25 bảng: Click chuột vào bảng bất kỳ để phóng to.");
+            tell("Bản đồ 25 bảng: Click chuột vào bảng bất kỳ để phóng to, hoặc đặt tên chủ đề.");
         }
     }
 
     function closeMapOverview() {
+        closeActiveAiDropdown();
         if (!canvasMapOverviewEl) return;
         isMapOverviewOpen = false;
         const centerStage = document.getElementById("osom-center-stage");
@@ -9340,10 +9590,17 @@
                 return;
             }
 
-            if (e.key === "Escape" && isMapOverviewOpen) {
-                e.preventDefault();
-                closeMapOverview();
-                return;
+            if (e.key === "Escape") {
+                if (activeAiDropdownEl) {
+                    e.preventDefault();
+                    closeActiveAiDropdown();
+                    return;
+                }
+                if (isMapOverviewOpen) {
+                    e.preventDefault();
+                    closeMapOverview();
+                    return;
+                }
             }
 
             if (e.key === "p" || e.key === "P") {
@@ -9352,6 +9609,14 @@
             }
             if (e.key === "e" || e.key === "E") {
                 setCanvasTool("eraser");
+            }
+        });
+
+        document.addEventListener("pointerdown", (e) => {
+            if (activeAiDropdownEl && !activeAiDropdownEl.contains(e.target as Node)) {
+                if (!(e.target as HTMLElement).closest(".board-ai-btn, .board-title-input")) {
+                    closeActiveAiDropdown();
+                }
             }
         });
 

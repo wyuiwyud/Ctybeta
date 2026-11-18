@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 .vercel
 .env*
+
+# local browser binaries (do not commit)
+chrome/
